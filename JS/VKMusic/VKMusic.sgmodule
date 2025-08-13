@@ -1,0 +1,17 @@
+#!name=VK Music - VK音乐
+#!desc=登陆后解锁VIP
+#!date=2025-08-14
+#!category=😍BOBO Premium
+#!author= Yarmukhamedov[https://github.com/Yarmukhamedov/mitm]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/VKMusic.png
+#!openUrl=https://apps.apple.com/app/id1054372220
+
+
+[Script]
+# > VK音乐-解锁VIP
+VK音乐 = type=http-response, pattern=https://api.moosic.io/(user/info|subscription/presentation/current_subscriptions_data), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/VKMusic/JS/VKMusic.js, requires-body=true, max-size=-1, timeout=60
+
+
+[MITM]
+hostname = %APPEND% api.moosic.io
+
