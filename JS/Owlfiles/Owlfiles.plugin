@@ -1,0 +1,17 @@
+#!name=猫头鹰文件 - 文件管理器
+#!desc=管理和浏览存储在电脑、NAS上的文档、视频和音乐--登陆后解锁VIP
+#!date=2025-08-15
+#!category=😍BOBO Premium
+#!author= Mikephie[https://github.com/Mikephie/Script]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Owlfiles.png
+#!openUrl=https://apps.apple.com/app/id1638657012
+
+
+[Script]
+# > 猫头鹰文件-解锁VIP
+http-response ^https?:\/\/www\.skyjos\.com(?::58080)?\/ws\/(?:validate|loadaccountinfo)\b script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Owlfiles/JS/Owlfiles.js, requires-body=true, timeout=60, tag=猫头鹰文件
+
+
+[MITM]
+hostname = www.skyjos.com, *.skyjos.com:58080, *.skyjos.com
+
