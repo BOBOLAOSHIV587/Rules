@@ -142,10 +142,6 @@ Boom = type=http-response, pattern=^https:\/\/apimboom2\.globaldelight\.net\/itu
 彩云天气SVIP = type=http-response, pattern=https?:\/\/biz\.caiyunapp\.com\/(membership_rights|v2\/user), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/CaiYunTianQi-SVIP/JS/JS-1/CaiYunTianQi.js, requires-body=true, max-size=-1, timeout=60
 
 
-# > 彩云小译-登陆后解锁会员
-xiaoyi = type=http-response, pattern=^https:\/\/interpreter\.cyapi\.cn\/, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/CaiYunxiaoyi/JS/xiaoyi.js, requires-body=true, max-size=-1, timeout=60
-
-
 # > 扫描全能王-手机扫描仪 解锁黄金会员
 扫描全能王-解锁黄金会员 = type=http-response, pattern=https:\/\/api-cs\.intsig\.net\/purchase\/cs\/query_property, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/CamScanner/JS/ScanningAlmighty.js, requires-body=true, max-size=-1, timeout=60
 
@@ -181,10 +177,6 @@ DeezerHiFiProCrack = type=http-request, pattern=^https?:\/\/media\.deezer\.com\/
 
 # > 地震预警-解锁会员
 地震预警-解锁会员 = type=http-response, pattern=^https?:\/\/mobile-new\.chinaeew\.cn\/v\d\/order\/apple\/vip, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DiZhenYuJing/JS/DZYJ.js, requires-body=true, max-size=-1, timeout=60
-
-
-# > 百度不跳转
-DisableBaiduJumpAction = type=http-request, pattern=^https?:\/\/.*\.baidu\.com\/.+, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DisableBaiduJump/JS/DisableBaiduJumpAction.js, timeout=60
 
 
 # > Documents文件管理器+解锁订阅
@@ -581,5 +573,47 @@ MissAV = type=http-response, pattern=^https?:\/\/missav\.(ws|com|ai)\/(?!(.*(api
 
 
 
+# > DJ音乐库-解锁VIP
+DJ音乐库 = type=http-response, pattern=^http:\/\/app-i.dj-5.com\/api\/User\/Info, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DJYinYueKu/JS/DJYinYueKu.js, requires-body=true, max-size=-1, timeout=60
+
+
+# > 爱听收音机解锁会员
+爱听收音机 = type=http-response, pattern=^https?:\/\/tuoba.dida110.com\/(LRGetVipItem|LRGetMeCount).ashx, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/FM-ShouYinJi/JS/FM.js, requires-body=true, max-size=-1, timeout=60
+
+
+# > Felo实时翻译
+Felo实时翻译 = type=http-response, pattern=^https?:\/\/(translator|accounts).felo.me\/api\/user.*$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Felo/JS/JS-1/Felo.js, requires-body=true, max-size=-1, timeout=60
+Felo实时翻译 = type=http-request, pattern=^https?:\/\/translator.felo.me\/api\/translation\/thirdToken\?token_channel, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Felo/JS/JS-1/Felo.js, timeout=60
+
+
+# > 乐视视频 解锁影视会员
+乐视视频 = type=http-response, pattern=^http:\/\/.+app.m.le.com\/android\/dynamic.php\?mod\=passport, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/LeShi/JS/JS-1/LeShi.js, requires-body=true, max-size=-1, timeout=60
+乐视视频 = type=http-request, pattern=^http:\/\/.+app.m.le.com\/play\?AD_IPDX, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/LeShi/JS/JS-1/LeShi.js, timeout=60
+
+
+# > Notebook笔记本-解锁Pro
+Notebook笔记本 = type=http-response, pattern=^https:\/\/notebook\.zoho\.com\/api\/v1\/userprofile\/accounts\/payment\?action=(get_current_plan_detail|get_feature_template)(&include_expired_plans=true|&include_purchase_platform=false|&platform=ios)?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Notebook/JS/JS-1/Notebook.js, requires-body=true, max-size=-1, timeout=60
+
+
+# > QQ阅读-解锁会员
+QQ阅读 = type=http-response, pattern=^https?:\/\/(detailadr|commontgw).reader.qq.com\/(book\/queryDetailPage|.+nativepage\/personal|.+vip\/viptxt), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/QQReading/JS/QQReading.js, requires-body=true, max-size=-1, timeout=60
+QQ阅读 = type=http-request, pattern=^https?:\/\/newminerva-tgw.reader.qq.com\/ChapBatAuthWithPD, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/QQReading/JS/QQReading.js, timeout=60
+
+
+# > 兔U-引领广播剧潮牌 Unlock VIP SVIP
+兔U = type=http-response, pattern=^https?:\/\/api.zuidie.net\/v1\/user\/info\/, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Tu-U/JS/Tu-U.js, requires-body=true, max-size=-1, timeout=60
+
+
+# > YandexMusic-解锁VIP
+YandexMusic = type=http-response, pattern=https://api.music.yandex.net/account/status.*, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YandexMusic/JS/YandexMusic.js, requires-body=true, max-size=-1, timeout=60
+
+
+# > VK音乐-解锁VIP
+VK音乐 = type=http-response, pattern=https://api.moosic.io/(user/info|subscription/presentation/current_subscriptions_data), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/VKMusic/JS/VKMusic.js, requires-body=true, max-size=-1, timeout=60
+
+
+
+
+
 [MITM]
-hostname = %APPEND% api.agcplayer.com, a.ajmide.com, api.adblockpro.app, *.adguard.org, *.aliyundrive.com, *.alipan.com, api.alohaprofile.com, *.aoscdn.com, *.apsapp.cn, app.autocad360.com, user-b612-api.snow.me, pan.baidu.com, baimiao.uzero.cn, api.mr.pixocial.com, newbeee-api.beautyplus.com, apimboom2.globaldelight.net, biz.caiyunapp.com, interpreter.cyapi.cn, *.camscanner.com, *.intsig.net, api2.vilipix.com, ios.chat.openai.com, api.craft.do, cubox.pro, ai.xiuxiu.meitu.com, api-sub.meitu.com, dj.palmestore.com, media.deezer.com, mobile-new.chinaeew.cn, *.baidu.com, *.pdfexpert.com, backend.getdrafts.com, dreamfaceapp.com, mb3admin.com, www.mb3admin.com, api-production.endel.io, *.snow.me, api-*.facereplacerext.com, www.kkmop.com, filmicpro.oracle.bendingspoonsapps.com, appv2.filmix.com.cn, payments.invideo.io, mobile.flightradar24.com, api.purchasely.io, *.vlognow.me, *.oracle.bendingspoonsapps.com, api.funimate.com, api.github.com, isi.csan.goodnotes.com, tailor.tomax.xyz, ifttt.com, nobyda.app, in.m.jd.com, api*.faceu.mobi, api3-lq.faceu.mobi, commerce-api-lf.faceu.mobi, commerce-api-lq.faceu.mobi, lv-api-lq.ulikecam.com, lv-api-hl.ulikecam.com, *.kuwo.cn, *.lrts.me, shapi.mting.info, shapi.lanrentingshu.com, gzapi.lanrentingshu.com, shapi.mting.info:443, *mgtv.com, cdn-bm.camera360.com, pro.particlethink.com, *.xiuxiu.meitu.com, api.posters.meitu.com, api-sub.meitu.com, *.meiyan.com, bmall.camera360.com, *.api.moji.com, api.moises.ai, www.mymorpholio.com, *.apphud.com, api2.mubu.com, apic.musixmatch.com, premium-api.myfitnesspal.com, nanie.flyingeffect.com, restore-access.indream.app, nicegram.cloud, notability.com, lcs-mobile-cops.adobe.io, peakvisor.com, service.perfect365.com, api.meiease.*, api.picsart.*, api-drive.mypikpak.com, oauth.secure.pixiv.net, api.polaxiong.com, purchase-qingtu-api.b612kaji.com, api-qingtu.kajicam.com, www.qobuz.com, tfbook.taoyuewenhua.net, tybook.taoyuewenhua.net, gql.reddit.com, gql-fed.reddit.com, commerce-api.faceu.mobi, api3-misc-lf.retouchpics.com, shimo.im, ocean.shuqireader.com, *-slidebox-ios-prod.cloudfunctions.net, snailsleep.net, api-mobile.soundcloud.com, spclient.wg.spotify.com, api.qonversion.io, scibug.com, api.tidal.com, api.termius.com, api2.vlognow.me, medi.dxzzy321.top, *.docer.wps.cn, vipapi.wps.cn, account.wps.cn, *.wps.cn, p.du.163.com, *.wallpaperscraft.com, security.wechat.com, weixin110.qq.com, education.github.com, *xmind.*, *xunlei.com, api-shoulei-ssl.xunlei.com, app-ios.y2002.com, api.ieasou.com, dict.youdao.com, business.youdao.com, api-overmind.youdao.com, cdke.youdao.com, *.radio.cn, 60.205.171.165, service.ilovepdf.com, *.miguvideo.com, *.migu.cn, *.upwqjcun.cc, haijiao.com, missav.ai, dj.palmestore.com, *.music.163.com
+hostname = %APPEND% api.agcplayer.com, a.ajmide.com, api.adblockpro.app, *.adguard.org, *.aliyundrive.com, *.alipan.com, api.alohaprofile.com, *.aoscdn.com, *.apsapp.cn, app.autocad360.com, user-b612-api.snow.me, pan.baidu.com, baimiao.uzero.cn, api.mr.pixocial.com, newbeee-api.beautyplus.com, apimboom2.globaldelight.net, biz.caiyunapp.com, *.camscanner.com, *.intsig.net, api2.vilipix.com, ios.chat.openai.com, api.craft.do, cubox.pro, ai.xiuxiu.meitu.com, api-sub.meitu.com, dj.palmestore.com, media.deezer.com, mobile-new.chinaeew.cn, *.pdfexpert.com, backend.getdrafts.com, dreamfaceapp.com, mb3admin.com, www.mb3admin.com, api-production.endel.io, *.snow.me, api-*.facereplacerext.com, www.kkmop.com, filmicpro.oracle.bendingspoonsapps.com, appv2.filmix.com.cn, payments.invideo.io, mobile.flightradar24.com, api.purchasely.io, *.vlognow.me, *.oracle.bendingspoonsapps.com, api.funimate.com, api.github.com, isi.csan.goodnotes.com, tailor.tomax.xyz, ifttt.com, nobyda.app, in.m.jd.com, api*.faceu.mobi, api3-lq.faceu.mobi, commerce-api-lf.faceu.mobi, commerce-api-lq.faceu.mobi, lv-api-lq.ulikecam.com, lv-api-hl.ulikecam.com, *.kuwo.cn, *.lrts.me, shapi.mting.info, shapi.lanrentingshu.com, gzapi.lanrentingshu.com, shapi.mting.info:443, *mgtv.com, cdn-bm.camera360.com, pro.particlethink.com, *.xiuxiu.meitu.com, api.posters.meitu.com, api-sub.meitu.com, *.meiyan.com, bmall.camera360.com, *.api.moji.com, api.moises.ai, www.mymorpholio.com, *.apphud.com, api2.mubu.com, apic.musixmatch.com, premium-api.myfitnesspal.com, nanie.flyingeffect.com, restore-access.indream.app, nicegram.cloud, notability.com, lcs-mobile-cops.adobe.io, peakvisor.com, service.perfect365.com, api.meiease.*, api.picsart.*, api-drive.mypikpak.com, oauth.secure.pixiv.net, api.polaxiong.com, purchase-qingtu-api.b612kaji.com, api-qingtu.kajicam.com, www.qobuz.com, tfbook.taoyuewenhua.net, tybook.taoyuewenhua.net, gql.reddit.com, gql-fed.reddit.com, commerce-api.faceu.mobi, api3-misc-lf.retouchpics.com, shimo.im, ocean.shuqireader.com, *-slidebox-ios-prod.cloudfunctions.net, snailsleep.net, api-mobile.soundcloud.com, spclient.wg.spotify.com, api.qonversion.io, scibug.com, api.tidal.com, api.termius.com, api2.vlognow.me, medi.dxzzy321.top, *.docer.wps.cn, vipapi.wps.cn, account.wps.cn, *.wps.cn, p.du.163.com, *.wallpaperscraft.com, security.wechat.com, weixin110.qq.com, education.github.com, *xmind.*, *xunlei.com, api-shoulei-ssl.xunlei.com, app-ios.y2002.com, api.ieasou.com, dict.youdao.com, business.youdao.com, api-overmind.youdao.com, cdke.youdao.com, *.radio.cn, 60.205.171.165, service.ilovepdf.com, *.miguvideo.com, *.migu.cn, *.upwqjcun.cc, haijiao.com, missav.ai, dj.palmestore.com, *.music.163.com, app-i.dj-5.com, tuoba.dida110.com, accounts.felo.me, translator.felo.me, 52.78.154.178, notebook.zoho.com, *.reader.qq.com, newminerva-tgw.reader.qq.com, detailadr.reader.qq.com, commontgw.reader.qq.com, api.zuidie.net, api.music.yandex.net, api.moosic.io
