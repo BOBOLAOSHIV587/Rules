@@ -1,0 +1,30 @@
+#!name=波点音乐-QQ音乐概念版
+#!desc=过滤波点音乐广告
+#!date=2025-08-25
+#!category=😍BOBO Premium
+#!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BoDianMusic.png
+#!openUrl=https://apps.apple.com/app/id1541981555
+
+
+[Rewrite]
+# 广告下发
+^https:\/\/bd-api\.kuwo\.cn\/api\/play\/advert\/ reject-dict
+
+# 弹窗
+^https:\/\/bd-api\.kuwo\.cn\/api\/popup\/ reject-dict
+
+# 首页和搜索页面 - 横幅推广
+^https:\/\/bd-api\.kuwo\.cn\/api\/service\/banner\/ reject-dict
+^https:\/\/bd-api\.kuwo\.cn\/api\/service\/home\/module\?.*&moduleId=6 reject-dict
+
+# 首页 - 低价会员推广文本
+^https:\/\/bd-api\.kuwo\.cn\/api\/pay\/vip\/lowPriceText\? reject-dict
+^https:\/\/bd-api\.kuwo\.cn\/api\/service\/global\/config\/vipEnter\? reject-dict
+
+# 搜索 - 大家都在搜、搜索发现
+^https:\/\/bd-api\.kuwo\.cn\/api\/search\/topic\/word\/list\? response-body-json-del data.hotTopic data.searchFind data.globalJumpInfo data.hotWord
+
+
+[MITM]
+hostname = bd-api.kuwo.cn, *.kuwo.cn

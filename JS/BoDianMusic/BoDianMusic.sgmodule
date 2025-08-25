@@ -1,0 +1,16 @@
+#!name=波点音乐-QQ音乐概念版
+#!desc=波点音乐 解锁VIP。1、会员歌曲无限试听完整版！音质默认音质为320kmp3最高无损。2、注意：第一次播放会员歌曲可能需要切换一下歌曲才能获取完整歌曲地址。导入酷我音乐歌单开爽吧xdm!🎵。3、原理：换源酷我音乐解析接口替换它试听地址达到听完整歌曲。音质已经很高辣
+#!date=2025-08-25
+#!category=😍BOBO Premium
+#!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BoDianMusic.png
+#!openUrl=https://apps.apple.com/app/id1541981555
+
+
+[Script]
+# > 波点音乐 解锁VIP
+波点音乐 = type=http-response, pattern=^https?:\/\/bd-api\.kuwo\.cn\/api\/(service\/advert\/config|play\/advert\/info|play\/music\/v2\/checkRight|ucenter\/users\/login|pay\/audition\/vip\/single|service\/music\/info), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BoDianMusic/JS/BoDianMusic.js, requires-body=true, max-size=-1, timeout=60
+
+
+[MITM]
+hostname = %APPEND% bd-api.kuwo.cn, *.kuwo.cn
