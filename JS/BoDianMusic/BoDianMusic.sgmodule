@@ -9,8 +9,9 @@
 
 [Script]
 # > 波点音乐 解锁VIP最高音质
-波点音乐 = type=http-response, pattern=^https?:\/\/bd-api\.kuwo\.cn\/api\/(service\/advert\/config|play\/advert\/info|play\/music\/v2\/checkRight|ucenter\/users\/login|pay\/audition\/vip\/single|service\/music\/info), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BoDianMusic/JS/BoDianMusic.js, requires-body=true, max-size=-1, timeout=60
+波点音乐 = type=http-response, pattern=^https?:\/\/bd-api\.kuwo\.cn\/api\/(ucenter\/users\/pub|play\/music\/v2\/(audioUrl|checkRight)|service\/home\/module|pay\/vip\/lowPriceText), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BoDianMusic/JS/BoDianMusic.js, requires-body=true, max-size=-1, timeout=60
 
 
 [MITM]
 hostname = %APPEND% bd-api.kuwo.cn, *.kuwo.cn
+
