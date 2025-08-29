@@ -1,0 +1,30 @@
+#!name =  iRingo: 📺 TV app
+#!desc = 全面自定义「TV app」功能
+#!openUrl = http://boxjs.com/#/app/iRingo.TV
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/apple-tv
+#!icon = https://developer.apple.com/assets/elements/icons/apple-tv/apple-tv-128x128.png
+#!category =  iRingo
+#!date = 2025-04-17
+#!arguments = ThirdParty:false,isWorkaroundSSLPinning:true,LogLevel:"WARN"
+#!arguments-desc = ThirdParty: 启用第三方 App 与 TV app 关联功能\n是否将桌面版/macOS版/app版等平台的 TV app 转换至 iPad 版，以启用第三方 App 与 TV app 关联功能(如: Disney+, Prime Video 等)。\n\nisWorkaroundSSLPinning: 启用绕过 SSL 证书固定校验\n是否绕过播放列表所使用域名的证书固定校验功能，从而恢复对DualSubs的双语字幕支持。\n\nLogLevel: [调试] 日志等级\n    ├ OFF: 🔴 关闭\n    ├ ERROR: ❌ 错误\n    ├ WARN: ⚠️ 警告\n    ├ INFO: ℹ️ 信息\n    ├ DEBUG: 🅱️ 调试\n    └ ALL: 全部\n选择脚本日志的输出等级，低于所选等级的日志将全部输出。\n
+
+
+[Rule]
+DOMAIN,known-issues.apple.com,REJECT-DROP
+
+
+[URL Rewrite]
+^https?:\/\/play-cdn\.itunes\.apple\.com https://play.itunes.apple.com header
+^https?:\/\/play-edge-cdn\.itunes\.apple\.com https://play-edge.itunes.apple.com header
+
+
+[Script]
+📺 TV.uts.request = type=http-request, pattern=^https?:\/\/uts-api\.itunes\.apple\.com\/uts\/(v1|v2|v3)\/, requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TV/JS/request.bundle.js, argument=ThirdParty="{{{ThirdParty}}}"&isWorkaroundSSLPinning="{{{isWorkaroundSSLPinning}}}"&LogLevel="{{{LogLevel}}}"
+📺 TV.uts.response = type=http-response, pattern=^https?:\/\/uts-api\.itunes\.apple\.com\/uts\/(v1|v2|v3)\/, requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TV/JS/response.bundle.js, argument=ThirdParty="{{{ThirdParty}}}"&isWorkaroundSSLPinning="{{{isWorkaroundSSLPinning}}}"&LogLevel="{{{LogLevel}}}"
+📺 TV.umc.request = type=http-request, pattern=^https?:\/\/umc-tempo-api\.apple\.com\/(v1|v2|v3)\/, requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TV/JS/request.bundle.js, argument=
+
+
+[MITM]
+hostname = %APPEND% uts-api.itunes.apple.com, umc-tempo-api.apple.com, play-cdn.itunes.apple.com, play-edge-cdn.itunes.apple.com
+

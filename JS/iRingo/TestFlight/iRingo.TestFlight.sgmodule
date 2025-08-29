@@ -1,0 +1,24 @@
+#!name =  iRingo: ✈ TestFlight
+#!desc = 1.自定义TestFlight登录商店地区\n2.多账户保存及切换(需配置BoxJs使用)\n3.让通用应用在任意苹果处理器设备上可安装
+#!openUrl = http://boxjs.com/#/app/iRingo.TestFlight
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/test-flight
+#!icon = https://developer.apple.com/assets/elements/icons/testflight/testflight-128x128.png
+#!category =  iRingo
+#!date = 2024-12-24
+#!arguments = CountryCode:"US",MultiAccount:false,Universal:true,AlwaysShowInstall:false,MergeNotifications:false,LogLevel:"WARN"
+#!arguments-desc = CountryCode: 国家或地区代码\n    ├ AUTO: 🇺🇳自动（跟随地区检测结果）\n    ├ CN: 🇨🇳中国大陆\n    ├ HK: 🇭🇰香港\n    ├ TW: 🇹🇼台湾\n    ├ SG: 🇸🇬新加坡\n    ├ US: 🇺🇸美国\n    ├ JP: 🇯🇵日本\n    ├ AU: 🇦🇺澳大利亚\n    ├ GB: 🇬🇧英国\n    ├ KR: 🇰🇷韩国\n    ├ CA: 🇨🇦加拿大\n    └ IE: 🇮🇪爱尔兰\n不同国家或地区提供的内容或有差别。\n\nMultiAccount: 启用多账号支持\n启用多账号支持会自动保存保存更新当前账号信息。\n\nUniversal: 启用通用应用支持\n启用通用应用支持会解除 TestFlight app 的 iOS/iPadOS/macOS(AppleSilicon) 平台限制。\n\nAlwaysShowInstall: 总是显示安装选项\n当 Testflight 无法加入时，也总是显示app详情页面的安装选项。\n\nMergeNotifications: 合并通知开关\n同步开关全平台的电子邮件通知，如关闭 iOS 的 Testflight 更新电子邮件通知，也会同时关闭 tvOS 的 Testflight 更新电子邮件通知。\n\nLogLevel: [调试] 日志等级\n    ├ OFF: 🔴 关闭\n    ├ ERROR: ❌ 错误\n    ├ WARN: ⚠️ 警告\n    ├ INFO: ℹ️ 信息\n    ├ DEBUG: 🅱️ 调试\n    └ ALL: 全部\n选择脚本日志的输出等级，低于所选等级的日志将全部输出。\n
+
+
+[General]
+skip-proxy = %APPEND% iosapps.itunes.apple.com
+
+
+[Script]
+✈ TestFlight.request = type=http-request, pattern=^https?:\/\/testflight\.apple\.com\/, requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TestFlight/JS/request.bundle.js, argument=CountryCode="{{{CountryCode}}}"&MultiAccount="{{{MultiAccount}}}"&Universal="{{{Universal}}}"&AlwaysShowInstall="{{{AlwaysShowInstall}}}"&MergeNotifications="{{{MergeNotifications}}}"&LogLevel="{{{LogLevel}}}"
+✈ TestFlight.response = type=http-response, pattern=^https?:\/\/testflight\.apple\.com\/, requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TestFlight/JS/response.bundle.js, argument=CountryCode="{{{CountryCode}}}"&MultiAccount="{{{MultiAccount}}}"&Universal="{{{Universal}}}"&AlwaysShowInstall="{{{AlwaysShowInstall}}}"&MergeNotifications="{{{MergeNotifications}}}"&LogLevel="{{{LogLevel}}}"
+
+
+[MITM]
+hostname = %APPEND% testflight.apple.com
+

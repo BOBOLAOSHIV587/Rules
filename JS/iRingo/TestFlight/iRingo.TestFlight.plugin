@@ -1,0 +1,32 @@
+#!name =  iRingo: ✈ TestFlight
+#!desc = 1.自定义TestFlight登录商店地区\n2.多账户保存及切换(需配置BoxJs使用)\n3.让通用应用在任意苹果处理器设备上可安装
+#!openUrl = http://boxjs.com/#/app/iRingo.TestFlight
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/test-flight
+#!icon = https://developer.apple.com/assets/elements/icons/testflight/testflight-128x128.png
+#!tag =  iRingo
+#!system = iOS,iPadOS,tvOS,macOS,watchOS
+#!date = 2024-12-24
+
+
+[Argument]
+CountryCode = select,"US","AUTO","CN","HK","TW","SG","JP","AU","GB","KR","CA","IE",tag=国家或地区代码,desc=不同国家或地区提供的内容或有差别。
+MultiAccount = switch,false,tag=启用多账号支持,desc=启用多账号支持会自动保存保存更新当前账号信息。
+Universal = switch,true,tag=启用通用应用支持,desc=启用通用应用支持会解除 TestFlight app 的 iOS/iPadOS/macOS(AppleSilicon) 平台限制。
+AlwaysShowInstall = switch,false,tag=总是显示安装选项,desc=当 Testflight 无法加入时，也总是显示app详情页面的安装选项。
+MergeNotifications = switch,false,tag=合并通知开关,desc=同步开关全平台的电子邮件通知，如关闭 iOS 的 Testflight 更新电子邮件通知，也会同时关闭 tvOS 的 Testflight 更新电子邮件通知。
+LogLevel = select,"WARN","OFF","ERROR","INFO","DEBUG","ALL",tag=[调试] 日志等级,desc=选择脚本日志的输出等级，低于所选等级的日志将全部输出。
+
+
+[General]
+skip-proxy = iosapps.itunes.apple.com
+
+
+[Script]
+http-request ^https?:\/\/testflight\.apple\.com\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TestFlight/JS/request.bundle.js, requires-body=true, tag=✈ TestFlight.request, argument=[{CountryCode},{MultiAccount},{Universal},{AlwaysShowInstall},{MergeNotifications},{LogLevel}]
+http-response ^https?:\/\/testflight\.apple\.com\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TestFlight/JS/response.bundle.js, requires-body=true, tag=✈ TestFlight.response, argument=[{CountryCode},{MultiAccount},{Universal},{AlwaysShowInstall},{MergeNotifications},{LogLevel}]
+
+
+[MITM]
+hostname = testflight.apple.com
+
