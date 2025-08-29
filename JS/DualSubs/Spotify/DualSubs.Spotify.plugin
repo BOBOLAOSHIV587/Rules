@@ -1,0 +1,37 @@
+#!name = 🍿️ DualSubs: 🎵 Spotify
+#!desc = Spotify 增强及双语歌词
+#!openUrl = http://boxjs.com/#/app/DualSubs.Spotify
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://DualSubs.github.io/guide/spotify
+#!icon = https://github.com/DualSubs/Spotify/raw/main/src/assets/icon_rounded.png
+#!tag = 🍿️ DualSubs
+#!system = iOS,iPadOS,macOS
+#!date = 2024-12-10
+
+
+[Argument]
+Types = input,"Translate,External",tag=[歌词] 启用类型（多选）,desc=请选择要添加的歌词选项，如果为多选，则会自动决定提供的歌词类型。
+Languages[0] = select,"AUTO","ZH","ZH-HANS","ZH-HK","ZH-HANT","EN","ES","JA","KO","DE","FR","TR","KM",tag=[翻译器] 主语言（源语言）,desc=仅当源语言识别不准确时更改此选项。
+Languages[1] = select,"ZH","ZH-HANS","ZH-HK","ZH-HANT","EN","ES","JA","KO","DE","FR","TR","KM",tag=[翻译器] 副语言（目标语言）,desc=请指定翻译歌词的目标语言。
+Vendor = select,"Google","Microsoft",tag=[翻译器] 服务商API,desc=请选择翻译器所使用的服务商API，更多翻译选项请使用BoxJs。
+LrcVendor = select,"NeteaseMusic","QQMusic","NeteaseMusicNodeJS",tag=[歌词] 服务商API,desc=请选择外部源所使用的服务商API。
+LogLevel = select,"WARN","OFF","ERROR","INFO","DEBUG","ALL",tag=[调试] 日志等级,desc=选择脚本日志的输出等级，低于所选等级的日志将全部输出。
+
+
+[Script]
+# > Spotify 增强及双语歌词
+http-response ^https?:\/\/api\.spotify\.com\/v1\/tracks\? requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DualSubs/Spotify/JS/response.bundle.js, tag=🍿️ DualSubs.Spotify.Tracks.response.json, argument=[{Types},{Languages[0]},{Languages[1]},{Vendor},{LrcVendor},{LogLevel}]
+
+http-request ^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/(.+)\?(.*)format=json requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DualSubs/Spotify/JS/request.bundle.js, tag=🍿️ DualSubs.Spotify.Lyrics.request.json, argument=[{Types},{Languages[0]},{Languages[1]},{Vendor},{LrcVendor},{LogLevel}]
+http-request ^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/\w+\?(.*) requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DualSubs/Spotify/JS/request.bundle.js, tag=🍿️ DualSubs.Spotify.Lyrics.request.proto, argument=[{Types},{Languages[0]},{Languages[1]},{Vendor},{LrcVendor},{LogLevel}]
+
+http-response ^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/(.+)\?(.*)format=json(.*)subtype=Translate requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DualSubs/Spotify/JS/Translate.response.bundle.js, tag=🍿️ DualSubs.Spotify.Translate.Lyrics.response.json, argument=[{Types},{Languages[0]},{Languages[1]},{Vendor},{LrcVendor},{LogLevel}]
+http-response ^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/\w+\?(.*)subtype=Translate requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DualSubs/Spotify/JS/Translate.response.bundle.js, tag=🍿️ DualSubs.Spotify.Translate.Lyrics.response.proto, argument=[{Types},{Languages[0]},{Languages[1]},{Vendor},{LrcVendor},{LogLevel}]
+
+http-response ^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/(.+)\?(.*)format=json(.*)subtype=External requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DualSubs/Spotify/JS/External.Lyrics.response.bundle.js, tag=🍿️ DualSubs.Spotify.External.Lyrics.response.json, argument=[{Types},{Languages[0]},{Languages[1]},{Vendor},{LrcVendor},{LogLevel}]
+http-response ^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/\w+\?(.*)subtype=External requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DualSubs/Spotify/JS/External.Lyrics.response.bundle.js, tag=🍿️ DualSubs.Spotify.External.Lyrics.response.proto, argument=[{Types},{Languages[0]},{Languages[1]},{Vendor},{LrcVendor},{LogLevel}]
+
+
+[MITM]
+hostname = api.spotify.com, spclient.wg.spotify.com
+
