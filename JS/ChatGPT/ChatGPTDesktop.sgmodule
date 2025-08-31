@@ -1,0 +1,16 @@
+#!name=ChatGPT Desktop
+#!desc=破解GPT访问限制
+#!date=2025-08-01
+#!category=😍BOBO Premium
+#!author=Androidcn[https://github.com/androidcn/userscripts]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/ChatGPT.png
+#!openUrl=https://apps.apple.com/app/id6448311069
+
+
+[Body Rewrite]
+http-response ^https://ab\.chatgpt\.com/v1/ '"gateValue":"false"' '"gateValue":"true"' '"value":false' '"value":true'
+
+
+[MITM]
+hostname = %APPEND% ab.chatgpt.com
+
