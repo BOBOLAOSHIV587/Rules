@@ -1,7 +1,0 @@
-#!name=每日随机图片（二次元+18）
-#!desc=每日随机图片（二次元+18）
-#!author=XiaoMao[https://github.com/xiaomaoJT/QxScript]
-#!category=😍BOBO Task
-
-[Script]
-每日随机图片（二次元+18） = type=cron,cronexp=0 9 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/18%2BPic/JS/18%2BPic.js,timeout=60
