@@ -3,7 +3,7 @@
 #!openUrl = http://boxjs.com/#/app/iRingo.Spotlight
 #!author = VirgilClyne[https://github.com/VirgilClyne]
 #!homepage = https://NSRingo.github.io/guide/Siri/spotlight
-#!icon = https://developer.apple.com/assets/elements/icons/spotlight/spotlight-128x128.png
+#!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/IMG/iRingo/Spotlight.png
 #!category =  iRingo
 #!date = 2024-12-24
 #!arguments = CountryCode:"SG",Domains:"web,itunes,app_store,movies,restaurants,maps",Functions:"flightutilities,lookup,mail,messages,news,safari,siri,spotlight,visualintelligence",SafariSmartHistory:true,LogLevel:"WARN"

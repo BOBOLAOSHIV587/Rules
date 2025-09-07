@@ -3,7 +3,7 @@
 #!openUrl = http://boxjs.com/#/app/iRingo.TV
 #!author = VirgilClyne[https://github.com/VirgilClyne]
 #!homepage = https://NSRingo.github.io/guide/apple-tv
-#!icon = https://developer.apple.com/assets/elements/icons/apple-tv/apple-tv-128x128.png
+#!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/IMG/iRingo/TV.png
 #!tag =  iRingo
 #!system = iOS,iPadOS,tvOS,macOS
 #!date = 2025-04-17

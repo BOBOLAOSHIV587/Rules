@@ -75,8 +75,8 @@
 					"id": "@iRingo.WeatherKit.Settings.AQI.Local.Scale",
 					"name": "[空气质量] 本地替换算法",
 					"type": "selects",
-					"val": "WAQI_InstantCast",
-					"items": [{ "key": "NONE", "label": "None (不进行替换)" }, { "key": "WAQI_InstantCast", "label": "WAQI InstantCast" }],
+					"val": "EPA_NowCast",
+					"items": [{ "key": "NONE", "label": "None (不进行替换)" }, { "key": "EPA_NowCast", "label": "美国 (EPA NowCast)" }, { "key": "WAQI_InstantCast", "label": "WAQI InstantCast" }],
 					"desc": "本地替换时使用的算法"
 				},
 				{
