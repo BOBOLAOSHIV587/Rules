@@ -1,0 +1,95 @@
+#!name=Fuck Telegram bad IPs
+#!desc=1.将Telegram的垃圾IP转移到较好IP上；2.Telegram外部链接跳转，可选择Telegram、Swiftgram、Turrit、iMe、Nicegram、Lingogram。
+#!date=2025-09-05
+#!category=⚙️ ▸ Function
+#!author= Repcz[https://github.com/Repcz/Tool], sooyaaabo[https://github.com/sooyaaabo]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Telegram-01.png
+
+
+[Argument]
+t.me_redirect = select, "Telegram", "Swiftgram", "Turrit", "iMe", "Nicegram", "Lingogram", tag = 跳转至对应客户端
+
+
+[Host]
+# [DC5] 将 Telegram 的垃圾 IP 转移到好的 IP 上
+91.108.56.100 = 91.108.56.147, use-in-proxy=true
+91.108.56.100 = 91.108.56.135, use-in-proxy=true
+91.108.56.100 = 91.108.56.130, use-in-proxy=true
+91.108.56.101 = 91.108.56.147, use-in-proxy=true
+91.108.56.101 = 91.108.56.135, use-in-proxy=true
+91.108.56.101 = 91.108.56.130, use-in-proxy=true
+91.108.56.104 = 91.108.56.147, use-in-proxy=true
+91.108.56.104 = 91.108.56.135, use-in-proxy=true
+91.108.56.104 = 91.108.56.130, use-in-proxy=true
+91.108.56.107 = 91.108.56.147, use-in-proxy=true
+91.108.56.107 = 91.108.56.135, use-in-proxy=true
+91.108.56.107 = 91.108.56.130, use-in-proxy=true
+91.108.56.120 = 91.108.56.147, use-in-proxy=true
+91.108.56.120 = 91.108.56.135, use-in-proxy=true
+91.108.56.120 = 91.108.56.130, use-in-proxy=true
+91.108.56.125 = 91.108.56.147, use-in-proxy=true
+91.108.56.125 = 91.108.56.135, use-in-proxy=true
+91.108.56.125 = 91.108.56.130, use-in-proxy=true
+91.108.56.126 = 91.108.56.147, use-in-proxy=true
+91.108.56.126 = 91.108.56.135, use-in-proxy=true
+91.108.56.126 = 91.108.56.130, use-in-proxy=true
+91.108.56.128 = 91.108.56.147, use-in-proxy=true
+91.108.56.128 = 91.108.56.135, use-in-proxy=true
+91.108.56.128 = 91.108.56.130, use-in-proxy=true
+91.108.56.156 = 91.108.56.147, use-in-proxy=true
+91.108.56.156 = 91.108.56.135, use-in-proxy=true
+91.108.56.156 = 91.108.56.130, use-in-proxy=true
+
+
+[Rule]
+DOMAIN-SUFFIX, swiftgram.app, PROXY
+DOMAIN-SUFFIX, iturrit.com, PROXY
+DOMAIN-SUFFIX, imem.app, PROXY
+DOMAIN-SUFFIX, nicegram.app, PROXY
+DOMAIN-SUFFIX, nicegram.cloud, PROXY
+DOMAIN-SUFFIX, intentchat.app, PROXY
+DOMAIN-SUFFIX, comments.app, PROXY
+DOMAIN-SUFFIX, mbrx.app, PROXY
+DOMAIN-SUFFIX, contest.com, PROXY
+DOMAIN-SUFFIX, stel.com, PROXY
+DOMAIN-SUFFIX, tdesktop.com, PROXY
+DOMAIN-SUFFIX, telegramdownload.com, PROXY
+DOMAIN-SUFFIX, tg.dev, PROXY
+DOMAIN-SUFFIX, usercontent.dev, PROXY
+DOMAIN-SUFFIX, quiz.directory, PROXY
+DOMAIN-SUFFIX, telegram.dog, PROXY
+DOMAIN-SUFFIX, t.me, PROXY
+DOMAIN-SUFFIX, telegram.me, PROXY
+DOMAIN-SUFFIX, tx.me, PROXY
+DOMAIN-SUFFIX, telega.one, PROXY
+DOMAIN-SUFFIX, cdn-telegram.org, PROXY
+DOMAIN-SUFFIX, graph.org, PROXY
+DOMAIN-SUFFIX, telegram.org, PROXY
+DOMAIN-SUFFIX, telegram-cdn.org, PROXY
+DOMAIN-SUFFIX, telesco.pe, PROXY
+DOMAIN-SUFFIX, legra.ph, PROXY
+DOMAIN-SUFFIX, telegra.ph, PROXY
+DOMAIN-SUFFIX, telegram.space, PROXY
+DOMAIN-KEYWORD, nicegram, PROXY
+IP-CIDR, 5.28.192.0/18, PROXY, no-resolve
+IP-CIDR, 91.108.0.0/16, PROXY, no-resolve
+IP-CIDR, 109.239.140.0/24, PROXY, no-resolve
+IP-CIDR, 149.154.160.0/20, PROXY, no-resolve
+IP-CIDR6, 2001:67c:4e8::/48, PROXY, no-resolve
+IP-CIDR6, 2001:b28:f23c::/47, PROXY, no-resolve
+IP-CIDR6, 2001:b28:f23f::/48, PROXY, no-resolve
+IP-CIDR6, 2a0a:f280::/29, PROXY, no-resolve
+IP-ASN, 44907, PROXY, no-resolve
+IP-ASN, 59930, PROXY, no-resolve
+IP-ASN, 62014, PROXY, no-resolve
+IP-ASN, 62041, PROXY, no-resolve
+IP-ASN, 211157, PROXY, no-resolve
+
+
+[Script]
+http-response (https:\/\/)?t\.me\/(.+) script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/FuckTelegram/JS/t.me_redirect.js, requires-body = false, tag = [Telegram]t.me重定向, argument=[{t.me_redirect}]
+
+
+[MITM]
+hostname = t.me
+
