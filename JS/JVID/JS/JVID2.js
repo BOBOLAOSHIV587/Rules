@@ -39,11 +39,11 @@ function httpGet(url, callback) {
   }
 }
 
-const url = "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/JVID/JS/JVIDtoken.txt";
+const url = "https://gist.githubusercontent.com/Yu9191/3daba296e7fdeac9ef519bba5895690b/raw/jvidtoken.txt";
 
 httpGet(url, (error, response, data) => {
   if (error) {
-    console.log(" 获取远程数据失败: " + error);
+    console.log("获取远程数据失败: " + error);
     $done({});
     return;
   }
@@ -51,13 +51,15 @@ httpGet(url, (error, response, data) => {
   try {
     const json = JSON.parse(data);
     let headers = $request.headers;
+    let oldToken = headers["token"];
+    let oldCookie = headers["Cookie"];
 
-    if (json.newToken && headers["token"]) {
+    if (json.newToken && oldToken) {
       headers["token"] = json.newToken;
     }
 
-    if (headers["Cookie"]) {
-      headers["Cookie"] = headers["Cookie"]
+    if (oldCookie) {
+      headers["Cookie"] = oldCookie
         .replace(/CLSQ-Token=[^;]+/, `CLSQ-Token=${json.newToken}`)
         .replace(/CLSQ-UUID=[^;]+/, `CLSQ-UUID=${json.newUUID}`)
         .replace(/CLSQ-UserInfo=[^;]+/, `CLSQ-UserInfo=${json.newUserInfo}`);
