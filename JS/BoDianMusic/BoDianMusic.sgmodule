@@ -7,16 +7,24 @@
 #!openUrl=https://apps.apple.com/app/id1541981555
 
 
+[Map Local]
+# > 移除波点音乐我的页面广告banner
+^https:\/\/bd-api\.kuwo\.cn\/api\/service\/banner\/positions\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# > 移除搜索框热搜
+^https:\/\/bd-api\.kuwo\.cn\/api\/search\/topic\/word\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+
 [URL Rewrite]
-# > 疑似开屏AD
+# > # > 开屏AD&其它广告
 ^https://ad\.tencentmusic\.com/config/uni - reject
 
 
 [Script]
 # > 波点音乐 解锁VIP最高音质
-波点音乐 = type=http-response, pattern=^https?:\/\/bd-api\.kuwo\.cn\/api\/(ucenter\/users\/pub|play\/music\/v2\/(audioUrl|checkRight)|service\/home\/module|pay\/vip\/lowPriceText), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BoDianMusic/JS/BoDianMusic.js, requires-body=true, max-size=-1, timeout=60
+波点音乐 = type=http-response, pattern=^https?:\/\/(bd-api\.kuwo\.cn\/api\/(ucenter\/users\/(pub|login)|play\/(advert\/info|music\/v2\/(audioUrl|checkRight))|service\/(home\/module|music\/download\/info|global\/config\/(scene|vipEnter))|pay\/(vip\/(lowPriceText|invitation\/assist\/popup)|sp\/actVip))|us\.l\.qq\.com\/exapp\?adposcount), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BoDianMusic/JS/BoDianMusic.js, requires-body=true, max-size=-1, timeout=60
 
 
 [MITM]
-hostname = %APPEND% bd-api.kuwo.cn, *.kuwo.cn, *.kuwo.*, ad.tencentmusic.com
+hostname = %APPEND% bd-api.kuwo.cn, *.kuwo.cn, *.kuwo.*, ad.tencentmusic.com, *.l.qq.com, 39.156.123.46:443, bd-api.kuwo.com, 39.156.123.46, 39.156.12*.*:443, h5app.kuwo.cn, bodianimgcdn.kuwo.cn
 
