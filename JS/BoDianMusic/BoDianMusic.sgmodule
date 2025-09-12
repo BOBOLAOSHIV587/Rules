@@ -16,7 +16,7 @@
 
 
 [URL Rewrite]
-# > # > 开屏AD&其它广告
+# > 开屏AD&其它广告
 ^https://ad\.tencentmusic\.com/config/uni - reject
 
 
