@@ -1,0 +1,31 @@
+#!name=网易云会员
+#!desc=共享网易云会员 失效群内反馈频道:@IPAs_share 脚本更新时间:2024.10.1
+#!category=暗夜
+[Script]
+#脚本更新时间:2025.9.13 失效群内反馈频道:@IPAs_share
+#===================================
+#⚠️【免责声明】
+#-----------------------------------
+#1、此脚本仅用于学习研究，不保证其合法性、准确性、有效性，请根据情况自行判断，本人对此不承担任何保证责任。
+#2、由于此脚本仅用于学习研究，您必须在下载后 24 小时内将所有内容从您的计算机或手机或任何存储设备中完全删除，若违反规定引起任何事件本人对此均不负责。
+#3、请勿将此脚本用于任何商业或非法目的，若违反规定请自行对此负责。
+#4、此脚本涉及应用与本人无关，本人对因此引起的任何隐私泄漏或其他后果不承担任何责任。
+#5、本人对任何脚本引发的问题概不负责，包括但不限于由脚本错误引起的任何损失和损害。
+#6、如果任何单位或个人认为此脚本可能涉嫌侵犯其权利，应及时通知并提供身份证明，所有权证明，我们将在收到认证文件确认后删除此脚本。
+#7、所有直接或间接使用、查看此脚本的人均应该仔细阅读此声明。本人保留随时更改或补充此声明的权利。一旦您使用或复制了此脚本，即视为您已接受此免责声明。
+
+
+[Script]
+播放器会员皮肤 = type=http-request, pattern=^https:\/\/interface3?\.music\.163\.com\/eapi\/playermode\/, script-path=https://raw.githubusercontent.com/anyehttp/quantumult-x/main/headers/wyy.js, timeout=60
+搜索结果会员歌曲 = type=http-request, pattern=^https:\/\/interface3?\.music\.163\.com\/eapi\/search\/complex\/(page|rec\/song\/get), script-path=https://raw.githubusercontent.com/anyehttp/quantumult-x/main/headers/wyy.js, timeout=60
+播放器会员歌曲1 = type=http-request, pattern=^https:\/\/interface3?\.music\.163\.com\/eapi\/v3\/song\/detail, script-path=https://raw.githubusercontent.com/anyehttp/quantumult-x/main/headers/wyy.js, timeout=60
+播放器会员歌曲2 = type=http-request, pattern=^https:\/\/interface3?\.music\.163\.com\/eapi\/song\/(chorus|enhance\/|play\/|type\/detail\/get), script-path=https://raw.githubusercontent.com/anyehttp/quantumult-x/main/headers/wyy.js, timeout=60
+播放器会员歌曲3 = type=http-request, pattern=^https:\/\/interface3?\.music\.163\.com\/eapi\/(v1\/artist\/top\/song|v3\/discovery\/recommend\/songs), script-path=https://raw.githubusercontent.com/anyehttp/quantumult-x/main/headers/wyy.js, timeout=60
+侧边栏会员等级 = type=http-request, pattern=^https:\/\/interface3?\.music\.163\.com\/eapi\/vipnewcenter\/app\/resource\/newaccountpage, script-path=https://raw.githubusercontent.com/anyehttp/quantumult-x/main/headers/wyy.js, timeout=60
+首页歌单会员歌曲 = type=http-request, pattern=^https?:\/\/interface3?\.music\.163\.com\/eapi\/(homepage\/|v6\/)?playlist\/, script-path=https://raw.githubusercontent.com/anyehttp/quantumult-x/main/headers/wyy.js, timeout=60
+会员认证 = type=http-request, pattern=^https?:\/\/interface3?\.music\.163\.com\/eapi\/vipauth\/app\/auth\/(soundquality\/)?query, script-path=https://raw.githubusercontent.com/anyehttp/quantumult-x/main/headers/wyy.js, timeout=60
+
+
+[MITM]
+hostname = %APPEND% *.music.163.com
+

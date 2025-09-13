@@ -1,0 +1,39 @@
+#!name=网易云音乐
+#!desc=解锁会员-可开超清母带、沉浸环绕声
+#!date=2025-08-09
+#!category=😍BOBO Premium
+#!author=chuj6329[https://github.com/chuj6329]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png
+#!openUrl = https://apps.apple.com/app/id590338362
+
+
+[Rewrite]
+^https?:\/\/(?:ipv4|interface\d?)\.music\.163\.com\/e?api\/(mine\/(collect|rn)\/header\/info|v\d\/user\/detail\/\d+|vipnewcenter\/app\/resource\/newaccountpage|music-vip-membership\/(client|front)\/vip\/info|batch|playlist\/privilege|search\/complex\/page|v\d\/(discovery\/recommend\/songs|playlist\/detail)) header-replace x-aeapi false
+^https?:\/\/interface\d?\.music\.163\.com\/e?api\/vip\/cashier\/tspopup\/get - reject-200
+
+[Script]
+# 播放器会员皮肤
+wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/playermode\/, script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
+
+# 搜索结果会员歌曲
+wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/search\/(?:complex\/page|complex\/rec\/song\/get|song\/list\/page), script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
+
+# 播放器会员歌曲
+wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/v3\/song\/detail, script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
+
+wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/song\/(?:chorus|enhance\/|play\/|type\/detail\/get), script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
+
+wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/(?:v1\/artist\/top\/song|v3\/discovery\/recommend\/songs), script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
+
+# 侧边栏会员等级
+wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/vipnewcenter\/app\/resource\/newaccountpage, script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
+
+# 首页歌单会员歌曲
+wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/w?e?api\/(homepage\/|v6\/)?playlist\/(?!(?:delete|subscribe|unsubscribe)), script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
+
+# 会员认证
+wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/vipauth\/app\/auth\/(soundquality\/)?query, script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
+
+
+[MITM]
+hostname = interface*.music.163.com, ipv4.music.163.com
