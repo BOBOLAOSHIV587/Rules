@@ -67,9 +67,9 @@
 
 
 [Script]
-http-response ^https?:\/\/(bd-api\.kuwo\.cn\/api\/(ucenter\/users\/(pub|login)|play\/(advert\/info|music\/v2\/(audioUrl|checkRight))|service\/(home\/module|music\/download\/info|global\/config\/(scene|vipEnter))|pay\/(vip\/(lowPriceText|invitation\/assist\/popup)|sp\/actVip))|us\.l\.qq\.com\/exapp\?adposcount) script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BoDianMusic/JS/BoDianMusic.js, requires-body = true, timeout = 60, tag = [波点音乐]解锁会员
+http-response ^https?:\/\/(bd-api\.kuwo\.cn\/api\/(ucenter\/users\/(pub|login)|play\/(advert\/info|music\/v2\/(audioUrl|checkRight))|service\/(home\/module|music\/download\/info|global\/config\/(scene|vipEnter)|advert\/config|banner\/positions)|search\/topic\/word\/list|pay\/(vip\/(lowPriceText|invitation\/(assist\/popup|swell))|audition\/url|sp\/actVip))|us\.l\.qq\.com\/exapp\?adposcount) script-path = https://raw.githubusercontent.com/WeiGiegie/666/main/bdyy.js, requires-body = true, timeout = 60, tag = [波点音乐]解锁会员
 
 
-[MitM]
+[MITM]
 hostname = 39.156.123.46, 39.156.123.46:443, 39.156.12*.*:443, *.kuwo.*, *.l.qq.com, ab-bodian.kuwo.cn, ad.tencentmusic.com, bd-api.kuwo.cn, bd-api.kuwo.com, bodianimgcdn.kuwo.cn, h5app.kuwo.cn
 
