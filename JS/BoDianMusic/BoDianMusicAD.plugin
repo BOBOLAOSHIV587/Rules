@@ -11,7 +11,7 @@
 # 开屏广告
 ^https:\/\/ad\.tencentmusic\.com/config/uni reject-dict
 ^https:\/\/bd-api\.kuwo\.cn\/api\/(play|service|advert)\/advert\/ reject-dict
-^https?:\/\/h5s\.kuwo\.cn\/m\/bd_launch_popup\/index reject
+^https?:\/\/h5s.kuwo.cn\/m\/bd_launch_popup\/ reject
 
 # 全局应用配置
 ^https:\/\/bd-api\.kuwo\.cn\/api\/service\/conf\/all\? response-body-json-del data.groupSign.adStartAppDialog data.groupSign.adGuideTest data.groupSign.playTips data.groupSign.adExitChange data.conf.adGuidePopCount data.conf.adDownListOpen
@@ -69,7 +69,7 @@
 
 [Script]
 # > 波点音乐 会员调试 + 去广告 + 下载功能 + 付费专辑
-http-response ^https?:\/\/(bd-api\.kuwo\.cn\/api\/(ucenter\/users\/(pub|login)|play\/(advert\/info|music\/v2\/(audioUrl|checkRight))|service\/(home\/module|music\/download\/(info|config)|global\/config\/(scene|vipEnter)|banner\/positions)|advert\/(config|free\/config)|search\/topic\/word\/list|pay\/(vip\/(lowPriceText|invitation\/(assist\/popup|swell))|audition\/url|sp\/actVip))|us\.l\.qq\.com\/exapp\?adposcount) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BoDianMusic/JS/BoDianMusic.js, requires-body=true, timeout=60, tag= [波点音乐]解锁会员
+http-response ^https?:\/\/(bd-api\.kuwo\.cn\/api\/(ucenter\/users\/(pub|login)|play\/(advert\/info|music\/v2\/(audioUrl|checkRight))|service\/(home\/module|music\/download\/(info|config)|global\/config\/(scene|vipEnter)|banner\/positions)|advert\/(config|free\/config)|search\/topic\/word\/list|pay\/(vip\/(lowPriceText|invitation\/(assist\/popup|swell))|audition\/url|sp\/actVip))|us\.l\.qq\.com\/exapp\?adposcount|ab-bodian\.kuwo\.cn\/abtest\/ui\/info) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BoDianMusic/JS/BoDianMusic.js, requires-body=true, timeout=60, tag=[波点音乐]解锁会员
 
 
 [MITM]
