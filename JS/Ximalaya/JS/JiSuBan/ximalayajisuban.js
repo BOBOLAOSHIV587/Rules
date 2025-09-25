@@ -1,12 +1,15 @@
 /*******************************
 脚本功能：喜马拉雅极速版
-软件版本：3.0.35以下才有效!!
+软件版本：3.0.34
+下载地址：
+脚本作者：
 更新时间：2025年0923
 电报频道：https://t.me/GieGie777
+问题反馈：
 使用声明：此脚本仅供学习与交流，请在下载使用24小时内删除！请勿在中国大陆转载与贩卖！
 *******************************
 [rewrite_local]
-# > 喜马拉雅极速版
+# >喜马拉雅极速版
 ^https?:\/\/mobile.ximalaya.com\/fmobile-user\/homePage\/ url script-response-body https://raw.githubusercontent.com/WeiGiegie/666/main/ximalayajisuban.js
 ^https?:\/\/.+ximalaya.com\/(fmobile-track\/fmobile\/track\/playpage|mobile\/track\/pay)\/ url script-request-header https://raw.githubusercontent.com/WeiGiegie/666/main/ximalayajisuban.js
 ^https?://adse\.+ximalaya\.com/ url reject-dict
