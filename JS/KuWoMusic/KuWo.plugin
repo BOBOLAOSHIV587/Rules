@@ -1,55 +1,17 @@
 #!name=酷我音乐
-#!desc=解锁VIP歌曲，VIP听书，VIP装扮---脚本工作原理为音源替换而非破解
-#!date=2025-08-01
+#!desc=1、播放歌曲引用了循环从最高音质播放，歌曲会以2000kflac音质播放，旧歌老歌会自动降级音质播放成功率100%不会出现“缓存失败”,“播放失败”之类的弹窗。另增加缓存功能重复听同一首歌不会触发重复解析，降低脚本后台占用成本。2、下载支持MP3文件格式支持导出文件，需要先听歌缓存
+#!date=2025-10-08
 #!category=😍BOBO Premium
-#!author=墨鱼ddgksf2013[https://github.com/ddgksf2013/MoYu]
+#!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuWo.png
 #!openUrl=https://apps.apple.com/app/id588673713
 
 
-[Rewrite]
-# > 通用广告请求
-https?:\/\/vip1\.kuwo\.cn\/vip\/activity\/kwMemberDay reject-200
-# > 屏蔽热词
-https?:\/\/hotword\.kuwo\.cn\/hotword\.s reject-200
-# > 通用广告请求
-https?:\/\/vip1\.kuwo\.cn\/vip_adv\/ reject-200
-# > 通用广告请求
-https?:\/\/wapi\.kuwo\.cn\/openapi\/v1\/app\/pasterAdvert reject-200
-# > 应用内弹窗及右下角
-^https?:\/\/mobilead\.kuwo\.cn\/ reject-200
-
-
 [Script]
-# > 搜索框处理
-http-response https?:\/\/searchrecterm\.kuwo\.cn\/recterm\.s script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 会员页广告
-http-response https?:\/\/appi\.kuwo\.cn\/kuwopay\/vip-tab\/page\/cells script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 会员页顶部广告tab
-http-response https?:\/\/appi\.kuwo\.cn\/kuwopay\/vip-tab\/setting script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 开屏广告
-http-response https?:\/\/rich\.kuwo\.cn\/AdService script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 数字专辑
-http-response ^https?:\/\/musicpay\.kuwo\.cn\/music\.pay\?newver script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 听书权限接口1
-http-response ^https?:\/\/[a-z0-9A-Z]+\.(kuwo|lrts)\.(cn|me)\/a\.p script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 听书权限接口2
-http-response ^https?:\/\/.*\.kuwo\.cn\/v2\/api\/pay\/vip\/extraVipStatus script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 新版vip接口1
-http-response ^https?:\/\/vip1\.kuwo\.cn\/vip\/enc\/user\/vip\?op=ui script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 新版vip接口2
-http-response ^https?:\/\/vip1\.kuwo\.cn\/vip\/v2\/userbase\/vip\?op=get script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 旧版vip接口
-http-response ^https?:\/\/vip1\.kuwo\.cn\/vip\/v2\/user\/vip\?(uid|op=ui) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 皮肤解锁
-http-response ^https?:\/\/vip1\.kuwo\.cn\/vip\/v2\/theme script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 下载接口
-http-request ^https?:\/\/musicpay\.kuwo\.cn\/music\.pay\?ui script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, timeout=60, tag=Kuwo
-# > 我的页面卡片
-http-response ^https?:\/\/appi.kuwo.cn/kuwopay/personal/cells script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
-# > 音乐播放接口
-http-response ^https:\/\/[a-z0-9A-Z]+\.kuwo\.cn\/mobi\.s\?f=kwxs script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-1/KuWo.js, requires-body=true, timeout=60, tag=Kuwo
+# > 酷我音乐解锁VIP
+http-response ^https?:\/\/(?:musicpay|nmobi|vip1|audiobookpay|tingshu|anymatch|mobilebasedata|rich|mobilead|wapi)\.kuwo\.cn\/(?:music\.pay\?newver=\d+|mobi.s\?f=kwxs|vip\/(?:enc\/user\/vip\?op=ui&uid=|v2\/theme\?op=gd)|a\.p|v2\/api\/pay\/user\/info|api\/music\/info|AdService\/kaiping\/adinfo|EcomResourceServer\/adEarnGuajian\/adinfo|openapi\/v1\/operate\/homePage|commercia\/(?:vipTab\/myTab\/base|userAssets\/downloadCoupon\/reduce)) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-3/KuWo.js, requires-body=true, timeout=60, tag=酷我音乐解锁VIP
 
 
 [MITM]
-hostname = *.kuwo.cn, *.lrts.me
+hostname = anymatch.kuwo.cn, musicpay.kuwo.cn, mobilebasedata.kuwo.cn, vip1.kuwo.cn, rich.kuwo.cn, mobilead.kuwo.cn, *.kuwo.cn
+
