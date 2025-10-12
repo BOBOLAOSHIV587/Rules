@@ -1,0 +1,30 @@
+#!name=QQ音乐
+#!desc=过滤QQ音乐广告
+#!date=2025-10-12
+#!category=😍BOBO AD
+#!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/QQMusic.png
+#!openUrl=https://apps.apple.com/app/id414603431
+
+
+[Rule]
+DOMAIN, adstats.tencentmusic.com, REJECT
+DOMAIN, ad.tencentmusic.com, REJECT
+DOMAIN, adcdn.tencentmusic.com, REJECT
+DOMAIN, adcdn6.tencentmusic.com, REJECT
+DOMAIN, adexpo.tencentmusic.com, REJECT
+DOMAIN, adclick.tencentmusic.com, REJECT
+DOMAIN, otheve.beacon.qq.com, REJECT
+DOMAIN, monitor.music.qq.com, REJECT
+DOMAIN, stat.y.qq.com, REJECT
+DOMAIN, tmead.y.qq.com, REJECT
+DOMAIN, tmeadquic.y.qq.com, REJECT
+DOMAIN, oth.str.mdt.qq.com, REJECT
+DOMAIN, h.trace.qq.com, REJECT
+DOMAIN, sdk.e.qq.com, REJECT
+DOMAIN, p.l.qq.com, REJECT
+DOMAIN, us.l.qq.com, REJECT
+DOMAIN, tangram.e.qq.com, REJECT
+DOMAIN, tmeadbak.y.qq.com, REJECT
+DOMAIN-SUFFIX, imtmp.net, REJECT
+
