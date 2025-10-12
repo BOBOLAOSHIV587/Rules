@@ -1,0 +1,86 @@
+#!name=芒果TV
+#!desc=去除芒果TV客户端广告
+#!date=2025-10-12
+#!category=😍BOBO AD
+#!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], RuCu6[https://github.com/RuCu6]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/MGTV.png
+#!openUrl=https://apps.apple.com/app/id629774477
+
+
+[Rule]
+DOMAIN, credits.bz.mgtv.com, REJECT
+DOMAIN, credits2.bz.mgtv.com, REJECT
+DOMAIN, credits3.bz.mgtv.com, REJECT
+DOMAIN, dflow.bz.mgtv.com, REJECT
+DOMAIN, encounter.bz.mgtv.com, REJECT
+DOMAIN, floor.bz.mgtv.com, REJECT
+DOMAIN, layer.bz.mgtv.com, REJECT
+DOMAIN, mob.bz.mgtv.com, REJECT
+DOMAIN, rc-topic-api.bz.mgtv.com, REJECT
+DOMAIN, rprain.bz.mgtv.com, REJECT
+DOMAIN, rprain.log.mgtv.com, REJECT
+DOMAIN, vip.bz.mgtv.com, REJECT
+DOMAIN-SUFFIX, da.mgtv.com, REJECT
+
+# 无用请求
+URL-REGEX, "^http:\/\/[\d\.]+:\d{5}\/\?cmd=indexes", REJECT
+
+# 首页左上角推广
+URL-REGEX,"^http:\/\/[\d\.]+\/odin\/c1\/(channel\/ads|skin\/config)\?",REJECT-TINYGIF
+
+# 播放详情页
+URL-REGEX, "^http:\/\/mobile-thor\.api\.mgtv\.com\/v1\/vod\/cms\/list\?", REJECT-TINYGIF
+
+# 搜索框填充词
+URL-REGEX, "^http:\/\/mobileso\.bz\.mgtv\.com\/spotlight\/search\/v1\?", REJECT-TINYGIF
+
+
+[URL Rewrite]
+^https?:\/\/mobile\.da\.mgtv\.com\/m\/page - reject
+
+# 无用请求
+^http:\/\/[\d\.]+:\d{5}\/\?cmd=indexes - reject
+
+
+[Map Local]
+# 首页左上角推广
+^http:\/\/[\d\.]+\/odin\/c1\/(channel\/ads|skin\/config)\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 底栏红点
+^https:\/\/damang\.api\.mgtv\.com\/station\/album\/red\/dot\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 播放器界面
+^https:\/\/hb-boom\.api\.mgtv\.com\/release\/pullReleaseInfo data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 升级弹窗
+^https:\/\/mobile\.api\.mgtv\.com\/v2\/mobile\/checkUpdate\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 播放详情页
+^http:\/\/mobile-thor\.api\.mgtv\.com\/v1\/vod\/cms\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 搜索框填充词
+^http:\/\/mobileso\.bz\.mgtv\.com\/spotlight\/search\/v1\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+
+[Script]
+# 我的页面
+[芒果TV]我的页面 = type=http-response, pattern=^https:\/\/me\.bz\.mgtv\.com\/v3\/module\/list\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MGTV/JS/AD/ChinaFTP.js, requires-body=true
+
+# 首页信息流和顶部标签页
+[芒果TV]首页信息流和顶部标签页 = type=http-response, pattern=^http:\/\/mob-st\.bz\.mgtv\.com\/odin\/c1\/channel\/index\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MGTV/JS/AD/ChinaFTP.js, requires-body=true
+[芒果TV]首页信息流和顶部标签页 = type=http-response, pattern=^https?:\/\/dc2?\.bz\.mgtv\.com\/dynamic\/v1\/channel\/(index|vrsList)\/\w, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MGTV/JS/AD/ChinaFTP.js, requires-body=true
+
+# 底栏
+[芒果TV]底栏 = type=http-response, pattern=^https:\/\/mobile\.api\.mgtv\.com\/mobile\/config\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MGTV/JS/AD/ChinaFTP.js, requires-body=true
+
+# 播放详情页
+[芒果TV]播放详情页 = type=http-response, pattern=^https:\/\/mobile\.api\.mgtv\.com\/v10\/video\/info\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MGTV/JS/AD/ChinaFTP.js, requires-body=true
+[芒果TV]播放详情页 = type=http-response, pattern=^https:\/\/mobile-thor\.api\.mgtv\.com\/v1\/vod\/info\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MGTV/JS/AD/ChinaFTP.js, requires-body=true
+
+# 搜索框填充词
+[芒果TV]搜索框填充词 = type=http-response, pattern=^https?:\/\/mobileso\.bz\.mgtv\.com\/mobile\/recommend\/v2\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MGTV/JS/AD/ChinaFTP.js, requires-body=true
+
+
+[MITM]
+hostname = %APPEND% *mgtv.com
+
