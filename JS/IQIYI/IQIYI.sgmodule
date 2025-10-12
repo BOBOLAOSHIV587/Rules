@@ -1,0 +1,98 @@
+#!name=爱奇艺 去广告
+#!desc=移除开屏广告、焦点图广告、瀑布流广告、搜索页面广告、移除青少年弹窗，精简底栏和我的页面。
+#!date=2025-10-12
+#!category=😍BOBO AD
+#!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], RuCu6[https://github.com/RuCu6]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/IQIYI.png
+#!openUrl=https://apps.apple.com/app/id393765873
+
+
+[Rule]
+# 拦截HTTPDNS
+IP-CIDR,103.44.59.54/32,REJECT,no-resolve
+IP-CIDR,111.63.147.158/32,REJECT,no-resolve
+IP-CIDR,116.211.198.237/32,REJECT,no-resolve
+
+# 放行地址
+DOMAIN-SUFFIX,cupid.iqiyi.com,DIRECT
+
+# 拦截地址
+DOMAIN,api.iqiyi.com,REJECT
+DOMAIN,access.if.iqiyi.com,REJECT
+
+
+[Body Rewrite]
+# 首页 - 焦点图广告、卡片广告
+http-response-jq ^https:\/\/cards\.iqiyi\.com\/views_home\/3\.0\/qy_home\? 'delpaths([["base","statistics"]])'
+
+# 首页 - 焦点图广告、卡片广告 // 如果 "cards[*].alias_name" 的值是 "focus" 或 "ad_mobile_flow" 或 "ad_trueview"，则删除所在的对象
+http-response-jq ^https:\/\/cards\.iqiyi\.com\/views_home\/3\.0\/qy_home\? 'del(.cards[] | select(.alias_name == "focus" or .alias_name == "ad_mobile_flow" or .alias_name == "ad_trueview"))'
+
+# 其他页面 - 焦点图广告、卡片广告 // 删除 "base.statistics.ad_str" 字段 // 如果 "cards[*].alias_name" 的值是 "entrence_focus" 或 "ad_trueview"，则删除所在的对象
+http-response-jq ^https:\/\/cards\.iqiyi\.com\/views_category\/3\.0\/category_home\? 'del(.base.statistics | select(.ad_str)) | del(.cards[] | select(.alias_name == "entrence_focus" or .alias_name == "ad_trueview"))'
+
+# 瀑布流广告 // 删除 "base.statistics.ad_str" 字段 // 如果 "cards[*].blocks[*].block_class" 存在，则删除它所在的对象
+http-response-jq ^https:\/\/cards\.iqiyi\.com\/waterfall(-plt)?\/3\.0\/feed\? 'del(.base.statistics | select(.ad_str)) | del(.. | select(.block_class?))'
+
+# 播放页 - 评论区活动标签入口
+http-response-jq ^https:\/\/cards\.iqiyi\.com\/views_plt\/3\.0\/player_tabs_v2\? 'delpaths([["kv_pair","activity_tab"]])'
+
+# 播放页 - 会员推广"play_vip_promotion" 详情标签v2"play_detail_tag" 聊天室入口"play_chat_entrance" 非会员视频关联位广告"play_ad_no_vip" 竖图-精彩短视频"play_vertical_short_video" 综艺定制card-1"play_rap_custom" 混剪"play_topical_tab 竖屏内容"play_vertical" 猜你喜欢"play_water_fall_like" 卡片广告"cards[*].blocks[*].block_class"
+# 如果 "cards[*].alias_name" 的值是 "play_vip_promotion" 或 "play_detail_tag" 或 "play_chat_entrance" 或 "play_ad_no_vip" 或 "play_vertical_short_video" 或 "play_rap_custom" 或 "play_topical_tab" 或 "play_vertical"，则删除所在的对象
+# 如果 "cards[*].blocks[*].block_class" 存在，则删除它所在的对象
+http-response-jq ^https:\/\/cards\.iqiyi\.com\/views_plt\/3\.0\/player_tabs_v2\? 'del(.cards[] | select(.alias_name == "play_vip_promotion" or .alias_name == "play_detail_tag" or .alias_name == "play_chat_entrance" or .alias_name == "play_ad_no_vip" or .alias_name == "play_vertical_short_video" or .alias_name == "play_rap_custom" or .alias_name == "play_topical_tab" or .alias_name == "play_vertical" or .alias_name == "play_water_fall_like")) | del(.. | select(.block_class?))'
+
+# 播放页
+http-response-jq ^https:\/\/comment-card\.iqiyi\.com\/views_comment\/3\.0\/long_video_comments\? ''
+
+# 搜索页面广告
+http-response-jq ^https:\/\/cards\.iqiyi\.com\/views_search\/3\.0\/hot_query_search\? '.cards |= map(select(.alias_name as $name | $name != "ad_trueview" and $name != "ad_mobile_flow" and $name != "search_mid_text_ad")) | if .base.statistics.ad_str? then del(.base.statistics) else . end'
+
+
+# 视频评论区广告 // 如果"cards[*].alias_name"路径存在就保留当前对象
+http-response-jq ^https?:\/\/comment-card\.iqiyi\.com\/views_comment\/3\.0\/long_video_comments\? '.cards |= map(select(has("alias_name")))'
+
+# 精简底栏 - 按钮
+http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/views_menus\/3\.0\/bottom_theme\? 'delpaths([["theme_list"]])'
+http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/views_menus\/3\.0\/bottom_theme\? '.cards |= map(.items |= map(select(.other.bottom_tab_type == "rec" or .other.bottom_tab_type == "my")))'
+
+# 顶部标签页
+http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/views_menus\/3\.0\/home_top_menu\? '.nav_group_data[].nav_list |= map(select(. == "0" or . == "2" or . == "1007" or . == "1" or . == "6" or . == "3"))'
+
+# 修改全局配置
+http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\? 'delpaths([["content","resource","cast_device_ad"]])'
+http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\? 'if (getpath(["content","switchs","app_ad"]) | has("app_ad_enable")) then (setpath(["content","switchs","app_ad","app_ad_enable"]; 0)) else . end'
+http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\? 'if (getpath(["content","switchs","app_ad"]) | has("app_ad_duration")) then (setpath(["content","switchs","app_ad","app_ad_duration"]; 0)) else . end'
+http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\? 'if (getpath(["content","switchs","ios_tech"]) | has("ad_download")) then (setpath(["content","switchs","ios_tech","ad_download"]; 0)) else . end'
+http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\? 'if (getpath(["content","switchs","m_qiyi_ios_tech"]) | has("KFocusAdVideoPlayTimesIn4G")) then (setpath(["content","switchs","m_qiyi_ios_tech","KFocusAdVideoPlayTimesIn4G"]; 0)) else . end'
+
+# 开屏广告和播放广告Add commentMore actions
+http-response-jq ^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\? 'delpaths([["adSlots"]])'
+
+# 搜索框填充词
+http-response-jq ^https?:\/\/search\.video\.iqiyi\.com\/q\? 'delpaths([["data"]])'
+
+# 我的页面菜单
+http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/aggregate\/3\.0\/getMyMenus\? '.data |= map(select(.statistic.block != "wd_liebiao_2") | select(all(.menuList[]?.statistic2.block; . != "wd_liebiao_3")))'
+
+
+[Map Local]
+# 左上角天气
+^https?:\/\/iface2\.iqiyi\.com\/control\/3\.0\/init_proxy\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 播放页开通会员提示
+^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 播放页多余动效
+^https?:\/\/iface2\.iqiyi\.com\/ivos\/interact\/video\/data\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 播放页升级白金会员按钮
+^https?:\/\/iface2\.iqiyi\.com\/video\/3\.0\/v_interface_proxy\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 青少年弹窗
+^https?:\/\/iface2\.iqiyi\.com\/views_pop\/3\.0\/pop_control\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+
+[MITM]
+hostname = %APPEND% -i.vip.iqiyi.com, *.iqiyi.com
+
