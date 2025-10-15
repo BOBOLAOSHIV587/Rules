@@ -1,0 +1,17 @@
+#!name=Sora去水印
+#!desc=Sora AI生成发布[非草稿]的视频，下载时去除水印
+#!date=2025-10-12
+#!category=😍BOBO Premium
+#!author= 墨鱼ddgksf2013[https://github.com/ddgksf2013/ddgksf2013]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Sora.png
+#!openUrl=https://apps.apple.com/app/id6744034028
+
+
+[Script]
+# > Sora去水印
+http-request ^https?:\/\/videos\.openai\.com\/vg-assets\/assets.*mp4 script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Sora/JS/Sora.js, timeout=60, tag=Sora去水印
+
+
+[MITM]
+hostname = videos.openai.com
+
