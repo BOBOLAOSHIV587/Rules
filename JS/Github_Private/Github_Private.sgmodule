@@ -1,6 +1,6 @@
 #!name=用户访问Github私有仓库
 #!desc=允许用户访问Github私有仓库/Gist中的订阅分流，重写，脚本等配置文件。使用此项目更便捷：https://github.com/cmliu/CF-Workers-Raw
-#!date=2025-08-01
+#!date=2025-10-16
 #!category=😍BOBO Premium
 #!author= Sliverkiss[https://github.com/Sliverkiss/GoodNight], cmliu[https://github.com/cmliu/CF-Workers-Raw]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/GitHub.png
@@ -10,6 +10,7 @@
 
 
 [Header Rewrite]
+# > Github私有仓库
 http-request ^https?:\/\/(raw|gist)\.githubusercontent\.com\/{{{USERNAME}}} header-del Authorization
 http-request ^https?:\/\/(raw|gist)\.githubusercontent\.com\/{{{USERNAME}}} header-add Authorization "token {{{TOKEN}}}"
 
