@@ -1,0 +1,18 @@
+#!name=哔哩哔哩去广告(>=iOS15)
+#!desc=1、开屏页广告，推荐页广告，动态(最常访问/推荐话题/列表广告)，视频播放页面(up主推荐广告)。2、h2下走grpc.biliapi.net(Surge TF2332以上版本可正常解析) h1时走app.bilibili.com
+#!date=2025-10-17
+#!category=😍BOBO Premium
+#!author= app2smile[https://github.com/app2smile/rules]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BilibiliRed.png
+#!openUrl=https://apps.apple.com/app/id736536022
+
+
+[Script]
+# > 哔哩哔哩去广告
+哔哩哔哩json = type=http-response,pattern=^https:\/\/app\.bilibili\.com\/x\/(v2\/(splash\/(list|show)|feed\/index\?)|resource\/show\/tab\/v2),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-1/bilibili-json.js,script-update-interval=0
+哔哩哔哩proto = type=http-response,pattern=^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.(viewunite\.v1\.View\/View|dynamic\.v2\.Dynamic\/DynAll)$,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-1/bilibili-proto.js,script-update-interval=0
+
+
+[MITM]
+hostname = %APPEND% app.bilibili.com, grpc.biliapi.net
+
