@@ -1,0 +1,25 @@
+#!name =  iRingo: 🔍 Search
+#!desc = iOS 17.6⬇️\n全面自定义「Siri 建议」功能。\n⚠️ 不含自定义「询问 Siri」功能。
+#!openUrl = http://boxjs.com/#/app/iRingo.Spotlight
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/Siri/spotlight
+#!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/IMG/iRingo/Spotlight.png
+#!category =  iRingo
+#!date = 2024-12-24
+#!arguments = CountryCode:"SG",Domains:"web,itunes,app_store,movies,restaurants,maps",Functions:"flightutilities,lookup,mail,messages,news,safari,siri,spotlight,visualintelligence",SafariSmartHistory:true,LogLevel:"WARN"
+#!arguments-desc = CountryCode: 国家或地区代码\n    ├ AUTO: 🇺🇳 自动（跟随系统地区设置）\n    ├ CN: 🇨🇳 中国大陆\n    ├ HK: 🇭🇰 中国香港\n    ├ TW: 🇹🇼 中国台湾\n    ├ SG: 🇸🇬 新加坡\n    ├ US: 🇺🇸 美国\n    ├ JP: 🇯🇵 日本\n    ├ AU: 🇦🇺 澳大利亚\n    ├ GB: 🇬🇧 英国\n    ├ KR: 🇰🇷 韩国\n    ├ CA: 🇨🇦 加拿大\n    └ IE: 🇮🇪 爱尔兰\n不同国家或地区提供的内容或有差别，此选项同时会影响分配给您不同地区的 Siri 服务器。\n\nDomains: 搜索领域\n    ├ web: 网页\n    ├ itunes: iTunes\n    ├ app_store: App Store\n    ├ movies: 电影\n    ├ restaurants: 餐厅\n    └ maps: 地图\n启用搜索的领域，领域数据由国家或地区设置决定，此选项仅开启搜索的领域，不代表设置的地区一定有相应的数据和服务。\n\nFunctions: 功能\n    ├ flightutilities: 航班工具\n    ├ lookup: 查询\n    ├ mail: 邮件\n    ├ messages: 信息\n    ├ news: 新闻\n    ├ safari: Safari浏览器\n    ├ siri: Siri\n    ├ spotlight: 聚焦搜索\n    └ visualintelligence: 视觉智能\n启用的「Siri 建议」功能，未选的功能不代表关闭，仅代表还原到该地区默认设置状态。\n\nSafariSmartHistory: Safari 智能历史记录\n是否在 Safari 浏览器中启用基于历史记录的Siri建议功能，启用后将在Safari浏览器起始页推荐基于时间地点跨设备等的相关浏览记录。\n\nLogLevel: [调试] 日志等级\n    ├ OFF: 🔴 关闭\n    ├ ERROR: ❌ 错误\n    ├ WARN: ⚠️ 警告\n    ├ INFO: ℹ️ 信息\n    ├ DEBUG: 🅱️ 调试\n    └ ALL: 全部\n选择脚本日志的输出等级，低于所选等级的日志将全部输出。\n
+
+
+[Script]
+# Bag (iOS/macOS)
+🔍 Search.Bag.request = type=http-request, pattern=^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag, requires-body=0, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/Siri/JS/request.bundle.js, argument=CountryCode=""&Domains=""&Functions=""&SafariSmartHistory=""&LogLevel=""
+🔍 Search.Bag.response = type=http-response, pattern=^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag, requires-body=1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/Siri/JS/response.bundle.js, argument=CountryCode=""&Domains=""&Functions=""&SafariSmartHistory=""&LogLevel=""
+# Siri Suggestions & Look Up Search (iOS/macOS)
+🔍 Search.Search.request = type=http-request, pattern=^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/search, requires-body=0, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/Siri/JS/request.bundle.js, argument=CountryCode=""&Domains=""&Functions=""&SafariSmartHistory=""&LogLevel=""
+# Flight Search (iOS/macOS)
+🔍 Search.Flight.request = type=http-request, pattern=^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/flight, requires-body=0, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/Siri/JS/request.bundle.js, argument=CountryCode=""&Domains=""&Functions=""&SafariSmartHistory=""&LogLevel=""
+
+
+[MITM]
+hostname = %APPEND% api*.smoot.apple.com, api.smoot.apple.cn
+

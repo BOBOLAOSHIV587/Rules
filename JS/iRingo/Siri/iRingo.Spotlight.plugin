@@ -1,0 +1,42 @@
+#!name =  iRingo: 🔍 Spotlight
+#!desc = macOS 14.5⬇️\n全面自定义「Siri 与聚焦」中的「Siri 建议」功能。\n⚠️ 不含自定义「询问 Siri」功能。
+#!openUrl = http://boxjs.com/#/app/iRingo.Spotlight
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/Siri/spotlight
+#!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/IMG/iRingo/Spotlight.png
+#!tag =  iRingo
+#!system = iOS,iPadOS,macOS
+#!date = 2024-12-24
+
+
+[Argument]
+CountryCode = select,"SG","AUTO","CN","HK","TW","US","JP","AU","GB","KR","CA","IE",tag=国家或地区代码,desc=不同国家或地区提供的内容或有差别，此选项同时会影响分配给您不同地区的 Siri 服务器。
+Domains = input,"web,itunes,app_store,movies,restaurants,maps",tag=搜索领域,desc=启用搜索的领域，领域数据由国家或地区设置决定，此选项仅开启搜索的领域，不代表设置的地区一定有相应的数据和服务。
+Functions = input,"flightutilities,lookup,mail,messages,news,safari,siri,spotlight,visualintelligence",tag=功能,desc=启用的「Siri 建议」功能，未选的功能不代表关闭，仅代表还原到该地区默认设置状态。
+SafariSmartHistory = switch,true,tag=Safari 智能历史记录,desc=是否在 Safari 浏览器中启用基于历史记录的Siri建议功能，启用后将在Safari浏览器起始页推荐基于时间地点跨设备等的相关浏览记录。
+LogLevel = select,"WARN","OFF","ERROR","INFO","DEBUG","ALL",tag=[调试] 日志等级,desc=选择脚本日志的输出等级，低于所选等级的日志将全部输出。
+
+
+[Rule]
+# > Look Up (Only for Wikipedia@macOS, TUN Mode enabled required)
+PROCESS-NAME,LookupViewService
+DOMAIN,lookup-api.apple.com
+DOMAIN,lookup-api.apple.com.edgekey.net
+DOMAIN,e16991.b.akamaiedge.net
+
+
+[Script]
+# Bag (iOS/macOS)
+http-request ^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/Siri/JS/request.bundle.js, tag=🔍 Spotlight.Bag.request, argument=[{CountryCode},{Domains},{Functions},{SafariSmartHistory},{LogLevel}]
+http-response ^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/Siri/JS/response.bundle.js, requires-body=1, tag=🔍 Spotlight.Bag.response, argument=[{CountryCode},{Domains},{Functions},{SafariSmartHistory},{LogLevel}]
+# Siri Suggestions & Look Up Search (iOS/macOS)
+http-request ^https?:\/\/api(2|-.+)\.smoot\.apple\.(com|cn)\/search script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/Siri/JS/request.bundle.js, tag=🔍 Spotlight.Search.request, argument=[{CountryCode},{Domains},{Functions},{SafariSmartHistory},{LogLevel}]
+# Siri Infomation Card (macOS)
+http-request ^https?:\/\/api(2|-.+)\.smoot\.apple\.(com|cn)\/card script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/Siri/JS/request.bundle.js, tag=🔍 Spotlight.Card.request, argument=[{CountryCode},{Domains},{Functions},{SafariSmartHistory},{LogLevel}]
+# Flight Search (iOS/macOS)
+http-request ^https?:\/\/api(2|-.+)\.smoot\.apple\.(com|cn)\/flight script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/Siri/JS/request.bundle.js, tag=🔍 Spotlight.Flight.request, argument=[{CountryCode},{Domains},{Functions},{SafariSmartHistory},{LogLevel}]
+
+
+[MITM]
+hostname = api*.smoot.apple.com, api.smoot.apple.cn
+

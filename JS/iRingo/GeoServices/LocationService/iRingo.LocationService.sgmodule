@@ -1,0 +1,29 @@
+#!name =  iRingo: 📍 LocationService
+#!desc = 自定义定位服务内容\n添加国际版功能\n自定义服务版本
+#!openUrl = http://boxjs.com/#/app/iRingo.LocationService
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/GeoServices/location-service
+#!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/IMG/iRingo/Location.jpg
+#!category =  iRingo
+#!arguments = GeoCountryCode:"US",Dispatcher.Hybrid:true,LogLevel:"WARN"
+#!arguments-desc = GeoCountryCode: [地区检测] 地理国家或地区代码\n    ├ AUTO: 🇺🇳自动（跟随地区检测结果）\n    ├ CN: 🇨🇳中国大陆\n    ├ HK: 🇭🇰中国香港\n    ├ TW: 🇹🇼中国台湾\n    ├ SG: 🇸🇬新加坡\n    ├ US: 🇺🇸美国\n    ├ JP: 🇯🇵日本\n    ├ AU: 🇦🇺澳大利亚\n    ├ GB: 🇬🇧英国\n    ├ KR: 🇰🇷韩国\n    ├ CA: 🇨🇦加拿大\n    └ IE: 🇮🇪爱尔兰\n要更改为的地区或国家，此选项影响GPS/Wi-Fi/有线网络下国家和地区检测的结果。\n\nDispatcher.Hybrid: [调度器] 融合数据\n地点数据接口，此选项影响公共指南，兴趣点(POI)与位置信息等功能。(注：使用国际版调度器时，不会进行数据融合）\n\nLogLevel: [调试] 日志等级\n    ├ OFF: 关闭\n    ├ ERROR: ❌ 错误\n    ├ WARN: ⚠️ 警告\n    ├ INFO: ℹ️ 信息\n    ├ DEBUG: 🅱️ 调试\n    └ ALL: 全部\n选择脚本日志的输出等级，低于所选等级的日志将全部输出。\n
+
+
+[Rule]
+# 📍 Country Code
+DOMAIN,gspe1-ssl.ls.apple.com,DIRECT
+# 📍 Amap Dispatcher
+DOMAIN,dispatcher.is.autonavi.com,DIRECT
+
+
+[Script]
+# 📍 Country Code
+📍 LocationService.pep.gcc.response = type=http-response, pattern=^https?:\/\/gspe1-ssl\.ls\.apple\.com\/pep\/gcc, requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/GeoServices/LocationService/JS/response.bundle.js, argument=GeoCountryCode="{{{GeoCountryCode}}}"&Dispatcher.Hybrid="{{{Dispatcher.Hybrid}}}"&LogLevel="{{{LogLevel}}}"
+# 📍 Dispatcher
+📍 LocationService.Dispatcher.request = type=http-request, pattern=^https?:\/\/dispatcher\.is\.autonavi\.com\/dispatcher, requires-body=1, binary-body-mode=1, debug=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/GeoServices/LocationService/JS/request.bundle.js, argument=GeoCountryCode="{{{GeoCountryCode}}}"&Dispatcher.Hybrid="{{{Dispatcher.Hybrid}}}"&LogLevel="{{{LogLevel}}}"
+📍 LocationService.Dispatcher.response = type=http-response, pattern=^https?:\/\/dispatcher\.is\.autonavi\.com\/dispatcher, requires-body=1, binary-body-mode=1, debug=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/GeoServices/LocationService/JS/response.bundle.js, argument=GeoCountryCode="{{{GeoCountryCode}}}"&Dispatcher.Hybrid="{{{Dispatcher.Hybrid}}}"&LogLevel="{{{LogLevel}}}"
+
+
+[MITM]
+hostname = %APPEND% gspe1-ssl.ls.apple.com, dispatcher.is.autonavi.com
+

@@ -1,0 +1,33 @@
+#!name =  iRingo: 📍 LocationService
+#!desc = 自定义定位服务内容\n添加国际版功能\n自定义服务版本
+#!openUrl = http://boxjs.com/#/app/iRingo.LocationService
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/GeoServices/location-service
+#!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/IMG/iRingo/Location.jpg
+#!tag =  iRingo
+
+
+[Argument]
+GeoCountryCode = select,"US","AUTO","CN","HK","TW","SG","JP","AU","GB","KR","CA","IE",tag=[地区检测] 地理国家或地区代码,desc=要更改为的地区或国家，此选项影响GPS/Wi-Fi/有线网络下国家和地区检测的结果。
+Dispatcher.Hybrid = switch,true,tag=[调度器] 融合数据,desc=地点数据接口，此选项影响公共指南，兴趣点(POI)与位置信息等功能。(注：使用国际版调度器时，不会进行数据融合）
+LogLevel = select,"WARN","OFF","ERROR","INFO","DEBUG","ALL",tag=[调试] 日志等级,desc=选择脚本日志的输出等级，低于所选等级的日志将全部输出。
+
+
+[Rule]
+# 📍 Country Code
+DOMAIN,gspe1-ssl.ls.apple.com,DIRECT
+# 📍 Amap Dispatcher
+DOMAIN,dispatcher.is.autonavi.com,DIRECT
+
+
+[Script]
+# 📍 Country Code
+http-response ^https?:\/\/gspe1-ssl\.ls\.apple\.com\/pep\/gcc script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/GeoServices/LocationService/JS/response.bundle.js, requires-body=1, tag=📍 LocationService.pep.gcc.response, argument=[{GeoCountryCode},{Dispatcher.Hybrid},{LogLevel}]
+# 📍 Dispatcher
+http-request ^https?:\/\/dispatcher\.is\.autonavi\.com\/dispatcher script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/GeoServices/LocationService/JS/request.bundle.js, requires-body=1, binary-body-mode=1, tag=📍 LocationService.Dispatcher.request, argument=[{GeoCountryCode},{Dispatcher.Hybrid},{LogLevel}]
+http-response ^https?:\/\/dispatcher\.is\.autonavi\.com\/dispatcher script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/GeoServices/LocationService/JS/response.bundle.js, requires-body=1, binary-body-mode=1, tag=📍 LocationService.Dispatcher.response, argument=[{GeoCountryCode},{Dispatcher.Hybrid},{LogLevel}]
+
+
+[MITM]
+hostname = gspe1-ssl.ls.apple.com, dispatcher.is.autonavi.com
+
