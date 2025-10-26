@@ -5,8 +5,12 @@
 
 # 说明
 
+| 统计项   | 数量                                                                 |
+| -------- | -------------------------------------------------------------------- |
+| 🧚‍♀️ 总访问量 | [![总访问量](https://komarev.com/ghpvc/?username=BOBOLAOSHIV587&color=green)](https://github.com/BOBOLAOSHIV587) |
+| 🧚‍♀️ 关注者   | [![GitHub 关注者](https://img.shields.io/github/followers/BOBOLAOSHIV587?style=social)](https://github.com/BOBOLAOSHIV587) |
 
-- 累计访客量: ![](https://profile-counter.glitch.me/BOBOLAOSHIV587_Rules/count.svg)
+
 
 1、自用Surge、(Qx)QuantumultX、Loon--分流规则、JS会员解锁脚本（搬运自各位大佬，防止删库）、Task。
 
