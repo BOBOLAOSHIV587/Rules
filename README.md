@@ -7,7 +7,7 @@
 
 | 统计项   | 数量                                                                 |
 | -------- | -------------------------------------------------------------------- |
-| 🧚‍♀️ 总访问量 | [![总访问量](https://komarev.com/ghpvc/?username=BOBOLAOSHIV587&color=green)](https://github.com/BOBOLAOSHIV587) |
+| 🧚‍♀️ 访问量 | [![总访问量](https://komarev.com/ghpvc/?username=BOBOLAOSHIV587/Rules&color=green)](https://github.com/BOBOLAOSHIV587) |
 | 🧚‍♀️ 关注者   | [![GitHub 关注者](https://img.shields.io/github/followers/BOBOLAOSHIV587?style=social)](https://github.com/BOBOLAOSHIV587) |
 
 
