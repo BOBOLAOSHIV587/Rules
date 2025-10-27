@@ -206,28 +206,28 @@
 					"desc": "定位漂移修正服务接口，控制定位漂移和🧭指南针与📍坐标的经纬度。"
 				},
 				{
+					"id": "@iRingo.Maps.Settings.TileSet.Earth",
+					"name": "[瓦片数据集] 地球图像",
+					"type": "selects",
+					"val": "AUTO",
+					"items": [{ "key": "AUTO", "label": "🇺🇳自动（随[动态配置]版本自动选择）" }, { "key": "AutoNavi", "label": "🧭高德版（主要显示国家与国界）" }, { "key": "Apple", "label": "Apple（主要显示城市与地貌）" }],
+					"desc": "此选项影响地球视图下行政区划、地貌等信息的显示。"
+				},
+				{
+					"id": "@iRingo.Maps.Settings.TileSet.Roads",
+					"name": "[瓦片数据集] 道路图像与四处看看",
+					"type": "selects",
+					"val": "AUTO",
+					"items": [{ "key": "AUTO", "label": "🇺🇳自动（随[动态配置]版本自动选择）" }, { "key": "CN", "label": "🇨🇳中国（🇨🇳:卫星视图道路正确 | 🇺🇳:无四处看看）" }, { "key": "XX", "label": "Apple（🇨🇳:卫星视图道路偏移 | 🇺🇳:有四处看看）" }],
+					"desc": "此选项影响卫星视图下的道路图像与四处看看可用路段。"
+				},
+				{
 					"id": "@iRingo.Maps.Settings.TileSet.Satellite",
 					"name": "[瓦片数据集] 卫星图像",
 					"type": "selects",
 					"val": "HYBRID",
 					"items": [{ "key": "AUTO", "label": "🇺🇳自动（随[动态配置]版本自动选择）" }, { "key": "HYBRID", "label": "混合（🇨🇳:2D较新 | 🇺🇳:主要城市3D）" }, { "key": "CN", "label": "🇨🇳中国四维（🇨🇳:2D较新 | 🇺🇳:🈚️）" }, { "key": "XX", "label": "🇺🇳DigitalGlobe（🇨🇳:2D较旧 | 🇺🇳:2D+主要城市3D）" }],
 					"desc": "此选项影响所列位图、影像与模型数据。"
-				},
-				{
-					"id": "@iRingo.Maps.Settings.TileSet.Flyover",
-					"name": "[瓦片数据集] 飞行俯瞰",
-					"type": "selects",
-					"val": "HYBRID",
-					"items": [{ "key": "HYBRID", "label": "混合" }, { "key": "CN", "label": "🇨🇳Apple（🇨🇳:🈚️ | 🇺🇳:🈚️）" }, { "key": "XX", "label": "🇺🇳Apple（🇨🇳:🈚️ | 🇺🇳:🈶️）" }],
-					"desc": "此选项影响飞行俯瞰全球各地的主要地标和城市功能。"
-				},
-				{
-					"id": "@iRingo.Maps.Settings.TileSet.Munin",
-					"name": "[瓦片数据集] 四处看看",
-					"type": "selects",
-					"val": "HYBRID",
-					"items": [{ "key": "HYBRID", "label": "混合" }, { "key": "CN", "label": "🇨🇳Apple（🇨🇳:🈚️ | 🇺🇳:🈚️）" }, { "key": "XX", "label": "🇺🇳Apple（🇨🇳:🈚️ | 🇺🇳:🈶️）" }],
-					"desc": "此选项影响 360 度全景视角在某些地点四处看看功能。"
 				},
 				{
 					"id": "@iRingo.Maps.Settings.LogLevel",
