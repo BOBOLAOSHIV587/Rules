@@ -1,0 +1,21 @@
+#!name=贴吧签到
+#!desc=自动签到贴吧。获取Cookie说明：打开百度贴吧App后, 如通知成功获取cookie, 则可以使用此签到脚本。获取Cookie后, 请将Cookie脚本禁用并移除主机名，以免产生不必要的MITM。脚本将在每天上午9:00执行, 您可以修改执行时间。
+#!date=2025-10-30
+#!category=😍BOBO Task
+#!author= ClydeTime[https://github.com/ClydeTime/Quantumult]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/miniColor/Image/Color/tieba.png
+#!openUrl=https://apps.apple.com/app/id477927812
+
+
+[Script]
+# > 百度贴吧 cookie
+http-request ^https?:\/\/tiebac\.baidu\.com\/c\/u\/follow\/getFoldedMessageUserInfo script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/BaiDuTieBa/JS/BaiDuTieBa.js, tag=贴吧Cookie1
+http-request ^https?:\/\/c\.tieba\.baidu\.com\/c\/u\/follow\/getFoldedMessageUserInfo script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/BaiDuTieBa/JS/BaiDuTieBa.js, tag=贴吧Cookie2
+
+# > 百度贴吧签到
+cron "0 9 * * *" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/BaiDuTieBa/JS/BaiDuTieBa.js, tag=贴吧签到
+
+
+[MITM]
+hostname = tiebac.baidu.com, c.tieba.baidu.com
+
