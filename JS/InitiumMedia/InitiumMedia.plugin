@@ -1,0 +1,20 @@
+#!name=端传媒
+#!desc=端传媒解锁Pro。目前仅适用于v3.2版本。
+#!date=2025-11-09
+#!category=😍BOBO Premium
+#!author=墨鱼[https://github.com/ddgksf2013]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/InitiumMedia.png
+#!openUrl=https://apps.apple.com/app/id1020176943
+
+
+[Script]
+# > 端传媒Pro
+http-response ^https?:\/\/app\.theinitium\.com\/subs\/[a-zA-Z_]+\/verify_subscription script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/InitiumMedia/JS/InitiumMedia.js, requires-body=true, timeout=60, tag=端传媒Pro
+http-response ^https?:\/\/api\.wallkit\.net\/api\/v\d/user script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/InitiumMedia/JS/InitiumMedia.js, requires-body=true, timeout=60, tag=端传媒Pro
+http-response ^https?:\/\/app\.theinitium\.com\/editionfeed.*pugpig_atom_contents\.json script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/InitiumMedia/JS/InitiumMedia.js, requires-body=true, timeout=60, tag=端传媒Pro
+http-request ^https?:\/\/app\.theinitium\.com\/editionfeed.*pugpig_atom_contents\.json script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Script-Hub/JS/scripts/replace-header.js, timeout=30, tag=replaceHeader, argument="(%5Cr%5Cn)If-None-Match%3A.%2B(%5Cr%5Cn)-%3E%241If-None-Match%3A%242"
+
+
+[MITM]
+hostname = app.theinitium.com, api.wallkit.net
+
