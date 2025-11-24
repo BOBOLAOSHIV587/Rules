@@ -1,0 +1,52 @@
+{
+  "id": "Crack.sub",
+  "name": "ck订阅",
+  "author": "@Sliverkiss",
+  "icon": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png",
+  "repo": "",
+  "apps": [
+    {
+      "id": "WyyCrack",
+      "name": "网易云音乐会员共享",
+      "author": "@Sliverkiss",
+      "repo": "",
+      "icons": [
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png",
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png"
+      ],
+      "keys": [
+        "wyy_crack"
+      ],
+      "settings": [
+        {
+          "id": "crack.is_open",
+          "name": "开启会员获取ck",
+          "val": false,
+          "type": "boolean",
+          "desc": "默认关闭"
+        },{
+          "id": "wyy_crack.cookie",
+          "name": "会员Cookie数据",
+          "val": "",
+          "type": "textarea",
+          "autoGrow": true,
+          "desc": "会员Cookie数据"
+        },{
+          "id": "wyy_crack.user-agent",
+          "name": "会员User-Agent数据",
+          "val": "",
+          "type": "textarea",
+          "autoGrow": true,
+          "desc": "会员User-Agent数据"
+        },{
+          "id": "wyy_crack.mconfig-info",
+          "name": "会员mconfig-info数据",
+          "val": "",
+          "type": "textarea",
+          "autoGrow": true,
+          "desc": "会员mconfig-info数据"
+        }
+      ]
+    }
+  ]
+}

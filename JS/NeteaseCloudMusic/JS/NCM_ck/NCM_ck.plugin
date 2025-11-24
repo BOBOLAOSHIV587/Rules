@@ -1,0 +1,29 @@
+#!name=网易云音乐共享(获取ck)
+#!desc=网易云音乐会员共享，需要黑胶会员数据，提供数据的会员账号在设备上不能退出登录。使用教程：1、将脚本拉取到本地，通过捷径打开获取ck开关；2、打开网易云音乐，等待1~2秒，直到出现相关脚本通知；3、获取ck成功后，在捷径中将获取ck开关关闭，避免产生不必要的麻烦。关于会员数据如何分享给好友：1、打开捷径，点击导出数据，将其发送给被共享好友；2、被共享好友通过捷径一键导入会员数据；3、将本脚本拉取到本地，在捷径关闭获取ck开关，即可享受会员服务
+#!date=2025-11-25
+#!category=😍BOBO Premium
+#!author=Sliverkiss[https://github.com/Sliverkiss]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png
+#!openUrl = https://www.icloud.com/shortcuts/06b6e7b8e3344de59b593e03daba3762
+
+
+[Script]
+# > 网易云音乐获取ck
+http-request ^https:\/\/interface3?\.music\.163\.com\/eapi\/playermode\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/NCM_ck/JS/NCM_ck.js, timeout=60, tag=网易云音乐获取ck
+
+http-request ^https:\/\/interface3?\.music\.163\.com\/eapi\/search\/complex\/(page|rec\/song\/get) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/NCM_ck/JS/NCM_ck.js, timeout=60, tag=网易云音乐获取ck
+
+http-request ^https:\/\/interface3?\.music\.163\.com\/eapi\/song\/(chorus|enhance\/|play\/|type\/detail\/get) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/NCM_ck/JS/NCM_ck.js, timeout=60, tag=网易云音乐获取ck
+
+http-request ^https:\/\/interface3?\.music\.163\.com\/eapi\/(v1\/artist\/top\/song|v3\/discovery\/recommend\/songs) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/NCM_ck/JS/NCM_ck.js, timeout=60, tag=网易云音乐获取ck
+
+http-request ^https:\/\/interface3?\.music\.163\.com\/eapi\/vipnewcenter\/app\/resource\/newaccountpage script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/NCM_ck/JS/NCM_ck.js, timeout=60, tag=网易云音乐获取ck
+
+http-request ^https?:\/\/interface3?\.music\.163\.com\/eapi\/(homepage\/|v6\/)?playlist\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/NCM_ck/JS/NCM_ck.js, timeout=60, tag=网易云音乐获取ck
+
+http-request ^https?:\/\/interface3?\.music\.163\.com\/eapi\/vipauth\/app\/auth\/(soundquality\/)?query script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/NCM_ck/JS/NCM_ck.js, timeout=60, tag=网易云音乐获取ck
+
+
+[MITM]
+hostname = *.music.163.com
+
