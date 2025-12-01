@@ -19,7 +19,7 @@ const LOG_PREFIX = 'KuGou 签到';
 const H5_SECRET = 'NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt'; 
 
 // Utils
-const UTILS_URL = 'https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/Task/KuGou_CV/JS/JS-1/Utils.js';
+const UTILS_URL = 'https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/KuGou_CV/JS/JS-1/Utils.js';
 const CACHE_KEY_CODE = 'Utils_Code';
 const CACHE_KEY_TIME = 'Utils_Codetime';
 
