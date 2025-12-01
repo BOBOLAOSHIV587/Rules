@@ -1,0 +1,14 @@
+#!name=酷狗概念版VIP--Eric
+#!desc=修复酷狗概念版解锁VIP功能，自动签到领取畅听vip，支持去广告，在线听歌及下载支持hi-res、无损音质，VIP头像挂件，感谢灰佬技术支持，每日凌晨0点10分自动领取VIP，第一使用打开酷狗概念版天天签到领VIP页面或浏览器登陆https://activity.kugou.com/getvips/v-4163b2d0/index.html?should_append_gdt_ua=1获取参数，提示获取成功即可
+#!category=酷狗概念版
+
+
+
+[MITM]
+hostname =  %APPEND% *.kugou.com
+
+
+[Script]
+酷狗领取VIP = type=cron,cronexp=10 0 * * *,script-path=https://gist.githubusercontent.com/Alex0510/8b958bcf53ed1271e03bb5130b2206ec/raw/kugou_vip.js
+酷狗数据 = type=http-request,pattern=https://(gateway|gatewayretry|gateway3).kugou.com/youth/v1/activity/get_month_vip_record.*,requires-body=0,script-path=https://gist.githubusercontent.com/Alex0510/8b958bcf53ed1271e03bb5130b2206ec/raw/kugou_cookie.js
+酷狗去广告 = type=http-response,pattern=(https?:\/\/)?.*\.kugou\.com\/((v1\/(get_union_vip|vipuser_sub|get_res_privilege)|mobile\/vipinfo|kugouvip\/v[12]\/batch_union_vipinfo)|pendant/v2/(set_user_pendan|get_pendant_list)).*,requires-body=1,max-size=0,binary-body-mode=0,script-path=https://gist.githubusercontent.com/Alex0510/8b958bcf53ed1271e03bb5130b2206ec/raw/kugou_ad.js
