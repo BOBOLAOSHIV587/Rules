@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苹果应用管理平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Arial", "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .container {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+        h2 {
+            font-size: 18px;
+            margin: 16px 0 12px;
+            color: #1d1d1f;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #424245;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0071e3;
+        }
+        button {
+            background-color: #0071e3;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #0077ed;
+        }
+        .result {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 6px;
+            background-color: #f9f9fb;
+            border: 1px solid #eee;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        .result.success {
+            border-color: #34c759;
+            color: #34c759;
+        }
+        .result.error {
+            border-color: #ff3b30;
+            color: #ff3b30;
+        }
+        .install-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 16px;
+            background-color: #34c759;
+            color: #fff;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .install-link:hover {
+            background-color: #32d74b;
+        }
+        .api-domain {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #6e6e73;
+        }
+    </style>
+</head>
+<body>
+    <!-- 登录模块 -->
+    <div class="container">
+        <h1>苹果账号登录</h1>
+        <div class="form-group">
+            <label for="appleId">Apple ID</label>
+            <input type="text" id="appleId" placeholder="请输入Apple账号">
+        </div>
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" id="password" placeholder="请输入账号密码">
+        </div>
+        <div class="form-group">
+            <label for="code">验证码（二次验证时填写）</label>
+            <input type="text" id="code" placeholder="可选，二次验证时输入">
+        </div>
+        <button id="loginBtn">登录</button>
+        <div class="result" id="loginResult"></div>
+    </div>
+
+    <!-- 应用搜索模块 -->
+    <div class="container">
+        <h1>应用搜索</h1>
+        <div class="form-group">
+            <label for="searchTerm">搜索关键词</label>
+            <input type="text" id="searchTerm" placeholder="请输入应用名称">
+        </div>
+        <div class="form-group">
+            <label for="searchLimit">结果数量（1-20）</label>
+            <input type="number" id="searchLimit" value="10" min="1" max="20">
+        </div>
+        <div class="form-group">
+            <label for="searchCountry">地区</label>
+            <select id="searchCountry">
+                <option value="CN">中国（CN）</option>
+                <option value="US">美国（US）</option>
+                <option value="JP">日本（JP）</option>
+                <option value="HK">中国香港（HK）</option>
+            </select>
+        </div>
+        <button id="searchBtn">搜索应用</button>
+        <div class="result" id="searchResult"></div>
+        <div id="appList" class="result" style="margin-top: 12px; display: none;"></div>
+    </div>
+
+    <!-- 应用安装模块 -->
+    <div class="container">
+        <h1>应用安装</h1>
+        <div class="form-group">
+            <label for="appId">应用ID（Adam ID）</label>
+            <input type="text" id="appId" placeholder="请输入应用ID">
+        </div>
+        <div class="form-group">
+            <label for="appVerId">版本ID（可选，默认最新版）</label>
+            <input type="text" id="appVerId" placeholder="可选，不填获取最新版本">
+        </div>
+        <button id="getAppInfoBtn">获取应用信息</button>
+        <div class="result" id="appInfoResult"></div>
+        
+        <!-- 安装链接区域 -->
+        <div id="installArea" style="display: none; margin-top: 16px;">
+            <h2>安装信息</h2>
+            <div class="form-group">
+                <label>应用名称</label>
+                <input type="text" id="installName" readonly>
+            </div>
+            <div class="form-group">
+                <label>版本号</label>
+                <input type="text" id="installVersion" readonly>
+            </div>
+            <div class="form-group">
+                <label>Bundle ID</label>
+                <input type="text" id="installBundleId" readonly>
+            </div>
+            <div class="form-group">
+                <label>安装链接（点击安装）</label>
+                <a id="installPlistLink" class="install-link" href="#" target="_blank">点击安装应用</a>
+            </div>
+            <div class="api-domain">
+                支持域名：apple-api.com、xiaobai.app（Surge iOS Miti模块配置）
+            </div>
+        </div>
+    </div>
+
+    <!-- 辅助功能模块 -->
+    <div class="container">
+        <h1>辅助功能</h1>
+        <button id="refreshCookieBtn" style="margin-right: 10px; margin-bottom: 10px;">刷新登录Cookie</button>
+        <button id="resetAuthBtn" style="margin-bottom: 10px;">重置登录状态</button>
+        <button id="getVersionListBtn" style="margin-bottom: 10px;">获取应用历史版本</button>
+        <button id="purchaseAppBtn" style="margin-bottom: 10px;">购买应用（未购买时）</button>
+        <div class="result" id="auxResult"></div>
+    </div>
+
+    <script>
+        // 基础配置（根据实际部署修改localhost:8000）
+        const BASE_API_URL = "http://localhost:8000";
+        const IPA_BASE_URL = "http://localhost:8000"; // IPA文件存储地址
+
+        // 工具函数：显示结果
+        const showResult = (elemId, content, isSuccess = true) => {
+            const elem = document.getElementById(elemId);
+            elem.textContent = content;
+            elem.className = `result ${isSuccess ? 'success' : 'error'}`;
+        };
+
+        // 1. 登录功能
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            const appleId = document.getElementById('appleId').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const code = document.getElementById('code').value.trim();
+
+            if (!appleId || !password) {
+                showResult('loginResult', '请填写Apple ID和密码', false);
+                return;
+            }
+
+            try {
+                const res = await fetch(`${BASE_API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ appleId, password, code })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showResult('loginResult', `登录成功！账号：${appleId}`);
+                } else {
+                    showResult('loginResult', `登录失败：${data.error}`, false);
+                }
+            } catch (err) {
+                showResult('loginResult', `接口请求失败：${err.message}`, false);
+            }
+        });
+
+        // 2. 应用搜索功能
+        document.getElementById('searchBtn').addEventListener('click', async () => {
+            const term = document.getElementById('searchTerm').value.trim();
+            const limit = document.getElementById('searchLimit').value;
+            const country = document.getElementById('searchCountry').value;
+
+            if (!term) {
+                showResult('searchResult', '请输入搜索关键词', false);
+                return;
+            }
+
+            try {
+                const res = await fetch(`${BASE_API_URL}/apps/search/${encodeURIComponent(term)}?limit=${limit}&country=${country}`);
+                const data = await res.json();
+
+                if (data.success) {
+                    showResult('searchResult', `搜索成功，找到${data.data.resultCount}个应用`);
+                    const appListElem = document.getElementById('appList');
+                    appListElem.style.display = 'block';
+                    
+                    let appHtml = '<h3>搜索结果</h3>';
+                    data.data.results.forEach(app => {
+                        appHtml += `
+                            <div style="margin: 8px 0; padding: 8px; border-bottom: 1px solid #eee;">
+                                <p><strong>名称：</strong>${app.trackName}</p>
+                                <p><strong>ID：</strong>${app.trackId}（点击复制）</p>
+                                <p><strong>版本：</strong>${app.version}</p>
+                                <p><strong>Bundle ID：</strong>${app.bundleId}</p>
+                                <button onclick="copyAppId(${app.trackId})">复制ID</button>
+                            </div>
+                        `;
+                    });
+                    appListElem.innerHTML = appHtml;
+                } else {
+                    showResult('searchResult', `搜索失败：${data.error}`, false);
+                    document.getElementById('appList').style.display = 'none';
+                }
+            } catch (err) {
+                showResult('searchResult', `接口请求失败：${err.message}`, false);
+            }
+        });
+
+        // 复制应用ID到输入框
+        window.copyAppId = (id) => {
+            document.getElementById('appId').value = id;
+            showResult('searchResult', `已复制应用ID：${id}`, true);
+        };
+
+        // 3. 获取应用信息与生成安装链接
+        document.getElementById('getAppInfoBtn').addEventListener('click', async () => {
+            const appId = document.getElementById('appId').value.trim();
+            const appVerId = document.getElementById('appVerId').value.trim();
+
+            if (!appId) {
+                showResult('appInfoResult', '请填写应用ID', false);
+                return;
+            }
+
+            try {
+                // 拼接请求URL（带版本号或不带）
+                let reqUrl = `${BASE_API_URL}/apps/${appId}`;
+                if (appVerId) reqUrl += `?appVerId=${appVerId}`;
+
+                const res = await fetch(reqUrl);
+                const data = await res.json();
+
+                if (data.success) {
+                    const appInfo = data.data.appInfo;
+                    showResult('appInfoResult', `获取应用信息成功：${appInfo.name}（v${appInfo.displayVersion}）`);
+                    
+                    // 填充安装信息
+                    document.getElementById('installName').value = appInfo.name;
+                    document.getElementById('installVersion').value = appInfo.displayVersion;
+                    document.getElementById('installBundleId').value = appInfo.bundleId;
+                    
+                    // 生成plist安装链接（模拟原代码逻辑）
+                    const plistParams = new URLSearchParams({
+                        name: appInfo.name,
+                        displayVersion: appInfo.displayVersion,
+                        id: appId,
+                        bundleId: appInfo.bundleId
+                    });
+                    const plistUrl = `${BASE_API_URL}/install.plist?${plistParams.toString()}`;
+                    document.getElementById('installPlistLink').href = plistUrl;
+                    
+                    // 显示安装区域
+                    document.getElementById('installArea').style.display = 'block';
+                } else {
+                    showResult('appInfoResult', `获取失败：${data.error}`, false);
+                    document.getElementById('installArea').style.display = 'none';
+                }
+            } catch (err) {
+                showResult('appInfoResult', `接口请求失败：${err.message}`, false);
+            }
+        });
+
+        // 4. 辅助功能：刷新Cookie
+        document.getElementById('refreshCookieBtn').addEventListener('click', async () => {
+            try {
+                const res = await fetch(`${BASE_API_URL}/auth/refresh`, { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    showResult('auxResult', 'Cookie刷新成功', true);
+                } else {
+                    showResult('auxResult', `刷新失败：${data.error}`, false);
+                }
+            } catch (err) {
+                showResult('auxResult', `请求失败：${err.message}`, false);
+            }
+        });
+
+        // 辅助功能：重置登录状态
+        document.getElementById('resetAuthBtn').addEventListener('click', async () => {
+            try {
+                const res = await fetch(`${BASE_API_URL}/auth/reset`, { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    showResult('auxResult', '登录状态已重置，需重新登录', true);
+                    document.getElementById('appleId').value = '';
+                    document.getElementById('password').value = '';
+                    document.getElementById('code').value = '';
+                } else {
+                    showResult('auxResult', `重置失败：${data.error}`, false);
+                }
+            } catch (err) {
+                showResult('auxResult', `请求失败：${err.message}`, false);
+            }
+        });
+
+        // 辅助功能：获取应用历史版本
+        document.getElementById('getVersionListBtn').addEventListener('click', async () => {
+            const appId = document.getElementById('appId').value.trim();
+            if (!appId) {
+                showResult('auxResult', '请先填写应用ID', false);
+                return;
+            }
+
+            try {
+                const res = await fetch(`${BASE_API_URL}/apps/${appId}/versions`);
+                const data = await res.json();
+                if (data.success) {
+                    showResult('auxResult', `获取到${data.data.total}个历史版本`, true);
+                } else {
+                    showResult('auxResult', `获取失败：${data.error}`, false);
+                }
+            } catch (err) {
+                showResult('auxResult', `请求失败：${err.message}`, false);
+            }
+        });
+
+        // 辅助功能：购买应用
+        document.getElementById('purchaseAppBtn').addEventListener('click', async () => {
+            const appId = document.getElementById('appId').value.trim();
+            if (!appId) {
+                showResult('auxResult', '请先填写应用ID', false);
+                return;
+            }
+
+            try {
+                const res = await fetch(`${BASE_API_URL}/apps/${appId}/purchase`, { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    showResult('auxResult', `应用购买请求提交成功（ID：${appId}）`, true);
+                } else {
+                    showResult('auxResult', `购买失败：${data.error}`, false);
+                }
+            } catch (err) {
+                showResult('auxResult', `请求失败：${err.message}`, false);
+            }
+        });
+    </script>
+</body>
+</html>
