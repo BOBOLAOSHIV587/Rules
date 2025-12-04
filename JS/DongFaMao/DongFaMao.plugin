@@ -1,0 +1,17 @@
+#!name=懂法猫-裁判文书网司法案例检索法律法规大全合同审查法律师工具
+#!desc= 解锁会员
+#!date=2025-12-05
+#!category=😍BOBO Premium
+#!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666],@liul0ng
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/DongFaMao.png
+#!openUrl=https://apps.apple.com/app/id6667107957
+
+
+[Script]
+# > 懂法猫
+http-response ^https:\/\/app\.dongfamao\.com:443\/prod-api\/app\/user\/userInfo script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DongFaMao/JS/DongFaMao.js, requires-body=true, timeout=60, tag=懂法猫
+
+
+[MITM]
+hostname = app.dongfamao.com, app.dongfamao.com:443
+
