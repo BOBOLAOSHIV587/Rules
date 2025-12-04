@@ -1,0 +1,17 @@
+#!name=ListenLeap-帮你听懂英语播客-通过播客学英语
+#!desc= 解锁会员
+#!date=2025-12-05
+#!category=😍BOBO Premium
+#!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666],@liul0ng
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/ListenLeap.png
+#!openUrl=https://apps.apple.com/app/id6642688167
+
+
+[Script]
+# > ListenLeap-通过播客学英语
+http-response ^https:\/\/www\.listenleap\.com\/front-api\/user\/getUserInfoByUserToken script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/ListenLeap/JS/ListenLeap.js, requires-body=true, timeout=60, tag=ListenLeap通过播客学英语
+
+
+[MITM]
+hostname = www.listenleap.com
+
