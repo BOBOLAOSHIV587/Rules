@@ -1,0 +1,17 @@
+#!name=暗记-AnkiApp-记忆神器
+#!desc= 解锁会员
+#!date=2025-12-10
+#!category=😍BOBO Premium
+#!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666],@liul0ng
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/AnkiApp.png
+#!openUrl=https://apps.apple.com/app/id689185915
+
+
+[Script]
+# > 懂法猫
+暗记 = type=http-response, pattern=^https:\/\/api\.ankiapp\.com\/users\/account, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/AnkiApp/JS/Anki.js, requires-body=true, max-size=-1, timeout=60
+
+
+[MITM]
+hostname = %APPEND% api.ankiapp.com
+
