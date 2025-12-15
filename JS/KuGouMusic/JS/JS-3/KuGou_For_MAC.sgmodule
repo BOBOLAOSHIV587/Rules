@@ -1,0 +1,14 @@
+#!name=APP解锁
+#!desc=解锁APP：【酷狗for Mac】
+#!author=General℡[https://github.com/General74110/Scripts]
+#!category= General℡
+#!homepage=https://github.com/General74110/Scripts
+#!date=2025-9-7 20:00
+
+[Script]
+#酷狗for Mac
+kugou_vip = type=http-response,pattern=^https?:\/\/(u\.mobile\.kugou\.com\/v\/ck\?.*|vip\.kugou\.com\/mobile\/vipinfoV2.*|loginservice\.kugou\.com\/v5\/login_by_token\?.*|userinfoservice\.kugou\.com\/v1\/get_login_extend_info.*|usercenter\.kugou\.com\/v3\/get_my_info\?.*|userinfo\.user\.kugou\.com\/v2\/get_grade_info.*|userinfo\.user\.kugou\.com\/get_bind.*|tools\.mobile\.kugou\.com\/v1\/privacy\/info\?.*|acshow\.kugou\.com\/show7\/json\/v2\/user\/switchState.*|gateway\.kugou\.com\/media\.store\/v1\/get_res_privilege\/lite\?.*)$,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/General74110/Scripts/master/Script/UnlockVip/kugou for Mac.js
+
+
+[MITM]
+hostname = %APPEND% *.kugou.com

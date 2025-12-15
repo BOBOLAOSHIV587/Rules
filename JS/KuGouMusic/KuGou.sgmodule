@@ -1,0 +1,44 @@
+#!name=酷狗音乐
+#!desc=酷狗音乐解锁Vip
+#!date=2025-12-15
+#!category=😍BOBO Premium
+#!author= baby[https://github.com/Yu9191/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuGou.png
+#!openUrl=https://apps.apple.com/app/id472208016
+
+
+[Rule]
+# > (广告/弹窗)
+URL-REGEX, ^https:\/\/vipssr\.kugou\.com\/static\/js\/async\/flexPayPopup, REJECT
+URL-REGEX, ^https:\/\/gateway\.kugou\.com\/vipssr\/prepay_ios\.html, REJECT
+URL-REGEX, ^https:\/\/staticssl\.kugou\.com\/common\/js-lib\/vip\/dlg_ctrler_v2\.js$, REJECT
+URL-REGEX, ^https:\/\/h5\.kugou\.com\/apps\/vipcenter\/_next\/static\/css, REJECT
+URL-REGEX, ^https:\/\/vipssr\.kugou\.com\/static\/js\/vip\/newUi\/vipPageUnionIosContent-, REJECT
+URL-REGEX, ^https:\/\/fx\.service\.kugou\.com\/fx\/activity\/register\/center\/sidebar\/configV2$, REJECT
+URL-REGEX, ^https:\/\/service1\.fanxing\.kugou\.com\/video\/mo\/live\/pull\/mutiline\/cfg, REJECT
+URL-REGEX, ^http:\/\/log\.web\.kugou\.com\/postEvent\.php$, REJECT
+
+# > (广告域名)
+DOMAIN, webvoobssdl.kugou.com, REJECT
+DOMAIN, ad.tencentmusic.com, REJECT
+DOMAIN, ads.service.kugou.com, REJECT
+DOMAIN, adsfile.kugou.com, REJECT
+DOMAIN, mdpfilebssdlbig.kugou.com, REJECT
+DOMAIN, adserviceretry.kugou.com, REJECT
+
+# > (开屏广告)
+IP-CIDR, 157.255.11.247/32, REJECT, no-resolve
+IP-CIDR, 111.206.99.202/32, REJECT, no-resolve
+
+
+[Script]
+酷狗_播放res = type=http-response, pattern=^https?:\/\/(m\.kugou\.com|gateway(retry)?\.kugou\.com|ads\.service\.kugou\.com|welfare\.kugou\.com|fx\.service\.kugou\.com|hwstore\.kugou\.com|loginservice\.kugou\.com|expendablekmrcdnretry\.kugou\.com)\/(ssr\/decocenter\/home|v5\/login_by_token|v2\/get_login_extend_info|card\/v1\/pxy\/top|ads\.gateway\/v2\/sidebar_link|ads\.gateway\/v2\/sidebar_top_card|ads\.gateway\/v2\/home_card|mobile\/vipinfoV2|v4\/mobile_splash(_sort)?|v2\/get_vip_config|ads\.gateway\/v5\/task_video\/qualification|els\.abt\/v1\/tmeab|pxy\/v1\/combo\/startup|mstc\/musicsymbol\/v1\/system\/profile|pendant\/v2\/get_user_pendant|v1\/blindbox_cabinet\/client_cabinet|ads\.gateway\/v2\/mobile_link|card\/v1\/pxy\/listen|flow\/user_config\/get_level_config_ios|v1\/starlight\/get_campaign_infos|searchnofocus\/v1\/search_no_focus_word|updateservice\/v1\/get_dev_user|v1\/login_by_quick_token|card\/v1\/pxy\/recommend_stream(_v2)?|v1\/get_res_privilege\/lite|v1\/union\/audio_info|ads\.gateway\/v2\/task_center_entrance|ocean\/v6\/theme\/category|tools\.mobile\/v2\/theme\/info|promotionvip\/v3\/vip_level\/detail), requires-body=true, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
+
+酷狗_播放v5 = type=http-response, pattern=^https?:\/\/gateway\.kugou\.com\/tracker\/v5\/url, requires-body=true, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGouV5.js
+
+酷狗_K歌 = type=http-response, pattern=^https?:\/\/(nacsing\.kugou\.com|acsing\.service\.kugou\.com|vipos\.kugou\.com|gateway\.kugou\.com|gamecenter\.kugou\.com|acsing\.tx\.kugou\.com)\/(sing7\/json\/v2\/user\/login|ccktv\/v1\/ktv_room\/room\/room_config|fxsing\/vip\/member\/info|sing7\/homepage\/json\/v3\/vip\/tip|v4\/price\/get_tips|vipenergy\/v2\/entrance\/vip_center_user_info|fxsing\/vip\/user\/info|sing7\/homepage\/json\/v3\/cdn\/kroom_tab_enter|v1\/home\/member_game|sing7\/homepage\/json\/v3\/cdn\/kroom_tab\/banners), requires-body=true, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGouSong.js
+
+
+[MITM]
+hostname = %APPEND% *.kugou.com, *.*.kugou.com
+
