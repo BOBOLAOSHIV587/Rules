@@ -1,0 +1,19 @@
+#!name=TG QuickSend（草稿直达）
+#!desc=点击直达 Telegram Bot，并预填消息草稿（你只需点一次发送）
+#!date=2025-12-15
+#!category=😍BOBO
+#!system=ios
+#!author= baby[https://github.com/Yu9191/Rewrite]
+#!arguments=BOT:机器人用户名(不带@), TEXT:预填文本, LIST:Panel预设列表, CRONEXP:定时表达式, TITLE:通知标题, SUBTITLE:通知副标题, OPEN:点击通知跳转, VER:缓存刷新号
+#!arguments-desc=BOT:\n- 目标机器人用户名，不带 @\n- 示例：lovebabyforeverbot\n\nTEXT:\n- 预填到输入框的内容（例如 /start）\n- 注意：如包含 & 请写 %26（否则会把 argument 截断）\n\nLIST:\n- Panel 预设列表（下拉刷新轮换）\n- 格式：机器人::文本|机器人::文本\n- 示例：lovebabyforeverbot::/start|lovebabyforeverbot::/checkin\n\nCRONEXP:\n- cron 表达式\n- 示例：0 9 * * *（每天09:00）\n- 示例：0 * * * *（每小时整点）\n\nTITLE:\n- 通知标题\n- 示例：TG Start\n\nSUBTITLE:\n- 通知副标题\n- 示例：@lovebabyforeverbot\n\nOPEN:\n- 1=点击通知自动打开 Telegram 并预填草稿\n- 0=只弹通知不跳转\n\nVER:\n- 用于刷新 Surge 对远程脚本的缓存\n- 改了 gist 但没生效，就把它改成新数字（如 20251213 → 20251214）
+
+
+[Panel]
+TGQuick = title="TG QuickSend",content="下拉刷新生成链接 / 刷新切换预设",style=info,script-name=tg_panel,update-interval=1
+
+
+[Script]
+tg_panel = type=generic,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/TGQuickSend/JS/TG.js?v={{{VER}}},timeout=5,argument=mode=panel&list={{{LIST}}}
+
+tg_notify_daily = type=cron,cronexp="{{{CRONEXP}}}",script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/TGQuickSend/JS/TG.js?v={{{VER}}},timeout=10,argument=mode=notify&bot={{{BOT}}}&text={{{TEXT}}}&title={{{TITLE}}}&subtitle={{{SUBTITLE}}}&open={{{OPEN}}}
+
