@@ -1,0 +1,18 @@
+#!name=STARZ/Lionsgate+ iOS 外挂字幕和强制1080p插件
+#!desc=STARZ/Lionsgate+ iOS 外挂字幕和强制1080p插件
+#!date=2025-12-18
+#!category=🐹 BOBO Premium
+#!author=liunice[https://github.com/liunice]
+
+
+[Script]
+# STARZ外挂srt字幕
+http-response ^https:\/\/playdata\.starz\.com\/metadata-service\/play\/.*?\/content\?contentIds= script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/STARZ/JS/STARZ.js, requires-body=true, timeout=60, tag=STARZ外挂srt字幕
+http-response ^https:\/\/auth(-ios)?\.starz\.com\/api\/v\d+\/play\/start$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/STARZ/JS/STARZ.js, requires-body=true, timeout=60, tag=STARZ外挂srt字幕
+http-response ^https:\/\/.*?\.starz\.com\/assets\/.*?.vtt$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/STARZ/JS/STARZ.js, requires-body=true, timeout=60, tag=STARZ外挂srt字幕
+
+# STARZ强制1080p
+http-response ^https:\/\/.*?\.starz\.com\/assets\/.*?\/Apple\/(spgb|dezmund|spfr)_.*?\.m3u8$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/STARZ/JS/STARZ.js, requires-body=true, timeout=60, tag=STARZ强制1080p
+
+[MITM]
+hostname = *.starz.com
