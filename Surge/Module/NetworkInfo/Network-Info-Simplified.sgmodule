@@ -1,0 +1,15 @@
+#!name=Network Info Panel
+#!desc=详细的显示你当前的网络信息
+#!date=2025-12-18
+#!category=😍BOBO面板模块
+#!author= Rabbit-Spec[https://github.com/Rabbit-Spec/Surge],Nebulosa-Cat[https://github.com/Nebulosa-Cat]
+
+
+[Panel]
+NetInfoPanel=title="",content="",style=info,script-name=net-info-panel.js,update-interval=1
+
+[Script]
+net-info-panel.js=script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/NetworkInfo/JS/Network-Info.js,type=generic,timeout=30
+
+[Host]
+ip-api.com = 208.95.112.1
