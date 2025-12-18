@@ -1,0 +1,26 @@
+#!name=SkyShowtime iOS 界面全英文化、外挂字幕和强制1080p插件
+#!desc=SkyShowtime iOS 界面全英文化、外挂字幕和强制1080p插件
+#!date=2025-12-18
+#!category=🐹 BOBO Premium
+#!author=liunice[https://github.com/liunice]
+
+
+[Script]
+# SkyShowtime外挂srt字幕
+http-response ^https:\/\/atom\.skyshowtime\.com\/adapter\-calypso\/v\d+\/query\/node/.*?\?represent=\(next script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, requires-body=true, timeout=60, tag=SkyShowtime外挂srt字幕
+http-response ^https:\/\/.*?\.pcdn\d+\.cssott\.com\/SST\/.*?\.webvtt$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, requires-body=true, timeout=60, tag=SkyShowtime外挂srt字幕
+
+# SkyShowtime强制1080p
+http-response ^https:\/\/.*?\.pcdn\d+\.cssott\.com\/SST\/.*?\/mpeg_cbcs\/master_manifest_.*?\.m3u8 script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, requires-body=true, timeout=60, tag=SkyShowtime强制1080p
+
+# SkyShowtime界面全英文
+http-response ^https:\/\/ovp\.skyshowtime\.com\/ls\/localisation$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, requires-body=true, timeout=60, tag=SkyShowtime界面全英文
+http-request ^https:\/\/atom\.skyshowtime\.com\/adapter\-calypso\/v\d+\/query\/node/.*?\?represent=\(items\) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, timeout=60, tag=SkyShowtime界面全英文
+http-request ^https:\/\/atom\.skyshowtime\.com\/adapter\-calypso\/v\d+\/query\/menu$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, timeout=60, tag=SkyShowtime界面全英文
+http-request ^https:\/\/atom\.skyshowtime\.com\/adapter\-calypso\/v\d+\/labels$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, timeout=60, tag=SkyShowtime界面全英文
+http-request ^https:\/\/mobile\.clients\.skyshowtime\.com\/bff\/sections\/v\d+\/personalised\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, timeout=60, tag=SkyShowtime界面全英文
+http-request ^https:\/\/mobile\.clients\.skyshowtime\.com\/bff\/sections\/v\d+\?template=sections& script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, timeout=60, tag=SkyShowtime界面全英文
+http-request ^https:\/\/atom\.skyshowtime\.com\/adapter\-calypso\/v\d+\/query\/node\/(provider_series_id|provider_variant_id)\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/SkyShowtime/JS/SkyShowtime.js, timeout=60, tag=SkyShowtime界面全英文
+
+[MITM]
+hostname = ovp.skyshowtime.com, atom.skyshowtime.com, *.pcdn*.cssott.com, mobile.clients.skyshowtime.com
