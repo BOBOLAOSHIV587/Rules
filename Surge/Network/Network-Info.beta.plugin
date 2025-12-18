@@ -1,0 +1,16 @@
+#!name=网络信息(β)
+#!desc=包含国内和国外. 自己设置对应域名的分流. 默认: IP 相同时不通知, 可设置 IP 前三段相同时不通知
+#!date=2025-12-18
+#!category=😍BOBO面板模块
+#!author=xream[https://github.com/xream/scripts]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Surge.png
+#!select = 网络信息通知设置,默认: IP 相同时不通知,IP 前三段相同时不通知
+
+[Rule]
+# DOMAIN,mip.chinaz.com,DIRECT
+# DOMAIN,cip.cc,DIRECT
+DOMAIN,ip-api.com,PROXY
+DOMAIN,wtfismyip.com,PROXY
+
+[Script]
+network-changed script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Network/JS/event.beta.js
