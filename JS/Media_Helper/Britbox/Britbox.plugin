@@ -1,0 +1,20 @@
+#!name=Britbox UK iOS 外挂字幕和1080p画质解锁插件
+#!desc=Britbox UK iOS 外挂字幕和1080p画质解锁插件
+#!date=2025-12-18
+#!category=🐹 BOBO Premium
+#!author=liunice[https://github.com/liunice]
+
+[Script]
+# Britbox字幕和1080p
+http-response ^https:\/\/cdn\.britbox\.co\.uk\/api\/page\?.*?&path=\/(programme|series)\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Britbox/JS/Britbox.js, requires-body=true, timeout=60, tag=Britbox字幕和1080p
+
+http-response ^https:\/\/isl\.britbox\.co\.uk\/api\/account\/items\/(\d+)\/videos\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Britbox/JS/Britbox.js, requires-body=true, timeout=60, tag=Britbox字幕和1080p
+
+http-response ^https:\/\/(mobile|ctv)\.blue\.content\.britbox\.co\.uk\/.*?.webvtt$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Britbox/JS/Britbox.js, requires-body=true, timeout=60, tag=Britbox字幕和1080p
+
+http-request ^https:\/\/magni\.itv\.com\/playlist\/britbox\/\w+ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Britbox/JS/Britbox.js, requires-body=true, timeout=60, tag=Britbox字幕和1080p
+
+http-response ^https:\/\/(mobile|ctv)\.blue\.content\.britbox\.co\.uk\/.*?\.ism\/\.m3u8\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Britbox/JS/Britbox.js, requires-body=true, timeout=60, tag=Britbox字幕和1080p
+
+[MITM]
+hostname = cdn.britbox.co.uk, isl.britbox.co.uk, *.blue.content.britbox.co.uk, magni.itv.com
