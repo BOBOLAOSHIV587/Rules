@@ -1,20 +1,19 @@
 #!name=酷我音乐签到助手
-#!desc=交互式登录与自动签到。
+#!desc=酷我音乐自动签到、领金币、抽奖等任务。
 #!date=2025-12-18
-#!category=😍BOBO Task
+#!category=🐹 BOBO Task
 #!author= baby[https://github.com/Yu9191]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuWoSVIP.png
 #!openUrl=https://360.com/kuwo
-#!arguments=手机号:12345678910, OCR密钥:K***
-#!arguments-desc=手机号: 酷我登录手机号，用于面板自动填充 \nOCR密钥: 填写 ocr.space 的 API Key (留空则不用) \n\n安装插件&模块,编辑模块&插件填写参数，然后打开 https://360.com/kuwo ，然后获取图片二维码，然后发送和填写验证码后登录 \n\n首次会自动完成一次任务，后续缓存ck 定时运行 \n\n定时任务：每天从早上 7 点到晚上 11 点之间，每小时的第 15 分钟执行一次，可自行更改 \n\n注意事项：如果用不上不用填ocr，脚本可以通过接入 ocr.space 的 OCR API 来识别验证码图片。
+#!arguments=phone:1xx,ocr:kk,notify:1
+#!arguments-desc=phone: 手机号 (用于Web登录，可留空)\nocr: OCR密钥 (用于验证码识别，可留空)\nnotify: 通知模式 (1=每次通知, 0=仅23点汇总，默认1) \n\n安装插件&模块,编辑模块&插件填写参数，然后打开 https://360.com/kuwo ，然后获取图片二维码，然后发送和填写验证码后登录 \n\n首次会自动完成一次任务，后续缓存ck 定时运行 \n\n定时任务：每天从早上 7 点到晚上 11 点之间，每小时的第 15 分钟执行一次，可自行更改 \n\n注意事项：如果用不上不用填ocr，脚本可以通过接入 ocr.space 的 OCR API 来识别验证码图片。
 
 
 [Script]
 # > 酷我音乐签到助手
-酷我登录控制台 = type=http-request, pattern=^https?:\/\/360\.com\/kuwo, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/KuWoTask/JS/JS-1/KuWoTask.js, requires-body=true, timeout=120, tag=酷我登录控制台, argument=phone={{{手机号}}}&ocr={{{OCR密钥}}}
+酷我音乐签到 = type=cron, cronexp="15 7-23/1 * * *", script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/KuWoTask/JS/JS-1/KuWoTask.js, timeout=120, argument=phone={{{phone}}}&ocr={{{ocr}}}&notify={{{notify}}}
 
-酷我自动签到 = type=cron, cronexp="15 7-23/1 * * *", script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/KuWoTask/JS/JS-1/KuWoTask.js, timeout=120, tag=酷我自动签到
-
+酷我助手面板 = type=http-request, pattern=^https?:\/\/360\.com\/kuwo, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/KuWoTask/JS/JS-1/KuWoTask.js, requires-body=true, max-size=0, timeout=120, argument=phone={{{phone}}}&ocr={{{ocr}}}&notify={{{notify}}}
 
 [MITM]
 hostname = %APPEND% 360.com
