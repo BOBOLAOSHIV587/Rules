@@ -1,0 +1,25 @@
+{
+  "name": "autosubsyncer",
+  "version": "1.3.1",
+  "description": "流媒体App外挂ASS双语字幕自动调轴工具",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liunice/AutoSubSyncer.git"
+  },
+  "author": "liunice",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liunice/AutoSubSyncer/issues"
+  },
+  "homepage": "https://github.com/liunice/AutoSubSyncer#readme",
+  "dependencies": {
+    "detect-file-encoding-and-language": "^2.3.2",
+    "isomorphic-fetch": "^3.0.0",
+    "string-similarity-js": "^2.1.4"
+  }
+}
