@@ -1,0 +1,18 @@
+#!name=IP-Pure
+#!desc=显示 IP 风险评分、类型、代理策略和入口/出口 IP 地理信息，支持网络变化自动通知
+#!date=2025-12-18
+#!category=🐹 BOBO面板模块
+#!author=HotKids[https://github.com/HotKids/Rules]
+#!arguments=ipqs_key:null,event_delay:2
+#!arguments-desc=ipqs_key:(可选) IPQualityScore API Key，留空使用免费服务\nevent_delay:(可选) 网络变化后延迟检测时间（秒），默认 2 秒
+
+
+[Panel]
+ip-security-panel = script-name=ip-security-panel,update-interval=600
+
+[Script]
+# 面板手动触发
+ip-security-panel = type=generic,timeout=10,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IPPure/JS/JS-7/IPPure.js,argument=ipqs_key={{{ipqs_key}}}
+
+# 网络变化自动触发
+ip-security-event = type=event,event-name=network-changed,timeout=10,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IPPure/JS/JS-7/IPPure.js,argument=TYPE=EVENT&ipqs_key={{{ipqs_key}}}&event_delay={{{event_delay}}}
