@@ -1,0 +1,20 @@
+#!name=HBO Max iOS 外挂字幕和强制1080p插件
+#!desc=HBO Max iOS 外挂字幕和强制1080p插件
+#!date=2025-12-18
+#!category=🐹 BOBO Premium
+#!author=liunice[https://github.com/liunice]
+
+
+[Script]
+# HBO Max外挂srt字幕
+HBO Max外挂srt字幕 = type=http-response, pattern=^https:\/\/comet.*\.api\.hbo\.com\/express-content\/urn:hbo:page:[\w\-]+:type:series\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/HBOMax/JS/HBOMax.js, requires-body=true, max-size=-1, timeout=60
+HBO Max外挂srt字幕 = type=http-request, pattern=^https:\/\/comet.*\.api\.hbo\.com\/content$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/HBOMax/JS/HBOMax.js, requires-body=true, max-size=-1, timeout=60
+HBO Max外挂srt字幕 = type=http-response, pattern=^https:\/\/comet.*\.api\.hbo\.com\/content$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/HBOMax/JS/HBOMax.js, requires-body=true, max-size=-1, timeout=60
+HBO Max外挂srt字幕 = type=http-response, pattern=^https:\/\/manifests\.api\.hbo\.com\/hlsMedia\.m3u8\?r\.host=.*?(t|a|v)\d+\.m3u8&r\.origin=cmaf, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/HBOMax/JS/HBOMax.js, requires-body=true, max-size=-1, timeout=60
+HBO Max外挂srt字幕 = type=http-response, pattern=^https:\/\/manifests\.api\.hbo\.com\/subtitles\/dummy\.vtt$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/HBOMax/JS/HBOMax.js, requires-body=true, max-size=-1, timeout=60
+
+# HBO Max强制1080p
+HBO Max强制1080p = type=http-response, pattern=^https:\/\/manifests\.api\.hbo\.com\/hls\.m3u8\?f\.audioTrack=.*?&r.origin=cmaf, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/HBOMax/JS/HBOMax.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% manifests.api.hbo.com, comet*.api.hbo.com
