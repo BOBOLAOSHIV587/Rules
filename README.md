@@ -54,17 +54,13 @@
 
     2、）Module文件夹：适配Surge专用的各种面板工具；
 
-    3、）Net-Test文件夹：适配Surge专用的各种面板工具；
+    3、）Network文件夹：适配Surge专用的各种面板工具；
 
-    4、）Network文件夹：适配Surge专用的各种面板工具；
+    4、）Premium文件夹：适配Surge专用的自用JS会员脚本（JS文件夹App解锁脚本合集）；
 
-    5、）Surge-Tool文件夹：适配Surge专用的面板工具；
+    5、）TikTok-Unlock文件夹：适配Surge专用的TikTok解锁脚本；
 
-    6、）Premium文件夹：适配Surge专用的自用JS会员脚本（JS文件夹App解锁脚本合集）；
-
-    7、）TikTok-Unlock文件夹：适配Surge专用的TikTok解锁脚本；
-
-    8、）YouTube(Music)Enhance文件夹：适配Surge专用的YouTube(Music)增强脚本；
+    6、）YouTube(Music)Enhance文件夹：适配Surge专用的YouTube(Music)增强脚本；
 
 
 
