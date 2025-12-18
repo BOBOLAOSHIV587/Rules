@@ -1,6 +1,6 @@
 <div align="center">
     
-<img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/ruleMatchingTime/JS/IMG/ruleMatchingTime.PNG" width="280">
+<img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/ruleMatchingTime/JS/IMG/ruleMatchingTime.png" width="280">
 
 </div>
 
