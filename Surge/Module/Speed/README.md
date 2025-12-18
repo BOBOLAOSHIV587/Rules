@@ -1,6 +1,6 @@
 <div align="center">
     
-<img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/Speed/JS/IMG/Speed.PNG" width="280">
+<img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/Speed/JS/IMG/Speed.png" width="280">
 
 </div>
 
