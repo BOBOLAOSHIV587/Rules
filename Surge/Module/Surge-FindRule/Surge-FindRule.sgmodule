@@ -1,0 +1,22 @@
+#!name= Surge FindRule
+#!desc= surgetool.com/shortcuts/findrule  \n需要从 Surge 统计里导出到此捷径
+#!date=2025-12-18
+#!category=😍BOBO面板模块
+#!author= Key[https://github.com/Keywos/rule]
+#!openUrl=https://www.icloud.com/shortcuts/271eaa8b65f14a1cb401fde8e1e4653d
+#!arguments= KEY_DIRECT:DIRECT, KEY_PROXY:🇭🇰|🇸🇬|🇯🇵|🇺🇸, COUNT:5, ON_DIRECT_IP:0, ON_DIRECT_HOST:1,ON_PROXY_IP:1, ON_PROXY_HOST:1
+#!arguments-desc= [首次使用需要设置以下参数]\n\n必须配置:\n   ├ [KEY_DIRECT] 默认: DIRECT\n   ├ [KEY_PROXY]  默认: 🇭🇰|🇸🇬|🇯🇵|🇺🇸\n   ├ 正则关键字 需要最终走向的节点名 策略组名不行 \n   └ Surge 内规则配置参考下面示例\n\n可选配置:\n   ├ [COUNT] 过滤 请求次数 > COUNT 的域名 默认 5\n   ├ [ON_DIRECT_IP] 生成直连 IP 规则 需要查询 Whois\n   ├ [ON_DIRECT_HOST] 生成 域名规则\n   ├ [ON_PROXY_IP] 生成代理 IP 规则 需要查询 Whois\n   ├ [ON_PROXY_HOST] 生成 域名规则\n   ├ 1：启用\n   └ 0：关闭\n\n捷径配置:\n   ├ 默认在 Surge 的 Rule / 下\n   ├ direct_file 为 直连规则集 文件名\n   └ proxy_file 为 代理规则集 文件名\n\n生成的规则说明\n   ├ 需要从Surge 统计里导出到捷径\n   ├ 否则直接运行捷径就是去重等操作\n   ├ 手动规则优先级最高\n   ├ 接下来是直连规则\n   ├ [直连 List] 里有的规则，[代理 List] 里不会有\n   ├ [KEYWORD] 命中的规则会排除掉\n   ├ [WILDCARD] 命中的规则会排除掉\n   ├ [IP-CIDR] 重复包含的会去除\n   ├ [DOMAIN-SUFFIX,x.cn] 类似的会提取顶级域名[cn]\n   └ 首次请求需要一定的时间 有缓存后速度就快了\n\n[Proxy]\nCNN = direct // 为了区别正常的 DIRECT 策略 [可选]\n// 加了此规则 会收集 走 GEOIP,CN 里的域名 / 如果不加 使用默认关键词 DIRECT 会收集统计里面所有走了直连的规则 \n\n[Rule]\nRULE-SET, Rule/P.txt, Proxy, no-resolve  // [可选 可以捷径里设置对应对文件名]\nRULE-SET, Rule/D.txt, DIRECT, no-resolve //  \nGEOIP, CN, CNN // [可选] 对应 Proxy 的 CNN = direct\nFINAL, FINALUS, dns-failed // 需要节点名 包含 关键字 可以用 substore 加前缀 / 匹配国家国旗 [默认匹配: 🇭🇰|🇸🇬|🇯🇵|🇺🇸]
+
+
+[URL Rewrite]
+^https?:\/\/surgetool\.com\/shortcuts\/findrule https://www.icloud.com/shortcuts/271eaa8b65f14a1cb401fde8e1e4653d 302
+^https?:\/\/surgetool\.com\/?$ - reject
+
+
+[Script]
+FindRule = type=http-request, pattern=^https?:\/\/surgetool\.com\/findrule, requires-body=1, timeout=100, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/Surge-FindRule/JS/Surge-FindRule.js, argument="{"CN":"{{{KEY_DIRECT}}}","FINAL":"{{{KEY_PROXY}}}","COUNT":"{{{COUNT}}}","CNIP":"{{{ON_DIRECT_IP}}}","CNHOST":"{{{ON_DIRECT_HOST}}}","FINALIP":"{{{ON_PROXY_IP}}}","FINALHOST":"{{{ON_PROXY_HOST}}}"}"
+
+
+[MITM]
+hostname = %APPEND% surgetool.com
+
