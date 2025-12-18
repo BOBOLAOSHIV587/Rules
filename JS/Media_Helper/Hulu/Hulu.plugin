@@ -1,0 +1,21 @@
+#!name=Hulu iOS 去广告、去台标水印、强制1080p
+#!desc=Hulu iOS 去广告、去台标水印、强制1080p
+#!date=2025-12-18
+#!category=🐹 BOBO Premium
+#!author=liunice[https://github.com/liunice]
+
+
+[Script]
+# > Hulu去广告
+http-response ^https:\/\/vodmanifest\.hulustream\.com\/hulu\/v\d+\/hls\/(video|audio)\/\d+\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Hulu/JS/Hulu.js, requires-body=true, timeout=60, tag=Hulu去广告
+http-response ^https:\/\/vodmanifest\.hulustream\.com\/hulu\/v\d+\/hls\/vtt\/\d+\/playlist\.m3u8 script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Hulu/JS/Hulu.js, requires-body=true, timeout=60, tag=Hulu去广告
+
+# > Hulu强制1080p
+http-response ^https:\/\/vodmanifest\.hulustream\.com\/hulu\/v\d+\/hls\/multivariant\/\d+\/playlist\.m3u8 script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Hulu/JS/Hulu.js, requires-body=true, timeout=60, tag=Hulu强制1080p
+
+# > Hulu去播放器台标水印
+http-response ^https:\/\/discover\.hulu\.com\/content\/v\d+\/hubs\/series\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Hulu/JS/Hulu.js, requires-body=true, timeout=60, tag=Hulu去播放器台标水印
+http-response ^https:\/\/discover\.hulu\.com\/content\/v\d+\/browse\/upnext\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Hulu/JS/Hulu.js, requires-body=true, timeout=60, tag=Hulu去播放器台标水印
+
+[MITM]
+hostname = discover.hulu.com, vodmanifest.hulustream.com
