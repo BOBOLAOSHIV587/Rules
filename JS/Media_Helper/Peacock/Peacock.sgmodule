@@ -1,0 +1,24 @@
+#!name=Peacock iOS 去广告、强制1080p和外挂字幕插件
+#!desc=Peacock iOS 去广告、强制1080p和外挂字幕插件
+#!date=2025-12-18
+#!category=🐹 BOBO Premium
+#!author=liunice[https://github.com/liunice]
+
+
+[URL Rewrite]
+# Peacock去广告
+^https:\/\/.*?\.mediatailor\..*?\.amazonaws\.com\/v\d+\/tracking\/\w+\/peacock\-cmaf\-hls\-vod - reject
+
+[Script]
+# Peacock去广告
+Peacock去广告 = type=http-response, pattern=^https:\/\/.*?\.mediatailor\..*?\.amazonaws\.com\/v\d+\/manifest\/\w+\/peacock\-cmaf\-hls\-vod.*?\/\d+\.m3u8, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Peacock/JS/Peacock.js, requires-body=true, max-size=-1, timeout=60
+
+# Peacock外挂srt字幕
+Peacock外挂srt字幕 = type=http-response, pattern=^https:\/\/atom\.peacocktv\.com\/adapter\-calypso\/v\d+\/query\/node/.*?\?represent=\(next, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Peacock/JS/Peacock.js, requires-body=true, max-size=-1, timeout=60
+Peacock外挂srt字幕 = type=http-response, pattern=^https:\/\/.*?\.cdn\.peacocktv\.com\/.*?\.webvtt$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Peacock/JS/Peacock.js, requires-body=true, max-size=-1, timeout=60
+
+# Peacock强制1080p
+Peacock强制1080p = type=http-response, pattern=^https:\/\/.*?\.cdn\.peacocktv\.com\/.*?\/master_cmaf\.m3u8, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Media_Helper/Peacock/JS/Peacock.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% *.peacocktv.com, *.mediatailor.*.amazonaw.com
