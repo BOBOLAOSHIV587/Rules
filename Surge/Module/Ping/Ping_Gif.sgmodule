@@ -1,0 +1,18 @@
+#!name= Ping GIF 面板
+#!desc= 根据网络延迟生成柱状图 可自定义 每行数量/测试URL
+#!date=2025-12-18
+#!category=😍BOBO面板模块
+#!author= Keywos[https://github.com/Keywos/rule]
+#!arguments= script-update:-1 ,update-interval: 1, Size:17, cnUrl:"", usUrl:""
+#!arguments-desc=脚本更新频率: script-update \nGIF更新频率: update-interval \n\n国内测试URL: cnUrl \n国外测试URL: usUrl \n\n如果一行放不下可自定义每行显示个数: Size \nMini机型大概13左右 6.1寸机型17左右
+
+
+[Panel]
+CNPing = script-name=CNPing,update-interval={{{update-interval}}}
+USPing = script-name=USPing,update-interval={{{update-interval}}}
+
+
+[Script]
+CNPing = type=generic,timeout=5,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/Ping/JS/CN.js, script-update-interval={{{script-update}}},argument=Size={{{Size}}}&cnUrl={{{cnUrl}}}
+USPing = type=generic,timeout=5,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/Ping/JS/US.js, script-update-interval={{{script-update}}},argument=Size={{{Size}}}&usUrl={{{usUrl}}}
+
