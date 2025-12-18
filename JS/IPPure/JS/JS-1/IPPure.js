@@ -3,6 +3,7 @@
  */
 
 const url = "https://my.ippure.com/v1/info"
+const MarkIP = ($argument || 'false').toLowerCase() === 'true'
 
 $httpClient.get(url, (err, resp, data) => {
   if (err) {
@@ -11,47 +12,59 @@ $httpClient.get(url, (err, resp, data) => {
   }
 
   const j = JSON.parse(data)
+  const ip = j.ip
+  const isIPv6 = ip.includes(':')
+  const ipLabel = isIPv6 ? 'IPv6' : 'IPv4'
+  const showIP = MarkIP ? maskIP(ip) : ip
 
   const flag = flagEmoji(j.countryCode)
   const nativeText = j.isResidential ? "✅ 是（原生）" : "🏢 否（机房/商业）"
   const risk = j.fraudScore
 
-  // 根据风险系数判断等级
-  let riskText = `风险系数：${risk}`
-  let titleColor = "#007AFF" // 默认颜色
+  let riskText
+  let titleColor
 
   if (risk >= 80) {
     riskText = `🛑 极高风险 (${risk})`
-    titleColor = "#FF3B30" // 红色
+    titleColor = "#FF3B30"
   } else if (risk >= 70) {
     riskText = `⚠️ 高风险 (${risk})`
-    titleColor = "#FF9500" // 橙色
+    titleColor = "#FF9500"
   } else if (risk >= 40) {
     riskText = `🔶 中等风险 (${risk})`
-    titleColor = "#FFCC00" // 黄色
+    titleColor = "#FFCC00"
   } else {
     riskText = `✅ 低风险 (${risk})`
-    titleColor = "#34C759" // 绿色
+    titleColor = "#34C759"
   }
-
 
   $done({
     title: "节点 IP 纯净度",
     content:
-`IP：${j.ip}
+`${ipLabel}：${showIP}
 ASN：AS${j.asn} ${j.asOrganization}
 位置：${flag} ${j.country} ${j.city}
 原生 IP：${nativeText}
-${riskText}`, // 使用优化的风险文本
+${riskText}`,
     icon: risk >= 70 ? "exclamationmark.triangle.fill" : "checkmark.seal.fill",
-    'title-color': titleColor // 设置标题颜色，突出风险状态
+    'title-color': titleColor
   })
 })
 
-function flagEmoji(code) {
-  if (code.toUpperCase() === "TW") {
-    code = "CN"
+function maskIP(ip) {
+  if (!ip) return ''
+  // IPv4
+  if (ip.includes('.')) {
+    const p = ip.split('.')
+    return `${p[0]}.${p[1]}.*.*`
   }
+  // IPv6
+  const p6 = ip.split(':')
+  return `${p6[0]}:${p6[1]}:*:*:*:*:*:*`
+}
+
+function flagEmoji(code) {
+  if (code.toUpperCase() === "TW") code = "CN"
   return String.fromCodePoint(
     ...code.toUpperCase().split('').map(c => 127397 + c.charCodeAt())
   )

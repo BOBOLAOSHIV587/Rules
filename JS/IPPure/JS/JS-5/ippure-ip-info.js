@@ -7,13 +7,23 @@ async function request(method, params) {
   });
 }
 
+function isChinese() {
+  const lang = ($environment.language || "").toLowerCase();
+  return lang.startsWith("zh");
+}
+
 async function main() {
   const url = "https://my.ippure.com/v1/info";
   const { error, response, data } = await request("GET", url);
 
+  const title = isChinese()
+    ? "IPPure IP 信息"
+    : "IPPure IP Info";
+
   if (error || !data) {
     $done({
-      content: "Network Error",
+      title,
+      content: isChinese() ? "网络错误" : "Network Error",
       backgroundColor: "#C44",
     });
     return;
@@ -24,20 +34,25 @@ async function main() {
     json = JSON.parse(data);
   } catch {
     $done({
-      content: "Invalid JSON",
+      title,
+      content: isChinese() ? "无效 JSON" : "Invalid JSON",
       backgroundColor: "#C44",
     });
     return;
   }
 
   // Location 优先级：city → region → country
-  const location = json.city || json.region || json.country || "Unknown";
+  let location = json.city || json.region || json.country || "";
+  let org = json.asOrganization || "";
 
-  const org = json.asOrganization || "Unknown";
+  if (!location) location = isChinese() ? "未知区域" : "Unknown";
+  if (!org) org = isChinese() ? "未知运营商" : "Unknown";
 
-  const text = `${location} - ${org}`;
+  const separator = " - ";
+  const text = `${location}${separator}${org}`;
 
   $done({
+    title,
     content: text,
     backgroundColor: "#88A788",
   });
@@ -48,7 +63,8 @@ async function main() {
     await main();
   } catch {
     $done({
-      content: "Script Error",
+      title: isChinese() ? "IPPure IP 信息" : "IPPure IP Info",
+      content: isChinese() ? "脚本错误" : "Script Error",
       backgroundColor: "#C44",
     });
   }
