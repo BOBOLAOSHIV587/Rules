@@ -8,11 +8,11 @@
 #!select = 是否隐藏真实IP, 隐藏, 不隐藏
 
 [Script]
-generic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Loon/main/NodeTools/JS/NodeSpeedtest.js, timeout = 10, tag = 节点网速测试 𝕂, img-url = speedometer
+generic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Loon/NodeTools/JS/NodeSpeedtest.js, timeout = 10, tag = 节点网速测试 𝕂, img-url = speedometer
 
-generic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Loon/main/NodeTools/JS/NodeUnlockDetection.js, timeout = 20, tag = 节点解锁查询 𝕂, img-url = play.circle
+generic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Loon/NodeTools/JS/NodeUnlockDetection.js, timeout = 20, tag = 节点解锁查询 𝕂, img-url = play.circle
 
-generic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Loon/main/NodeTools/JS/NodeLocation.js, timeout = 10, tag = 节点风险查询 𝕂, img-url = asterisk.circle
+generic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Loon/NodeTools/JS/NodeLocation.js, timeout = 10, tag = 节点风险查询 𝕂, img-url = asterisk.circle
 
-generic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Loon/main/NodeTools/JS/NodeInfo.js, tag = 入口落地查询 𝕂, img-url = network
+generic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Loon/NodeTools/JS/NodeInfo.js, tag = 入口落地查询 𝕂, img-url = network
 
