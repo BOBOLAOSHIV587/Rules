@@ -1,0 +1,11 @@
+#!name = Scamalytics IP欺诈风险评分
+#!desc = 通过Scamalytics查询当前节点落地IP的欺诈评分。请在节点页面选择一个节点长按，出现菜单后进行测试。
+#!date=2025-12-23
+#!category=🐹 BOBO面板模块
+#!author= huskydsb[https://github.com/huskydsb]
+#!openUrl=https://scamalytics.com/
+
+[Script]
+# > IP欺诈风险评分
+generic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587b/Loon/main/NodeTools/JS/Scamalytic/Scamalytic.js, timeout = 30, tag = IP欺诈评分查询
+
