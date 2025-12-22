@@ -1,0 +1,33 @@
+{
+  "id": "Macat签到任务",
+  "name": "Macat签到任务",
+  "description": "Macat签到任务",
+  "author": "@mcdasheng",
+  "icon": "https://avatars.githubusercontent.com/u/56994865",
+  "repo": "https://github.com/BOBOLAOSHIV587/Rules",
+  "apps": [
+    {
+      "id": "macat",
+      "name": "macat",
+      "keys": ["macat_loginBody"],
+      "desc": "",
+      "settings": [
+        {
+          "id": "macat_loginBody",
+          "name": "macat_loginBody",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": "登录请求体(自行填入,包括账号密码等)"
+        }
+      ],
+      "script": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/Macat/JS/Macat.js",
+      "author": "@mcdasheng",
+      "repo": "https://github.com/mcdasheng",
+      "icons": [
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/miniColor/Image/Color/Skicat.png",
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/miniColor/Image/Color/Skicat.png"
+      ]
+    }
+  ]
+}

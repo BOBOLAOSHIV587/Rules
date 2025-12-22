@@ -1,0 +1,19 @@
+#!name = Macat签到任务
+#!desc = 自动执行Macat每日签到任务。macat_loginBody" (boxjs自行填入,包含账号密码信息等)格式: `action=user_login&username=xxx%40gmail.com&password=xxx&rememberme=1`
+#!date=2025-12-23
+#!category=🐹 BOBO Task
+#!author= MCdasheng[https://github.com/MCdasheng]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/miniColor/Image/Color/Skicat.png
+#!openUrl=https://www.macat.vip
+
+[Argument]
+# 设置签到的定时任务
+cron-macat-signin = input, "0 8 * * *", tag = 签到任务时间, desc = 定时任务表达式（每天8:00执行）
+
+# 签到任务启用开关
+Task-macat = switch, true, false, tag = 签到任务开关, desc = 定时运行[Macat]签到任务
+
+[Script]
+# 定时签到脚本
+cron {cron-macat-signin} script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/Macat/JS/Macat.js, timeout=60, tag=Macat签到, img-url=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/miniColor/Image/Color/Skicat.png, enabled={Task-macat}
+
