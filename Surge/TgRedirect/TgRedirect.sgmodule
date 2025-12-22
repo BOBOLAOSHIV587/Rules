@@ -1,0 +1,14 @@
+#!name = Telegram跳转
+#!desc = 将 https://t.me/... 重定向到你选择的客户端（tg/sg/turrit/ime/ng/lingo
+#!date=2025-12-21
+#!category=🐹 BOBO Enhance
+#!author= baby[https://github.com/Yu9191/Rewrite]
+#!arguments = Client:"Telegram"
+#!arguments-desc = Client: Telegram/Swiftgram/Turrit/iMe/Nicegram/Lingogram 或 tg/sg/turrit/ime/ng/lingo
+
+[Script]
+Tg跳转 = type=http-request, pattern=^https?:\/\/t\.me\/.+, requires-body=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/TgRedirect/JS/TgRedirect.js, argument=client={{{Client}}}
+
+[MITM]
+hostname = %APPEND% t.me
+
