@@ -8,8 +8,8 @@
 
 [Script]
 # > Speedtest 广告vip & 净化
-http-response ^https?:\/\/(user-api\.speedtest\.net\/v1\/flows\/users\/(me\/)?(login|apply-identities)|(www\.)?speedtest\.net\/(api\/)?ios-config\.php) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/SpeedTest/JS/SpeedTest.js, requires-body=true, timeout=20, tag=Speedtest 广告vip & 净化
+Speedtest广告vip & 净化 = type=http-response,pattern=^https?:\/\/(user-api\.speedtest\.net\/v1\/flows\/users\/(me\/)?(login|apply-identities)|(www\.)?speedtest\.net\/(api\/)?ios-config\.php),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/SpeedTest/JS/SpeedTest.js
 
 [MITM]
-hostname = user-api.speedtest.net, www.speedtest.net
+hostname = %APPEND% user-api.speedtest.net, www.speedtest.net
 
