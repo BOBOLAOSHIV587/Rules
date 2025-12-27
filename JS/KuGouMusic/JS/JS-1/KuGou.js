@@ -1,6 +1,6 @@
 /* 
 12.25
-^https?:\/\/(m\.kugou\.com|gateway(retry)?\.kugou\.com|ads\.service\.kugou\.com|welfare\.kugou\.com|fx\.service\.kugou\.com|hwstore\.kugou\.com|loginservice\.kugou\.com|expendablekmrcdnretry\.kugou\.com|vipos\.kugou\.com)\/(ssr\/decocenter\/home|v5\/login_by_token|v2\/get_login_extend_info|card\/v1\/pxy\/top|ads\.gateway\/v2\/sidebar_link|ads\.gateway\/v2\/sidebar_top_card|ads\.gateway\/v2\/home_card|mobile\/vipinfoV2|v4\/mobile_splash(_sort)?|v2\/get_vip_config|ads\.gateway\/v5\/task_video\/qualification|els\.abt\/v1\/tmeab|pxy\/v1\/combo\/startup|mstc\/musicsymbol\/v1\/system\/profile|pendant\/v2\/get_user_pendant|v1\/blindbox_cabinet\/client_cabinet|ads\.gateway\/v2\/mobile_link|card\/v1\/pxy\/listen|flow\/user_config\/get_level_config_ios|v1\/starlight\/get_campaign_infos|searchnofocus\/v1\/search_no_focus_word|updateservice\/v1\/get_dev_user|v1\/login_by_quick_token|card\/v1\/pxy\/recommend_stream(_v2)?|v1\/get_res_privilege\/lite|v1\/union\/audio_info|ads\.gateway\/v2\/task_center_entrance|ocean\/v6\/theme\/category|tools\.mobile\/v2\/theme\/info|promotionvip\/v3\/vip_level\/detail|v4\/price\/get_tips|v1\/fusion\/userinfo|v2\/super\/welfarelist) url script-response-body https://raw.githubusercontent.com/your-repo/kugou1225_enhanced.js
+^https?:\/\/(m\.kugou\.com|gateway(retry)?\.kugou\.com|ads\.service\.kugou\.com|welfare\.kugou\.com|fx\.service\.kugou\.com|hwstore\.kugou\.com|loginservice\.kugou\.com|expendablekmrcdnretry\.kugou\.com|vipos\.kugou\.com)\/(ssr\/decocenter\/home|v5\/login_by_token|v2\/get_login_extend_info|card\/v1\/pxy\/top|ads\.gateway\/v2\/sidebar_link|ads\.gateway\/v2\/sidebar_top_card|ads\.gateway\/v2\/home_card|mobile\/vipinfoV2|v4\/mobile_splash(_sort)?|v2\/get_vip_config|ads\.gateway\/v5\/task_video\/qualification|els\.abt\/v1\/tmeab|pxy\/v1\/combo\/startup|mstc\/musicsymbol\/v1\/system\/profile|pendant\/v2\/get_user_pendant|v1\/blindbox_cabinet\/client_cabinet|ads\.gateway\/v2\/mobile_link|card\/v1\/pxy\/listen|flow\/user_config\/get_level_config_ios|v1\/starlight\/get_campaign_infos|searchnofocus\/v1\/search_no_focus_word|updateservice\/v1\/get_dev_user|v1\/login_by_quick_token|card\/v1\/pxy\/recommend_stream(_v2)?|v1\/get_res_privilege\/lite|v1\/union\/audio_info|ads\.gateway\/v2\/task_center_entrance|ocean\/v6\/theme\/category|tools\.mobile\/v2\/theme\/info|promotionvip\/v3\/vip_level\/detail|v4\/price\/get_tips|v1\/fusion\/userinfo|v2\/super\/welfarelist) url script-response-body kugou1227_enhanced.js
 
 hostname = m.kugou.com, gateway.kugou.com, gatewayretry.kugou.com, ads.service.kugou.com, welfare.kugou.com, fx.service.kugou.com, hwstore.kugou.com, loginservice.kugou.com, expendablekmrcdnretry.kugou.com, vipos.kugou.com
  */
@@ -210,10 +210,9 @@ function main() {
         }
 
         let data = JSON.parse(body);
-        let modified = false;
 
         // 任务中心入口处理
-        if (/task_center_entrance/i.test(url)) {
+        if (url.indexOf('task_center_entrance') !== -1) {
             let customTitle = "联合国儿童基金会";
             let customLink = "https://t.me/Jsforbaby";
             if (data && data.data && data.data.ads) {
@@ -227,10 +226,9 @@ function main() {
                     if (ad.jumpLink) ad.jumpLink = customLink;
                 }
             }
-            modified = true;
         }
         // 主题相关处理
-        else if (/theme\/(category|info)/i.test(url)) {
+        else if (url.indexOf('theme/category') !== -1 || url.indexOf('theme/info') !== -1) {
             if (data && data.data) {
                 if (data.data.info) {
                     data.data.info.forEach(item => {
@@ -240,58 +238,141 @@ function main() {
                 if (data.data.themes) {
                     processThemes(data.data.themes);
                 }
-                if (/theme\/info/i.test(url)) {
+                if (url.indexOf('theme/info') !== -1) {
                     processThemes([data.data]);
                 }
             }
-            modified = true;
         }
         // VIP等级详情处理
-        else if (/promotionvip\/v3\/vip_level\/detail/i.test(url) && data.data) {
+        else if (url.indexOf('promotionvip/v3/vip_level/detail') !== -1 && data.data) {
             data.data.growth = 999999;
             data.data.grade = 9;
             data.data.level_start_growth = 300000;
             data.data.next_level_growth = 1000000;
-            modified = true;
         }
-        // 资源权限处理
-        else if (/get_res_privilege\/lite/i.test(url) && data.data && Array.isArray(data.data)) {
-            let processPrivilege = (item) => {
-                item.status = 1;
-                item.fail_process = 0;
-                item.pay_type = 0;
-                item.price = 0;
-                item.pkg_price = 0;
-                item.privilege = 10;
-                item.popup = null;
-                if (item.trans_param) {
-                    item.trans_param.musicpack_advance = 0;
-                    item.trans_param.pay_block_tpl = 0;
-                    item.trans_param.display = 0;
-                    item.trans_param.display_rate = 0;
-                    item.trans_param.all_quality_free = 1;
-                    item.trans_param.free_limited = 0;
-                    item.trans_param.download_privilege = 8;
-                    item.trans_param.classmap = {attr0: 234881032};
-                }
-            };
-            data.data.forEach(item => processPrivilege(item));
-            if (data.relate_goods && Array.isArray(data.relate_goods)) {
-                data.relate_goods.forEach(item => processPrivilege(item));
-            }
+        // 资源权限处理 
+        else if (url.indexOf('v1/get_res_privilege/lite') !== -1) {
+            // 设置顶层字段
+            data.status = 1;
+            data.error_code = 0;
+            data.message = "";
+            data.appid_group = 1;  
+            data.should_cache = 1;
+            data.vip_user_type = 3;
+            
+            // 处理用户信息
             if (data.userinfo) {
                 data.userinfo.vip_type = 6;
                 data.userinfo.m_type = 1;
                 data.userinfo.vip_user_type = 3;
                 data.userinfo.quota_remain = 999;
+            } else {
+                data.userinfo = {
+                    vip_type: 6,
+                    m_type: 1,
+                    vip_user_type: 3,
+                    quota_remain: 999
+                };
             }
-            if (data.vip_user_type !== undefined) {
-                data.vip_user_type = 3;
+            
+            // 处理所有音频数据
+            if (data.data && Array.isArray(data.data)) {
+                data.data.forEach((audioItem) => {
+                    // 基础权限设置
+                    audioItem.privilege = 10;
+                    audioItem.status = 1;
+                    audioItem.fail_process = 0;
+                    audioItem.pay_type = 0;
+                    audioItem.price = 0;
+                    audioItem.pkg_price = 0;
+                    audioItem.buy_count = 1;
+                    audioItem.buy_count_vip = 1;
+                    audioItem.buy_count_kubi = 1;
+                    audioItem.buy_count_audios = 1;
+                    audioItem.is_publish = 1;
+                    audioItem.publish = 1;
+                    
+                    // 移除弹窗限制
+                    if (audioItem.popup) {
+                        delete audioItem.popup;
+                    }
+                    
+                    // 设置成功消息
+                    audioItem._msg = "Allow: the audio is free(copyright).";
+                    audioItem._errno = 0;
+                    
+                    // trans_param
+                    if (audioItem.trans_param) {
+                        audioItem.trans_param.musicpack_advance = 0;  // 0=不需要音乐包
+                        audioItem.trans_param.pay_block_tpl = 1;      // 1=会员标识
+                        audioItem.trans_param.display = 0;           // 0=不显示付费提示
+                        audioItem.trans_param.display_rate = 0;      // 0=不显示费率
+                        audioItem.trans_param.free_limited = 0;      // 0=不限制免费
+                        audioItem.trans_param.all_quality_free = 1;  // 1=所有音质免费
+                        audioItem.trans_param.download_privilege = 8; // 8=下载权限
+                        
+                        // 重要的版权和分类信息
+                        if (!audioItem.trans_param.classmap || audioItem.trans_param.classmap.attr0 === 0) {
+                            audioItem.trans_param.classmap = {attr0: 234881032};
+                        }
+                        
+                        // appid_block
+                        if (!audioItem.trans_param.appid_block) {
+                            audioItem.trans_param.appid_block = "3124";
+                        }
+                    }
+                    
+                    // 关联商品（所有音质版本）
+                    if (audioItem.relate_goods && Array.isArray(audioItem.relate_goods)) {
+                        audioItem.relate_goods.forEach((goods) => {
+                            // 权限设置
+                            goods.privilege = 10;
+                            goods.status = 1;
+                            goods.fail_process = 0;
+                            goods.pay_type = 0;
+                            goods.price = 0;
+                            goods.pkg_price = 0;
+                            goods.buy_count = 1;
+                            goods.buy_count_vip = 1;
+                            goods.buy_count_kubi = 1;
+                            goods.buy_count_audios = 1;
+                            goods.is_publish = 1;
+                            goods.publish = 1;
+                            
+                            // 移除弹窗
+                            if (goods.popup) {
+                                delete goods.popup;
+                            }
+                            
+                            // 设置成功消息
+                            goods._msg = "Allow: the audio is free(copyright).";
+                            goods._errno = 0;
+                            
+                            // trans_param
+                            if (goods.trans_param) {
+                                goods.trans_param.musicpack_advance = 0;
+                                goods.trans_param.pay_block_tpl = 1;
+                                goods.trans_param.display = 0;
+                                goods.trans_param.display_rate = 0;
+                                goods.trans_param.free_limited = 0;
+                                goods.trans_param.all_quality_free = 1;
+                                goods.trans_param.download_privilege = 8;
+                                
+                                if (!goods.trans_param.classmap || goods.trans_param.classmap.attr0 === 0) {
+                                    goods.trans_param.classmap = {attr0: 234881032};
+                                }
+                                
+                                if (!goods.trans_param.appid_block) {
+                                    goods.trans_param.appid_block = "3124";
+                                }
+                            }
+                        });
+                    }
+                });
             }
-            modified = true;
         }
         // 价格提示处理
-        else if (/v4\/price\/get_tips/i.test(url) && data.data) {
+        else if (url.indexOf('v4/price/get_tips') !== -1 && data.data) {
             if (data.data.get_tips) {
                 data.data.get_tips.forEach(tip => {
                     tip.user_type = 29;
@@ -310,10 +391,9 @@ function main() {
             if (data.data.vip_info) {
                 Object.assign(data.data.vip_info, vipFields);
             }
-            modified = true;
         }
         // 融合用户信息处理
-        else if (/v1\/fusion\/userinfo/i.test(url) && data.data) {
+        else if (url.indexOf('v1/fusion/userinfo') !== -1 && data.data) {
             if (data.data.get_vip_info_v3 && data.data.get_vip_info_v3.data) {
                 Object.assign(data.data.get_vip_info_v3.data, vipFields);
             }
@@ -327,10 +407,9 @@ function main() {
                     });
                 }
             }
-            modified = true;
         }
-        // 超级VIP福利列表处理 
-        else if (/v2\/super\/welfarelist/i.test(url) && data.data) {
+        // 超级VIP福利列表处理
+        else if (url.indexOf('v2/super/welfarelist') !== -1 && data.data) {
             data.data.close_time = vipDate;
             if (data.data.qqksong) {
                 data.data.qqksong.status = 1;
@@ -358,12 +437,10 @@ function main() {
                 data.data.ring.status = 1;
                 data.data.ring.month = 999;
             }
-            modified = true;
         }
         // 音频信息处理
-        else if (/union\/audio_info/i.test(url) && data.data) {
+        else if (url.indexOf('union/audio_info') !== -1 && data.data) {
             traverse(data.data);
-            modified = true;
         }
         // 批量响应处理
         else if (data.data && Array.isArray(data.data.responses)) {
@@ -386,13 +463,11 @@ function main() {
                             });
                         }
                         response.body = JSON.stringify(responseData);
-                        modified = true;
                     } catch (e) {
                         console.log("[Kugou_Response_Error] " + e.message);
                     }
                 }
             });
-            modified = true;
         }
         // TME AB测试配置处理
         else if (data.data && data.data.TmeabConfigs && typeof data.data.TmeabConfigs === "string") {
@@ -412,37 +487,32 @@ function main() {
                         }
                     }
                     data.data.TmeabConfigs = JSON.stringify(tmeabData);
-                    modified = true;
                 } catch (e) {
                     console.log("[Kugou_Tmeab_Error] " + e.message);
                 }
             })();
-            modified = true;
         }
         // 登录相关处理
-        else if ((/login_by_token/i.test(url) || /get_login_extend_info/i.test(url) || /get_dev_user/i.test(url) || 
-                  /login_by_quick_token/i.test(url) || /mobile\/vipinfoV2/i.test(url) || /get_vip_config/i.test(url)) && data.data) {
+        else if ((url.indexOf('login_by_token') !== -1 || url.indexOf('get_login_extend_info') !== -1 || url.indexOf('get_dev_user') !== -1 || 
+                  url.indexOf('login_by_quick_token') !== -1 || url.indexOf('mobile/vipinfoV2') !== -1 || url.indexOf('get_vip_config') !== -1) && data.data) {
             Object.assign(data.data, vipFields);
             if (data.data.vipinfo) {
                 Object.assign(data.data.vipinfo, vipFields);
             }
-            modified = true;
         }
         // 搜索无焦点词处理
-        else if (/searchnofocus\/v1\/search_no_focus_word/i.test(url) && data.data && data.data.ads) {
+        else if (url.indexOf('searchnofocus/v1/search_no_focus_word') !== -1 && data.data && data.data.ads) {
             data.data.ads = data.data.ads.filter(ad => ad.id === 0 && ad.is_preview === 0 && ad.type !== 103);
             if (data.data.fallback) {
                 data.data.fallback = data.data.fallback.filter(item => item.id === 0);
             }
-            modified = true;
         }
         // 星光活动信息处理
-        else if (/starlight\/get_campaign_infos/i.test(url) && data.data) {
+        else if (url.indexOf('starlight/get_campaign_infos') !== -1 && data.data) {
             data.data = [];
-            modified = true;
         }
         // 用户等级配置处理
-        else if (/flow\/user_config\/get_level_config_ios/i.test(url) && data.data) {
+        else if (url.indexOf('flow/user_config/get_level_config_ios') !== -1 && data.data) {
             if (data.data.user) {
                 data.data.user.forEach(user => {
                     if (user.userLevelId === 0) {
@@ -461,38 +531,30 @@ function main() {
                     }
                 });
             }
-            modified = true;
         }
         // 播放页面组合处理
-        else if (/playerpxy\/v1\/combo\/play_page_index/i.test(url) && data.data && data.data.modules) {
+        else if (url.indexOf('playerpxy/v1/combo/play_page_index') !== -1 && data.data && data.data.modules) {
             traverse(data.data);
-            modified = true;
         }
         // 广告相关处理
-        else if (/adp\/ad\/v1\/playpage_combine/i.test(url)) {
+        else if (url.indexOf('adp/ad/v1/playpage_combine') !== -1) {
             data.data = {};
-            modified = true;
         }
-        else if (/v3\/vip_center/i.test(url)) {
+        else if (url.indexOf('v3/vip_center') !== -1) {
             data.data = [];
-            modified = true;
         }
-        else if (/ads\.gateway\/v4\/search_banner/i.test(url)) {
+        else if (url.indexOf('ads.gateway/v4/search_banner') !== -1) {
             data.data = [];
-            modified = true;
         }
-        else if (/mine_top_banner/i.test(url)) {
+        else if (url.indexOf('mine_top_banner') !== -1) {
             data.data = [];
-            modified = true;
         }
-        else if (/card\/v1\/pxy\/listen/i.test(url)) {
+        else if (url.indexOf('card/v1/pxy/listen') !== -1) {
             data.data = [];
-            modified = true;
         }
         // 默认处理
         else {
             traverse(data);
-            modified = true;
         }
 
         let result = JSON.stringify(data);
@@ -508,11 +570,11 @@ function main() {
                       .replace(/"su_vip_begin_time"\s*:\s*""/g, `"${beginDate}"`)
                       .replace(/"m_begin_time"\s*:\s*""/g, `"${beginDate}"`);
 
-        if (!/theme\/(category|info)/i.test(url)) {
+        if (url.indexOf('theme/category') === -1 && url.indexOf('theme/info') === -1) {
             result = result.replace(/"svip_level"\s*:\s*\d+/g, '"svip_level":9');
         }
         
-        if (!/get_res_privilege\/lite/i.test(url)) {
+        if (url.indexOf('get_res_privilege/lite') === -1) {
             result = result.replace(/"privilege"\s*:\s*(0|8)/g, '"privilege":1');
         }
         
