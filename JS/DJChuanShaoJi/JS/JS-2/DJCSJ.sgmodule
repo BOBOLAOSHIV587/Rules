@@ -1,0 +1,15 @@
+#!name=DJ串烧集-大型DJ串烧歌曲
+#!desc=登陆后解锁VIP，下载&音质选择
+#!date=2025-12-31
+#!category=🐹 BOBO Premium
+#!author= 彭于晏89996462[https://github.com/89996462/Quantumult-X]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/DJChuanShaoJi.png
+#!openUrl=https://apps.apple.com/app/id6469281582
+
+[Script]
+# > DJ串烧集-解锁VIP
+DJ串烧集 = type=http-response, pattern=^http[s]?:\/\/csj\.yy-5\.com\/api\/User\/Info, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DJChuanShaoJi/JS/JS-2/DJCSJ.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% csj.yy-5.com
+
