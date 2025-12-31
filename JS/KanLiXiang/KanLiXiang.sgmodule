@@ -1,0 +1,15 @@
+#!name=看理想-看见另一种可能
+#!desc=看理想VIP会员功能，登陆后解锁。
+#!date=2025-12-31
+#!category=🐹 BOBO Premium
+#!author= baby[https://github.com/Yu9191/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KanLiXiang.png
+#!openUrl=https://apps.apple.com/app/id1342118033
+
+[Script]
+# > 看理想VIP解锁
+看理想VIP解锁 = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v2\/(reader\/(section-detail|detail)|user\/(profile|home)|vip\/buy-list|services\/play-token), requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-1/KLX.js
+
+[MITM]
+hostname = %APPEND% api.vistopia.com.cn
+

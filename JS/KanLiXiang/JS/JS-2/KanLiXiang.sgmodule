@@ -1,0 +1,29 @@
+#!name=看理想-看见另一种可能
+#!desc=全局净化、畅听卡假解锁
+#!date=2025-12-31
+#!category=🐹 BOBO Premium
+#!author= 𝐎𝐍𝐙𝟑𝐕[https://github.com/Yuheng0101/X]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KanLiXiang.png
+#!openUrl=https://apps.apple.com/app/id1342118033
+
+[Map Local]
+# 看理想去开屏
+^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/home\/advertisement data-type=text data=" " status-code=200
+^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/other\/pop-up data-type=text data=" " status-code=200
+
+[Script]
+# > 看理想VIP解锁
+KanLiXiang_No_Ads = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/other\/config, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+KanLiXiang_No_Ads = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/home\/header-new, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+KanLiXiang_Faker_Unlock = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/user\/profile, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+KanLiXiang_Faker_Unlock = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/vip\/buy-list, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+KanLiXiang_Faker_Unlock = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/class\/content, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+KanLiXiang_Faker_Unlock = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/content\/sales-list, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+KanLiXiang_Faker_Unlock = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/broadcast\/show, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+KanLiXiang_Faker_Unlock = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/author\/author-show, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+KanLiXiang_Faker_Unlock = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/content\/article_list, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+KanLiXiang_Faker_Unlock = type=http-response, pattern=^https?:\/\/api\.vistopia\.com\.cn\/api\/v\d\/content\/content-show\/\d+, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KanLiXiang/JS/JS-2/KLX.js, requires-body=1, max-size=-1, timeout=5
+
+[MITM]
+hostname = %APPEND% api.vistopia.com.cn
+
