@@ -1,7 +1,7 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2025-05-16 10:58⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2025-12-31 15:20⟧
 ----------------------------------------------------------
-🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/Shawn_Parser_Bot
+🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
 📖 使用 教程: https://tinyurl.com/2jyygfom
 🗣 🆃🄷🄰🄽🄺🅂 🆃🄾  @Jamie CHIEN, @M**F**, @c0lada, @Peng-YM, @vinewx, @love4taylor, @shadowdogy 
@@ -581,10 +581,10 @@ function Type_Check(subs) {
     var type = "unknown"
     var RuleK = ["host,", "-suffix,", "domain,", "-keyword,", "ip-cidr,", "ip-cidr6,",  "geoip,", "user-agent,", "ip6-cidr,", "ip-asn"];
     var DomainK = ["domain-set,"]
-    var QuanXK = ["shadowsocks=", "trojan=", "vmess=", "http=", "socks5="];
+    var QuanXK = ["shadowsocks=", "trojan=", "vmess=", "http=", "socks5=", "vless="];
     var SurgeK = ["=ss,", "=vmess,", "=trojan,", "=http,", "=custom,", "=https,", "=shadowsocks", "=shadowsocksr", "=sock5", "=sock5-tls"];
     var ClashK = ["proxies:"]
-    var SubK = ["dm1lc3M", "c3NyOi8v", "CnNzOi8", "dHJvamFu", "c3M6Ly", "c3NkOi8v", "c2hhZG93", "aHR0cDovLw", "aHR0cHM6L", "CnRyb2phbjo", "aHR0cD0", "aHR0cCA","U1RBVFVT"];
+    var SubK = ["dm1lc3M", "c3NyOi8v", "CnNzOi8", "dHJvamFu", "c3M6Ly", "c3NkOi8v", "c2hhZG93", "aHR0cDovLw", "aHR0cHM6L", "CnRyb2phbjo", "aHR0cD0", "aHR0cCA","U1RBVFVT","dmxlc3M6"];
     var RewriteK = [" url 302", " url 307", " url reject", " url script", " url req", " url res", " url echo", " url-and-header 302", " url-and-header 307", " url-and-header reject", " url-and-header script", " url-and-header req", " url-and-header res", " url-and-header echo", " url jsonjq"] // quantumult X 类型 rewrite
     var SubK2 = ["ss://", "vmess://", "ssr://", "trojan://", "ssd://", "\nhttps://", "\nhttp://","socks://","ssocks://","vless://"];
     var ModuleK = ["[Script]", "[Rule]", "[URL Rewrite]", "[Map Local]", "\nhttp-r", "script-path"]
@@ -1559,11 +1559,32 @@ function ReplaceReg(cnt, para) {
     return cnt0//.split("\n")
 }
 
+
+// read parameters 2025-12-30
+function param(res,org,mbody) {
+  if(mbody.indexOf(org)!=-1) {
+    tmp=mbody.split(org)[1].split("&")[0].split("#")[0]
+    return res+"="+tmp
+  }
+  else return ""
+}
+
+// get reality parameters
+function Reality_Handle(cnt) {
+//add reality-base64-pubkey, reality-hex-shortid, vless-flow=xtls-rprx-vision
+  a1=param("reality-base64-pubkey","pbk=",cnt)
+  a2=param("reality-hex-shortid","sid=",cnt)
+  a3=(cnt.indexOf("flow=xtls-rprx-vision")!=-1 || cnt.indexOf("xtls=2")!=-1) && a1 != "" ? "vless-flow=xtls-rprx-vision": ""
+  rnt=[a1,a2,a3].filter(Boolean).join(", ")
+  return rnt
+}
+
+
 //混合订阅类型，用于未整体进行 base64 encode 以及已经 decode 后的类型
 function Subs2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
   if (Pdbg) {$notify("subs", "node", subs)}
     var list0 = subs.split("\n");
-    var QuanXK = ["shadowsocks=", "trojan=", "vmess=", "http=","socks5="];
+    var QuanXK = ["shadowsocks=", "trojan=", "vmess=", "http=","socks5=", "vless="];
     var SurgeK = ["=ss,", "=vmess,", "=trojan,", "=http,", "=https,", "=custom,", "=socks5", "=socks5-tls"];
     var LoonK = ["=shadowsocks", "=shadowsocksr", "=vless"]
     var QXlist = [];
@@ -1623,13 +1644,14 @@ function Subs2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
                   $notify("⚠️ 你的 Quantumult X 版本暂未支持 Vless 节点","请 ⚠️不要⚠️ 跑来 解析器🤖️ 反馈",list0[i])
                 } else if (type == "vless" ) { // version 150 support vless 
                   node=VL2QX(list0[i], Pudp, Ptfo, Pcert0, PTls13)
-                } else if (QuanXK.some(NodeCheck1)) {
+                } else if (QuanXK.some(NodeCheck1)) { // QuanX type 
                     node = QX_TLS(isQuanX(list0[i])[0], Pcert0, PTls13)
-                } else if (SurgeK.some(NodeCheck)) {
+                } else if (SurgeK.some(NodeCheck)) { // Surge type
                     node = QX_TLS(Surge2QX(list0[i])[0], Pcert0, PTls13)
-                } else if (LoonK.some(NodeCheck)) {
+                } else if (LoonK.some(NodeCheck)) { // Loon type
                     node = Loon2QX(list0[i])
                 } 
+              if (Pdbg) {$notify(i, type, node)}
             } catch (e) {
                 failedList.push(`<<<\nContent: ${list0[i]}\nError: ${e}`)
             }
@@ -2074,6 +2096,7 @@ function SSR2QX(subs, Pudp, Ptfo) {
     return QX;
 }
 
+
 // Vless uri 转换成 QUANX 格式
 // vless://pwd@a.b.c.gq:443?encryption=none&security=tls&type=ws&host=a.b.c.d&path=dsjdaaaaj#VLESS_WSS
 // Vless Shadowrocket URI
@@ -2088,7 +2111,7 @@ function VL2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
   mtd= "method=none"
   obfs=""
   thost=""
-  if(cnt.indexOf("remarks=")==-1 && cnt.indexOf("@")!=-1) { // normal URI
+  if((cnt.indexOf("remarks=")==-1 && cnt.indexOf("remark=")==-1) && cnt.indexOf("@")!=-1) { // normal URI
   typeU = "URI"
   ip = cnt.split("@")[1].split("encry")[0].split("?")[0];
   pwd = cnt.split("@")[0]? "password=" + cnt.split("@")[0]:"";
@@ -2098,12 +2121,13 @@ function VL2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
   tag = cnt.indexOf("#") != -1 ? "tag=" + decodeURIComponent(cnt.split("#").slice(-1)[0]) : "tag= [vless]" + ip
   } else { // shadowrocket style
     typeU = "SR-URI"
-    tag = cnt.indexOf("remarks=") != -1 ? "tag=" + decodeURIComponent(cnt.split("remarks=")[1].split("&")[0]) : "tag= [vless]" + ip
     b64part = Base64.decode(cnt.split("?")[0])
     ip = b64part.split("@")[1]
     pwd = "password=" + b64part.split("@")[0].split(":")[1]
+    tag = cnt.indexOf("remarks=") != -1 ? "tag=" + decodeURIComponent(cnt.split("remarks=")[1].split("&")[0]) : "tag= [vless]" + ip
+    tag = cnt.indexOf("remark=") != -1 ? "tag=" + decodeURIComponent(cnt.split("remark=")[1].split("&")[0]) : tag
   }
-  
+ 
   puri = ""
  
   pudp = (Pudp == 1 || cnt.indexOf("udp=1")!=-1) ? "udp-relay=true" : "udp-relay=false";
@@ -2112,7 +2136,7 @@ function VL2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
   if (typeU == "SR-URI") {//小火箭内的websocket写法
     if(cnt.indexOf("obfs=none")!=-1 && cnt.indexOf("tls=1")==-1) {
       obfs = ""
-    } else if(cnt.indexOf("obfs=none")!=-1 && cnt.indexOf("tls=1")!=-1) {
+    } else if((cnt.indexOf("obfs=none")!=-1 || cnt.indexOf("obfs=")==-1) && cnt.indexOf("tls=1")!=-1) {
       obfs = "obfs=over-tls"
     } else if(cnt.indexOf("obfs=http")!=-1) {
       obfs = "obfs=http"
@@ -2120,17 +2144,20 @@ function VL2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
       obfs = cnt.indexOf("tls=1") != -1? "obfs=wss" : "obfs=ws"
     } 
   thost=cnt.indexOf("obfsParam=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("obfsParam=")[1].split("&")[0].split("#")[0]).replace(/\"|(Host\":)|\{|\}/g,"")
+  thost=cnt.indexOf("sni=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("sni=")[1].split("&")[0].split("#")[0]).replace(/\"|(Host\":)|\{|\}/g,"")
+  thost=cnt.indexOf("peer=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("peer=")[1].split("&")[0].split("#")[0]).replace(/\"|(Host\":)|\{|\}/g,"")
 
   puri = cnt.indexOf("path=") == -1? puri : "obfs-uri=" + decodeURIComponent(cnt.split("path=")[1].split("&")[0].split("#")[0])
-  } else if (cnt.indexOf("&type=ws")!=-1 || cnt.indexOf("?type=ws")!=-1 || cnt.indexOf("type=http")!=-1 || cnt.indexOf("security=tls")!=-1) {//v2rayN uri
+  } else if (cnt.indexOf("&type=ws")!=-1 || cnt.indexOf("?type=ws")!=-1 || cnt.indexOf("type=http")!=-1 || cnt.indexOf("security=tls")!=-1 || cnt.indexOf("security=reality")!=-1) {//v2rayN uri
     if(cnt.indexOf("type=http") != -1) {
       obfs="obfs=http"
     } else if (cnt.indexOf("type=ws") != -1) {
-      obfs = cnt.indexOf("security=tls") != -1? "obfs=wss" : "obfs=ws" 
-    } else if(cnt.indexOf("security=tls")!=-1) {
+      obfs = cnt.indexOf("security=tls") != -1 || cnt.indexOf("security=reality")!=-1? "obfs=wss" : "obfs=ws" 
+    } else if(cnt.indexOf("security=tls")!=-1 || cnt.indexOf("security=reality")!=-1) {
       obfs = "obfs=over-tls"
     }
     thost=cnt.indexOf("&host=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("&host=")[1].split("&")[0].split("#")[0])
+    thost=cnt.indexOf("sni=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("sni=")[1].split("&")[0].split("#")[0]).replace(/\"|(Host\":)|\{|\}/g,"")
     puri = cnt.indexOf("&path=") == -1? puri : "obfs-uri=" + decodeURIComponent(cnt.split("&path=")[1].split("&")[0].split("#")[0])
   } else if(cnt.indexOf("security=xtls")!=-1) { //暂不支持类型
     type="NS"
@@ -2148,10 +2175,10 @@ if(obfs=="obfs=wss" && obfs=="obfs=over-tls"){
   pcert=""
   ptls13=""
 }
-
-  nvless.push(type + ip, pwd, mtd, obfs, pcert, thost, puri, pudp, ptfo, tag)
+// Reality para 2025-12-30
+  prlt= version>=891? Reality_Handle(cnt) : ""
+  nvless.push(type + ip, pwd, mtd, obfs, pcert, thost, puri, pudp, ptfo, prlt, tag)
   QX = type!="NS"? nvless.filter(Boolean).join(", ")  : ""
-  //$notify("VLESS","subtitle",QX)
   return QX
 }
 
@@ -2190,7 +2217,9 @@ function TJ2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
       thost=cnt.indexOf("&host=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("&host=")[1].split("&")[0].split("#")[0])
       puri = cnt.indexOf("&path=") == -1? puri : "obfs-uri=" + decodeURIComponent(cnt.split("&path=")[1].split("&")[0].split("#")[0])
     }
-    ntrojan.push(type + ip, pwd, obfs, pcert, thost, puri, pudp, ptfo, tag)
+    // Reality para 2025-12-31
+    prlt= version>=891? Reality_Handle(cnt) : ""
+    ntrojan.push(type + ip, pwd, obfs, pcert, thost, puri, pudp, ptfo,prlt,tag)
     QX = ntrojan.filter(Boolean).join(", ");
     //$notify("title","subtitle",QX)
     return QX;
@@ -2209,10 +2238,10 @@ function SS2QX(subs, Pudp, Ptfo) {
     type = "shadowsocks=";
     let cntt = cnt.split("#")[0]// 
     //console.log(cntt)
-    if (cntt.indexOf("@") != -1 && cntt.indexOf(":") != -1) {
+    if (cntt.indexOf("@") != -1 && cntt.indexOf(":") != -1) { 
       ip = cnt.split("@")[1].split("#")[0].split("/")[0].split("?")[0];
       if(cntt.indexOf("%")==-1 || cntt.split("@")[0].indexOf(":")==-1){ // 2025-05-16 
-        pwdmtd = Base64.decode(cnt.split("@")[0].replace(/-/g, "+").replace(/_/g, "/")).split("\u0000")[0].split(":")
+        pwdmtd = Base64.decode(cnt.split("@")[0].replace(/-/g, "+").replace(/_/g, "/").replace(/%3D/g,"")).split("\u0000")[0].split(":")
       } else {
         pwdmtd = decodeURIComponent(cnt.split("@")[0]).split(":")
       }
@@ -2963,8 +2992,20 @@ function LoonSSR2QX(cnt) {
   return node
 }
 
+// read parameters
+function param1(res,org,mbody) {
+  mbodys=mbody.replace(/\s/g,"")
+  if(mbodys.indexOf(org)!=-1) {
+    tmp=mbodys.split(org)[1].split("=")[1].split(",")[0].replace(/\"/g,"")
+    return res+"="+tmp
+  }
+  else return ""
+}
+
 //Loon 的 VLESS 部分
 //vls = VLESS,1.1.1.1,443,"b0dd64e4-0fbd-4038-9139-d1f32a68a0dc",transport=ws,path=patha,host=host.com,udp=true,over-tls=true,tls-name=sni.co
+//2025-12-31 add reality part support
+//vls-name = VLESS,ip,port,"pwd",transport=tcp,flow=xtls-rprx-vision,public-key="pbk",short-id=sid,udp=true,block-quic=true,over-tls=true,sni=sni.com
 function LoonVL2QX(cnt) {
   var tag = ", tag=" + cnt.split("=")[0].trim()
   cnt=cnt.replace(" ","") //去掉空格 简化 
@@ -2984,8 +3025,13 @@ function LoonVL2QX(cnt) {
     obfshost="obfs-host="+cnt.split("host=")[1].split(",")[0]
   }  else if (cnt.indexOf("tls-name=")!=-1) {
     obfshost="obfs-host="+cnt.split("tls-name=")[1].split(",")[0]
+  } else if (cnt.indexOf("sni=")!=-1) {
+    obfshost="obfs-host="+cnt.split("sni=")[1].split(",")[0]
   }
-  node = node + [ip, mtd, pwd, obfs, obfshost, vpath].join(", ") + tag
+  vflow=param1("vless-flow","flow",cnt)
+  vpbk=param1("reality-base64-pubkey","public-key",cnt)
+  vsid=param1("reality-hex-shortid","short-id",cnt)
+  node = node + [ip, mtd, pwd, obfs, obfshost, vpath,vflow,vpbk,vsid].filter(Boolean).join(", ") + tag
   return node
 }
 
