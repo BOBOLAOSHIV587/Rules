@@ -1,6 +1,6 @@
 #!name=波波老师自用Premium
 #!desc=波波老师自用Premium
-#!date=2025-12-25
+#!date=2026-01-01
 #!category=😍BOBO Premium
 #!author= 各位大佬
 #!homepage=https://github.com/BOBOLAOSHIV587/Rules
@@ -12,27 +12,6 @@ DOMAIN,gather.colorfulclouds.net,REJECT
 
 # > 插画世界-去开屏广告
 DOMAIN,*.adukwai.com,REJECT
-
-
-# > 酷狗(广告/弹窗)
-URL-REGEX, ^https:\/\/vipssr\.kugou\.com\/static\/js\/async\/flexPayPopup, REJECT
-URL-REGEX, ^https:\/\/gateway\.kugou\.com\/vipssr\/prepay_ios\.html, REJECT
-URL-REGEX, ^https:\/\/staticssl\.kugou\.com\/common\/js-lib\/vip\/dlg_ctrler_v2\.js$, REJECT
-URL-REGEX, ^https:\/\/h5\.kugou\.com\/apps\/vipcenter\/_next\/static\/css, REJECT
-URL-REGEX, ^https:\/\/vipssr\.kugou\.com\/static\/js\/vip\/newUi\/vipPageUnionIosContent-, REJECT
-URL-REGEX, ^https:\/\/fx\.service\.kugou\.com\/fx\/activity\/register\/center\/sidebar\/configV2$, REJECT
-URL-REGEX, ^https:\/\/service1\.fanxing\.kugou\.com\/video\/mo\/live\/pull\/mutiline\/cfg, REJECT
-URL-REGEX, ^http:\/\/log\.web\.kugou\.com\/postEvent\.php$, REJECT
-# > (广告域名)
-DOMAIN, webvoobssdl.kugou.com, REJECT
-DOMAIN, ad.tencentmusic.com, REJECT
-DOMAIN, ads.service.kugou.com, REJECT
-DOMAIN, adsfile.kugou.com, REJECT
-DOMAIN, mdpfilebssdlbig.kugou.com, REJECT
-DOMAIN, adserviceretry.kugou.com, REJECT
-# > (开屏广告)
-IP-CIDR, 157.255.11.247/32, REJECT, no-resolve
-IP-CIDR, 111.206.99.202/32, REJECT, no-resolve
 
 
 [Map Local]
@@ -64,10 +43,6 @@ IP-CIDR, 111.206.99.202/32, REJECT, no-resolve
 
 # > 咪咕音乐vip、音质、下载
 ^https://app\.c.nf\.migu\.cn/payment/watch-ad data-type=text data=" " status-code=200
-
-
-# 123云盘横幅广告
-^https:\/\/www\.123pan\.com\/api\/config\/get data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 
 
@@ -507,8 +482,6 @@ MiGuMusic = type=http-response, pattern=^https?:\/\/(u|c|app).(musicapp|(c|u).nf
 MiGuMusic-CK = type=http-request, pattern=^https?:\/\/app.(c|pd).nf.migu.cn\/.*\/(listen-url|music\/batchQueryMusicPolicy|download-url).*$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MiGuMusic/JS/JS-1/MiGuMusic-CK.js, timeout=60
 
 
-# > 海角社区解锁会员视频&付费视频
-HaiJiaoSheQu = type=http-response, pattern=^https:\/\/api2\.upwqjcun\.cc\/api\/(?:mv\/detail|users\/base_info|home\/getconfig|novel\/detail|novel\/recommend|novel\/chaptersList|novel\/chapterDetail|navigation\/index_aw), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/HaiJiaoSheQu/JS/HaiJiaoSheQu.js, requires-body=true, max-size=-1, timeout=60
 # > 海角社区 解锁付费会员视频
 HaiJiao = type=http-response, pattern=^https?:\/\/haijiao\.com\/api\/(topic\/\d+|banner\/banner_list)$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/HaiJiaoSheQu/JS/HaiJiao.js, requires-body=true, max-size=-1, timeout=60
 
@@ -564,13 +537,6 @@ VK音乐 = type=http-response, pattern=https://api.moosic.io/(user/info|subscrip
 
 
 
-# > 酷我音乐纯净版解锁VIP
-酷我音乐纯净版会员 = type=http-response, pattern=http://vip1.kuwo.cn/vip/v2/user/vip, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusicPE/JS/KuWoMusicPE.js, requires-body=true, timeout=60
-酷我音乐纯净版下载 = type=http-response, pattern=^http?:\/\/musicpay\.kuwo\.cn\/music\.pay\?newver=3, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusicPE/JS/KuWoMusicPE.js, requires-body=true, timeout=60
-酷我音乐纯净版播放 = type=http-request, pattern=^http?:\/\/nmobi\.kuwo\.cn\/mobi\.s\?f=kuwo&q=, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusicPE/JS/KuWoMusicPE.js, requires-body=true, timeout=60
-
-
-
 # > 酷我音乐解锁VIP
 酷我音乐解锁VIP = type=http-response, pattern=^https?:\/\/(?:musicpay|nmobi|vip1|audiobookpay|tingshu|anymatch|mobilebasedata|rich|mobilead)\.kuwo\.cn\/(?:music\.pay\?newver=\d+|mobi.s\?f=kwxs|vip\/(?:enc\/user\/vip\?op=ui&uid=|v2\/theme\?op=gd)|a\.p|v2\/api\/pay\/user\/info|api\/music\/info|AdService\/kaiping\/adinfo|EcomResourceServer\/adEarnGuajian\/adinfo), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusic/JS/JS-3/KuWo.js, requires-body=true, max-size=-1, timeout=60
 
@@ -595,118 +561,13 @@ revenuecat = type=http-request, pattern=^https?:\/\/api\.revenuecat\.com\/v1\/(s
 
 
 
-# > 123云盘
-[123云盘]移除广告 = type=http-response, pattern=^https?:\/\/www\.123pan\.com\/s\/[0-9a-zA-Z=_/-]+\.html, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/123Pan/JS/123Pan.js, requires-body=true, timeout=60
-
-[123云盘]解除下载限制 = type=http-request, pattern=^https?:\/\/www\.123pan\.com\/b\/api\/share\/download\/info, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/123Pan/JS/123Pan.js, timeout=60
-
-
-
-
-# > 酷狗音乐解锁Vip
-# > SSR首页装饰中心
-酷狗SSR首页 = type=http-response, pattern=^https:\/\/m\.kugou\.com\/ssr\/decocenter\/home, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 登录相关接口
-酷狗登录Token = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v5\/login_by_token, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗K歌 = type=http-response, pattern=^https?:\/\/(nacsing\.kugou\.com|acsing\.service\.kugou\.com|vipos\.kugou\.com|gateway\.kugou\.com|gamecenter\.kugou\.com|acsing\.tx\.kugou\.com)\/(sing7\/json\/v2\/user\/login|ccktv\/v1\/ktv_room\/room\/room_config|fxsing\/vip\/member\/info|sing7\/homepage\/json\/v3\/vip\/tip|v4\/price\/get_tips|vipenergy\/v2\/entrance\/vip_center_user_info|fxsing\/vip\/user\/info|sing7\/homepage\/json\/v3\/cdn\/kroom_tab_enter|v1\/home\/member_game|sing7\/homepage\/json\/v3\/cdn\/kroom_tab\/banners), requires-body=true, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGouSong.js
-
-酷狗播放v5 = type=http-response, pattern=^https?:\/\/gateway\.kugou\.com\/tracker\/v5\/url, requires-body=true, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGouV5.js
-
-酷狗快速登录 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/login_by_quick_token, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗登录扩展信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v2\/get_login_extend_info, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > VIP信息相关
-酷狗VIP信息V2 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/mobile\/vipinfoV2, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗VIP配置 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v2\/get_vip_config, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗VIP等级详情 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/promotionvip\/v3\/vip_level\/detail, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗价格提示 = type=http-response, pattern=^https:\/\/vipos\.kugou\.com\/v4\/price\/get_tips, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗融合用户信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/vip\/v1\/fusion\/userinfo, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗超级VIP福利 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v2\/super\/welfarelist, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 卡片相关接口
-酷狗卡片顶部 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/card\/v1\/pxy\/top, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗卡片听歌 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/card\/v1\/pxy\/listen, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗推荐流 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/card\/v1\/pxy\/recommend_stream$, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗推荐流V2 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/card\/v1\/pxy\/recommend_stream_v2, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 广告相关接口 (使用通配符匹配所有子域名)
-酷狗侧边栏链接 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/sidebar_link, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗侧边栏顶部卡片 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/sidebar_top_card, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗首页卡片 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/home_card, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗移动端链接 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/mobile_link, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗任务中心入口 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/task_center_entrance, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗任务视频资格 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v5\/task_video\/qualification, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗搜索横幅 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v4\/search_banner, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 移动端启动画面
-酷狗移动端启动画面 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v4\/mobile_splash$, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗移动端启动画面排序 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v4\/mobile_splash_sort, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > AB测试相关
-酷狗AB测试 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/els\.abt\/v1\/tmeab, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 代理组合相关
-酷狗代理组合启动 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/pxy\/v1\/combo\/startup, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗播放页面索引 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/playerpxy\/v1\/combo\/play_page_index, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 系统相关
-酷狗音乐符号系统配置 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/mstc\/musicsymbol\/v1\/system\/profile, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗用户挂件 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/pendant\/v2\/get_user_pendant, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗盲盒柜 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/blindbox_cabinet\/client_cabinet, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗用户等级配置 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/flow\/user_config\/get_level_config_ios, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗星光活动信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/starlight\/get_campaign_infos, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗搜索无焦点词 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/searchnofocus\/v1\/search_no_focus_word, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗开发用户更新 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/updateservice\/v1\/get_dev_user, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 资源权限相关
-酷狗资源权限精简版 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/get_res_privilege\/lite, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗联合音频信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/union\/audio_info, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 主题相关
-酷狗主题分类 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ocean\/v6\/theme\/category, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-酷狗主题信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/tools\.mobile\/v2\/theme\/info, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 广告播放页面组合
-酷狗广告播放页面组合 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/adp\/ad\/v1\/playpage_combine, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > VIP中心
-酷狗VIP中心V3 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v3\/vip_center, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
-# > 我的顶部横幅
-酷狗我的顶部横幅 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/mine_top_banner, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
+# > DJ串烧集-解锁VIP
+DJ串烧集 = type=http-response, pattern=^http:\/\/csj\.yy-5\.com\/api\/User\/Info, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DJChuanShaoJi/JS/JS-1/DJCSJ.js, requires-body=true, max-size=-1, timeout=60
 
 
 
 
 
 [MITM]
-hostname = %APPEND% api.agcplayer.com, a.ajmide.com, api.adblockpro.app, *.adguard.org, *.aliyundrive.com, *.alipan.com, api.alohaprofile.com, *.aoscdn.com, *.apsapp.cn, app.autocad360.com, user-b612-api.snow.me, pan.baidu.com, baimiao.uzero.cn, api.mr.pixocial.com, newbeee-api.beautyplus.com, apimboom2.globaldelight.net, biz.caiyunapp.com, *.camscanner.com, *.intsig.net, api2.vilipix.com, ios.chat.openai.com, api.craft.do, cubox.pro, ai.xiuxiu.meitu.com, api-sub.meitu.com, dj.palmestore.com, media.deezer.com, mobile-new.chinaeew.cn, *.pdfexpert.com, backend.getdrafts.com, dreamfaceapp.com, mb3admin.com, www.mb3admin.com, api-production.endel.io, *.snow.me, api-*.facereplacerext.com, www.kkmop.com, filmicpro.oracle.bendingspoonsapps.com, appv2.filmix.com.cn, payments.invideo.io, mobile.flightradar24.com, api.purchasely.io, *.vlognow.me, *.oracle.bendingspoonsapps.com, api.funimate.com, api.github.com, isi.csan.goodnotes.com, tailor.tomax.xyz, ifttt.com, nobyda.app, api*.faceu.mobi, api3-lq.faceu.mobi, commerce-api-lf.faceu.mobi, commerce-api-lq.faceu.mobi, lv-api-lq.ulikecam.com, lv-api-hl.ulikecam.com, *.kuwo.cn, *.lrts.me, shapi.mting.info, shapi.lanrentingshu.com, gzapi.lanrentingshu.com, shapi.mting.info:443, *mgtv.com, cdn-bm.camera360.com, *.xiuxiu.meitu.com, api.posters.meitu.com, api-sub.meitu.com, *.meiyan.com, bmall.camera360.com, *.api.moji.com, api.moises.ai, www.mymorpholio.com, *.apphud.com, api2.mubu.com, apic.musixmatch.com, premium-api.myfitnesspal.com, nanie.flyingeffect.com, restore-access.indream.app, nicegram.cloud, notability.com, lcs-mobile-cops.adobe.io, peakvisor.com, service.perfect365.com, api.meiease.*, api.picsart.*, api-drive.mypikpak.com, oauth.secure.pixiv.net, api.polaxiong.com, purchase-qingtu-api.b612kaji.com, api-qingtu.kajicam.com, www.qobuz.com, tfbook.taoyuewenhua.net, tybook.taoyuewenhua.net, gql.reddit.com, gql-fed.reddit.com, commerce-api.faceu.mobi, api3-misc-lf.retouchpics.com, shimo.im, ocean.shuqireader.com, *-slidebox-ios-prod.cloudfunctions.net, snailsleep.net, api-mobile.soundcloud.com, spclient.wg.spotify.com, *spclient.spotify.com, api.qonversion.io, scibug.com, api.tidal.com, api.termius.com, api2.vlognow.me, medi.dxzzy321.top, *.docer.wps.cn, vipapi.wps.cn, account.wps.cn, *.wps.cn, p.du.163.com, *.wallpaperscraft.com, security.wechat.com, weixin110.qq.com, education.github.com, *xmind.*, *xunlei.com, api-shoulei-ssl.xunlei.com, app-ios.y2002.com, api.ieasou.com, dict.youdao.com, business.youdao.com, api-overmind.youdao.com, cdke.youdao.com, *.radio.cn, 60.205.171.165, service.ilovepdf.com, *.miguvideo.com, *.migu.cn, *.upwqjcun.cc, haijiao.com, missav.ai, dj.palmestore.com, *.music.163.com, app-i.dj-5.com, tuoba.dida110.com, notebook.zoho.com, xiaoshuo.xmxsapp.com, api.zuidie.net, api.music.yandex.net, api.moosic.io, h5s.kuwo.cn, anymatch.kuwo.cn, musicpay.kuwo.cn, mobilebasedata.kuwo.cn, vip1.kuwo.cn, rich.kuwo.cn, mobilead.kuwo.cn, *.kuwo.cn, bd-api.kuwo.cn, *.kuwo.*, ad.tencentmusic.com, *.l.qq.com, 39.156.123.46:443, bd-api.kuwo.com, 39.156.123.46, 39.156.12*.*:443, h5app.kuwo.cn, bodianimgcdn.kuwo.cn, h5s.kuwo.cn, 39.156.121.20:443, 111.30.171.170:443, 39.156.121.21:443, h5s.kuwo.cn, 39.156.121.20:443, 101.42.133.54:443, ab-bodian.kuwo.cn, 39.156.121.65:443, 39.156.121.*:443, bd-api.kuwo.cn:443, ab-bodian.kuwo.cn:443, 39.156.121.60:80, xs.gdt.qq.com, *.kugou.com, api.revenuecat.com, api.rc-backup.com, www.123pan.com
+hostname = %APPEND% api.agcplayer.com, a.ajmide.com, api.adblockpro.app, *.adguard.org, *.aliyundrive.com, *.alipan.com, api.alohaprofile.com, *.aoscdn.com, *.apsapp.cn, app.autocad360.com, user-b612-api.snow.me, pan.baidu.com, baimiao.uzero.cn, api.mr.pixocial.com, newbeee-api.beautyplus.com, apimboom2.globaldelight.net, biz.caiyunapp.com, *.camscanner.com, *.intsig.net, api2.vilipix.com, ios.chat.openai.com, api.craft.do, cubox.pro, ai.xiuxiu.meitu.com, api-sub.meitu.com, dj.palmestore.com, media.deezer.com, mobile-new.chinaeew.cn, *.pdfexpert.com, backend.getdrafts.com, dreamfaceapp.com, mb3admin.com, www.mb3admin.com, api-production.endel.io, *.snow.me, api-*.facereplacerext.com, www.kkmop.com, filmicpro.oracle.bendingspoonsapps.com, appv2.filmix.com.cn, payments.invideo.io, mobile.flightradar24.com, api.purchasely.io, *.vlognow.me, *.oracle.bendingspoonsapps.com, api.funimate.com, api.github.com, isi.csan.goodnotes.com, tailor.tomax.xyz, ifttt.com, nobyda.app, api*.faceu.mobi, api3-lq.faceu.mobi, commerce-api-lf.faceu.mobi, commerce-api-lq.faceu.mobi, lv-api-lq.ulikecam.com, lv-api-hl.ulikecam.com, *.kuwo.cn, *.lrts.me, shapi.mting.info, shapi.lanrentingshu.com, gzapi.lanrentingshu.com, shapi.mting.info:443, *mgtv.com, cdn-bm.camera360.com, *.xiuxiu.meitu.com, api.posters.meitu.com, api-sub.meitu.com, *.meiyan.com, bmall.camera360.com, *.api.moji.com, api.moises.ai, www.mymorpholio.com, *.apphud.com, api2.mubu.com, apic.musixmatch.com, premium-api.myfitnesspal.com, nanie.flyingeffect.com, restore-access.indream.app, nicegram.cloud, notability.com, lcs-mobile-cops.adobe.io, peakvisor.com, service.perfect365.com, api.meiease.*, api.picsart.*, api-drive.mypikpak.com, oauth.secure.pixiv.net, api.polaxiong.com, purchase-qingtu-api.b612kaji.com, api-qingtu.kajicam.com, www.qobuz.com, tfbook.taoyuewenhua.net, tybook.taoyuewenhua.net, gql.reddit.com, gql-fed.reddit.com, commerce-api.faceu.mobi, api3-misc-lf.retouchpics.com, shimo.im, ocean.shuqireader.com, *-slidebox-ios-prod.cloudfunctions.net, snailsleep.net, api-mobile.soundcloud.com, spclient.wg.spotify.com, *spclient.spotify.com, api.qonversion.io, scibug.com, api.tidal.com, api.termius.com, api2.vlognow.me, medi.dxzzy321.top, *.docer.wps.cn, vipapi.wps.cn, account.wps.cn, *.wps.cn, p.du.163.com, *.wallpaperscraft.com, security.wechat.com, weixin110.qq.com, education.github.com, *xmind.*, *xunlei.com, api-shoulei-ssl.xunlei.com, app-ios.y2002.com, api.ieasou.com, dict.youdao.com, business.youdao.com, api-overmind.youdao.com, cdke.youdao.com, *.radio.cn, 60.205.171.165, service.ilovepdf.com, *.miguvideo.com, *.migu.cn, haijiao.com, missav.ai, dj.palmestore.com, *.music.163.com, app-i.dj-5.com, tuoba.dida110.com, notebook.zoho.com, xiaoshuo.xmxsapp.com, api.zuidie.net, api.music.yandex.net, api.moosic.io, h5s.kuwo.cn, anymatch.kuwo.cn, musicpay.kuwo.cn, mobilebasedata.kuwo.cn, vip1.kuwo.cn, rich.kuwo.cn, mobilead.kuwo.cn, *.kuwo.cn, bd-api.kuwo.cn, *.kuwo.*, ad.tencentmusic.com, *.l.qq.com, 39.156.123.46:443, bd-api.kuwo.com, 39.156.123.46, 39.156.12*.*:443, h5app.kuwo.cn, bodianimgcdn.kuwo.cn, h5s.kuwo.cn, 39.156.121.20:443, 111.30.171.170:443, 39.156.121.21:443, h5s.kuwo.cn, 39.156.121.20:443, 101.42.133.54:443, ab-bodian.kuwo.cn, 39.156.121.65:443, 39.156.121.*:443, bd-api.kuwo.cn:443, ab-bodian.kuwo.cn:443, 39.156.121.60:80, xs.gdt.qq.com, api.revenuecat.com, api.rc-backup.com, csj.yy-5.com
 
