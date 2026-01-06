@@ -1,22 +1,19 @@
 #!name=贴吧去广告(>=iOS15)
 #!desc=开屏广告;推荐和吧内帖子列表的直播及广告;详情页直播/关联商品/广告;看图模式广告;首页和帖子详情页右下角悬浮广告;部分吧内的置顶/最新中间的广告/head图片广告/head直播
-#!date=2025-10-17
-#!category=😍BOBO Premium
+#!date=2026-01-06
+#!category=🐹 BOBO Premium
 #!author= app2smile[https://github.com/app2smile/rules], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BaiDuTieBa.png
 #!openUrl=https://apps.apple.com/app/id477927812
 
-
 [Argument]
 per_filter_video_thread = select,"0","1",tag=推荐页不展示视频贴,desc=设置为1则推荐页不展示视频贴
-
 
 [Rule]
 # 贴吧屏蔽域名dns查询
 DOMAIN,180.76.76.200,REJECT
 # no-resolve需在最后
 IP-CIDR,180.76.76.200/32,REJECT,no-resolve
-
 
 [Rewrite]
 ^https:\/\/tieba\.baidu\.com\/c\/f\/member\/getMemberPopups$ reject-dict
@@ -34,12 +31,10 @@ IP-CIDR,180.76.76.200/32,REJECT,no-resolve
 
 ^https:\/\/tiebac\.baidu\.com\/c\/f\/frs\/frsBottom$ response-body-json-del card_activity
 
-
 [Script]
 # > 贴吧去广告
-http-response ^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/(c\/(s\/sync|f\/(ad\/getSplashAd|frs\/(page|threadlist|generalTabList)|pb\/(pic)?page|excellent\/personalized))$|tiebaads\/commonbatch\?) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuTieBa/JS/BaiDuTieBa-Json.js, requires-body=true, timeout=10, tag=贴吧json
-http-response ^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/c\/(b\/ad\/adBid|f\/(frs\/(page|threadlist|generalTabList)|ad\/getFeedAd|pb\/page|excellent\/personalized))\?cmd script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuTieBa/JS/BaiDuTieBa-Proto.js, requires-body=true, binary-body-mode=true, timeout=10, tag=贴吧proto, argument=[{per_filter_video_thread}]
-
+http-response ^https?:\/\/(tiebac|c\.tieba)\.baidu\.com\/(c\/(s\/sync|f\/(ad\/getSplashAd|frs\/(page|threadlist|generalTabList)|pb\/(pic)?page|excellent\/personalized))$|tiebaads\/commonbatch\?) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuTieBa/JS/BaiDuTieBa-Json.js, requires-body=true, timeout=10, tag=贴吧json
+http-response ^https?:\/\/(tiebac|c\.tieba)\.baidu\.com\/c\/(b\/ad\/adBid|f\/(frs\/(page|threadlist|generalTabList)|ad\/getFeedAd|pb\/page|excellent\/personalized))\?cmd script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuTieBa/JS/BaiDuTieBa-Proto.js, requires-body=true, binary-body-mode=true, timeout=10, tag=贴吧proto, argument=[{per_filter_video_thread}]
 
 [MITM]
 hostname = tiebac.baidu.com

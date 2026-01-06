@@ -1,30 +1,26 @@
 #!name=贴吧去广告(>=iOS15)
-#!desc=开屏广告;推荐和吧内帖子列表的直播及广告;详情页直播/关联商品/广告;看图模式广告;首页和帖子详情页右下角悬浮广告;部分吧内的置顶/最新中间的广告/head图片广告/head直播
-#!date=2025-10-17
-#!category=😍BOBO Premium
+#!desc=开屏广告;推荐和吧内帖子列表的直播及广告
+#!date=2026-01-06
+#!category=🐹 BOBO Premium
 #!author= app2smile[https://github.com/app2smile/rules]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BaiDuTieBa.png
 #!openUrl=https://apps.apple.com/app/id477927812
 #!arguments=per_filter_video:0
 #!arguments-desc=per_filter_video:设置为1则推荐页不展示视频贴
 
-
 [Rule]
 # 贴吧屏蔽域名dns查询
 DOMAIN,180.76.76.200,REJECT
 IP-CIDR,180.76.76.200/32,REJECT,no-resolve
 
-
 [Map Local]
 ^https:\/\/tieba\.baidu\.com\/c\/f\/member\/getMemberPopups$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/tiebac\.baidu\.com\/c\/f\/search\/discover$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-
 [Script]
 # > 贴吧去广告
-贴吧json = type=http-response,pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/(c\/(s\/sync|f\/(ad\/getSplashAd|frs\/(page|threadlist|generalTabList)|pb\/(pic)?page|excellent\/personalized))$|tiebaads\/commonbatch\?),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuTieBa/JS/BaiDuTieBa-Json.js,script-update-interval=0
-贴吧proto = type=http-response,pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/c\/(b\/ad\/adBid|f\/(frs\/(page|threadlist|generalTabList)|ad\/getFeedAd|pb\/page|excellent\/personalized))\?cmd,requires-body=1,binary-body-mode=1,max-size=-1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuTieBa/JS/BaiDuTieBa-Proto.js,argument=per_filter_video_thread={{{per_filter_video}}}
-
+贴吧json = type=http-response,pattern=^https?:\/\/(tiebac|c\.tieba)\.baidu\.com\/(c\/(s\/sync|f\/(ad\/getSplashAd|frs\/(page|threadlist|generalTabList)|pb\/(pic)?page|excellent\/personalized))$|tiebaads\/commonbatch\?),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuTieBa/JS/BaiDuTieBa-Json.js,script-update-interval=0
+贴吧proto = type=http-response,pattern=^https?:\/\/(tiebac|c\.tieba)\.baidu\.com\/c\/(b\/ad\/adBid|f\/(frs\/(page|threadlist|generalTabList)|ad\/getFeedAd|pb\/page|excellent\/personalized))\?cmd,requires-body=1,binary-body-mode=1,max-size=-1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuTieBa/JS/BaiDuTieBa-Proto.js,argument=per_filter_video_thread={{{per_filter_video}}}
 
 [MITM]
 hostname = %APPEND% tiebac.baidu.com
