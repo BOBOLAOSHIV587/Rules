@@ -1,6 +1,6 @@
 #!name=酷狗音乐
-#!desc=酷狗音乐解锁Vip
-#!date=2025-12-25
+#!desc=解锁酷狗音乐会员功能，包括VIP歌曲、无损音质、去广告、皮肤等
+#!date=2026-01-10
 #!category=🐹 BOBO Premium
 #!author= baby[https://github.com/Yu9191/Rewrite]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuGou.png
@@ -113,6 +113,14 @@ http-response ^https:\/\/.*\.kugou\.com\/adp\/ad\/v1\/playpage_combine script-pa
 http-response ^https:\/\/.*\.kugou\.com\/v3\/vip_center script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js, requires-body=true, timeout=20, tag=酷狗VIP中心V3
 
 http-response ^https:\/\/.*\.kugou\.com\/mine_top_banner script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js, requires-body=true, timeout=20, tag=酷狗我的顶部横幅
+
+http-response ^https:\/\/.*\.kugou\.com\/ocean\/v6\/theme\/get_res_privilege script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js, requires-body=true, timeout=20, tag=酷狗皮肤权限
+
+http-response ^https:\/\/.*\.kugou\.com\/vipdress\/v1\/record_rack\/set_record_rack_check script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js, requires-body=true, timeout=20, tag=酷狗唱片架校验
+
+http-response ^https:\/\/.*\.kugou\.com\/vipdress\/v1\/record_rack\/set_user_record_rack script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js, requires-body=true, timeout=20, tag=酷狗设置唱片架
+
+http-response ^https:\/\/.*\.kugou\.com\/vipdress\/v1\/record_rack\/get_user_record_rack script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js, requires-body=true, timeout=20, tag=酷狗获取唱片架
 
 [MITM]
 hostname = *.kugou.com

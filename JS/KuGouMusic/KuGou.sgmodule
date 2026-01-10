@@ -1,6 +1,6 @@
 #!name=酷狗音乐
-#!desc=酷狗音乐解锁Vip
-#!date=2025-12-25
+#!desc=解锁酷狗音乐会员功能，包括VIP歌曲、无损音质、去广告、皮肤等
+#!date=2026-01-10
 #!category=🐹 BOBO Premium
 #!author= baby[https://github.com/Yu9191/Rewrite]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuGou.png
@@ -127,6 +127,15 @@ IP-CIDR, 111.206.99.202/32, REJECT, no-resolve
 
 # > 我的顶部横幅
 酷狗我的顶部横幅 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/mine_top_banner, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
+
+酷狗皮肤权限 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ocean\/v6\/theme\/get_res_privilege, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
+
+# > 唱片架/装扮相关
+酷狗唱片架校验 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/vipdress\/v1\/record_rack\/set_record_rack_check, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
+
+酷狗设置唱片架 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/vipdress\/v1\/record_rack\/set_user_record_rack, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
+
+酷狗获取唱片架 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/vipdress\/v1\/record_rack\/get_user_record_rack, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
 
 [MITM]
 hostname = %APPEND% *.kugou.com

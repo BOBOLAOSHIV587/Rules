@@ -1,6 +1,6 @@
 /* 
-12.25
-^https?:\/\/(m\.kugou\.com|gateway(retry)?\.kugou\.com|ads\.service\.kugou\.com|welfare\.kugou\.com|fx\.service\.kugou\.com|hwstore\.kugou\.com|loginservice\.kugou\.com|expendablekmrcdnretry\.kugou\.com|vipos\.kugou\.com)\/(ssr\/decocenter\/home|v5\/login_by_token|v2\/get_login_extend_info|card\/v1\/pxy\/top|ads\.gateway\/v2\/sidebar_link|ads\.gateway\/v2\/sidebar_top_card|ads\.gateway\/v2\/home_card|mobile\/vipinfoV2|v4\/mobile_splash(_sort)?|v2\/get_vip_config|ads\.gateway\/v5\/task_video\/qualification|els\.abt\/v1\/tmeab|pxy\/v1\/combo\/startup|mstc\/musicsymbol\/v1\/system\/profile|pendant\/v2\/get_user_pendant|v1\/blindbox_cabinet\/client_cabinet|ads\.gateway\/v2\/mobile_link|card\/v1\/pxy\/listen|flow\/user_config\/get_level_config_ios|v1\/starlight\/get_campaign_infos|searchnofocus\/v1\/search_no_focus_word|updateservice\/v1\/get_dev_user|v1\/login_by_quick_token|card\/v1\/pxy\/recommend_stream(_v2)?|v1\/get_res_privilege\/lite|v1\/union\/audio_info|ads\.gateway\/v2\/task_center_entrance|ocean\/v6\/theme\/category|tools\.mobile\/v2\/theme\/info|promotionvip\/v3\/vip_level\/detail|v4\/price\/get_tips|v1\/fusion\/userinfo|v2\/super\/welfarelist) url script-response-body kugou1227_enhanced.js
+01-10 
+^https?:\/\/(m\.kugou\.com|gateway(retry)?\.kugou\.com|ads\.service\.kugou\.com|welfare\.kugou\.com|fx\.service\.kugou\.com|hwstore\.kugou\.com|loginservice\.kugou\.com|expendablekmrcdnretry\.kugou\.com|vipos\.kugou\.com)\/(ssr\/decocenter\/home|v5\/login_by_token|v2\/get_login_extend_info|card\/v1\/pxy\/top|ads\.gateway\/v2\/sidebar_link|ads\.gateway\/v2\/sidebar_top_card|ads\.gateway\/v2\/home_card|mobile\/vipinfoV2|v4\/mobile_splash(_sort)?|v2\/get_vip_config|ads\.gateway\/v5\/task_video\/qualification|els\.abt\/v1\/tmeab|pxy\/v1\/combo\/startup|mstc\/musicsymbol\/v1\/system\/profile|pendant\/v2\/get_user_pendant|v1\/blindbox_cabinet\/client_cabinet|ads\.gateway\/v2\/mobile_link|card\/v1\/pxy\/listen|flow\/user_config\/get_level_config_ios|v1\/starlight\/get_campaign_infos|searchnofocus\/v1\/search_no_focus_word|updateservice\/v1\/get_dev_user|v1\/login_by_quick_token|card\/v1\/pxy\/recommend_stream(_v2)?|v1\/get_res_privilege\/lite|v1\/union\/audio_info|ads\.gateway\/v2\/task_center_entrance|ocean\/v6\/theme\/category|tools\.mobile\/v2\/theme\/info|promotionvip\/v3\/vip_level\/detail|v4\/price\/get_tips|v1\/fusion\/userinfo|v2\/super\/welfarelist|ocean\/v6\/theme\/get_res_privilege|vipdress\/v1\/record_rack\/set_record_rack_check|vipdress\/v1\/record_rack\/set_user_record_rack|vipdress\/v1\/record_rack\/get_user_record_rack) url script-response-body kugou1225.js
 
 hostname = m.kugou.com, gateway.kugou.com, gatewayretry.kugou.com, ads.service.kugou.com, welfare.kugou.com, fx.service.kugou.com, hwstore.kugou.com, loginservice.kugou.com, expendablekmrcdnretry.kugou.com, vipos.kugou.com
  */
@@ -155,9 +155,9 @@ function traverse(obj) {
 const processThemes = (themes) => {
     if (!themes) return;
     for (let theme of themes) {
-        theme.vip_level = 6;
-        theme.privilege = 0;
-        theme.privileges = [0];
+        theme.vip_level = 0;
+        theme.privilege = 5;
+        theme.privileges = [5];
         if (theme.limit_free_info) {
             theme.limit_free_info.limit_free_status = 1;
             theme.limit_free_info.free_end_time = 4092599349;
@@ -225,6 +225,61 @@ function main() {
                     if (ad.desc) ad.desc = "立即查看";
                     if (ad.jumpLink) ad.jumpLink = customLink;
                 }
+            }
+        }
+        // 皮肤权限处理 (theme/get_res_privilege)
+        else if (url.indexOf('theme/get_res_privilege') !== -1) {
+            if (data.data) {
+                data.data.is_privilege = 1;
+                data.data.forbid_type = 0;
+            }
+            data.errcode = 0;
+            data.status = 1;
+            data.errmsg = "";
+        }
+        // 唱片
+        else if (url.indexOf('record_rack') !== -1) {
+            data.errcode = 0;
+            data.status = 1;
+            data.errmsg = "";
+            
+            // 弹窗
+            const clearPopup = (target) => {
+                if (target) {
+                    target.popup_type = 0;
+                    target.popup_button = "";
+                    target.popup_content = "";
+                    target.jump_url = "";
+                }
+            };
+            
+            // 查询
+            if (url.indexOf('get_user_record_rack') !== -1) {
+                if (data.data) {
+                    data.data.record_rack_status = 1;
+                    data.data.can_use = 1;
+                    data.data.is_set = 1;
+                    // 列表项处理
+                    if (Array.isArray(data.data.list)) {
+                        data.data.list.forEach(item => {
+                            item.can_use = 1;
+                            item.end_time = vipDate;
+                        });
+                    }
+                }
+            }
+            
+            // 设置/校验
+            if (data.data) {
+                data.data.can_use = 1;
+                data.data.is_set = 1;
+                data.data.record_rack_status = 1;
+                data.data.need_popup = 0;
+                if (data.data.end_time) data.data.end_time = vipDate;
+                
+                clearPopup(data.data);
+                clearPopup(data.data.popup_Info);
+                clearPopup(data.data.popup_info);
             }
         }
         // 主题相关处理
