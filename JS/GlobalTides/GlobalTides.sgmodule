@@ -1,0 +1,15 @@
+#!name=全球潮汐-全球天气预报及离线潮汐
+#!desc=解锁VIP会员功能，登陆后解锁。
+#!date=2026-01-10
+#!category=🐹 BOBO Premium
+#!author= 伟人[https://github.com/WeiGiegie/666]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/GlobalTides.png
+#!openUrl=https://apps.apple.com/app/id876345983
+
+[Script]
+# > 全球潮汐VIP解锁
+全球潮汐 = type=http-response, pattern=^https:\/\/g\.catches\.com\/v1\/user\?method\=userInfo, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/GlobalTides/JS/GlobalTides.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% g.catches.com
+
