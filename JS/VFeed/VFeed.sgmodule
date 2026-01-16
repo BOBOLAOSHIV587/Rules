@@ -1,0 +1,15 @@
+#!name=VFeed
+#!desc=用VK登陆。登陆后解锁VIP去广告。
+#!date=2026-01-16
+#!category=🐹 BOBO Premium
+#!author= Yarmukhamedov[https://github.com/Yarmukhamedov/mitm],作者TG[https://t.me/+BVA7-Vq6FA9hZTNi]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/VFeed.png
+#!openUrl=https://apps.apple.com/app/id795979328
+
+[Script]
+# > VFeed-解锁VIP
+VFeed解锁VIP = type=http-response, pattern=https://api.apphud.com/v1/(subscriptions|customers), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/VFeed/JS/VFeed.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% api.apphud.com
+
