@@ -1,14 +1,15 @@
 #!name=Photoshop Express-图片编辑&修图
-#!desc=Photoshop Express-图片编辑&修图 解锁Premium. 软件版本23.49.1
-#!date=2025-08-01
-#!category=😍BOBO Premium
-#!author=baby[https://github.com/Yu9191]
+#!desc=Photoshop Express-图片编辑&修图 解锁Premium.
+#!date=2026-01-16
+#!category=🐹 BOBO Premium
+#!author= Yarmukhamedov[https://github.com/Yarmukhamedov/mitm],作者TG[https://t.me/+BVA7-Vq6FA9hZTNi]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/PSExpress.png
 #!openUrl=https://apps.apple.com/app/id331975235
 
 [Script]
-# > Photoshop Express-图片编辑&修图 解锁Premium
-http-response https://lcs-mobile-cops.adobe.io/mobiles/access_profile/v3 script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/PSExpress/JS/PSExpress.js, requires-body=true, timeout=60, tag=Photoshop Express-图片编辑&修图 解锁Premium
+# > PSExpress解锁Premium
+http-response https://lcs-mobile-cops.adobe.io/mobiles/access_profile/v3 script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/PSExpress/JS/PSExpress.js, requires-body=true, timeout=60, tag=PSExpress解锁Premium
 
 [MITM]
 hostname = lcs-mobile-cops.adobe.io
+
