@@ -1,0 +1,15 @@
+#!name=Focos live☆解锁会员权限
+#!desc=Focos live☆解锁会员权限
+#!date=2026-01-16
+#!category=🐹 BOBO Premium
+#!author= Yarmukhamedov[https://github.com/Yarmukhamedov/mitm],作者TG[https://t.me/+BVA7-Vq6FA9hZTNi]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/FocosLive.png
+#!openUrl=https://apps.apple.com/app/id1274938524
+
+[Script]
+# > Focos live☆解锁会员
+Focos live☆解锁会员 = type=http-response, pattern=https://focoslive.oracle.bendingspoonsapps.com/v2/(users/setup|purchases/verify/apple), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/FocosLive/JS/FocosLive.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% focoslive.oracle.bendingspoonsapps.com
+
