@@ -1,0 +1,15 @@
+#!name=熊猫客-全球自然探索指南
+#!desc= 解锁会员
+#!date=2026-01-16
+#!category=🐹 BOBO Premium
+#!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/XiongMaoKe.png
+#!openUrl=https://apps.apple.com/app/id6471485189
+
+[Script]
+# > 熊猫客解锁会员
+熊猫客解锁会员 = type=http-response, pattern=^https:\/\/shopapi\.pandatrek\.cn\/tour\/remote\/storeUserMembership, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/XiongMaoKe/JS/XiongMaoKe.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% shopapi.pandatrek.cn
+
