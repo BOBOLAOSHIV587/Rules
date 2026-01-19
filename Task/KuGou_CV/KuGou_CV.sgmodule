@@ -1,18 +1,15 @@
 #!name=酷狗概念版签到
 #!desc=酷狗概念版H5 签到。定时每天 00:10 执行一次
-#!date=2025-12-02
-#!category=😍BOBO Task
+#!date=2026-01-21
+#!category=🐹 BOBO Task
 #!author=Yu9191[https://github.com/Yu9191]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuGou_CV.png
 #!openUrl=https://activity.kugou.com/getvips/v-4163b2d0/index.html?should_append_gdt_ua=1
-
 
 [Script]
 酷狗概念版签到 = type=http-request,pattern=^https:\/\/gateway\.kugou\.com\/youth\/v1\/activity\/get_listen_song_task\?.*, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/KuGou_CV/JS/JS-1/KuGou_CV.js
 
 酷狗概念版签到 = type=cron,cronexp=10 0 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/KuGou_CV/JS/JS-1/KuGou_CV.js,timeout=60
 
-
 [MITM]
 hostname = %APPEND% gateway.kugou.com
-
