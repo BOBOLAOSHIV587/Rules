@@ -1,7 +1,8 @@
 #!name=每日随机图片（风景｜二次元｜福利姬）
 #!desc=每日随机图片（风景｜二次元｜福利姬）.可通过boxjs设置指定图片类型：1为风景,2为二次元,3为福利姬（电脑）,4为福利姬（手机），默认为随机输出。
+#!date=2026-01-21
+#!category=🐹 BOBO Task
 #!author=XiaoMao[https://github.com/xiaomaoJT/QxScript]
-#!category=😍BOBO Task
 
 [Script]
 每日随机图片（风景｜二次元｜福利姬） = type=cron,cronexp=0 0 8-22 * * ?,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/PicView/JS/PicView.js,script-update-interval=0
