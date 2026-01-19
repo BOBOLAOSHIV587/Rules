@@ -1,11 +1,9 @@
-#!name=哔哩哔哩去广告(>=iOS15)
-#!desc=开屏页广告，推荐页广告，动态(最常访问/推荐话题/列表广告)，视频播放页面(up主推荐广告)。
-#!date=2025-10-17
-#!category=😍BOBO Premium
+#!name=哔哩哔哩去广告
+#!desc=开屏页广告，推荐页广告，动态，视频播放页面(up主推荐广告)
+#!date=2026-01-20
+#!category=🐹 BOBO Premium
 #!author= RuCu6[https://github.com/RuCu6], kokoryh[https://github.com/kokoryh], Maasea[https://github.com/Maasea], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BilibiliRed.png
-#!openUrl=https://apps.apple.com/app/id736536022
-
 
 [Rule]
 # 阻止B站备用域名访问
@@ -14,7 +12,6 @@ DOMAIN,app.biliapi.com,REJECT
 DOMAIN,api.biliapi.net,REJECT
 DOMAIN,app.biliapi.net,REJECT
 AND,((DOMAIN-SUFFIX,chat.bilibili.com),(OR,((DOMAIN-KEYWORD,stun),(DOMAIN-KEYWORD,tracker)))),REJECT
-
 
 [Body Rewrite]
 # 移除播放页面广告
@@ -45,7 +42,6 @@ http-response-jq ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/mine(\/ipad)?\? 
 # 非会员开启会员专属清晰度
 http-response-jq ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? '.data.vip |= if . != null and .status == 0 then . + { status: 1, type: 2, due_date: 9005270400000, role: 15 } else . end'
 
-
 [Map Local]
 # 移除直播广告
 ^https:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v1\/ecommerce-user\/get_shopping_info\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -68,7 +64,6 @@ http-response-jq ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? '.data.
 # 移除播放页面广告
 ^https:\/\/grpc\.biliapi\.net\/bilibili\.app\.view\.v1\.View\/TFInfo$ data-type=base64 data="AAAAAAIIAQ=="
 
-
 [Script]
 # > 哔哩哔哩去广告
 # 空降助手
@@ -80,7 +75,5 @@ http-response-jq ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? '.data.
 # ProtoBuf处理
 [哔哩哔哩]ProtoBuf处理 = type=http-response, pattern=^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.(app\.(show\.v1\.Popular\/Index|dynamic\.v2\.Dynamic\/DynAll|view(unite)?\.v1\.View\/(View|ViewProgress|RelatesFeed)|playurl\.v1\.PlayURL\/PlayView|playerunite\.v1\.Player\/PlayViewUnite)|polymer\.app\.search\.v1\.Search\/SearchAll|community\.service\.dm\.v1\.DM\/DmView|main\.community\.reply\.v1\.Reply\/MainList|pgc\.gateway\.player\.v2\.PlayURL\/PlayView)$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-2/bilibili.protobuf.response.js, requires-body=true, binary-body-mode=true
 
-
 [MITM]
 hostname = %APPEND% grpc.biliapi.net, app.bilibili.com, api.bilibili.com, api.live.bilibili.com, live.bilibili.com, www.bilibili.com, line3-h5-mobile-api.biligame.com
-
