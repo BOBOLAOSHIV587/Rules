@@ -1,0 +1,17 @@
+#!name=📺 BiliBili: 👘 Modified
+#!desc=哔哩哔哩：👘 皮肤
+#!date=2026-01-20
+#!category=🐹 BOBO Premium
+#!author= ClydeTime[https://github.com/ClydeTime/BiliBili]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BilibiliRed.png
+#!openUrl=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/Bilibili_Modified_Boxjs.json
+
+[Script]
+# > 哔哩哔哩：👘 皮肤
+http-response ^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\? requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-3/BiliBili.Modified.response.js, tag=📺 哔哩哔哩皮肤, argument=
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/(account\/(myinfo|mine)|space)([\/?]|$) requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-3/BiliBili.Modified.response.js, tag=📺 哔哩哔哩皮肤, argument=
+http-response ^https:\/\/api\.bilibili\.com\/x\/vip\/(web\/vip_center\/combine|price\/panel\/lexi|top_panel_info) requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-3/BiliBili.Modified.response.js, tag=📺 哔哩哔哩皮肤, argument=
+
+[MITM]
+hostname = app.bilibili.com, api.bilibili.com
+h2 = true
