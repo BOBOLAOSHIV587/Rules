@@ -1,11 +1,9 @@
 #!name=AppRaven批量生成多组会员账号
 #!desc=1. 修改脚本里面 COUNT 数值 (1‑5);2. 每14天8点执行
+#!date=2026-01-21
+#!category=🐹 BOBO Task
 #!author=baby[https://github.com/Yu9191]
-#!category=😍BOBO Task
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/AppRaven.png
 
-
 [Script]
-
 AppRaven会员 = type=cron, cronexp=0 8 */14 * *, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/AppRaven/JS/AppRaven.js, timeout=400, wake-system=1
-
