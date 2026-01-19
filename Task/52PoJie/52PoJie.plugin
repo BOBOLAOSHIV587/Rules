@@ -1,16 +1,15 @@
 #!name=吾爱破解签到
 #!desc=吾爱破解签到,可在BoxJS中做更详细的设置
+#!date=2026-01-21
+#!category=🐹 BOBO Task
 #!author=桂林仔Yuheng0101[https://github.com/Yuheng0101/X]
-#!category=😍BOBO Task
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/miniColor/Image/Color/52pj.png
 #!openUrl=https://www.52pojie.cn/
-
 
 [Script]
 http-request ^https:\/\/www\.52pojie\.cn\/home\.php\? tag=吾爱破解获取Cookie, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/52PoJie/JS/52pojie.js
 
 cron "0 9 * * *" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/52PoJie/JS/52pojie.js, timeout=10, tag=吾爱破解签到
-
 
 [Mitm]
 hostname = www.52pojie.cn
