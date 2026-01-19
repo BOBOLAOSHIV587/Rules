@@ -1,13 +1,12 @@
 #!name=AppRaven 邀请助手
 #!desc=自动注册小号并填写 AppRaven 邀请码。
+#!date=2026-01-21
+#!category=🐹 BOBO Task
 #!author=baby[https://github.com/Yu9191]
-#!category=😍BOBO Task
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/AppRaven.png
 #!arguments=UserId:12345678,RunCount:2
 #!arguments-desc=1. UserId: 主账号的数字ID。\n2. RunCount: 单次运行次数 (建议 < 5)。
 
-
 [Script]
 # 每周1四点运行
 AppRaven刷取 = type=cron, cronexp="0 4 * * 1", script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/AppRaven_Invite/JS/AppRaven.js, timeout=600, argument=userId={{{UserId}}}&count={{{RunCount}}}
-

@@ -1,16 +1,14 @@
 #!name=AppRaven 邀请助手
 #!desc=自动注册小号并填写 AppRaven 邀请码。安装后请点击插件配置填写参数。
+#!date=2026-01-21
+#!category=🐹 BOBO Task
 #!author=baby[https://github.com/Yu9191]
-#!category=😍BOBO Task
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/AppRaven.png
-
 
 [Argument]
 UserId = input, "12345678", tag=用户userid, desc=填写主账号的数字ID
 RunCount = input, "2", tag=刷取次数建议2次稳妥, desc=填写运行次数(Max 20)
 
-
 [Script]
 # 注意：每周1四点运行
 cron "0 4 * * 1" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/AppRaven_Invite/JS/AppRaven.js, timeout=600, tag=AppRaven刷取, argument=[{UserId},{RunCount}], img-url=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/AppRaven.png
-
