@@ -1,11 +1,10 @@
 #!name=贴吧签到
 #!desc=自动签到贴吧。获取Cookie说明：打开百度贴吧App后, 如通知成功获取cookie, 则可以使用此签到脚本。
-#!date=2025-10-30
-#!category=😍BOBO Task
+#!date=2026-01-21
+#!category=🐹 BOBO Task
 #!author= ClydeTime[https://github.com/ClydeTime/Quantumult]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/miniColor/Image/Color/tieba.png
 #!openUrl=https://apps.apple.com/app/id477927812
-
 
 [Script]
 # > 百度贴吧 cookie
@@ -15,7 +14,5 @@ http-request ^https?:\/\/c\.tieba\.baidu\.com\/c\/u\/follow\/getFoldedMessageUse
 # > 百度贴吧签到
 cron "10,20,30 9 * * *" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/BaiDuTieBa/JS/BaiDuTieBa.js, tag=贴吧签到
 
-
 [MITM]
 hostname = tiebac.baidu.com, c.tieba.baidu.com
-
