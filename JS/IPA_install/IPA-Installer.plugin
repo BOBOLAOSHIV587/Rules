@@ -1,7 +1,7 @@
 #!name=IPA应用辅助安装器
 #!desc=在iOS端辅助安装商店版或已签名IPA。快捷指令 + Shu配合安装：导入IPA文件至Shu -> Shu长按IPA文件 -> 导出文件 -> WiFi传输 -> 本机 -> 系统共享 -> 分享至IPA-Installer快捷指令
-#!date=2025-08-01
-#!category=😍BOBO Enhance
+#!date=2026-01-21
+#!category=🐹 BOBO Enhance
 #!author=NobyDa
 #!icon=https://cdn.jsdelivr.net/gh/NobyDa/mini@master/Color/Apple.png
 #!openUrl=快捷指令(iOS15+): https://www.icloud.com/shortcuts/4a121aa54cae4619a952baa29e044e30
