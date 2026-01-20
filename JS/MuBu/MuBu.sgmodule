@@ -1,0 +1,14 @@
+#!name=幕布-大纲笔记&思维导图
+#!desc=幕布-大纲笔记&思维导图 解锁终身会员
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=baby[https://github.com/Yu9191]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/MuBu.png
+#!openUrl=https://apps.apple.com/app/id1214302139
+
+[Script]
+# > 幕布-大纲笔记&思维导图 解锁终身会员
+幕布-大纲笔记&思维导图 解锁终身会员 = type=http-response, pattern=https://api2.mubu.com/v3/api/user/current_user, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MuBu/JS/JS-1/MuBu.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% api2.mubu.com
