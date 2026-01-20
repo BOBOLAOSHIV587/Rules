@@ -1,0 +1,14 @@
+#!name=Filmix解锁Pro
+#!desc=Filmix解锁Pro.
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=Mike-offers[https://github.com/Mike-offers/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Filmix.png
+#!openUrl=https://apps.apple.com/app/id6476475132
+
+[Script]
+# > Filmix解锁Pro
+Filmix = type=http-response, pattern=https:\/\/appv2\.filmix\.com\.cn\/api\/(v2|v4)\/users, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Filmix/JS/JS-1/Filmix.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% appv2.filmix.com.cn
