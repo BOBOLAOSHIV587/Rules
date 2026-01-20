@@ -1,17 +1,14 @@
 #!name=片羽集照片日记软件
 #!desc= 解锁会员
-#!date=2025-12-05
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666],@liul0ng
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/PianYuJi.png
 #!openUrl=https://apps.apple.com/app/id6446111623
-
 
 [Script]
 # > 片羽集照片日记软件
 片羽集 = type=http-response, pattern=^https:\/\/lentoapp\.com:8091\/getUserMemberShipInfo, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/PianYuJi/JS/PianYuJi.js, requires-body=true, max-size=-1, timeout=60
 
-
 [MITM]
 hostname = %APPEND% lentoapp.com:8091
-
