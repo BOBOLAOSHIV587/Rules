@@ -1,9 +1,8 @@
 #!name=Network Info Panel
 #!desc=網路詳情面板
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author= Rabbit-Spec[https://github.com/Rabbit-Spec/Surge],Nebulosa-Cat[https://github.com/Nebulosa-Cat]
-
 
 [Panel]
 NetInfoPanel=title="",content="",style=info,script-name=net-info-panel.js,update-interval=1
