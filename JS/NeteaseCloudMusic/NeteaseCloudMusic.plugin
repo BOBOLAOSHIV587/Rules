@@ -1,10 +1,9 @@
 #!name = 网易云音乐
 #!desc = 网易云音乐全面净化，可自定义界面样式。
-#!openUrl = https://apps.apple.com/app/id590338362
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author = Keywos[https://github.com/Keywos], anyehttp[https://github.com/anyehttp], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png
-#!date = 2025-09-13
-
 
 [Argument]
 FX = switch, false, true, tag = 隐藏[底部-发现], desc = 是否隐藏底部发现标签
@@ -24,7 +23,6 @@ PRCN = switch, false, true, tag = 隐藏[首页-你的专属歌单], desc = 是�
 
 Music163_VIP_Shared = switch, false, true, tag = 启用[共享会员], desc = 是否启用网易云音乐共享会员
 
-
 [Rule]
 DOMAIN, iadmat.nosdn.127.net, REJECT
 DOMAIN, iadmatapk.nosdn.127.net, REJECT
@@ -32,7 +30,6 @@ DOMAIN, iadmusicmat.music.126.net, REJECT
 DOMAIN, iadmusicmatvideo.music.126.net, REJECT
 DOMAIN, ipv4.music.163.com, REJECT
 DOMAIN, ipv6.music.163.com, REJECT
-
 
 [Rewrite]
 # 新版加密通用
@@ -56,7 +53,6 @@ DOMAIN, ipv6.music.163.com, REJECT
 
 # 主页播客推荐
 ^https:\/\/(?:ipv4|interface\d?)\.music\.163\.com\/eapi\/my\/podcast\/tab\/recommend reject-dict
-
 
 [Script]
 #----------  Yuheng0101 ----------#
@@ -107,7 +103,5 @@ http-response ^https?:\/\/(?:ipv4|interface\d?)\.music\.163\.com\/eapi\/link\/po
 # 显示未关注你的人
 http-response ^https?:\/\/(?:ipv4|interface\d?)\.music\.163\.com\/eapi\/user\/follow\/users\/mixed\/get script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-4/NeteaseMusicAds.js, requires-body = true, binary-body-mode = true, timeout = 20, tag = [网易云音乐]显示未关注你的人
 
-
 [MITM]
 hostname = interface*.music.163.com, ipv4.music.163.com
-

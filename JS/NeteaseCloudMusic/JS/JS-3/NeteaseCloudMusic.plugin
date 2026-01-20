@@ -1,11 +1,10 @@
 #!name=网易云音乐
 #!desc=解锁会员-可开超清母带、沉浸环绕声
-#!date=2025-08-09
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=chuj6329[https://github.com/chuj6329]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png
 #!openUrl = https://apps.apple.com/app/id590338362
-
 
 [Rewrite]
 ^https?:\/\/(?:ipv4|interface\d?)\.music\.163\.com\/e?api\/(mine\/(collect|rn)\/header\/info|v\d\/user\/detail\/\d+|vipnewcenter\/app\/resource\/newaccountpage|music-vip-membership\/(client|front)\/vip\/info|batch|playlist\/privilege|search\/complex\/page|v\d\/(discovery\/recommend\/songs|playlist\/detail)) header-replace x-aeapi false
@@ -33,7 +32,6 @@ wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com
 
 # 会员认证
 wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/vipauth\/app\/auth\/(soundquality\/)?query, script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
-
 
 [MITM]
 hostname = interface*.music.163.com, ipv4.music.163.com

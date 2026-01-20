@@ -1,15 +1,13 @@
 #!name=网易云音乐
 #!desc=解锁会员-可开超清母带、沉浸环绕声
-#!date=2025-08-09
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=chuj6329[https://github.com/chuj6329]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png
 #!openUrl = https://apps.apple.com/app/id590338362
 
-
 [Header Rewrite]
 http-request ^https?:\/\/(?:ipv4|interface\d?)\.music\.163\.com\/e?api\/(mine\/(collect|rn)\/header\/info|v\d\/user\/detail\/\d+|vipnewcenter\/app\/resource\/newaccountpage|music-vip-membership\/(client|front)\/vip\/info|batch|playlist\/privilege|search\/complex\/page|v\d\/(discovery\/recommend\/songs|playlist\/detail)) header-del x-aeapi
-
 
 [Map Local]
 # 屏蔽广告
@@ -18,7 +16,6 @@ https?:\/\/(ipv4|interface\d?)\.music\.163.com\/e?api\/ad data-type=text data="{
 ^https?:\/\/interface\d?\.music\.163\.com\/w?e?api\/(side-bar\/mini-program\/music-service\/account|delivery\/(batch-deliver|deliver)|moment\/tab\/info\/get|yunbei\/account\/entrance\/get) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 # 播放页歌名下方∶乐迷团｜关注｜播放页提示｜音乐应用红点｜播放提示
 ^https?:\/\/interface\d?\.music\.163\.com\/eapi\/(resource\/comments?\/musiciansaid|community\/friends\/fans-group\/artist\/group\/get|user\/sub\/artist|music\/songshare\/text\/recommend\/get|mine\/applet\/redpoint|resniche\/position\/play\/new\/get) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
 
 [Script]
 # 播放器会员皮肤
@@ -42,7 +39,6 @@ wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com
 
 # 会员认证
 wangyiyun = type=http-request, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/vipauth\/app\/auth\/(soundquality\/)?query, script-path=https://raw.githubusercontent.com/chuj6329/js/refs/heads/main/wangyiyun.js, timeout=60
-
 
 [MITM]
 hostname = %APPEND% interface*.music.163.com, ipv4.music.163.com
