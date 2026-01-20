@@ -1,0 +1,14 @@
+#!name=Picsart美易-图片、视频&设计
+#!desc=Picsart美易全能编辑器-图片、视频&设计工具 解锁Gold
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=Marol62926[https://github.com/Marol62926/MarScrpt]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Picsart.png
+#!openUrl=https://apps.apple.com/app/id1586286914
+
+[Script]
+# > Picsart美易 解锁Gold
+http-response ^https://api.(meiease|picsart).(cn|com)/gw-v2/shop/subscription/apple/purchases script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Picsart/JS/JS-1/Picsart.js, requires-body=true, timeout=60, tag=Picsart美易 解锁Gold
+
+[MITM]
+hostname = api.meiease.*, api.picsart.*
