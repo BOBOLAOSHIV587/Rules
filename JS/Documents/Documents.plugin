@@ -1,14 +1,14 @@
 #!name=Documents文件管理器+解锁订阅
 #!desc=Documents文件管理器+解锁订阅  软件版本：v8.5
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=baby[https://github.com/Yu9191]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Documents.png
 #!openUrl=https://apps.apple.com/app/id364901807
 
 [Script]
-# > Documents文件管理器+解锁订阅
-http-request https://license.pdfexpert.com/api/2.0/documents/subscription/refresh script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Documents/JS/Documents.js, requires-body=true, timeout=60, tag=Documents文件管理器+解锁订阅
+# > Documents解锁订阅
+http-request https://license.pdfexpert.com/api/2.0/documents/subscription/refresh script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Documents/JS/Documents.js, requires-body=true, timeout=60, tag=Documents解锁订阅
 
 [MITM]
 hostname = *.pdfexpert.com
