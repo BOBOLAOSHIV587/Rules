@@ -1,14 +1,14 @@
 #!name=Emby Premiere
 #!desc=Emby Premiere Unlock解锁
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=叮当猫chxm1023[https://github.com/chxm1023/Rewrite]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Emby.png
 #!openUrl=https://apps.apple.com/app/id992180193
 
 [Script]
 # > Emby Premiere Unlock解锁
-unlock_emby = type=http-response,pattern=^http(s?):\/\/(www\.|)mb3admin\.com\/.*$,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Emby/JS/Emby.js,max-size=131072,requires-body=true,timeout=10,debug=false,enable=true
+Emby Premiere解锁 = type=http-response,pattern=^http(s?):\/\/(www\.|)mb3admin\.com\/.*$,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Emby/JS/Emby.js,max-size=131072,requires-body=true,timeout=10,debug=false,enable=true
 
 [MITM]
 hostname = %APPEND% mb3admin.com, www.mb3admin.com
