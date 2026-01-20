@@ -1,11 +1,10 @@
 #!name=微博去广告&净化
 #!desc=去除常见的广告和部分多余的模块
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 奶思[https://github.com/fmz200]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Weibo.png
 #!openUrl=https://apps.apple.com/app/id350962117
-
 
 [Rule]
 # 收集用户信息，上传用户日志的请求
@@ -45,17 +44,14 @@ DOMAIN-SUFFIX,ad.weibo.com,REJECT
 DOMAIN,datacollection.uve.weibo.com,REJECT
 DOMAIN,adpinpai.video.weibocdn.com,REJECT
 
-
 [URL Rewrite]
 ^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/(get-lbs-cell-info\.php|sdkconfig\.php) - reject
 ^https:\/\/api\.weibo\.cn\/2\/logservice\/service\? - reject
-
 
 [Body Rewrite]
 http-response-jq ^https:\/\/api\.weibo\.cn\/2\/cardlist\? 'del(.items[] | select(.category == "group"))'
 # 微博轻享版banner广告
 http-response-jq ^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=trends& 'del(.data.banner)'
-
 
 [Map Local]
 # 热门视频 | 热推荐
@@ -87,7 +83,6 @@ http-response-jq ^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=trends& '
 ^https:\/\/api\.weibo\.cn\/2\/!\/was\/finder\/searchbarchange\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/api\.weibo\.cn\/2\/push\/info\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-
 [Script]
 微博移除发现页广告 = type=http-response, pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/2\/search\/(finder|container_timeline|container_discover)\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Weibo/JS/weibo_ads.js, requires-body=true, timeout=60
 微博热搜页面广告 = type=http-response, pattern=^https?:\/\/m?api\.weibo\.c(n|om)\/2\/(page|flowpage)\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Weibo/JS/weibo_ads.js, requires-body=true, timeout=60
@@ -107,7 +102,5 @@ http-response-jq ^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=trends& '
 非会员设置tab皮肤 = type=http-response, pattern=^https?:\/\/new\.vip\.weibo\.c(n|om)\/littleskin\/preview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Weibo/JS/weibo_main.js, requires-body=true, timeout=60
 解锁微博会员APP图标 = type=http-response, pattern=^https?:\/\/new\.vip\.weibo\.c(n|om)\/aj\/appicon\/list, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Weibo/JS/weibo_vip.js, requires-body=true, timeout=60
 
-
 [MITM]
 hostname = %APPEND% *.weibo.cn, *.weibo.com, weibo.com
-
