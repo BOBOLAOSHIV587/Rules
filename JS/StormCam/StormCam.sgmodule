@@ -1,17 +1,14 @@
 #!name=飓风相机专业版
 #!desc=飓风相机专业版
-#!date=2025-10-28
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 暗夜anyehttp[https://github.com/anyehttp/quantumult-x]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/StormCam.png
 #!openUrl = https://apps.apple.com/app/id6749835845
-
 
 [Script]
 # > 飓风相机专业版
 飓风相机专业版 = type=http-response,pattern=^https://base\.ysjf\.com/storm_auth/user/self,requires-body=1,max-size=0,binary-body-mode=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/StormCam/JS/StormCam.js,script-update-interval=0
 
-
 [MITM]
 hostname = %APPEND% base.ysjf.com
-
