@@ -1,20 +1,17 @@
 #!name=高德地图
 #!desc=过滤高德地图开屏广告，页面推广，精简我的页面。
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], RuCu6[https://github.com/RuCu6], kokoryh[https://github.com/kokoryh], kelv1n1n[https://github.com/kelv1n1n]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Amap.png
 #!openUrl=https://apps.apple.com/app/id461703208
 
-
 [Rule]
 # 移除广告下发请求
 AND, ((URL-REGEX, "^http:\/\/.+\/amdc\/mobileDispatch"), (USER-AGENT, "AMapiPhone*")), REJECT
-
 DOMAIN, amap-aos-info-nogw.amap.com, REJECT
 DOMAIN, free-aos-cdn-image.amap.com, REJECT
 DOMAIN-SUFFIX, v.smtcdns.com, REJECT
-
 
 [Rewrite]
 #  开屏广告
@@ -46,7 +43,6 @@ DOMAIN-SUFFIX, v.smtcdns.com, REJECT
 # AI功能
 ^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/ response-body-json-jq '.data.aiNativeV16={"status":1,"version":"","value":""}|.data.aiNative1520={"status":1,"version":"","value":""}|.data.ai_agent_enter_style_cursor={"status":1,"version":"","value":""}|.data.ai_scenes={"status":1,"version":"","value":""}|.data.aiNativeRC06={"status":1,"version":"","value":""}|.data.plan_ai={"status":1,"version":"","value":""}|.data.ai_native_smart_island={"status":1,"version":"","value":""}|.data.llm={"status":2,"version":"","value":""}'
 
-
 [Script]
 # 导航详情页 - 路线规划、地点详情页、搜索详情页、导航结束页
 http-response ^https:\/\/m5\.amap\.com\/ws\/aos\/perception\/publicTravel\/beforeNavi\? script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Amap/JS/Amap.js, requires-body = true, tag = [高德地图]移除路线规划推广
@@ -74,7 +70,5 @@ http-response ^https:\/\/m5\.amap\.com\/ws\/valueadded\/alimama\/splash_screen\?
 http-response ^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(?:car\/order\/content_info|order_web\/friendly_information) script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Amap/JS/Amap.js, requires-body = true, tag = [高德地图]移除打车页推广卡片、弹窗
 http-response ^https:\/\/m5-zb\.amap\.com\/ws\/promotion-web\/resource(\/home)?\? script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Amap/JS/Amap.js, requires-body = true, tag = [高德地图]移除打车页红点角标、天气图标
 
-
 [MITM]
 hostname = *.amap.com
-
