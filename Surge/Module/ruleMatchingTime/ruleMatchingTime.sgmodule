@@ -1,16 +1,13 @@
 #!name=Rule Macthing Time
 #!desc=统计实际请求的规则匹配时间
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author= mieqq[https://github.com/mieqq]
 #!arguments=cronExp:0 * * * *,updateInterval:3600
 #!arguments-desc=- cronExp: 定义 Cron 表达式，默认每小时运行\n- updateInterval: 定义 Panel 更新间隔，默认 3600 s
 
-
 [Panel]
 ruleMatchingTime = script-name=ruleMatchingTime,update-interval={{{updateInterval}}}
 
-
 [Script]
 ruleMatchingTime = type=cron,cronexp="{{{cronExp}}}",script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/ruleMatchingTime/JS/ruleMatchingTime.js
-
