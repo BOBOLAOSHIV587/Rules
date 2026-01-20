@@ -1,0 +1,29 @@
+#!name=Tiktok JP
+#!desc=解锁 JP 地区
+#!category=🐹 BOBO TikTok
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/TikTok.png
+
+[Rule]
+DOMAIN-SUFFIX,byteoversea.com,TikTok
+DOMAIN-SUFFIX,ibytedtos.com,TikTok
+DOMAIN-SUFFIX,ipstatp.com,TikTok
+DOMAIN-SUFFIX,muscdn.com,TikTok
+DOMAIN-SUFFIX,musical.ly,TikTok
+DOMAIN-SUFFIX,tik-tokapi.com,TikTok
+DOMAIN-SUFFIX,tiktok.com,TikTok
+DOMAIN-SUFFIX,tiktokcdn.com,TikTok
+DOMAIN-SUFFIX,tiktokv.com,TikTok
+DOMAIN-KEYWORD,-tiktokcdn-com,TikTok
+USER-AGENT,tiktok*,TikTok
+
+[URL Rewrite]
+(?<=_region=)CN(?=&) JP 307
+(^h.+v5\/)(.+) $1 302
+(?<=&mcc_mnc=)4 2 307
+(?<=eme\/v)2(?=\/f\w{2}d\/\?.*) 1 302
+
+[Script]
+http-response https?:\/\/.*\.tiktokv\.com\/aweme\/v\d\/(feed|mix\/aweme|aweme\/post|(multi\/)?aweme\/detail|follow\/feed|nearby\/feed|search\/item|general\/search\/single|hot\/search\/video\/list|aweme\/favorite) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/TikTok/Others/TikTok.js, requires-body=true, timeout=10, tag=TK去水印
+
+[MITM]
+hostname = %APPEND% *.tiktokv.com,*.byteoversea.com,*.tik-tokapi.com

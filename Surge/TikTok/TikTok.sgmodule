@@ -1,0 +1,115 @@
+#!name=TikTok 解鎖
+#!desc=移除 TikTok 視頻水印並自定義區域解鎖，需要設定此插件對應區域的節點。
+#!category=🐹 BOBO TikTok
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/TikTok.png
+
+[Rule]
+AND, ((GEOIP, CN), (DOMAIN, pitaya.bytedance.com)), DIRECT
+DOMAIN,api.snapkit.com,TikTok
+DOMAIN,cocacola.co.jp,TikTok
+DOMAIN,courses.snapsolve.com,TikTok
+DOMAIN,engagements.appsflyer.com,TikTok
+DOMAIN,lf16-campaign.ttlstatic.com,TikTok
+DOMAIN,lf16-csp.oecstatic.com,TikTok
+DOMAIN,lf16-pkgcdn.pitaya-clientai.com,TikTok
+DOMAIN,lf16-scmcdn.oecstatic.com,TikTok
+DOMAIN,lf19-csp.oecstatic.com,TikTok
+DOMAIN,lf19-pkgcdn.pitaya-clientai.com,TikTok
+DOMAIN,lf19-scmcdn.oecstatic.com,TikTok
+DOMAIN,musically-alternate.app.link,TikTok
+DOMAIN,musically.app.link,TikTok
+DOMAIN,p1-tt-ipv6.byteimg.com,TikTok
+DOMAIN,p1-tt.byteimg.com,TikTok
+DOMAIN,p26-tt.byteimg.com,TikTok
+DOMAIN,p3-tt-ipv6.byteimg.com,TikTok
+DOMAIN,p9-tt.byteimg.com,TikTok
+DOMAIN,pull-f3-hs.pstatp.com,TikTok
+DOMAIN,pull-f5-hs.flive.pstatp.com,TikTok
+DOMAIN,pull-f5-hs.pstatp.com,TikTok
+DOMAIN,pull-f5-mus.pstatp.com,TikTok
+DOMAIN,pull-flv-f1-hs.pstatp.com,TikTok
+DOMAIN,pull-flv-f6-hs.pstatp.com,TikTok
+DOMAIN,pull-flv-l1-hs.pstatp.com,TikTok
+DOMAIN,pull-flv-l1-mus.pstatp.com,TikTok
+DOMAIN,pull-flv-l6-hs.pstatp.com,TikTok
+DOMAIN,pull-hls-l1-mus.pstatp.com,TikTok
+DOMAIN,pull-l3-hs.pstatp.com,TikTok
+DOMAIN,pull-rtmp-f1-hs.pstatp.com,TikTok
+DOMAIN,pull-rtmp-f6-hs.pstatp.com,TikTok
+DOMAIN,pull-rtmp-l1-hs.pstatp.com,TikTok
+DOMAIN,pull-rtmp-l1-mus.pstatp.com,TikTok
+DOMAIN,pull-rtmp-l6-hs.pstatp.com,TikTok
+DOMAIN,roovza-launches.appsflyersdk.com,TikTok
+DOMAIN-SUFFIX,bytedance.com,TikTok
+DOMAIN-SUFFIX,bytedance.net,TikTok
+DOMAIN-SUFFIX,bytedapm.com,TikTok
+DOMAIN-SUFFIX,bytefcdn-oversea.com,TikTok
+DOMAIN-SUFFIX,bytefcdn-ttpeu.com,TikTok
+DOMAIN-SUFFIX,bytegecko-i18n.com,TikTok
+DOMAIN-SUFFIX,byteglb.com,TikTok
+DOMAIN-SUFFIX,byteicdn.com,TikTok
+DOMAIN-SUFFIX,byteigtm.com,TikTok
+DOMAIN-SUFFIX,byteintl.com,TikTok
+DOMAIN-SUFFIX,byteintl.net,TikTok
+DOMAIN-SUFFIX,byteoversea.com,TikTok
+DOMAIN-SUFFIX,byteoversea.net,TikTok
+DOMAIN-SUFFIX,bytetcdn.com,TikTok
+DOMAIN-SUFFIX,capcut.com,TikTok
+DOMAIN-SUFFIX,ibytedtos.com,TikTok
+DOMAIN-SUFFIX,ibyteimg.com,TikTok
+DOMAIN-SUFFIX,ipstatp.com,TikTok
+DOMAIN-SUFFIX,isnssdk.com,TikTok
+DOMAIN-SUFFIX,muscdn.com,TikTok
+DOMAIN-SUFFIX,musemuse.cn,TikTok
+DOMAIN-SUFFIX,musical.ly,TikTok
+DOMAIN-SUFFIX,sgpstatp.com,TikTok
+DOMAIN-SUFFIX,sgsnssdk.com,TikTok
+DOMAIN-SUFFIX,tik-tokapi.com,TikTok
+DOMAIN-SUFFIX,tiktok-usts.net,TikTok
+DOMAIN-SUFFIX,tiktok.com,TikTok
+DOMAIN-SUFFIX,tiktok.in,TikTok
+DOMAIN-SUFFIX,tiktokcdn-eu.com,TikTok
+DOMAIN-SUFFIX,tiktokcdn-eu.net,TikTok
+DOMAIN-SUFFIX,tiktokcdn-in.com,TikTok
+DOMAIN-SUFFIX,tiktokcdn-us.com,TikTok
+DOMAIN-SUFFIX,tiktokcdn.com,TikTok
+DOMAIN-SUFFIX,tiktokd.net,TikTok
+DOMAIN-SUFFIX,tiktokd.org,TikTok
+DOMAIN-SUFFIX,tiktokglobalshop.com,TikTok
+DOMAIN-SUFFIX,tiktokglobalshopv.com,TikTok
+DOMAIN-SUFFIX,tiktokmusic.app,TikTok
+DOMAIN-SUFFIX,tiktokshop.com,TikTok
+DOMAIN-SUFFIX,tiktokstaticb.com,TikTok
+DOMAIN-SUFFIX,tiktokv.com,TikTok
+DOMAIN-SUFFIX,tiktokv.eu,TikTok
+DOMAIN-SUFFIX,tiktokv.us,TikTok
+DOMAIN-SUFFIX,tiktokw.us,TikTok
+DOMAIN-SUFFIX,tlivecdn.com,TikTok
+DOMAIN-SUFFIX,tlivepush.com,TikTok
+DOMAIN-SUFFIX,ttadsmanager.com,TikTok
+DOMAIN-SUFFIX,ttapis.com,TikTok
+DOMAIN-SUFFIX,ttdns2.com,TikTok
+DOMAIN-SUFFIX,ttlivecdn.com,TikTok
+DOMAIN-SUFFIX,ttoversea.net,TikTok
+DOMAIN-SUFFIX,ttoverseaus.net,TikTok
+DOMAIN-SUFFIX,ttwstatic.com,TikTok
+DOMAIN-SUFFIX,tzvbfs.com,TikTok
+DOMAIN-KEYWORD,bytedance.map.,TikTok
+DOMAIN-KEYWORD,musical.ly.,TikTok
+DOMAIN-KEYWORD,tiktokcdn-,TikTok
+DOMAIN-KEYWORD,tiktokcdn.com.,TikTok
+DOMAIN-KEYWORD,tiktokv.com.,TikTok
+DOMAIN-KEYWORD,ttcdn-tos.,TikTok
+DOMAIN-KEYWORD,ttlivecdn.com.,TikTok
+
+[URL Rewrite]
+# 移除廣告
+^https:\/\/api-va\.tiktokv\.com\/api\/ad\/ - reject
+# 解析域名
+^https:\/\/tnc\d+-platform-\w+\.tiktokv\.com\/get_domains\/ - reject
+
+[Script]
+TikTok 解鎖 = type=http-request, pattern=https?:\/\/.+.(tiktokv|tiktokcdn).com\/.+(region\d?=CN|&mcc_mnc=\d+), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Loon/TikTok/JS/TikTok.js
+
+[MITM]
+hostname = %APPEND% *.byteoversea.com, *.tik-tokapi.com, *.tiktokv.com, *.tiktokcdn.com
