@@ -1,12 +1,10 @@
 #!name=网络信息 𝕏
 #!desc=国内外 IP, 运营商, ASN, ORG, 位置, 策略; IPv6; 入口落地; 隐私; LAN; SSID. 自己设置对应域名的分流. 支持网络变化时进行查询通知. 提供 https://net-lsp-x.com 数据接口, 参数与模块参数相同. https://t.me/zhetengsha
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author=@keywos @xream https://t.me/zhetengsha
 #!arguments=DOMESTIC_IPv4:spcn,DOMESTIC_IPv4_KEY:若接口需要就填这里,DOMESTIC_IPv6:ddnspod,LANDING_IPv4:ipapi,LANDING_IPv4_KEY:若接口需要就填这里,LANDING_IPv6:ipsb,DNS:ali,FLAG:1,ASN:0,ORG:0,PRIVACY:0,LAN:0,SSID:0,IPv6:0,MASK:0,TIMEOUT:5,RETRIES:1,RETRY_DELAY:1,ENTRANCE_DELAY:0,EVENT_SCRIPT_NAME:网络信息变化,EVENT_DELAY:3,PANEL_NAME:网络信息面板,UPDATE-INTERVAL:-1,ICON:globe.asia.australia,ICON-COLOR:#6699FF
 #!arguments-desc=完整说明: https://github.com/xream/scripts/blob/main/surge/modules/network-info/README.md\n\n1 为开启, 0 为关闭\n\n · [LAN]: 显示 LAN IP\n\n · [SSID]: 显示 SSID\n\n · [IPv6]: 显示 IPv6 地址\n\n · [MASK]: 打码 保护隐私\n\n · [DOMESTIC_IPv4]: 国内 IPv4 来源, 可选 spcn(请设置分流 DOMAIN-SUFFIX,speedtest.cn), cip, bilibili, 126, ipip, ip233, pingan, muhan, 163, baidu, ipim(请设置分流 DOMAIN-SUFFIX,ip.im), ali(将阿里云 IP 服务的 APPCODE 填到 DOMESTIC_IPv4_KEY)\n\n · [DOMESTIC_IPv4_KEY]: 若接口需要就填(多个 key 用 , 分隔)\n\n · [DOMESTIC_IPv6]: 国内 IPv6 来源, 可选 ddnspod, neu6\n\n · [LANDING_IPv4]: 落地 IPv4 来源, 可选 ipapi, ipsb, ipinfo(将 token 填到 LANDING_IPv4_KEY), ipscore, ipwhois\n\n · [LANDING_IPv4_KEY]: 若接口需要就填(多个 key 用 , 分隔)\n\n · [LANDING_IPv6]: 落地 IPv6 来源, 可选 ipsb, ident, ipify\n\n · [DNS]: 解析域名, 可选 google, cf, ali, tencent\n\n · [ASN]: 显示 ASN 信息\n\n · [ORG]: 显示 ORG 信息\n\n · [PRIVACY]: (当落地为 ipwhois 时)显示 Privacy/Security 等信息\n\n · [FLAG]: 是否显示国旗\n\n · [TIMEOUT]: 超时设置(单位: 秒)\n\n · [RETRIES]: 请求重试次数\n\n · [RETRY_DELAY]: 请求重试等待时间(单位: 秒)\n\n · [ENTRANCE_DELAY]: 查询落地之后紧接着查询入口可能会导致请求太频繁而风控\n可适当调节此延时(单位: 秒)\n\n · [EVENT_SCRIPT_NAME]: 网络变化时进行查询通知的脚本名称\n若要禁用此脚本, 请输入 #\n\n · [EVENT_DELAY]: 网络变化时, 延后查询信息(单位: 秒)\n\n · [PANEL_NAME]: 网络信息面板名称\n若要禁用此面板, 请输入 #\n\n · [UPDATE-INTERVAL]: 面板刷新时间\n您可以在这里指定一个小的时间（例如1），以使面板每次自动更新。
-
-
 
 [MITM]
 hostname = %APPEND% net-lsp-x.com
@@ -23,4 +21,3 @@ hostname = %APPEND% net-lsp-x.com
 
 [Panel]
 {{{PANEL_NAME}}} = script-name=网络信息面板,update-interval={{{UPDATE-INTERVAL}}}
-
