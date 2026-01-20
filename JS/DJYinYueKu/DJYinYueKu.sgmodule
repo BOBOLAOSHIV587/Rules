@@ -1,17 +1,14 @@
 #!name=DJ音乐库 - DJ电音音乐播放器
 #!desc=登陆后解锁VIP，下载&音质选择
-#!date=2025-08-11
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/DJYinYueKu.png
 #!openUrl=https://apps.apple.com/app/id1195791174
-
 
 [Script]
 # > DJ音乐库-解锁VIP
 DJ音乐库 = type=http-response, pattern=^http:\/\/app-i.dj-5.com\/api\/User\/Info, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DJYinYueKu/JS/DJYinYueKu.js, requires-body=true, max-size=-1, timeout=60
 
-
 [MITM]
 hostname = %APPEND% app-i.dj-5.com
-

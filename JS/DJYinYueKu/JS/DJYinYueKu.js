@@ -9,7 +9,6 @@
 # > DJ音乐库 - DJ电音音乐播放器 VIP
 ^http:\/\/app-i.dj-5.com\/api\/User\/Info url script-response-body https://raw.githubusercontent.com/WeiGiegie/666/main/djyyk.js
 
-
 [mitm]
 hostname = app-i.dj-5.com
 
