@@ -1,16 +1,20 @@
 /******************************
-# 个人备用
-# 脚本功能：Deezer解锁Hi-Fi订阅
-# 软件版本：9.13.0
-# 下载地址：http://t.cn/A6XOI7sq
-# 原脚本作者：Hausd0rff、ycq007
-# 更新时间：2022-05-18
+
+脚本功能：Deezer解锁Hi-Fi订阅
+软件版本：9.13.0
+下载地址：http://t.cn/A6XOI7sq
+脚本作者：Hausd0rff
+更新时间：2022-05-18
+脚本发布：https://t.me/yqc_123
+问题反馈：https://t.me/yqc_777
+使用声明：⚠️此脚本仅供学习与交流，
+        请勿转载与贩卖！⚠️⚠️⚠️
 *******************************
 [rewrite_local]
 # > Deezer解锁Hi-Fi订阅
-^https?:\/\/media\.deezer\.com\/v1\/get_url$ url script-request-body https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Deezer/JS/DeezerHiFiProCrack.js
+^https?:\/\/media\.deezer\.com\/v1\/get_url$ url script-request-body https://raw.githubusercontent.com/yqc007/QuantumultX/master/DeezerHiFiProCrack.js
 
-[mitm] 
+[mitm]
 hostname = media.deezer.com
 
 *******************************/
