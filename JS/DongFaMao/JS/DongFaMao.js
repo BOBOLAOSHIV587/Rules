@@ -11,7 +11,6 @@
 # > 懂法猫-裁判文书网司法案例检索法律法规大全合同审查法律师工具
 ^https:\/\/app\.dongfamao\.com:443\/prod-api\/app\/user\/userInfo url script-response-body https://raw.githubusercontent.com/WeiGiegie/666/main/dfm.js
 
-
 [mitm]
 hostname = app.dongfamao.com,app.dongfamao.com:443
 
