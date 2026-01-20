@@ -1,7 +1,7 @@
 #!name=Netflix解锁检测
 #!desc=Netflix解锁检测
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author= Rabbit-Spec[https://github.com/Rabbit-Spec/Surge]
 #支持使用脚本使用 argument 参数自定义配置，如：argument=key1=URLEncode(value1)&key2=URLEncode(value2)，具体参数如下所示，
 #title: 面板标题
@@ -21,8 +21,6 @@
 #errorIcon: 检测异常时展示的图标
 #errorIconColor: 检测异常时展示的图标颜色
 #errorStyle: 检测异常时展示的图标样式
-
-
 
 [Panel]
 策略面板 = script-name=奈飞查询,update-interval=3600

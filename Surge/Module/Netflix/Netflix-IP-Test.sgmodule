@@ -1,9 +1,8 @@
 #!name=Netflix IP Test
 #!desc=Netflix 鎖區測試，本版本為繁體化
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author= Nebulosa-Cat[https://github.com/Nebulosa-Cat/Surge]
-
 
 [Panel]
 netflixCheck = script-name=netflixCheck,update-interval=1, 
