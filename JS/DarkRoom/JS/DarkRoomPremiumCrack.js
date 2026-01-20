@@ -1,19 +1,21 @@
 /******************************
 
-# 个人备用
-# 脚本功能：DarkRoom 解锁永久高级版
-# 软件版本：6.3.4
-# 下载地址：http://t.cn/A6C4zYZu
-# 脚本作者：Hausd0rff
-# 更新时间：2023-02-19
+脚本功能：DarkRoom 解锁永久高级版
+软件版本：6.3.4
+下载地址：http://t.cn/A6C4zYZu
+脚本作者：Hausd0rff
+更新时间：2023-02-19
+电报频道：https://t.me/yqc_123
+问题反馈：https://t.me/yqc_777
+使用声明：⚠️仅供学习交流，🈲️商业用途
 
 *******************************
 
 [rewrite_local]
 # > DarkRoom 解锁永久高级版
-^https?:\/\/api\.revenuecat\.com\/v1\/(receipts|subscribers\/\$RCAnonymousID%3A\w{32}) url script-response-body https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DarkRoom/JS/DarkRoomPremiumCrack.js
+^https?:\/\/api\.revenuecat\.com\/v1\/(receipts|subscribers\/\$RCAnonymousID%3A\w{32}) url script-response-body https://raw.githubusercontent.com/yqc007/QuantumultX/master/DarkRoomPremiumCrack.js
 
-[mitm] 
+[mitm]
 hostname = api.revenuecat.com
 
 *******************************/
