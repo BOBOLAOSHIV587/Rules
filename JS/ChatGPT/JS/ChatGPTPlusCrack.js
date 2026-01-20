@@ -1,18 +1,21 @@
 /******************************
 
-# 脚本功能：ChatGPT 解锁 Plus 订阅
-# 软件版本：1.2023.21
-# 下载地址：http://t.cn/A6NktWbB
-# 脚本作者：Hausd0rff
-# 更新时间：2023-05-19
+脚本功能：ChatGPT 解锁 Plus 订阅
+软件版本：1.2023.21
+下载地址：http://t.cn/A6NktWbB
+脚本作者：Hausd0rff
+更新时间：2023-05-19
+电报频道：https://t.me/yqc_123
+问题反馈：https://t.me/yqc_777
+使用声明：⚠️仅供学习交流，🈲️商业用途
 
 *******************************
 
 [rewrite_local]
 # > ChatGPT 解锁 Plus 订阅
-^https?:\/\/ios\.chat\.openai\.com\/backend-api\/(accounts\/check\/|models) url script-response-body https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/ChatGPT/JS/ChatGPTPlusCrack.js
+^https?:\/\/ios\.chat\.openai\.com\/backend-api\/(accounts\/check\/|models) url script-response-body https://raw.githubusercontent.com/yqc007/QuantumultX/master/ChatGPTPlusCrack.js
 
-[mitm] 
+[mitm]
 hostname = ios.chat.openai.com
 
 *******************************/
