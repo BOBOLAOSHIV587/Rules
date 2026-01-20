@@ -1,0 +1,196 @@
+name: "🍟 Fries: 🚫 Block HTTPDNS"
+desc: 阻止常见的 HTTPDNS 服务器
+author: shindgewongxj & VirgilClyne
+homepage: "https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS"
+icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png"
+category: "🍟 Fries"
+
+rules:
+  # Alibaba
+  - DOMAIN,httpdns.alicdn.com,REJECT
+
+  # Aliyun
+  - DOMAIN,httpdns-api.aliyuncs.com,REJECT
+  - DOMAIN,httpdns-sc.aliyuncs.com,REJECT
+  - IP-CIDR,203.107.1.0/24,REJECT,no-resolve
+
+  # Baidu
+  - DOMAIN,httpsdns.baidu.com,REJECT
+  - DOMAIN,httpdns.baidu.com,REJECT
+
+  # BaiduBCE
+  - DOMAIN,httpdns.baidubce.com,REJECT
+  - IP-CIDR,186.76.76.200/32,REJECT,no-resolve
+
+  # Bilibili
+  - DOMAIN,httpdns.bilivideo.com,REJECT
+  # KEY_EXT_P2P_HTTPDNS_BILI_IP
+  - IP-CIDR,47.101.175.206/32,REJECT
+  - IP-CIDR,47.100.123.169/32,REJECT
+  - IP-CIDR,120.46.169.234/32,REJECT
+  - IP-CIDR,121.36.72.124/32,REJECT
+  # KEY_EXT_P2P_BILIDNS_CMCC_IP
+  - IP-CIDR,116.63.10.135/32,REJECT
+  - IP-CIDR,122.9.7.134/32,REJECT
+  - IP-CIDR,117.185.228.108/32,REJECT
+  - IP-CIDR,117.144.238.29/32,REJECT
+  # KEY_EXT_P2P_BILIDNS_CT_IP
+  - IP-CIDR,122.9.13.79/32,REJECT
+  - IP-CIDR,122.9.15.129/32,REJECT
+  - IP-CIDR,101.91.140.224/32,REJECT
+  - IP-CIDR,101.91.140.124/32,REJECT
+  # KEY_EXT_P2P_BILIDNS_CU_IP
+  - IP-CIDR,114.116.215.110/32,REJECT
+  - IP-CIDR,116.63.10.31/32,REJECT
+  - IP-CIDR,112.64.218.119/32,REJECT
+  - IP-CIDR,112.65.200.117/32,REJECT
+
+  # Huawei
+  - DOMAIN,httpdns.c.cdnhwc2.com,REJECT
+
+  # JD
+  - DOMAIN,dns.jd.com,REJECT
+  - IP-CIDR,101.124.19.122/32,REJECT,no-resolve
+  - IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve
+
+  # JD Cloud
+  - IP-CIDR,103.224.222.208/32,REJECT,no-resolve
+  
+  # Kuaishou
+  - DOMAIN,kuaishou.httpdns.pro,REJECT
+  
+  # Meituan
+  - DOMAIN,httpdns.meituan.com,REJECT
+
+  # NetEase
+  - DOMAIN,httpdns.yunxindns.com,REJECT
+  - DOMAIN,httpdns.n.netease.com,REJECT
+  - DOMAIN,music.httpdns.c.163.com,REJECT
+  - DOMAIN,lofter.httpdns.c.163.com,REJECT
+  - IP-CIDR,59.111.239.61/32,REJECT,no-resolve
+  - IP-CIDR,59.111.239.62/32,REJECT,no-resolve
+  - IP-CIDR,115.236.121.51/32,REJECT,no-resolve
+  - IP-CIDR,115.236.121.195/32,REJECT,no-resolve
+
+  # Oppo
+  - DOMAIN,httpdns.push.oppomobile.com,REJECT
+  
+  # Tencent Cloud
+  - IP-CIDR,119.29.29.98/32,REJECT,no-resolve
+  - IP-CIDR,119.29.29.99/32,REJECT,no-resolve
+
+  # Volcengine
+  - DOMAIN,httpdns.volcengineapi.com,REJECT
+
+  # Weibo
+  - DOMAIN,dns.weibo.cn,REJECT
+  - IP-CIDR,39.97.128.148/32,REJECT,no-resolve
+  - IP-CIDR,39.97.130.51/32,REJECT,no-resolve
+
+  # Weixin
+  - DOMAIN,dns.weixin.qq.com,REJECT
+  - DOMAIN,dns.weixin.qq.com.cn,REJECT
+  - IP-CIDR,42.81.232.18/32,REJECT,no-resolve
+  - IP-CIDR,42.187.182.106/32,REJECT,no-resolve
+  - IP-CIDR,42.187.182.123/32,REJECT,no-resolve
+  - IP-CIDR,42.187.184.154/32,REJECT,no-resolve
+  - IP-CIDR,123.151.54.50/32,REJECT,no-resolve
+  - IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT,no-resolve
+  - IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
+
+  # Wework
+  - IP-CIDR,182.254.116.117/32,REJECT,no-resolve
+  - IP-CIDR,182.254.118.119/32,REJECT,no-resolve
+
+  # Zhihu
+  - IP-CIDR,118.89.204.198/23,REJECT,no-resolve
+  - IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
+
+http:
+  force-http-engine:
+    - 119.29.29.29:80
+    - dns.weixin.qq.com:80
+    - dns.weixin.qq.com:8080
+    - dns.weixin.qq.com:443
+  mitm:
+    - 119.29.29.29
+    - amdc.alipay.com
+    - amdc-sibling.alipay.com.cn
+    - dns.jd.com
+  url-rewrite:
+    # Alipay
+    - ^https?:\/\/amdc\.alipay\.com\/s?query - reject
+    - ^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query - reject
+    - ^https?:\/\/110\.76\.8\.150\/squery - reject
+    - ^https?:\/\/203\.209\.230\.39\/squery - reject
+    - ^https?:\/\/203\.209\.245\.102\/squery - reject
+    - ^https?:\/\/203\.209\.245\.158\/squery - reject
+    - ^https?:\/\/203\.209\.247\.95\/squery - reject
+    - ^https?:\/\/203\.209\.250\.41\/squery - reject
+    - ^https?:\/\/203\.209\.250\.114\/squery - reject
+    - ^https?:\/\/203\.209\.251\.147\/squery - reject
+    - ^https?:\/\/2400:B180:6001::18F\/squery - reject
+    - ^https?:\/\/2400:B200:1005:3000::155\/squery - reject
+    - ^https?:\/\/2400:B200:1005:3000::1D3\/squery - reject
+    - ^https?:\/\/2400:B200:5000:B000::C8\/squery - reject
+
+    # Baidu
+    - ^http:\/\/180\.76\.76\.112\/v4\/resolve - reject
+    - ^http:\/\/180\.76\.76\.220\/v4\/resolve - reject
+
+    # Bilibili
+    # KEY_EXT_P2P_HTTPDNS_BILI_IP
+    - ^http:\/\/47\.101\.175\.206\/resolve - reject
+    - ^http:\/\/47\.100\.123\.169\/resolve - reject
+    - ^http:\/\/120\.46\.169\.234\/resolve - reject
+    - ^http:\/\/121\.36\.72\.124\/resolve - reject
+    # KEY_EXT_P2P_BILIDNS_CMCC_IP
+    - ^http:\/\/116\.63\.10\.135\/resolve - reject
+    - ^http:\/\/122\.9\.7\.134\/resolve - reject
+    - ^http:\/\/117\.185\.228\.108\/resolve - reject
+    - ^http:\/\/117\.144\.238\.29\/resolve - reject
+    # KEY_EXT_P2P_BILIDNS_CT_IP
+    - ^http:\/\/122\.9\.13\.79\/resolve - reject
+    - ^http:\/\/122\.9\.15\.129\/resolve - reject
+    - ^http:\/\/101\.91\.140\.224\/resolve - reject
+    - ^http:\/\/101\.91\.140\.124\/resolve - reject
+    # KEY_EXT_P2P_BILIDNS_CU_IP
+    - ^http:\/\/114\.116\.215\.110\/resolve - reject
+    - ^http:\/\/116\.63\.10\.31\/resolve - reject
+    - ^http:\/\/112\.64\.218\.119\/resolve - reject
+    - ^http:\/\/112\.65\.200\.117\/resolve - reject
+
+    # JD
+    - ^https:\/\/dns\.jd\.com\/v6\/b - reject
+    
+    # Meituan
+    - ^http:\/\/103\.37\.155\.60\/fetch - reject
+
+    # Pinduoduo
+    - ^http:\/\/101\.35\.204\.35\/d - reject
+    - ^http:\/\/101\.35\.212\.35\/d - reject
+    - ^http:\/\/114\.110\.96\.26\/d - reject
+    - ^http:\/\/114\.110\.97\.97\/d - reject
+
+    # QCloud
+    - ^https?:\/\/119\.29\.29\.29\/d - reject
+
+    # QQmusic
+    - ^http:\/\/182\.256\.116\.116\/d - reject
+
+    # Weibo
+    - ^http:\/\/api\.weibo\.cn\/2\/httpdns\/config - reject
+    - ^http:\/\/api\.weibo\.cn\/httpdns\/config - reject
+
+    # Weixin
+    - ^https?:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
+    - ^https?:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
+    - ^https?:\/\/short\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
+    - ^https?:\/\/hkextshort\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
+
+    # Wework
+    - ^http:\/\/182\.254\.116\.117\/d - reject
+    - ^http:\/\/182\.254\.118\.119\/d - reject
+
+    # Zhihu
+    - ^http:\/\/103\.41\.167\.237\/v2\/resolv - reject
