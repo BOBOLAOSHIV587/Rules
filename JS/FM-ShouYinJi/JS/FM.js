@@ -9,7 +9,6 @@
 # >收音机-fm广播电台-爱听收音机
 ^https?:\/\/tuoba.dida110.com\/(LRGetVipItem|LRGetMeCount).ashx url script-response-body https://raw.githubusercontent.com/WeiGiegie/666/main/atsyj.js
 
-
 [mitm]
 hostname = tuoba.dida110.com
 
