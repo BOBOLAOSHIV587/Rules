@@ -1,14 +1,14 @@
 #!name=DreamFace解锁Pro
 #!desc=DreamFace解锁Pro.
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=Mike-offers[https://github.com/Mike-offers/Rewrite]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/DreamFace.png
 #!openUrl=https://apps.apple.com/app/id1624172324
 
 [Script]
 # > DreamFace解锁Pro
-DreamFace = type=http-response, pattern=^https?:\/\/dreamfaceapp\.com\/df-server\/user\/save_user_login, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DreamFace/JS/DreamFace.js, requires-body=true, max-size=-1, timeout=60
+DreamFace解锁Pro = type=http-response, pattern=^https?:\/\/dreamfaceapp\.com\/df-server\/user\/save_user_login, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DreamFace/JS/DreamFace.js, requires-body=true, max-size=-1, timeout=60
 
 [MITM]
 hostname = %APPEND% dreamfaceapp.com
