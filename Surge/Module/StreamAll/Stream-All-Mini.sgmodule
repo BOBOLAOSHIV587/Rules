@@ -1,15 +1,13 @@
 #!name=流媒体解锁检测
 #!desc=Netflix, Disney+, YouTube Unlock Detection
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author= Rabbit-Spec[https://github.com/Rabbit-Spec/Surge]
 #!arguments=UPDATE_INTERVAL:7200,TITLE:流媒体解锁检测,ICON:play.tv.fill,COLOR:#FF2D55
 #!arguments-desc=[参数设置]\n1. UPDATE_INTERVAL: 自定义面板的刷新间隔时间,单位为秒,默认每7200秒刷新一次;\n2. TITLE: 自定义面板标题,默认为"流媒体解锁检测";\n3. ICON: 自定义面板图标,默认为"play.tv.fill";\n4. COLOR: 自定义图标颜色,默认为"#FF2D55";\n\n[模块描述]\n▎本模块用于检测Netflix,Disney+,YouTube的解锁状态查询;\n▎三种状态显示"☑"表示支持解锁,"☒"表示不支持解锁,"N/A"表示检测超时或异常;\n▎地区代码缩写表示已解锁地区;
-
 
 [Panel]
 Panel = script-name=流媒体解锁检测,update-interval={{{UPDATE_INTERVAL}}}
 
 [Script]
 流媒体解锁检测 = type=generic,timeout=30,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/StreamAll/JS/Stream-All-Mini.js,script-update-interval=0,argument=title={{{TITLE}}}&icon={{{ICON}}}&color={{{COLOR}}}
-

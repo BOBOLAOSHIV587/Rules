@@ -1,9 +1,8 @@
 #!name=流媒体解锁检测
 #!desc=Netflix, Disney+, YouTube Unlock Detection
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author= Rabbit-Spec[https://github.com/Rabbit-Spec/Surge]
-
 
 [Panel]
 stream-all = script-name=stream-all, title="流媒体解锁检测", content="请刷新面板", update-interval={{{UPDATE_INTERVAL}}}
