@@ -1,11 +1,10 @@
 #!name = Turrit
 #!desc = Telegram外部链接跳转至Turrit
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Enhance
 #!author= BOBOLAOSHIV587[https://github.com/BOBOLAOSHIV587/Rules]
 #!icon = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/App-Icon/Turrit.png
 #!openUrl = https://apps.apple.com/app/id6471781238
-
 
 [Rewrite]
 (https:\/\/)?t\.me\/(.+) 307 turrit://resolve?domain=$2
