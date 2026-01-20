@@ -1,0 +1,14 @@
+#!name=滚动截屏
+#!desc=滚动截屏-解锁 Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=Sheep[https://github.com/SheepFJ/QuantumultX]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/GunDongJiePing.png
+#!openUrl=https://apps.apple.com/app/id1494098739
+
+[Script]
+# > 滚动截屏-解锁 Premium
+滚动截屏-解锁Premium = type=http-response, pattern=^http:\/\/tailor\.tomax\.xyz\/api\/users\/fetch\/info, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/GunDongJiePing/JS/JS-1/GDJP.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% tailor.tomax.xyz
