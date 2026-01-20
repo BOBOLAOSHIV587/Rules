@@ -1,20 +1,16 @@
 #!name=用户访问Github私有仓库
 #!desc=允许用户访问Github私有仓库/Gist中的订阅分流，重写，脚本等配置文件。使用此项目更便捷：https://github.com/cmliu/CF-Workers-Raw
-#!date=2025-10-16
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= Sliverkiss[https://github.com/Sliverkiss/GoodNight], cmliu[https://github.com/cmliu/CF-Workers-Raw]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/GitHub.png
-#!openUrl=https://apps.apple.com/app/id1477376905
 #!arguments=USERNAME:GITHUB_USERNAME,TOKEN:GITHUB_TOKEN
 #!arguments-desc=[参数设置]\nUSERNAME: 填入GitHub的用户名\nTOKEN: 填入GitHub生成的Token\n\n[Token获取方式]\n登陆Github > 点击头像下拉菜单 > 选择Settings > 左边菜单栏选择最后一个Developer settings > 选择Personal access tokens> 选择Tokens(classic) > Generate new token(classic) > Note里面填写token名字 > ☑️下面的勾选框选择第一项repo打钩（所有子项目自动勾选）> 点击Generate token按钮保存并返回。
-
 
 [Header Rewrite]
 # > Github私有仓库
 http-request ^https?:\/\/(raw|gist)\.githubusercontent\.com\/{{{USERNAME}}} header-del Authorization
 http-request ^https?:\/\/(raw|gist)\.githubusercontent\.com\/{{{USERNAME}}} header-add Authorization "token {{{TOKEN}}}"
 
-
 [MITM]
 hostname = %APPEND% raw.githubusercontent.com, gist.githubusercontent.com
-
