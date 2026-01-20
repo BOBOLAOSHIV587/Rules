@@ -1,0 +1,14 @@
+#!name=ProCamera
+#!desc=ProCamera Up会员年度订阅。
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=XiaoMao[https://github.com/xiaomaoJT/QxScript]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/ProCamera.png
+#!openUrl=https://apps.apple.com/app/id694647259
+
+[Script]
+# > ProCamera Up会员年度订阅
+http-response https:\/\/buy\.itunes\.apple\.com\/verifyReceipt script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/ProCamera/JS/JS-1/ProCamera.js, requires-body=true, timeout=60, tag=ProCamera
+
+[MITM]
+hostname = buy.itunes.apple.com
