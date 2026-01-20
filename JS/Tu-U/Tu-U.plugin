@@ -1,16 +1,14 @@
 #!name=兔U-引领广播剧潮牌
 #!desc=兔U--Unlock VIP SVIP
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=伟人WeiGiegie[https://github.com/WeiGiegie/666]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Tu-U.png
 #!openUrl=https://apps.apple.com/app/id6479624182
 
-
 [Script]
 # > 兔U-引领广播剧潮牌 Unlock VIP SVIP
 http-response ^https?:\/\/api.zuidie.net\/v1\/user\/info\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Tu-U/JS/Tu-U.js, requires-body=true, timeout=60, tag=兔U
-
 
 [MITM]
 hostname = api.zuidie.net
