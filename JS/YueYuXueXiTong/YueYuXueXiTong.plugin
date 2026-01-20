@@ -1,17 +1,14 @@
 #!name=粤语学习通-学说广东话粤语学习翻译词典
 #!desc= 解锁会员
-#!date=2025-12-05
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666],@liul0ng
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/YueYuXueXiTong.png
 #!openUrl=https://apps.apple.com/app/id1442054681
-
 
 [Script]
 # > 粤语学习通
 http-response ^http:\/\/api\.528529\.com\/apple_product script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YueYuXueXiTong/JS/YYXXT.js, requires-body=true, timeout=60, tag=粤语学习通
 
-
 [MITM]
 hostname = api.528529.com
-
