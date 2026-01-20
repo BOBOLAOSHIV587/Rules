@@ -1,17 +1,14 @@
 #!name=Grammarly移动输入法: AI Writing Keyboard
 #!desc=解锁Grammarly高级订阅
-#!date=2025-08-31
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 浥轻尘yqc007[https://github.com/yqc007/QuantumultX]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Grammarly.png
 #!openUrl=https://apps.apple.com/app/id1158877342
-
 
 [Script]
 # > 解锁Grammarly高级订阅
 http-response ^https?:\/\/subscription\.grammarly\.com\/api\/v1\/subscription$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Grammarly/JS/JS-1/Grammarly.js, requires-body=true, timeout=60, tag=Grammarly高级订阅
 
-
 [MITM]
 hostname = subscription.grammarly.com
-
