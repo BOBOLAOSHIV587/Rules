@@ -12,7 +12,6 @@
 https://payments.invideo.io/verify_purchase url script-response-body https://raw.githubusercontent.com/Marol62926/MarScrpt/main/filmr.js
 https://payments.invideo.io/subscription url script-response-body https://raw.githubusercontent.com/Marol62926/MarScrpt/main/filmr.js
 
-
 [mitm]
 hostname = payments.invideo.io
 
