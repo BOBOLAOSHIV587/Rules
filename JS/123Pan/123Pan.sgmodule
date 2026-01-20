@@ -1,16 +1,14 @@
 #!name=123云盘
 #!desc=过滤123云盘应用端及网页端广告，解除网页端流量1G下载限制（请单文件下载，不要文件夹或多文件下载）。
-#!date=2025-12-18
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], 墨鱼ddgksf2013[https://github.com/ddgksf2013]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/123Pan.png
 #!openUrl=https://www.123pan.com/
 
-
 [Map Local]
 # 横幅广告
 ^https:\/\/www\.123pan\.com\/api\/config\/get data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
 
 [Script]
 # > 123云盘
@@ -18,7 +16,5 @@
 
 [123云盘]解除下载限制 = type=http-request, pattern=^https?:\/\/www\.123pan\.com\/b\/api\/share\/download\/info, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/123Pan/JS/123Pan.js, timeout=60
 
-
 [MITM]
 hostname = %APPEND% www.123pan.com
-
