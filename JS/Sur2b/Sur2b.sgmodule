@@ -1,17 +1,14 @@
 #!name=Sur2b
 #!desc= YouTube 视频总结，字幕翻译脚本(YouTube video summaries, subtitle translation)
-#!date=2025-10-08
-#!category=😍BOBO Enhance
+#!date=2026-01-21
+#!category=🐹 BOBO Enhance
 #!author= 狗哥Neurogram-R[https://github.com/Neurogram-R]
 #!openUrl=https://www.icloud.com/shortcuts/cb51b08d31a54f1184e81e72bad84039
-
 
 [Script]
 # > YouTube 视频总结，字幕翻译
 Sur2b = type=http-response,pattern=https:\/\/www.youtube.com\/api\/timedtext\?,requires-body=1,max-size=0,binary-body-mode=0,timeout=30,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Sur2b/JS/Sur2b.js
 Sur2bConf = type=http-request,pattern=https:\/\/www.youtube.com\/api\/timedtextConf,requires-body=1,max-size=0,binary-body-mode=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Sur2b/JS/Sur2b.js
 
-
 [MITM]
 hostname = %APPEND% www.youtube.com
-
