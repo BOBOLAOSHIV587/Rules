@@ -1,11 +1,10 @@
 #!name=Talkatone
 #!desc=移除广告
-#!date=2025-12-15
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 奶思[https://github.com/fmz200/wool_scripts]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Talkatone.png
 #!openUrl=https://apps.apple.com/app/id397648381
-
 
 [Rule]
 DOMAIN-SUFFIX,tappx.com,REJECT
@@ -43,13 +42,10 @@ DOMAIN-SUFFIX,inner-active.mobi,REJECT
 DOMAIN-SUFFIX,4dvertible.com,REJECT
 DOMAIN-SUFFIX,smadex.com,REJECT
 
-
 [Map Local]
 ^https?:\/\/alt-r\.my\.com\/mobile data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https?:\/\/imgx\.jampp\.com\/imgsrv\/tn data-type=tiny-gif status-code=200
 
-
 [MITM]
 hostname = %APPEND% alt-r.my.com, imgx.jampp.com
-
