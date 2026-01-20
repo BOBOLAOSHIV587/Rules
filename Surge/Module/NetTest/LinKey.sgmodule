@@ -1,13 +1,11 @@
 #!name= LinKey Tool
 #!desc=  SPing: https://🍉.eu.org/ping \nJS引擎测试: https://🍉.eu.org/netms
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author= Key[https://github.com/Keywos/rule]
-
 
 [URL Rewrite]
 ^https?:\/\/surgetool\.com\/?$ - reject
-
 
 [Script]
 binary_test = type=http-request, pattern=^https?:\/\/surgetool\.com\/api\/ping\/binary, requires-body=1, timeout=50, binary-body-mode=1, max-size=-1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/NetTest/JS/ntbm.js
@@ -16,7 +14,5 @@ crypto_test = type=http-request, pattern=^https?:\/\/surgetool\.com\/api\/test, 
 
 SPing = type=http-request, pattern=^https?:\/\/surgetool\.com\/api\/ping, requires-body=1, timeout=200, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/NetTest/JS/api_ping.js
 
-
 [MITM]
 hostname = %APPEND% surgetool.com
-
