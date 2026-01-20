@@ -12,4 +12,3 @@ http-response ^http[s]?:\/\/csj\.yy-5\.com\/api\/User\/Info script-path=https://
 
 [MITM]
 hostname = csj.yy-5.com
-

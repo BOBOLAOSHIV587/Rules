@@ -12,4 +12,3 @@ DJ串烧集 = type=http-response, pattern=^http[s]?:\/\/csj\.yy-5\.com\/api\/Use
 
 [MITM]
 hostname = %APPEND% csj.yy-5.com
-
