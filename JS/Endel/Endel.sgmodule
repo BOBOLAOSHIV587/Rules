@@ -1,14 +1,14 @@
 #!name=Endel-舒缓睡眠音
 #!desc=Endel-解锁Premium
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=叮当猫chxm1023[https://github.com/chxm1023/Rewrite]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Endel.png
 #!openUrl=https://apps.apple.com/app/id1346247457
 
 [Script]
-# > Endel-舒缓睡眠音-解锁Premium
-Endel-舒缓睡眠音-解锁Premium = type=http-response, pattern=^https?:\/\/api-production\.endel\.io\/v\d\/call, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Endel/JS/Endel.js, requires-body=true, max-size=-1, timeout=60
+# > Endel解锁Premium
+Endel解锁Premium = type=http-response, pattern=^https?:\/\/api-production\.endel\.io\/v\d\/call, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Endel/JS/Endel.js, requires-body=true, max-size=-1, timeout=60
 
 [MITM]
 hostname = %APPEND% api-production.endel.io
