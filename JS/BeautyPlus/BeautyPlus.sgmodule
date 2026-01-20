@@ -1,14 +1,14 @@
 #!name=BeautyPlus解锁Pro
 #!desc=BeautyPlus解锁Pro.
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=Mike-offers[https://github.com/Mike-offers/Rewrite]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BeautyPlus.png
 #!openUrl=https://apps.apple.com/app/id921765888
 
 [Script]
 # > BeautyPlus解锁Pro
-BeautyPlus = type=http-response, pattern=https:\/\/(api\.mr\.pixocial\.com\/v1\/manual_unlock|newbeee-api\.beautyplus\.com\/api\/v1\/asset\/balance), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BeautyPlus/JS/BeautyPlus.js, requires-body=true, max-size=-1, timeout=60
+BeautyPlus解锁Pro = type=http-response, pattern=https:\/\/(api\.mr\.pixocial\.com\/v1\/manual_unlock|newbeee-api\.beautyplus\.com\/api\/v1\/asset\/balance), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BeautyPlus/JS/BeautyPlus.js, requires-body=true, max-size=-1, timeout=60
 
 [MITM]
 hostname = %APPEND% api.mr.pixocial.com, newbeee-api.beautyplus.com
