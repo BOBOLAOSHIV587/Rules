@@ -1,0 +1,18 @@
+#!name=彩云天气SVIP
+#!desc=彩云天气解锁SVIP.最高支持版本：6.7.2(旧版)
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=叮当猫chxm1023[https://github.com/chxm1023/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/ColorfulCloudsWeatherPro.png
+#!openUrl=https://apps.apple.com/app/id1067198688
+
+[Rule]
+# 禁用上传信息 - 来源: @苍井灰灰
+DOMAIN,gather.colorfulclouds.net,REJECT
+
+[Script]
+# > 彩云天气 解锁SVIP.最高支持版本：6.7.2(旧版)
+caiyun_svip = type=http-response, pattern=https?:\/\/biz\.caiyunapp\.com\/(membership_rights|v2\/user), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/ColourfulWeather/JS/JS-1/ColourfulWeatherSVIP.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% biz.caiyunapp.com
