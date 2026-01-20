@@ -1,16 +1,14 @@
 #!name=足控社
 #!desc=解锁视频,金币购买  版本：🔞🈲️！H5 or 轻量版
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=伟人WeiGiegie[https://github.com/WeiGiegie/666]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/ZuKongShe.png
 #!openUrl=https://4962g36tz1.679130.xyz/Appapi/down_app/pid/46747
 
-
 [Script]
 # > 足控社解锁视频
 http-response ^https?:\/\/.+\/appapi\/(detail|buyPicture|getUserInfo|goldBuyVideo)\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/ZuKongShe/JS/ZuKongShe.js, requires-body=true, timeout=60, tag=足控社
-
 
 [MITM]
 hostname = 1zher0st.504824.xyz,s1jyc4asdr14nsa.504824.xyz,suning.679134.xyz,b8u1lvlb.504867.xyz,umcuy46v9yr3gn4.504843.xyz,*.504*.xyz,5sfc4hgy.504832.xyz
