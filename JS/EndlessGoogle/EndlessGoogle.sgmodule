@@ -1,14 +1,13 @@
 #!name=Google自动翻页
 #!desc=Google自动翻页
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Google.png
 #!openUrl=www.google.com
-
 
 [Script]
 # > Google自动翻页
 EndlessGoogle = type=http-response, pattern=^https?:\/\/www\.google\..*\/search, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/EndlessGoogle/JS/EndlessGoogle.js, requires-body=true, max-size=-1, timeout=60
-
 
 [MITM]
 hostname = %APPEND% www.google.*
