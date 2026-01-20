@@ -1,11 +1,10 @@
 #!name=滴滴出行
 #!desc=滴滴出行去广告。移除开屏广告、精简首页、底栏和我的页面。
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/DiDi.png
 #!openUrl=https://apps.apple.com/app/id554499054
-
 
 [Rule]
 # 拦截广告下发
@@ -37,7 +36,6 @@ IP-CIDR, 157.255.76.17/32, REJECT, no-resolve
 IP-CIDR, 157.255.76.19/32, REJECT, no-resolve
 IP-CIDR, 162.14.157.2/32, REJECT, no-resolve
 IP-CIDR, 162.14.157.24/32, REJECT, no-resolve
-
 
 [Rewrite]
 # 活动弹窗
@@ -75,7 +73,5 @@ IP-CIDR, 162.14.157.24/32, REJECT, no-resolve
 
 ^https:\/\/as\.xiaojukeji\.com\/ep\/as\/toggles\? response-body-json-jq '.data |= map(if .name|IN("daijia_journey_new_tcp_switch","daijia_tcp_init","daijia_tcp_msg_encrypt","daijia_tcp_site_info","daijia_tcp_site_report")then.allow=false else. end)'
 
-
 [MITM]
 hostname = as.xiaojukeji.com, common.diditaxi.com.cn, conf.diditaxi.com.cn, lion.didialift.com, api.udache.com, ct.xiaojukeji.com, res.xiaojukeji.com, freight.xiaojukeji.com, daijia.kuaidadi.com, 162.14.157.*, 123.207.209.*, 112.53.55.225, 120.241.142.*, 120.241.143.*, 116.85.*, 139.199.240.84
-

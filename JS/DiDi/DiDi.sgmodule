@@ -1,18 +1,16 @@
 #!name=滴滴出行
 #!desc=滴滴出行去广告。移除开屏广告、精简首页、底栏和我的页面。
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/DiDi.png
 #!openUrl=https://apps.apple.com/app/id554499054
-
 
 [Rule]
 # 拦截广告下发
 DOMAIN,gwp.xiaojukeji.com,REJECT
 AND,((IP-ASN,45090,no-resolve),(DEST-PORT,25641),(PROTOCOL,TCP)),REJECT
 AND,((IP-ASN,63646,no-resolve),(DEST-PORT,25641),(PROTOCOL,TCP)),REJECT
-
 
 [Body Rewrite]
 # 底栏配置、首页工具栏
@@ -41,7 +39,6 @@ http-response-jq ^https:\/\/api\.udache\.com\/gulfstream\/porsche\/v1\/dache_hom
 # 订单进行页面 - 各种推广
 http-response-jq ^https:\/\/as\.xiaojukeji\.com\/ep\/as\/toggles\? '.data |= map(if .name|IN("daijia_journey_new_tcp_switch","daijia_tcp_init","daijia_tcp_msg_encrypt","daijia_tcp_site_info","daijia_tcp_site_report")then.allow=false else. end)'
 
-
 [Map Local]
 # 活动弹窗
 ^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -58,7 +55,5 @@ http-response-jq ^https:\/\/as\.xiaojukeji\.com\/ep\/as\/toggles\? '.data |= map
 # 打车页面 - 运营卡片配置数据
 ^https:\/\/conf\.diditaxi\.com\.cn\/dynamic\/conf data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-
 [MITM]
 hostname = %APPEND% as.xiaojukeji.com, common.diditaxi.com.cn, conf.diditaxi.com.cn, lion.didialift.com, api.udache.com, ct.xiaojukeji.com, res.xiaojukeji.com, freight.xiaojukeji.com, daijia.kuaidadi.com, 162.14.157.*, 123.207.209.*, 112.53.55.225, 120.241.142.*, 120.241.143.*, 116.85.*, 139.199.240.84
-
