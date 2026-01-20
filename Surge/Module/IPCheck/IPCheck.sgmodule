@@ -1,14 +1,11 @@
 #!name=IP-Check
 #!desc=查看节点IP信息
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author= Rabbit-Spec[https://github.com/Rabbit-Spec/Surge]
-
 
 [Panel]
 IP-Check = script-name=IP-Check, title="节点详情", content="请刷新", style=info, update-interval=1
 
-
 [Script]
 IP-Check = type=generic,timeout=3,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/IPCheck/JS/IPCheck.js
-
