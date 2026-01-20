@@ -1,0 +1,26 @@
+#!name=TikTok GR
+#!desc=解锁 TikTok 希腊 地区
+#!category=🐹 BOBO TikTok
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/TikTok.png
+
+[Rule]
+DOMAIN-SUFFIX, byteoversea.com, TikTok
+DOMAIN-SUFFIX, ibytedtos.com, TikTok
+DOMAIN-SUFFIX, ipstatp.com, TikTok
+DOMAIN-SUFFIX, muscdn.com, TikTok
+DOMAIN-SUFFIX, musical.ly, TikTok
+DOMAIN-SUFFIX, tik-tokapi.com, TikTok
+DOMAIN-SUFFIX, tiktok.com, TikTok
+DOMAIN-SUFFIX, tiktokcdn.com, TikTok
+DOMAIN-SUFFIX, tiktokv.com, TikTok
+DOMAIN-KEYWORD, -tiktokcdn-com, TikTok
+USER-AGENT, tiktok*, TikTok
+
+[Rewrite]
+(?<=_region=)CN(?=&) GR 307
+(?<=&mcc_mnc=)4 2 307
+^(https?:\/\/(tnc|dm)[\w-]+\.\w+\.com\/.+)(\?)(.+) $1$4 302
+(?<=\d\/\?\w{7}_\w{4}=)1[6-9]..(?=.?.?&) 18.4 307
+
+[MITM]
+hostname = *.tiktokv.com, *.byteoversea.com, *.tik-tokapi.com
