@@ -1,6 +1,6 @@
-#!name=贴吧去广告(>=iOS15)
+#!name=贴吧去广告
 #!desc=开屏广告;推荐和吧内帖子列表的直播及广告
-#!date=2026-01-06
+#!date=2026-01-21
 #!category=🐹 BOBO Premium
 #!author= app2smile[https://github.com/app2smile/rules]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BaiDuTieBa.png
@@ -24,4 +24,3 @@ IP-CIDR,180.76.76.200/32,REJECT,no-resolve
 
 [MITM]
 hostname = %APPEND% tiebac.baidu.com
-

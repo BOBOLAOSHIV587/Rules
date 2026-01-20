@@ -1,6 +1,6 @@
-#!name=贴吧去广告(>=iOS15)
+#!name=贴吧去广告
 #!desc=开屏广告;推荐和吧内帖子列表的直播及广告;详情页直播/关联商品/广告;看图模式广告;首页和帖子详情页右下角悬浮广告;部分吧内的置顶/最新中间的广告/head图片广告/head直播
-#!date=2026-01-06
+#!date=2026-01-21
 #!category=🐹 BOBO Premium
 #!author= app2smile[https://github.com/app2smile/rules], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BaiDuTieBa.png
@@ -38,4 +38,3 @@ http-response ^https?:\/\/(tiebac|c\.tieba)\.baidu\.com\/c\/(b\/ad\/adBid|f\/(fr
 
 [MITM]
 hostname = tiebac.baidu.com
-
