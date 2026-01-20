@@ -1,16 +1,13 @@
 #!name=App Store 低版本应用安装
 #!desc=App Store 低版本应用安装、已购下架应用安装。使用说明：1、添加模块地址至Surge，其他格式自行转换（暂不支持 QX）；2、添加 Scripting 脚本导入至Scripting App；3、Scripting 内运行 ipaTool 即可。
-#!date=2025-12-05
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 小白脸(xiao bai lian)[https://github.com/githubdulong/Script]
-
 
 [Script]
 应用接口 = type=http-request,pattern=https://apple-api.com,requires-body=1,max-size=-1,binary-body-mode=0,timeout=30,debug=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/ipaTool/JS/JS-1/AppleStoreAPI.js
 
 应用安装 = type=http-request,pattern=https:\/\/xiaobai\.app,requires-body=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/ipaTool/JS/JS-1/installapp.js
 
-
 [MITM]
 hostname = %APPEND%  apple-api.com, xiaobai.app
-
