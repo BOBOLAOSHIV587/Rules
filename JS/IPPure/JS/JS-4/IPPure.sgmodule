@@ -1,16 +1,13 @@
 #!name=IP-Pure
 #!desc=节点 IP 纯净度检测（IPPure）,请先在参数内选择策略组。
-#!date=2025-12-15
-#!category=😍BOBO
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author=StashNetworks[https://github.com/StashNetworks],baby[https://github.com/Yu9191/Rewrite]
 #!arguments=group:Proxy
 #!arguments-desc=【可选】策略组名称。若自动嗅探失败，将读取此组选中节点。
 
-
 [Panel]
 IPPure = script-name=ippure-auto, title="IPPure", content="正在检测...", icon=shield.checkerboard, update-interval=600
 
-
 [Script]
 ippure-auto = type=generic, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IPPure/JS/JS-4/IPPure.js, argument=group={{{group}}}
-

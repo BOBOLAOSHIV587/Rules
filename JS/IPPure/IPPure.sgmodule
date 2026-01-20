@@ -1,20 +1,16 @@
 #!name=IP-Pure
 #!desc=节点 IP 纯净度检测（IPPure）,请先在参数内选择策略组。
-#!date=2025-12-15
-#!category=😍BOBO
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author=StashNetworks[https://github.com/StashNetworks],Likhixang[https://github.com/Likhixang/Egerny]
 #!arguments=Proxy:Proxy,MarkIP:false
 #!arguments-desc=Proxy: 选择策略组,默认Proxy. @from wish | MarkIP: IP 打码(true/false),默认 false
 
-
 [Rule]
 DOMAIN-SUFFIX,ippure.com,{{{Proxy}}}
-
 
 [Panel]
 IP-Pure = script-name=IP-Pure, title=IP 纯净度, content=刷新中…, style=info, update-interval=300
 
-
 [Script]
 IP-Pure = type=generic, timeout=10, argument={{{MarkIP}}}, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IPPure/JS/JS-1/IPPure.js
-

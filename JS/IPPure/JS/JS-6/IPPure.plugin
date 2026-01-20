@@ -1,9 +1,8 @@
 #!name=IP-Pure
 #!desc=节点 IP 纯净度检测（IPPure）。\n适用于Loon的节点质量查询。\n在节点（策略）页面选择一个节点长按，出现菜单后点击。\n测试某些出站倾向（使用）IPv6的节点会导致ippure查询不到。\n由于某些网站是抓取内容分析，可能会偶尔失败。
-#!date=2025-12-18
-#!category=😍BOBO
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author=StashNetworks[https://github.com/StashNetworks],Roddy-D[https://github.com/Roddy-D]
-
 
 [Script]
 generic script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IPPure/JS/JS-6/IPPure.js, timeout=15, tag=节点质量查询,img-url=globe.asia.australia.system
