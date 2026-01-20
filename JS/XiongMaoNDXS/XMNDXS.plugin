@@ -1,16 +1,14 @@
 #!name=熊猫脑洞小说
 #!desc=解锁VIP.登陆后解锁
-#!date=2025-08-04
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/XiongMaoNaoDongXS.png
 #!openUrl=https://apps.apple.com/app/id6447226119
 
-
 [Script]
 # > 熊猫脑洞小说VIP
 http-response ^https?:\/\/xiaoshuo.xmxsapp.com\/api\/v3\/user\/my-center script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/XiongMaoNDXS/JS/XMNDXS.js, requires-body=true, timeout=60, tag=熊猫脑洞小说VIP
-
 
 [MITM]
 hostname = xiaoshuo.xmxsapp.com
