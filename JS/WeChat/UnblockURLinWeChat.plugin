@@ -1,9 +1,8 @@
 #!name=功能插件｜解除微信链接限制
 #!desc=跳过中间界面，被封禁链接进行通知弹窗跳转
-#!date=2025-08-01
-#!category=😍BOBO Enhance
+#!date=2026-01-21
+#!category=🐹 BOBO Enhance
 #!author=zZPiglet[https://github.com/zZPiglet]
-#!openUrl=https://apps.apple.com/app/id414478124
 
 [Script]
 # > 解除微信链接限制
