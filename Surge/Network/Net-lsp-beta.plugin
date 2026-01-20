@@ -1,7 +1,7 @@
 #!name=网络信息 𝕏(β)
 #!desc=国内外 IP, 运营商, ASN, ORG, 位置, 策略; IPv6; 入口落地; 隐私; LAN; SSID. 自己设置对应域名的分流. 支持网络变化时进行查询通知. 支持长按节点进行查询. 提供 https://net-lsp-x.com 数据接口, 参数与模块参数相同. 详细参数设置见频道说明: https://t.me/zhetengsha
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author=xream[https://github.com/xream/scripts]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Surge.png
 
