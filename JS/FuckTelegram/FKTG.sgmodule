@@ -1,14 +1,12 @@
 #!name=Fuck Telegram bad IPs
 #!desc=将 tg 的垃圾 IP 转移到好的 IP 上
-#!date=2025-09-05
+#!date=2026-01-21
 #!category=⚙️ ▸ Function
 #!author= Repcz[https://github.com/Repcz/Tool]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Telegram-01.png
 
-
 [General]
 use-local-host-item-for-proxy = true
-
 
 [Host]
 # Fuck Telegram bad IPs
@@ -20,4 +18,3 @@ use-local-host-item-for-proxy = true
 91.108.56.126 = 91.108.56.147,91.108.56.135,91.108.56.130
 91.108.56.128 = 91.108.56.147,91.108.56.135,91.108.56.130
 91.108.56.156 = 91.108.56.147,91.108.56.135,91.108.56.130
-
