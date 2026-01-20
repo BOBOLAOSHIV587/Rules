@@ -1,17 +1,14 @@
 #!name=AcFun舞蹈区地址解析
-#!desc= 1、脚本功能 : 弹窗通知当前视频最高清晰度地址，如2160p>。仅解析免费舞蹈视频地址； 2、使用说明 : QX点弹窗就能看到完整地址，Loon、Surge不支持大文本文件通知，所以不必理会。3、注意：地址需要专业第三方播放器才能播放或者下载⏬。
-#!date=2025-09-12
-#!category=😍BOBO Premium
+#!desc= 1、弹窗通知当前视频最高清晰度地址，如2160p>。仅解析免费舞蹈视频地址； 2、QX点弹窗就能看到完整地址，Loon、Surge不支持大文本文件通知，所以不必理会。3、地址需要专业第三方播放器才能播放或者下载⏬。
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/AcFun.png
 #!openUrl=https://apps.apple.com/app/id894974941
-
 
 [Script]
 # > AcFun舞蹈区地址解析
 http-response ^https?:\/\/.+\/rest\/app\/douga/info script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/AcFun/JS/AcFun.js, requires-body=true, timeout=60, tag=AcFun舞蹈区地址解析
 
-
 [MITM]
 hostname = api-ipv6.acfunchina.com, api-ipv6.app.acfun.cn
-
