@@ -1,14 +1,14 @@
 #!name=Aloha Browser
-#!desc=Aloha Browser解锁Premium.
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!desc=Aloha Browser解锁Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=Mike-offers[https://github.com/Mike-offers/Rewrite]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/AlohaBrowser.png
 #!openUrl=https://apps.apple.com/app/id1105317682
 
 [Script]
 # > Aloha Browser解锁Premium
-AlohaBrowser = type=http-response, pattern=^https?:\/\/api\.alohaprofile\.com\/v1\/profile_info, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/AlohaBrowser/JS/AlohaBrowser.js, requires-body=true, max-size=-1, timeout=60
+AlohaBrowser解锁Premium = type=http-response, pattern=^https?:\/\/api\.alohaprofile\.com\/v1\/profile_info, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/AlohaBrowser/JS/AlohaBrowser.js, requires-body=true, max-size=-1, timeout=60
 
 [MITM]
 hostname = %APPEND% api.alohaprofile.com
