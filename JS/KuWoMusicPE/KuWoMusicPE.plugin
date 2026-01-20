@@ -1,11 +1,10 @@
 #!name=酷我音乐纯净版
 #!desc=解锁VIP及歌曲(仅支持纯净版)
-#!date=2025-09-16
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 小白chmg2025[https://github.com/chmg2025/script]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuWoMusicPE.png
 #!openUrl=https://apps.apple.com/app/id1594175673
-
 
 [Script]
 # > 酷我音乐纯净版解锁VIP
@@ -15,7 +14,5 @@ http-response ^http?:\/\/musicpay\.kuwo\.cn\/music\.pay\?newver=3 script-path=ht
 
 http-request ^http?:\/\/nmobi\.kuwo\.cn\/mobi\.s\?f=kuwo&q= script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuWoMusicPE/JS/KuWoMusicPE.js, requires-body=true, timeout=60, tag=播放
 
-
 [MITM]
 hostname = *.kuwo.cn
-
