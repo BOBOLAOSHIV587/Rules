@@ -1,7 +1,7 @@
 #!name=YoutubeLite
 #!desc=Lite with little memory (Experimental)
-#!date=2025-08-01
-#!category=😍BOBO Enhance
+#!date=2026-01-21
+#!category=🐹 BOBO Enhance
 #!author=Maasea[https://github.com/Maasea]
 #!arguments=请求处理服务:https://stream.maasea.workers.dev,屏蔽上传按钮:true,屏蔽选段按钮:true,屏蔽Shorts按钮:false,字幕翻译语言:off,歌词翻译语言:off
 #!arguments-desc=- 屏蔽参数：[true, false] \n- 翻译参数：[语言代码, off] \n\n1. 语言代码遵循 Google Translate Languages Codes, 当填入 off 时关闭翻译
