@@ -133,7 +133,7 @@ Boom解锁高级会员 = type=http-response, pattern=^https:\/\/apimboom2\.globa
 
 
 # > 扫描全能王-手机扫描仪 解锁黄金会员
-扫描全能王-解锁黄金会员 = type=http-response, pattern=https:\/\/api-cs\.intsig\.net\/purchase\/cs\/query_property, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/CamScanner/JS/JS-3/CamScanner.js, requires-body=true, max-size=-1, timeout=60
+扫描全能王-解锁黄金会员 = type=http-response, pattern=https:\/\/api-cs\.intsig\.net\/purchase\/cs\/query_property, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/CamScanner/JS/JS-3/Camscanner.js, requires-body=true, max-size=-1, timeout=60
 
 
 # > 插画世界-P站画师创作约稿平台解锁Vip
