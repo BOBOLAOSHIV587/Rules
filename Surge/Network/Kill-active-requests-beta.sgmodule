@@ -1,7 +1,7 @@
 #!name=打断请求(β)
 #!desc=支持定时/WiFi 断开时执行.点击面板按钮或请求 kill-active-requests.com 手动打断请求
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author=xream[https://github.com/xream/scripts]
 #!arguments=CRON_SCRIPT_NAME:# 定时打断连接,CRON_EXP:*/1 * * * *,CRON_RULE:RULE-SET Telegram,CRON_NOTIFY:1,CRON_WAKE_SYSTEM:0,EVENT_SCRIPT_NAME:网络变化时打断连接,EVENT_NOTIFY:1,ICON:xmark.circle,ICON-COLOR:#C5424A
 #!arguments-desc=1 为开启, 0 为关闭\n\nCRON_SCRIPT_NAME:\n定时打断请求的脚本名称\n若要禁用网络变化时打断连接这个功能, 请输入 #\n默认禁用\n\nCRON_EXP:\n定时打断请求的 cron 表达式\n\nCRON_RULE:\n定时打断请求的正则表达式\n用来匹配请求的 rule\n\nCRON_NOTIFY:\n定时打断请求打断连接时, 是否发送通知\n\nCRON_WAKE_SYSTEM:\n定时打断请求的 wake-system\n\nEVENT_SCRIPT_NAME:\n网络变化时打断连接的脚本名称\n若要禁用网络变化时打断连接这个功能, 请输入 #\n\nEVENT_NOTIFY:\n网络变化打断连接时, 是否发送通知
@@ -12,7 +12,6 @@ hostname = %APPEND% kill-active-requests.com
 [Script]
 # Cron
 {{{CRON_SCRIPT_NAME}}}=type=cron,cronexp="{{{CRON_EXP}}}",wake-system={{{CRON_WAKE_SYSTEM}}},timeout=120,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Network/JS/kill-active-requests-beta.js,argument="CRON_NOTIFY={{{CRON_NOTIFY}}}&CRON_RULE={{{CRON_RULE}}}&TYPE=CRON"
-
 
 # Request
 通过请求手动打断连接 = type=http-request,pattern=^https?:\/\/kill-active-requests\.com,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Network/JS/kill-active-requests-beta.js
