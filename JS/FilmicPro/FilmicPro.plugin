@@ -1,0 +1,14 @@
+#!name=Filmic Pro相机
+#!desc=Filmic Pro相机解锁高级会员
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=叮当猫chxm1023[https://github.com/chxm1023/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/FilmicPro.png
+#!openUrl=https://apps.apple.com/app/id436577167
+
+[Script]
+# > Filmic Pro相机解锁高级会员
+http-response ^https:\/\/filmicpro\.oracle\.bendingspoonsapps\.com\/v\d\/(users\/setup|purchases\/verify) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/FilmicPro/JS/JS-1/FilmicPro.js, requires-body=true, timeout=60, tag=FilmicPro相机解锁高级会员
+
+[MITM]
+hostname = filmicpro.oracle.bendingspoonsapps.com
