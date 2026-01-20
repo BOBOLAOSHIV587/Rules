@@ -1,0 +1,14 @@
+#!name=iLovePDF
+#!desc=iLovePDF解锁Vip。
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=Mike-offers[https://github.com/Mike-offers/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/iLovePDF.png
+#!openUrl=https://apps.apple.com/app/id1207332399
+
+[Script]
+# > iLovePDF解锁Vip
+iLovePDF解锁Vip = type=http-response, pattern=^https?:\/\/service\.ilovepdf\.com\/v\d\/user, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iLovePDF/JS/JS-1/iLovePDF.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% service.ilovepdf.com
