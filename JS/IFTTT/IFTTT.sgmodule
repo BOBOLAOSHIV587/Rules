@@ -1,0 +1,14 @@
+#!name=IFTTT-工作流程和智能家居自动化
+#!desc=IFTTT - 工作流程和智能家居自动化解锁永久Vip
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=Rnik666[https://github.com/Rnik666/YJTJS]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/IFTTT.png
+#!openUrl=https://apps.apple.com/app/id660944635
+
+[Script]
+# > IFTTT-工作流程和智能家居自动化解锁永久Vip
+IFTTT-工作流程和智能家居自动化解锁永久Vip = type=http-response, pattern=^https?:\/\/ifttt\.com\/api\/v3\/graph, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IFTTT/JS/JS-1/IFTTT.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% ifttt.com
