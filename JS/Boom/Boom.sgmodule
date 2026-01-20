@@ -1,0 +1,14 @@
+#!name=Boom
+#!desc=Boom解锁高级会员权限 软件版本：2.6.4
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=墨鱼ddgksf2013[https://github.com/ddgksf2013/Cuttlefish]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Boom.png
+#!openUrl=https://apps.apple.com/app/id1065511007
+
+[Script]
+# > Boom解锁高级会员权限
+Boom解锁高级会员 = type=http-response, pattern=^https:\/\/apimboom2\.globaldelight\.net\/itunesreceipt_v2\.php$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Boom/JS/JS-1/Boom.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname= %APPEND% apimboom2.globaldelight.net
