@@ -1,7 +1,7 @@
 #!name=酷我音乐
 #!desc=解锁会员权限
-#!date=2025-12-23
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= 𝐎𝐍𝐙𝟑𝐕[https://github.com/Yuheng0101/X]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuWo.png
 #!openUrl=https://apps.apple.com/app/id588673713
@@ -22,4 +22,3 @@
 
 [MITM]
 hostname = %APPEND% *.kuwo.cn
-
