@@ -1,17 +1,14 @@
 #!name=百度网盘
 #!desc= 版本 11.21.1, 解锁 SVIP倍速播放、高画质
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=伟人WeiGiegie[https://github.com/WeiGiegie/666]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BaiduNetDisk.png
 #!openUrl=https://apps.apple.com/app/id547166701
 
-
 [Script]
 # > 百度网盘解锁 SVIP倍速播放、高画质
-百度网盘解锁 SVIP倍速播放、高画质 = type=http-response, pattern=^https?:\/\/pan.baidu.com.+(rest\/.+\/membership\/user|api\/user\/getinfo|act\/v2\/welfare\/list|api\/taskscore\/tasklist)\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuYun/JS/BaiDuYun.js, requires-body=true, max-size=-1, timeout=60
-
+百度网盘解锁 SVIP倍速播放、高画质 = type=http-response, pattern=^https?:\/\/pan.baidu.com.+(rest\/.+\/membership\/user|api\/user\/getinfo|act\/v2\/welfare\/list|api\/taskscore\/tasklist)\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiDuYun/JS/JS-1/BaiDuYun.js, requires-body=true, max-size=-1, timeout=60
 
 [MITM]
 hostname = %APPEND% pan.baidu.com
-
