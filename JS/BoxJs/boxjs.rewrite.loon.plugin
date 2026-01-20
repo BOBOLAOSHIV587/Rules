@@ -1,12 +1,11 @@
 #!name=BoxJs
 #!desc=Data manager
-#!date=2025-08-01
+#!date=2026-01-21
 #!category=BoxJs
 #!author=chavyleung[https://github.com/chavyleung/scripts]
 #!homepage=https://chavyleung.gitbook.io/boxjs/
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BoxJs.png
 #!openUrl=http://boxjs.com
-
 
 [Rule]
 DOMAIN-SUFFIX,jsdelivr.net,PROXY
