@@ -1,15 +1,18 @@
 /******************************
-# 个人备用
-# 脚本功能：白描解锁黄金会员
-# 应用版本：3.4.2
-# 脚本作者：Hausd0rff
-# 更新时间：2023-06-27
+脚本功能：白描解锁黄金会员
+应用版本：3.4.2
+应用下载：http://t.cn/A602ZQ3K
+脚本作者：Hausd0rff
+更新时间：2023-06-27
+脚本发布：https://t.me/yqc_123
+使用声明：⚠️仅供学习交流, 🈲️商业用途
 *******************************
 [rewrite_local]
 # > 白描解锁黄金会员
-^https?:\/\/baimiao\.uzero\.cn\/api\/v2\.user\/appLaunchWithUser url script-response-body https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BaiMiao/JS/BaiMiaoGoldVipCrack.js
+^https?:\/\/baimiao\.uzero\.cn\/api\/v2\.user\/appLaunchWithUser url script-response-body https://raw.githubusercontent.com/yqc007/QuantumultX/master/BaiMiaoGoldVipCrack.js
 ^https?:\/\/baimiao\.uzero\.cn\/api\/v2\.user\/c(heckLoginClient|leanAccount) url reject-array
-[mitm] 
+
+[mitm]
 hostname = baimiao.uzero.cn
 
 *******************************/
