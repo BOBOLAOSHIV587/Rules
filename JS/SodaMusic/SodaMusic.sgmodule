@@ -1,11 +1,10 @@
 #!name=汽水音乐
 #!desc=汽水音乐去广告。移除开屏广告、弹窗广告、播放器推广、歌曲详情界面视频推广、播放页面的歌曲视频，精简首页和我的页面。
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/SodaMusic.png
 #!openUrl=https://apps.apple.com/app/id1605585211
-
 
 [Body Rewrite]
 http-response-jq ^https:\/\/tnc\d-(bjlgy|ali[a-z]{2})\d?\.zijieapi\.com\/get_domains\/v\d\/\? 'if (getpath(["data"]) | has("opaque_data_enabled")) then (setpath(["data","opaque_data_enabled"]; 0)) else . end'
@@ -32,7 +31,6 @@ http-response-jq ^https:\/\/(beta-luna\.douyin|api5-lq\.qishui)\.com\/luna\/card
 
 # 歌曲详情 - 热门视频
 http-response-jq ^https:\/\/(beta-luna\.douyin|api5-lq\.qishui)\.com\/luna\/more-panel\? '.blocks |= map(select(.type != "related_video"))'
-
 
 [Map Local]
 # 追加的销售配置
@@ -63,12 +61,9 @@ http-response-jq ^https:\/\/(beta-luna\.douyin|api5-lq\.qishui)\.com\/luna\/more
 # 抖音看过悬浮窗
 ^https:\/\/(beta-luna\.douyin|api5-lq\.qishui)\.com\/luna\/listen-video\/reminder\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-
 [Script]
 # > 播放页面 - 视频流[响应体太大]
 移除播放页面视频流 = type=http-response, pattern=^https:\/\/(beta-luna\.douyin|api5-lq\.qishui)\.com\/luna\/me\/recently-played-media\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/SodaMusic/JS/SodaMusic.js, requires-body=true
 
-
 [MITM]
 hostname = %APPEND% webcast-open.douyin.com, beta-luna.douyin.com, api.qishui.com, api5-lq.qishui.com, tnc*-*.zijieapi.com
-
