@@ -1,11 +1,10 @@
 #!name=QQ音乐
 #!desc=过滤QQ音乐广告
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/QQMusic.png
 #!openUrl=https://apps.apple.com/app/id414603431
-
 
 [Rule]
 DOMAIN,adstats.tencentmusic.com,REJECT,extended-matching,pre-matching
@@ -27,4 +26,3 @@ DOMAIN,us.l.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,tangram.e.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,tmeadbak.y.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,imtmp.net,REJECT,extended-matching,pre-matching
-
