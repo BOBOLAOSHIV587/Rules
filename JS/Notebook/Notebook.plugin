@@ -1,17 +1,14 @@
 #!name=Notebook 笔记本 - 笔记·备忘录·AI
 #!desc= 无限笔记, AI 笔记, 标注和手写笔记, 记事本--解锁Pro.
-#!date=2025-08-15
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= Mikephie[https://github.com/Mikephie/Script]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Notebook.png
 #!openUrl=https://apps.apple.com/app/id973801089
-
 
 [Script]
 # > Notebook笔记本-解锁Pro
 http-response ^https:\/\/notebook\.zoho\.com\/api\/v1\/userprofile\/accounts\/payment\?action=(get_current_plan_detail|get_feature_template)(&include_expired_plans=true|&include_purchase_platform=false|&platform=ios)? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Notebook/JS/JS-1/Notebook.js, requires-body=true, timeout=60, tag=Notebook笔记本
 
-
 [MITM]
 hostname = notebook.zoho.com
-
