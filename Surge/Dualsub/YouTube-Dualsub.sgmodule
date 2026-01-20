@@ -1,7 +1,7 @@
 #!name=Youtube Subtrans
 #!desc=Youtube subtitles add-ons
-#!date=2025-08-01
-#!category=😍BOBO Enhance
+#!date=2026-01-21
+#!category=🐹 BOBO Enhance
 #!author=狗哥Neurogram-R[https://github.com/Neurogram-R]
 #!openUrl=https://www.icloud.com/shortcuts/8ec4a2a3af514282bf27a11050f39fc2
 
@@ -11,4 +11,3 @@ YouTube-Dualsub-Setting = type=http-request,pattern=https:\/\/setting.youtube.co
 
 [MITM]
 hostname = %APPEND% *.youtube.com
-
