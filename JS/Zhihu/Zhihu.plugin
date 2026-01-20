@@ -1,11 +1,10 @@
 #!name=知乎
 #!desc=净化/解锁盐选会员
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=墨鱼ddgksf2013[https://github.com/ddgksf2013/MoYu]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Zhihu.png
 #!openUrl=https://apps.apple.com/app/id432274380
-
 
 [Rewrite]
 # > 知乎_拦截DNS解析
@@ -54,7 +53,6 @@
 ^https?:\/\/api\.zhihu\.com\/drama\/hot-drama-list reject
 # > 知乎_我的页面下方内容
 ^https?:\/\/api\.zhihu\.com\/api\/v4\/profile\/cards reject-dict
-
 
 [Script]
 # > 知乎_用户信息
@@ -108,7 +106,6 @@ http-response ^https?:\/\/api\.zhihu\.com\/moments_v3 script-path=https://raw.gi
 
 # > 知乎_搜索发现
 http-response https://api.zhihu.com/search/hot_search script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Zhihu/JS/JS-1/Zhihu.js, requires-body=true, timeout=60, tag=Zhihu
-
 
 [MITM]
 hostname = 118.89.204.198, 103.41.167.237, 2402:4e00:1200:ed00:0:9089:6dac:96b6, www.zhihu.com, api.zhihu.com, zhuanlan.zhihu.com, appcloud2.zhihu.com, m-cloud.zhihu.com, 103.41.167.236, 103.41.167.234, 103.41.167.235, 103.41.167.226
