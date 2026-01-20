@@ -1,18 +1,14 @@
 #!name=Troubleshoot
 #!desc=故障排除 访问 http://trouble.shoot 查看
-#!date=2025-12-18
-#!category=😍BOBO面板模块
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
 #!author=xream[https://github.com/xream/scripts]
-
 
 [General]
 force-http-engine-hosts = %APPEND% trouble.shoot
 
-
 [Script]
 troubleshoot = type=http-request, pattern=^https?:\/\/trouble\.shoot, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Network/JS/Troubleshoot.js, timeout=300
 
-
 [MITM]
 hostname = %APPEND% trouble.shoot, *.trouble.shoot
-
