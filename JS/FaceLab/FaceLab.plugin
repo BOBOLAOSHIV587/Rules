@@ -1,14 +1,14 @@
 #!name=FaceLab解锁Vip
 #!desc=FaceLab解锁Vip.
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=叮当猫chxm1023[https://github.com/chxm1023/Rewrite]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/FaceLab.png
 #!openUrl=https://apps.apple.com/app/id1530776865
 
 [Script]
 # > FaceLab解锁Vip
-http-response ^https?:\/\/subscription-api\.lyrebirdstudio\.net\/subscriptions\/apple\/(verify|status|decode-apple-receipt) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/FaceLab/JS/FaceLab.js, requires-body=true, timeout=60, tag=FaceLab
+http-response ^https?:\/\/subscription-api\.lyrebirdstudio\.net\/subscriptions\/apple\/(verify|status|decode-apple-receipt) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/FaceLab/JS/FaceLab.js, requires-body=true, timeout=60, tag=FaceLab解锁Vip
 
 [MITM]
 hostname = subscription-api.lyrebirdstudio.net
