@@ -1,25 +1,21 @@
 #!name=爱奇艺 去广告
 #!desc=移除开屏广告、焦点图广告、瀑布流广告、搜索页面广告、移除青少年弹窗，精简底栏和我的页面。
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/IQIYI.png
 #!openUrl=https://apps.apple.com/app/id393765873
-
 
 [Rule]
 # 拦截HTTPDNS
 IP-CIDR, 103.44.59.54/32, REJECT, no-resolve
 IP-CIDR, 111.63.147.158/32, REJECT, no-resolve
 IP-CIDR, 116.211.198.237/32, REJECT, no-resolve
-
 # 放行地址
 DOMAIN-SUFFIX, cupid.iqiyi.com, DIRECT
-
 # 拦截地址
 DOMAIN, api.iqiyi.com, REJECT
 DOMAIN, access.if.iqiyi.com, REJECT
-
 
 [Rewrite]
 # 首页 - 焦点图广告、卡片广告
@@ -86,7 +82,6 @@ DOMAIN, access.if.iqiyi.com, REJECT
 # 我的页面菜单
 ^https?:\/\/iface2\.iqiyi\.com\/aggregate\/3\.0\/getMyMenus\? response-body-json-jq '.data |= map(select(.statistic.block != "wd_liebiao_2") | select(all(.menuList[]?.statistic2.block; . != "wd_liebiao_3")))'
 
-
 [Script]
 # 首页信息流广告
 # http-response ^http:\/\/[\d\.]+\/3f1\/cards\.iqiyi\.com\/(views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\? script-path = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Script/ChinaFTP/ChinaFTP.js, requires-body = true, tag = [爱奇艺]首页信息流
@@ -121,7 +116,5 @@ DOMAIN, access.if.iqiyi.com, REJECT
 # 开屏和播放广告
 # http-response ^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\? script-path = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Script/ChinaFTP/ChinaFTP.js, requires-body = true, tag = [爱奇艺]开屏和播放广告
 
-
 [MITM]
 hostname = -i.vip.iqiyi.com, *.iqiyi.com
-

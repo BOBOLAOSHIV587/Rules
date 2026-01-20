@@ -1,25 +1,21 @@
 #!name=爱奇艺 去广告
 #!desc=移除开屏广告、焦点图广告、瀑布流广告、搜索页面广告、移除青少年弹窗，精简底栏和我的页面。
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/IQIYI.png
 #!openUrl=https://apps.apple.com/app/id393765873
-
 
 [Rule]
 # 拦截HTTPDNS
 IP-CIDR,103.44.59.54/32,REJECT,no-resolve
 IP-CIDR,111.63.147.158/32,REJECT,no-resolve
 IP-CIDR,116.211.198.237/32,REJECT,no-resolve
-
 # 放行地址
 DOMAIN-SUFFIX,cupid.iqiyi.com,DIRECT
-
 # 拦截地址
 DOMAIN,api.iqiyi.com,REJECT
 DOMAIN,access.if.iqiyi.com,REJECT
-
 
 [Body Rewrite]
 # 首页 - 焦点图广告、卡片广告
@@ -48,7 +44,6 @@ http-response-jq ^https:\/\/comment-card\.iqiyi\.com\/views_comment\/3\.0\/long_
 # 搜索页面广告
 http-response-jq ^https:\/\/cards\.iqiyi\.com\/views_search\/3\.0\/hot_query_search\? '.cards |= map(select(.alias_name as $name | $name != "ad_trueview" and $name != "ad_mobile_flow" and $name != "search_mid_text_ad")) | if .base.statistics.ad_str? then del(.base.statistics) else . end'
 
-
 # 视频评论区广告 // 如果"cards[*].alias_name"路径存在就保留当前对象
 http-response-jq ^https?:\/\/comment-card\.iqiyi\.com\/views_comment\/3\.0\/long_video_comments\? '.cards |= map(select(has("alias_name")))'
 
@@ -75,7 +70,6 @@ http-response-jq ^https?:\/\/search\.video\.iqiyi\.com\/q\? 'delpaths([["data"]]
 # 我的页面菜单
 http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/aggregate\/3\.0\/getMyMenus\? '.data |= map(select(.statistic.block != "wd_liebiao_2") | select(all(.menuList[]?.statistic2.block; . != "wd_liebiao_3")))'
 
-
 [Map Local]
 # 左上角天气
 ^https?:\/\/iface2\.iqiyi\.com\/control\/3\.0\/init_proxy\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -92,7 +86,5 @@ http-response-jq ^https?:\/\/iface2\.iqiyi\.com\/aggregate\/3\.0\/getMyMenus\? '
 # 青少年弹窗
 ^https?:\/\/iface2\.iqiyi\.com\/views_pop\/3\.0\/pop_control\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-
 [MITM]
 hostname = %APPEND% -i.vip.iqiyi.com, *.iqiyi.com
-
