@@ -1,17 +1,14 @@
 #!name=YandexMusic--Яндекс Музыка, книги, подкасты
 #!desc=登陆后解锁VIP。需使用俄罗斯或乌克兰节点才能登陆。
-#!date=2025-08-14
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author= Yarmukhamedov[https://github.com/Yarmukhamedov/mitm]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/YandexMusic.png
 #!openUrl=https://apps.apple.com/app/id520797969
-
 
 [Script]
 # > YandexMusic-解锁VIP
 http-response https://api.music.yandex.net/account/status.* script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YandexMusic/JS/YandexMusic.js, requires-body=true, timeout=60, tag=YandexMusic
 
-
 [MITM]
 hostname = api.music.yandex.net
-
