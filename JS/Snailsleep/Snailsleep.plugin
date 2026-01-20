@@ -1,0 +1,14 @@
+#!name=蜗牛睡眠解锁Vip
+#!desc=蜗牛睡眠解锁Vip.
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
+#!author=Mike-offers[https://github.com/Mike-offers/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/WNSM.png
+#!openUrl=https://apps.apple.com/app/id1025313530
+
+[Script]
+# > 蜗牛睡眠解锁Vip
+http-response ^https?:\/\/snailsleep\.net\/snail\/v\d\/profile\/get. script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Snailsleep/JS/JS-1/Snailsleep.js, requires-body=true, timeout=60, tag=Snailsleep
+
+[MITM]
+hostname = snailsleep.net
