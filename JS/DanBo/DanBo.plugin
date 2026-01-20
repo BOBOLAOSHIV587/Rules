@@ -1,15 +1,15 @@
-#!name=蛋啵解锁vip功能
-#!desc=蛋啵解锁vip功能  版本：1.3.00
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!name=蛋啵
+#!desc=蛋啵解锁VIP功能  版本：1.3.00
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=Sheep[https://github.com/SheepFJ/QuantumultX]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/DanBo.png
 #!openUrl=https://apps.apple.com/app/id1594998254
 
 [Script]
-# > 蛋啵解锁vip功能
-http-response ^https://api-sub\.meitu\.com/v2/user/vip_info_by_group script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DanBo/JS/danbovip.js, requires-body=true, timeout=60, tag=danbovip
-http-response ^https://ai\.xiuxiu\.meitu\.com/v1/tool/mtlab/ai_graffiti_permission script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DanBo/JS/danboai.js, requires-body=true, timeout=60, tag=danboai
+# > 蛋啵解锁VIP功能
+http-response ^https://api-sub\.meitu\.com/v2/user/vip_info_by_group script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DanBo/JS/danbovip.js, requires-body=true, timeout=60, tag=蛋啵VIP
+http-response ^https://ai\.xiuxiu\.meitu\.com/v1/tool/mtlab/ai_graffiti_permission script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DanBo/JS/danboai.js, requires-body=true, timeout=60, tag=蛋啵VIP
 
 [MITM]
 hostname = ai.xiuxiu.meitu.com, api-sub.meitu.com
