@@ -1,17 +1,15 @@
 #!name=Google搜索人机验证解决方案
 #!desc=Google搜索内容时并发使用多个策略/策略组，以避免可能出现的人机验证。注意：需要在模块参数填写策略/策略组名的正则表达式。
-#!date=2025-08-01
-#!category=😍BOBO Premium
+#!date=2026-01-21
+#!category=🐹 BOBO Premium
 #!author=野比大佬NobyDa[https://github.com/NobyDa/Script]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Google.png
 #!input = GOOGLE_CAPTCHA_REGEX
 #!openUrl=www.google.com
 
-
 [Script]
 # > Google搜索人机验证解决方案
 http-response ^https:\/\/www\.google\.com(?:\.[a-z]+|)\/(?:search\?(?:|.+?&)q=|$) requires-body=1,timeout=30,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/GoogleCAPTCHA/JS/Google_CAPTCHA.js,tag=Google人机验证
-
 
 [MITM]
 hostname = www.google.com*
