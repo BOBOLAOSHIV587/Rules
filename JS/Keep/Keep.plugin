@@ -1,18 +1,16 @@
 #!name=Keep - AI 运动教练
 #!desc=去Keep广告
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], ZenmoFeiShi[https://github.com/ZenmoFeiShi]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Keep.png
 #!openUrl=https://apps.apple.com/app/id952694580
-
 
 [Rule]
 # 信息流广告
 DOMAIN, kad.gotokeep.com, REJECT
 DOMAIN, hc-ssp.sm.cn, REJECT
 DOMAIN, httpdns.calorietech.com, REJECT
-
 
 [Rewrite]
 # 精简配置
@@ -51,7 +49,6 @@ DOMAIN, httpdns.calorietech.com, REJECT
 
 ^https:\/\/api\.gotokeep\.com\/pencil-webapp\/play\/v1\/games\? response-body-json-jq '.data.games[].microGames[] |= if .leftIcon? and .leftIcon.type == "aiMode" then del(.leftIcon) else . end'
 
-
 [Script]
 # 移除我的页面广告
 http-response ^https:\/\/api\.gotokeep\.com\/athena\/v\d\/people\/my script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Keep/JS/Keep.js, requires-body = true, tag = [Keep]移除我的页面广告
@@ -59,7 +56,5 @@ http-response ^https:\/\/api\.gotokeep\.com\/athena\/v\d\/people\/my script-path
 # 移除首页活动标签
 http-response ^https:\/\/api\.gotokeep\.com\/config\/v\d\/basic script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Keep/JS/Keep.js, requires-body = true, tag = [Keep]移除首页活动标签
 
-
 [MITM]
 hostname = api.gotokeep.com
-
