@@ -1,11 +1,10 @@
 #!name=优酷视频
 #!desc=去除播放详情页、首页信息流、顶部标签页、我的页面、评论区广告
-#!date=2025-10-12
-#!category=😍BOBO AD
+#!date=2026-01-21
+#!category=🐹 BOBO AD
 #!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/YoukuVideo.png
 #!openUrl=https://apps.apple.com/app/id336141475
-
 
 [Rule]
 # 放行地址
@@ -45,11 +44,9 @@ DOMAIN-SUFFIX, rhdc-acs.youku.com, REJECT
 DOMAIN-SUFFIX, sm.cn, REJECT
 DOMAIN-SUFFIX, ubixioe.com, REJECT
 
-
 [Rewrite]
 # 播放页弹窗动图
 ^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.(pisp\.scripts\.get|xspace\.play\.position\.preload\.query|xspace\.poplayer\.position\.query) reject-dict
-
 
 [Script]
 # 播放详情页、首页信息流、顶部标签页、我的页面、评论区
@@ -70,7 +67,5 @@ http-response ^https:\/\/push\.m\.youku\.com\/collect-api\/get_push_interval_con
 # 开屏广告
 http-response ^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get script-path = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YoukuVideo/JS/ChinaFTP.js, requires-body = true, tag = [优酷视频]开屏广告
 
-
 [MITM]
 hostname = acs.youku.com, push.m.youku.com, un-acs.youku.com
-
