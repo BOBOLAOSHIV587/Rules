@@ -1,0 +1,12 @@
+#!name=Baidu纯净搜索
+#!desc=百度纯净搜索
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
+#!author= Keywos[https://github.com/Keywos/rule]
+#!openUrl=www.baidu.com
+
+[Map Local]
+^https?:\/\/(?:www|m)\.baidu\.com(?:\/|\/\?(tn=&)?from=\w+)?$ data="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/BaiduPureSearch/JS/Surge.html" header="Content-Type: text/html; charset=utf-8"
+
+[MITM]
+hostname = %APPEND% m.baidu.com, www.baidu.com

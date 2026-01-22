@@ -1,0 +1,12 @@
+#!name=Baidu纯净搜索
+#!desc=百度纯净搜索
+#!date=2026-01-21
+#!category=🐹 BOBO面板模块
+#!author= Keywos[https://github.com/Keywos/rule]
+#!openUrl=www.baidu.com
+
+[Script]
+http-response ^https?:\/\/(?:www|m)\.baidu\.com(?:\/|\/\?(tn=&)?from=\w+)?$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/BaiduPureSearch/JS/Loon.js, requires-body = true, tag = 百度首页
+
+[MITM]
+hostname = m.baidu.com, www.baidu.com
