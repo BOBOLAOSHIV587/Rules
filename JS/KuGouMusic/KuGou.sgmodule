@@ -1,6 +1,6 @@
 #!name=酷狗音乐
 #!desc=解锁酷狗音乐会员功能，包括VIP歌曲、无损音质、去广告、皮肤等
-#!date=2026-01-10
+#!date=2026-01-21
 #!category=🐹 BOBO Premium
 #!author= baby[https://github.com/Yu9191/Rewrite]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuGou.png
@@ -16,7 +16,6 @@ URL-REGEX, ^https:\/\/vipssr\.kugou\.com\/static\/js\/vip\/newUi\/vipPageUnionIo
 URL-REGEX, ^https:\/\/fx\.service\.kugou\.com\/fx\/activity\/register\/center\/sidebar\/configV2$, REJECT
 URL-REGEX, ^https:\/\/service1\.fanxing\.kugou\.com\/video\/mo\/live\/pull\/mutiline\/cfg, REJECT
 URL-REGEX, ^http:\/\/log\.web\.kugou\.com\/postEvent\.php$, REJECT
-
 # > (广告域名)
 DOMAIN, webvoobssdl.kugou.com, REJECT
 DOMAIN, ad.tencentmusic.com, REJECT
@@ -24,7 +23,6 @@ DOMAIN, ads.service.kugou.com, REJECT
 DOMAIN, adsfile.kugou.com, REJECT
 DOMAIN, mdpfilebssdlbig.kugou.com, REJECT
 DOMAIN, adserviceretry.kugou.com, REJECT
-
 # > (开屏广告)
 IP-CIDR, 157.255.11.247/32, REJECT, no-resolve
 IP-CIDR, 111.206.99.202/32, REJECT, no-resolve
@@ -32,111 +30,65 @@ IP-CIDR, 111.206.99.202/32, REJECT, no-resolve
 [Script]
 # > SSR首页装饰中心
 酷狗SSR首页 = type=http-response, pattern=^https:\/\/m\.kugou\.com\/ssr\/decocenter\/home, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 登录相关接口
 酷狗登录Token = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v5\/login_by_token, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗K歌 = type=http-response, pattern=^https?:\/\/(nacsing\.kugou\.com|acsing\.service\.kugou\.com|vipos\.kugou\.com|gateway\.kugou\.com|gamecenter\.kugou\.com|acsing\.tx\.kugou\.com)\/(sing7\/json\/v2\/user\/login|ccktv\/v1\/ktv_room\/room\/room_config|fxsing\/vip\/member\/info|sing7\/homepage\/json\/v3\/vip\/tip|v4\/price\/get_tips|vipenergy\/v2\/entrance\/vip_center_user_info|fxsing\/vip\/user\/info|sing7\/homepage\/json\/v3\/cdn\/kroom_tab_enter|v1\/home\/member_game|sing7\/homepage\/json\/v3\/cdn\/kroom_tab\/banners), requires-body=true, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGouSong.js
-
 酷狗播放v5 = type=http-response, pattern=^https?:\/\/gateway\.kugou\.com\/tracker\/v5\/url, requires-body=true, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGouV5.js
-
 酷狗快速登录 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/login_by_quick_token, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗登录扩展信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v2\/get_login_extend_info, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > VIP信息相关
 酷狗VIP信息V2 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/mobile\/vipinfoV2, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗VIP配置 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v2\/get_vip_config, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗VIP等级详情 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/promotionvip\/v3\/vip_level\/detail, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗价格提示 = type=http-response, pattern=^https:\/\/vipos\.kugou\.com\/v4\/price\/get_tips, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗融合用户信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/vip\/v1\/fusion\/userinfo, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗超级VIP福利 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v2\/super\/welfarelist, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 卡片相关接口
 酷狗卡片顶部 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/card\/v1\/pxy\/top, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗卡片听歌 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/card\/v1\/pxy\/listen, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗推荐流 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/card\/v1\/pxy\/recommend_stream$, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗推荐流V2 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/card\/v1\/pxy\/recommend_stream_v2, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 广告相关接口 (使用通配符匹配所有子域名)
 酷狗侧边栏链接 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/sidebar_link, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗侧边栏顶部卡片 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/sidebar_top_card, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗首页卡片 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/home_card, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗移动端链接 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/mobile_link, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗任务中心入口 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v2\/task_center_entrance, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗任务视频资格 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v5\/task_video\/qualification, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗搜索横幅 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ads\.gateway\/v4\/search_banner, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 移动端启动画面
 酷狗移动端启动画面 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v4\/mobile_splash$, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗移动端启动画面排序 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v4\/mobile_splash_sort, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > AB测试相关
 酷狗AB测试 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/els\.abt\/v1\/tmeab, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 代理组合相关
 酷狗代理组合启动 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/pxy\/v1\/combo\/startup, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗播放页面索引 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/playerpxy\/v1\/combo\/play_page_index, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 系统相关
 酷狗音乐符号系统配置 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/mstc\/musicsymbol\/v1\/system\/profile, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗用户挂件 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/pendant\/v2\/get_user_pendant, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗盲盒柜 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/blindbox_cabinet\/client_cabinet, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗用户等级配置 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/flow\/user_config\/get_level_config_ios, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗星光活动信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/starlight\/get_campaign_infos, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗搜索无焦点词 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/searchnofocus\/v1\/search_no_focus_word, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗开发用户更新 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/updateservice\/v1\/get_dev_user, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 资源权限相关
 酷狗资源权限精简版 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/get_res_privilege\/lite, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗联合音频信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v1\/union\/audio_info, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 主题相关
 酷狗主题分类 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ocean\/v6\/theme\/category, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗主题信息 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/tools\.mobile\/v2\/theme\/info, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 广告播放页面组合
 酷狗广告播放页面组合 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/adp\/ad\/v1\/playpage_combine, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > VIP中心
 酷狗VIP中心V3 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/v3\/vip_center, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 我的顶部横幅
 酷狗我的顶部横幅 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/mine_top_banner, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗皮肤权限 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/ocean\/v6\/theme\/get_res_privilege, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 # > 唱片架/装扮相关
 酷狗唱片架校验 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/vipdress\/v1\/record_rack\/set_record_rack_check, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗设置唱片架 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/vipdress\/v1\/record_rack\/set_user_record_rack, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
-
 酷狗获取唱片架 = type=http-response, pattern=^https:\/\/.*\.kugou\.com\/vipdress\/v1\/record_rack\/get_user_record_rack, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/KuGouMusic/JS/JS-1/KuGou.js
 
 [MITM]
 hostname = %APPEND% *.kugou.com
-
