@@ -1,0 +1,16 @@
+#!name=Google Translate Redirect
+#!desc=Google Translate 网页版转 ChatGPT/Gemini 翻译
+#!date=2026-01-23
+#!category=🐹 BOBO Enhance
+#!author= xream[https://github.com/xream/scripts]
+#!arguments=TYPE:ChatGPT,KEY,API:https://api.openai.com/v1/chat/completions,PROMPT:你是世界上最专业的翻译工具,TIMEOUT:30000,MODEL:gpt-4o-mini,MAX_TOKENS:888,TEMPERATURE:0.5
+#!arguments-desc=字面意思 应该能懂填啥\n\nTYPE: 目前支持 ChatGPT 和 Gemini\n\nAPI 部份应为完整的 URL, 例如: https://api.openai.com/v1/chat/completions\n\nℹ️ TYPE 为 Gemini 时\nMODEL 默认为 gemini-1.5-flash, API 默认为 https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent
+
+[General]
+force-http-engine-hosts = %APPEND% translate.google.com
+
+[Script]
+GoogleTranslateRedirect = type=http-request, pattern=https?:\/\/translate\.google\.com\/\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/GoogleTranslate_Redirect/JS/GTR.js, requires-body=true, timeout=120, argument="GTR_API={{{API}}}&GTR_KEY={{{KEY}}}&GTR_MODEL={{{MODEL}}}&GTR_PROMPT={{{PROMPT}}}&GTR_MAX_TOKENS={{{MAX_TOKENS}}}&GTR_TEMPERATURE={{{TEMPERATURE}}}&GTR_TIMEOUT={{{TIMEOUT}}}&GTR_TYPE={{{TYPE}}}"
+
+[MITM]
+hostname = %APPEND% translate.google.com
