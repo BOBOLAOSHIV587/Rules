@@ -1,6 +1,6 @@
 #!name=酷我音乐
-#!desc=1、播放歌曲引用了循环从最高音质播放，歌曲会以2000kflac音质播放，旧歌老歌会自动降级音质播放成功率100%不会出现“缓存失败”,“播放失败”之类的弹窗。另增加缓存功能重复听同一首歌不会触发重复解析，降低脚本后台占用成本。2、支持所有数字付费专辑解锁+下载，MP3文件格式支持导出文件，需要先听歌缓存。3、解锁所有播放器皮肤、个性皮肤、桌面图标。
-#!date=2026-01-21
+#!desc=1、播放歌曲从最高音质播放，歌曲会以2000kflac音质播放，旧歌老歌会自动降级音质。\n2、支持所有数字付费专辑解锁+下载，MP3文件格式支持导出文件，需要先听歌缓存。\n3、解锁所有播放器皮肤、个性皮肤、桌面图标。
+#!date=2026-01-25
 #!category=🐹 BOBO Premium
 #!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/KuWo.png

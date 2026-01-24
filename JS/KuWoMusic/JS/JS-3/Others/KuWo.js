@@ -1,6 +1,7 @@
 /*******************************
 脚本功能：酷我音乐 会员调试  
 软件版本：11.3.8
+脚本说明：1、播放歌曲引用了循环从最高音质播放，歌曲会以2000kflac音质播放，旧歌老歌会自动降级音质播放成功率100%不会出现“缓存失败”,“播放失败”之类的弹窗。另增加缓存功能重复听同一首歌不会触发重复解析，降低脚本后台占用成本。2、支持所有数字付费专辑解锁+下载，MP3文件格式支持导出文件，需要先听歌缓存。3、解锁所有播放器皮肤、个性皮肤、桌面图标。
 脚本作者：引用转发脚本请带出处频道地址，谢谢。
 更新时间：2025年1013
 电报频道：https://t.me/GieGie777
@@ -13,7 +14,6 @@
 ^https?:\/\/vip1\.kuwo\.cn\/commercia\/vip\/player\/getStyleListByModel url script-request-header https://raw.githubusercontent.com/WeiGiegie/666/main/kuwo.js
 # > 底部弹窗 测试会弹空白页
 ^https?:\/\/h5s.kuwo.cn\/pay\/vip_recall_popup\/ url reject
-
 
 [mitm]
 hostname = h5s.kuwo.cn, anymatch.kuwo.cn, musicpay.kuwo.cn, mobilebasedata.kuwo.cn, vip1.kuwo.cn, rich.kuwo.cn, mobilead.kuwo.cn, *.kuwo.cn
