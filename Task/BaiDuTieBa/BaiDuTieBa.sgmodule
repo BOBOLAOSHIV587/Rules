@@ -1,10 +1,12 @@
 #!name=贴吧签到
-#!desc=自动签到贴吧。获取Cookie说明：打开百度贴吧App后, 如通知成功获取cookie, 则可以使用此签到脚本。
-#!date=2026-01-21
+#!desc=自动签到贴吧。
+#!date=2026-01-25
 #!category=🐹 BOBO Task
 #!author= ClydeTime[https://github.com/ClydeTime/Quantumult]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/miniColor/Image/Color/tieba.png
 #!openUrl=https://apps.apple.com/app/id477927812
+#!arguments=禁用MITM:hostname
+#!arguments-desc=禁用MITM：禁用MITM主机名，默认 hostname 表示启用，输入 # 表示禁用。\n\n获取Cookie说明：打开百度贴吧App后, 如通知成功获取cookie, 则可以使用此签到脚本。\n\n此脚本获取Cookie会多次触发，导致Surge崩溃设备发热。获取一次Cookie后关闭MITM即可。
 
 [Script]
 # > 百度贴吧 cookie
@@ -15,4 +17,4 @@
 贴吧签到 = type=cron,cronexp=10-12 9 * * *,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/BaiDuTieBa/JS/BaiDuTieBa.js,wake-system=1,timeout=15,script-update-interval=0
 
 [MITM]
-hostname = %APPEND% tiebac.baidu.com, c.tieba.baidu.com
+{{{禁用MITM}}} = %APPEND% tiebac.baidu.com, c.tieba.baidu.com
