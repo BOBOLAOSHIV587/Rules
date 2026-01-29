@@ -1,0 +1,14 @@
+#!name=Airbrush
+#!desc=Airbrush解锁Premium
+#!date=2026-01-30
+#!category=🐹 BOBO Premium
+#!author= Yarmukhamedov[https://github.com/Yarmukhamedov/mitm],作者TG[https://t.me/+BVA7-Vq6FA9hZTNi]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Airbrush.png
+#!openUrl=https://apps.apple.com/app/id998411110
+
+[Script]
+# > Airbrush-解锁Premium
+Airbrush解锁Premium = type=http-response, pattern=https://api-sub.pixocial.com/v2/user/vip_info_by_group, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Airbrush/JS/Airbrush.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% api-sub.pixocial.com
