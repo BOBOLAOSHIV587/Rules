@@ -1,0 +1,14 @@
+#!name=DreamFace解锁Pro
+#!desc=DreamFace解锁Pro.
+#!date=2026-01-31
+#!category=🐹 BOBO Premium
+#!author=Yarmukhamedov[https://github.com/Yarmukhamedov/mitm],作者TG[https://t.me/+BVA7-Vq6FA9hZTNi]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/DreamFace.png
+#!openUrl=https://apps.apple.com/app/id1624172324
+
+[Script]
+# > DreamFace解锁Pro
+DreamFace解锁Pro = type=http-response, pattern=https://dreamfaceapp.com/df-server/user/save_user_login, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/DreamFace/JS/JS-2/DreamFace.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% dreamfaceapp.com
