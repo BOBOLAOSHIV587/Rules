@@ -1,0 +1,14 @@
+#!name=Polarr 泼辣修图
+#!desc=Polarr泼辣修图(中国伺服器)解锁会员
+#!date=2026-01-31
+#!category=🐹 BOBO Premium
+#!author=Mike-offers[https://github.com/Mike-offers/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Polarr.png
+#!openUrl=https://apps.apple.com/app/id988173374
+
+[Script]
+# > Polarr 泼辣修图解锁会员
+泼辣修图会员 = type=http-response, pattern=^https?:\/\/api\.polaxiong\.com\/v1\/payments\/(appleiap\/receipts\/confirmation|profiles\/@me\/subscription), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Polarr/JS/JS-1/Polarr.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% api.polaxiong.com
