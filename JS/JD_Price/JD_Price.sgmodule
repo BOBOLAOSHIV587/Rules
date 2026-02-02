@@ -1,0 +1,13 @@
+#!name=京东比价
+#!desc= 历史价格会显示在京东商品“详情”页.\n无需第三方软件获取Cookie.
+#!date=2026-02-03
+#!category=🐹 BOBO Enhance
+#!author= 伟人WeiGiegie[https://github.com/WeiGiegie/666]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Jingdong.png
+
+[Script]
+# > 京东比价
+京东比价 = type=http-response, pattern=^https?:\/\/in\.m\.jd\.com\/product\/graphext\/\d+\.html, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/JD_Price/JS/JD_Price.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% in.m.jd.com
