@@ -15,6 +15,6 @@
 ```
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/switchMode/IMG/switchMode.png" width="200" /> </div>
+<img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/switchMode/JS/IMG/switchMode.png" width="200" /> </div>
 </p>
 
