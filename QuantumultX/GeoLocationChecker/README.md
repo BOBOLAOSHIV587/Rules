@@ -8,44 +8,56 @@
 - 编辑配置，[general]下替换掉 <b>geo_location_checker=</b> 所在行代码
 
 
-**IP-API-A**
+<h4 align="center">IP-API-A</h4>
+
+<div align="center"><img src="IMG/IP-API-A.png" width="400"></div>
+
 ```
 geo_location_checker=http://ip-api.com/json/?lang=zh-CN, https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/GeoLocationChecker/IP-API-A.js
 ```
-<img src="IMG/IP-API-A.png" width="200px" /> </div>
 
 
-**IP-API-B**
+<h4 align="center">IP-API-B</h4>
+
+<div align="center"><img src="IMG/IP-API-B.png" width="400"></div>
+
 ```
 geo_location_checker=http://ip-api.com/json/?lang=zh-CN, https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/GeoLocationChecker/IP-API-B.js
 ```
-<img src="IMG/IP-API-B.png" width="200px" /> </div>
 
 
-**IP-API-C**
+<h4 align="center">IP-API-C</h4>
+
+<div align="center"><img src="IMG/IP-API-C.png" width="400"></div>
+
 ```
 geo_location_checker=http://ip-api.com/json/?lang=zh-CN, https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/GeoLocationChecker/IP-API-C.js
 ```
-<img src="IMG/IP-API-C.png" width="200px" /> </div>
 
 
-**IP-API-D**
+<h4 align="center">IP-API-D</h4>
+
+<div align="center"><img src="IMG/IP-API-D.png" width="400"></div>
+
 ```
 geo_location_checker=http://ip-api.com/json/?lang=zh-CN, https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/GeoLocationChecker/IP-API-D.js
 ```
-<img src="IMG/IP-API-D.png" width="200px" /> </div>
 
 
-**IP-Check**
+<h4 align="center">IP-Check</h4>
+
+<div align="center"><img src="IMG/IP-Check.png" width="400"></div>
+
 ```
 geo_location_checker=http://ip-api.com/json/?lang=zh-CN, https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/GeoLocationChecker/IP-Check.js
 ```
-<img src="IMG/IP-Check.png" width="200px" /> </div>
 
 
-**IP-Custom**
+<h4 align="center">IP-Custom</h4>
+
+<div align="center"><img src="IMG/IP-Custom.png" width="400"></div>
+
 ```
 geo_location_checker=http://ip-api.com/json/?lang=zh-CN, https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/GeoLocationChecker/IP-Custom.js
 ```
-<img src="IMG/IP-Custom.png" width="200px" /> </div>
 
