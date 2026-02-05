@@ -4,7 +4,6 @@
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/TikTok.png
 
 [Rule]
-AND, ((GEOIP, CN), (DOMAIN, pitaya.bytedance.com)), DIRECT
 DOMAIN,api.snapkit.com,TikTok
 DOMAIN,cocacola.co.jp,TikTok
 DOMAIN,courses.snapsolve.com,TikTok
