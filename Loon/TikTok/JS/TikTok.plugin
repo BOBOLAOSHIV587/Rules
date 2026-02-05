@@ -5,7 +5,6 @@
 #!select = 解鎖地區,台灣,日本,韓國,泰國,越南,英國,法國,德國,美國,巴西,俄羅斯,墨西哥,土耳其,西班牙,阿根廷,新加坡,菲律賓,馬來西亞
 
 [Rule]
-AND, ((GEOIP, CN), (DOMAIN, pitaya.bytedance.com)), DIRECT
 DOMAIN, api.snapkit.com, TikTok
 DOMAIN, cocacola.co.jp, TikTok
 DOMAIN, courses.snapsolve.com, TikTok
