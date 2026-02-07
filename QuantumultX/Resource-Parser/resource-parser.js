@@ -1,5 +1,5 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-02-02 22:49⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-02-06 16:40⟧
 ----------------------------------------------------------
 🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
@@ -502,7 +502,7 @@ function ResourceParse() {
       if (PUOT==1) { total = total.split("\n").map(UOT).join("\n")}
       if (Pcnt == 1 && total!=undefined) {$notify("⟦" + subtag + "⟧"+"解析后最终返回内容" , "节点数量: " +total.split("\n").length, total)}
       total = PRelay==""? Base64.encode(total) : ServerRelay(total.split("\n"),PRelay) //强制节点类型 base64 加密后再导入 Quantumult X, 如果是relay，则转换成分流类型
-      if (PNS !=0) {$notify("⚠️ 存在Quantumult X不支持的节点类型", "⚠️ 已忽略相关节点数，共计："+PNS+" 条", "⚠️ 当前版本不支持 Hysteria2，Anytls 等类型"+"\n"+"⚠️ 也不支持“v2ray-http-upgrade” 类型vless")}
+      if (PNS !=0) {$notify("⚠️ 存在Quantumult X不支持的节点类型", "⚠️ 已忽略相关节点数，共计："+PNS+" 条", "⚠️ 当前版本不支持 Hysteria2，Anytls 等类型"+"\n"+"⚠️ 也不支持“http-upgrade/xhttp/grpc/mkcp/h2” 等类型vless")}
       if(Pflow==1) {
         //$notify("添加流量信息","xxx","xxxx")
         $done({ content: total, info: {bytes_used: 3073741824, bytes_remaining: 2147483648, expire_date: 1854193966}});
@@ -510,7 +510,7 @@ function ResourceParse() {
       } else { $done({ content: total });}
     } else {
       if(Perror == 0) {
-      if (PNS !=0) {$notify("⚠️ 存在Quantumult X不支持的节点类型", "⚠️ 已忽略相关节点数，共计："+PNS+" 条", "⚠️ 当前版本不支持 HY2，Anytls 等类型")}
+      if (PNS !=0) {$notify("⚠️ 存在Quantumult X不支持的节点类型", "⚠️ 已忽略相关节点数，共计："+PNS+" 条", "⚠️ 当前版本不支持 Hysteria2，Anytls 等类型"+"\n"+"⚠️ 也不支持“http-upgrade/xhttp/grpc/mkcp/h2” 等类型vless")}
       $notify("❓❓ 友情提示 ➟ "+ "⟦" + subtag + "⟧", "⚠️⚠️ 解析后无有效内容", "🚥🚥 请自行检查相关参数, 或者点击通知跳转并发送链接反馈", bug_link)
     }
       total = errornode
@@ -2141,7 +2141,8 @@ function VL2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
   ptfo = (Ptfo == 1 || cnt.indexOf("tfo=1")!=-1)? "fast-open=true" : "fast-open=false";
   //ptfo = cnt.indexOf("tfo=1") != -1? "fast-open=true" : ptfo
   if (typeU == "SR-URI") {//小火箭内的websocket写法
-    if(cnt.indexOf("obfs=none")!=-1 && cnt.indexOf("tls=1")==-1) {
+    if((cnt.indexOf("obfs=none")!=-1 || cnt.indexOf("obfs=")==-1) && cnt.indexOf("tls=1")==-1) {
+      // tcp
       obfs = ""
     } else if((cnt.indexOf("obfs=none")!=-1 || cnt.indexOf("obfs=")==-1) && cnt.indexOf("tls=1")!=-1) {
       obfs = "obfs=over-tls"
@@ -3048,7 +3049,8 @@ function LoonVL2QX(cnt) {
 function YAMLFix(cnt){
   cnt = cnt.replace(/\[/g,"yaml@bug1").replace(/\\r/g,"").replace(/\*/g,"yaml@bug2")
   //2022-08-08 增加 .replace(/\*/g,"🌟@bug2") 以解决名字以 * 开始时引起的部分问题
-  if (cnt.indexOf("{") != -1 && /\{\s*\"*(name|type|server)/.test(cnt)){
+  if (cnt.indexOf("{") != -1 && /\{\s*\"*(name|type|server)/.test(cnt)){ // - { } 类型 yaml
+    cnt =  cleanYamlSpaces(cnt) // 2026-02-06 部分空格解析错误
     cnt = cnt.replace(/(^|\n)- /g, "$1  - ").replace(/    - /g,"  - ").replace(/:(?!\s)/g,": ").replace(/\,\"/g,", \"").replace(/: {\s{0,1}/g, ": {,   ").replace(/, (Host|host|path|mux)/g,",   $1")
     //2022-04-11 remove tls|skip from replace(/, (Host|host|path|mux)/g,",   $1")
     console.log("1st:\n"+cnt)
@@ -3088,6 +3090,15 @@ function YAMLFix(cnt){
   return cnt
 }
 
+// 2026-02-06 {} yaml 空格问题修复
+function cleanYamlSpaces(yamlText) {
+  return yamlText.split('\n').map(line => {
+    if (line.includes('{') && line.includes('}')) {
+      return '  ' + line.trim().replace(/ {2,}/g, ' ');
+    }
+    return line;
+  }).join('\n');
+}
 
 function yamlcheck(cnt){
   if (cnt.indexOf("name") !=-1){ //名字以某些数字结尾时，解析有 bug
@@ -3301,6 +3312,9 @@ function Clash2QX(cnt) {
       }
       node = Pudp0 != 0 ? XUDP(node,Pudp0) : node
       node = Ptfo0 != 0 ? XTFO(node,Ptfo0) : node
+      node=node.replace(/^([^,]*)\s+/g, (match, p1) => { // 某些ipv6节点空格问题
+        return p1.replace(/\s+/g, '');
+      });
       nodelist.push(node)
     }catch (e) {
       $notify(`⚠️该节点解析错误, 暂时已忽略处理`,`可点击通知并发送链接反馈至 bot`,JSON.stringify(node),bug_link )
