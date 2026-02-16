@@ -83,7 +83,7 @@ event-interaction https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Qu
 <div align="center"><img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/IMG/Traffic-Check.jpg" width="400"></div>
 
 ```
-event-interaction https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/Traffic-Check, tag=策略流量查询, img-url=checkmark.seal.system, enabled=true
+event-interaction https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/Traffic-Check.js, tag=策略流量查询, img-url=checkmark.seal.system, enabled=true
 ```
 
 
@@ -92,5 +92,23 @@ event-interaction https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Qu
 <div align="center"><img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/IMG/YouTubeCheck.jpg" width="400"></div>
 
 ```
-event-interaction https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/YouTubeCheck, tag=YouTube 查询, img-url=text.magnifyingglass.system, enabled=true
+event-interaction https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/YouTubeCheck.js, tag=YouTube 查询, img-url=text.magnifyingglass.system, enabled=true
+```
+
+
+<h3 align="center">NeteaseMusicUnlockCheck</h3>
+
+<div align="center"><img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/IMG/NeteaseMusicUnlockCheck.jpg" width="400"></div>
+
+```
+event-interaction https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/NeteaseMusicUnlockCheck.js, tag=查询节点能否解锁网易云灰色音乐, img-url=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/Qure/Image/Color/Netease_Music.png, enabled=true
+```
+
+
+<h3 align="center">Server-Info-Pure</h3>
+
+<div align="center"><img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/IMG/Server-Info-Pure.jpg" width="400"></div>
+
+```
+event-interaction https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/QuantumultX/Scripts/Check/Server-Info-Pure.js, tag=tag=节点详情(Pure), img-url=checkmark.shield.fill.system
 ```
