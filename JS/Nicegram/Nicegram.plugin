@@ -1,0 +1,21 @@
+#!name=Nicegram Premium 𝕏会员
+#!desc=Nicegram会员解锁
+#!date=2026-02-21
+#!category=🐹 BOBO Premium
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Nicegram-02.png
+#!openUrl=https://apps.apple.com/app/id1608870673
+
+[Rule]
+DOMAIN,static-cf.nicegram.app,REJECT
+DOMAIN,image.adsgram.me,REJECT
+DOMAIN,api.adsgram.ai,REJECT
+DOMAIN,relay.walletconnect.com,REJECT
+DOMAIN,firebaseremoteconfig.googleapis.com,REJECT
+DOMAIN,firebase-settings.crashlytics.com,REJECT
+
+[Script]
+# > Nicegram会员解锁
+http-response ^https?:\/\/nicegram\.cloud\/api\/v\d+\/(telegram\/auth|att\/scroll-to-earn\/(?:config|ads-list|user-info)|airdrop\/task-list|ai-assistant\/list|user\/info|unblock-feature) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Nicegram/JS/Nicegram.js, requires-body=true, timeout=60, tag=Nicegram会员解锁
+
+[MITM]
+hostname = nicegram.cloud
