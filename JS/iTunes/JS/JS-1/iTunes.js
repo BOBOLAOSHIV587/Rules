@@ -1,24 +1,18 @@
 /*************************************
-
 项目名称：iTunes-系列解锁合集
-更新日期：2025-11-28
+更新日期：2026-02-18
 脚本作者：@ddm1023
 电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
 使用说明：如果脚本无效，请先排除是否脚本冲突
 特别说明：此脚本可能会导致App Store无法登录ID
 解决方法：关[MITM][脚本][代理工具]方法选一即可
-已解锁App传送门：https://too.st/iTunes
-额外说明：iTunes类可以单个写，又有现成的合集(写的挺好挺完整)，所以就不写了偷偷懒，自己碰到这类软件会添加上面没有的软件。仅作自用备份，不会进行任何商业用途！
-
 **************************************
-
 [rewrite_local]
 ^https?:\/\/buy\.itunes\.apple\.com\/verifyReceipt$ url script-response-body https://raw.githubusercontent.com/chxm1023/Rewrite/main/iTunes.js
 
 [mitm]
 hostname = buy.itunes.apple.com
-
 *************************************/
 
 
@@ -31,6 +25,9 @@ const yearlysubscription = `${bundle_id}.yearlysubscription`;
 const lifetimeid = `${bundle_id}.lifetime`;
 
 const list = {
+  'MaiqiSun': { cm: 'timeb', hx: 'hxpda', id: "life_cn_68", latest: "ddm1023" }, //iSunning
+  'CCRemote': { cm: 'timea', hx: 'hxpda', id: "ays.chromo.remote.yearly", latest: "ddm1023" }, //Chromo-Remote
+  'PulseWatch': { cm: 'timeb', hx: 'hxpda', id: "relaxlife_ebp", latest: "ddm1023" }, //RelaxWatch:AI智能压力监测
   'PicCompress': { cm: 'timea', hx: 'hxpda', id: "pc_vip_new_1y", latest: "ddm1023" }, //图片压缩
   'XiangCePhoto': { cm: 'timeb', hx: 'hxpda', id: "ql128", latest: "ddm1023" }, //相册清理-删除重复照片
   'FileMaster': { cm: 'timeb', hx: 'hxpda', id: "FileMaster_ProVersion", latest: "ddm1023" },  //文件大师
