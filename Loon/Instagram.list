@@ -1,14 +1,10 @@
 # NAME: Instagram
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
-# UPDATED: 2024-07-03 16:16:12
+# UPDATED: 2025-06-06 09:16:56
 # DOMAIN-KEYWORD: 1
 # DOMAIN-SUFFIX: 3
 # TOTAL: 4
-
-# 防止TG加载转圈
-IP-CIDR,95.161.76.100/31,REJECT-NO-DROP,no-resolve
-
 DOMAIN-SUFFIX,cdninstagram.com
 DOMAIN-SUFFIX,instagr.am
 DOMAIN-SUFFIX,instagram.com

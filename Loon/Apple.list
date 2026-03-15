@@ -1,13 +1,14 @@
 # NAME: Apple
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
-# UPDATED: 2024-10-23 02:11:21
-# DOMAIN: 10
+# UPDATED: 2026-03-08 02:06:55
+# DOMAIN: 9
 # DOMAIN-KEYWORD: 7
-# DOMAIN-SUFFIX: 1549
+# DOMAIN-SUFFIX: 1551
 # IP-CIDR: 10
+# IP-CIDR6: 3
 # USER-AGENT: 23
-# TOTAL: 1599
+# TOTAL: 1603
 DOMAIN-KEYWORD,apple-support.akadns.net
 DOMAIN-KEYWORD,apple.com.akadns.net
 DOMAIN-KEYWORD,apple.com.edgekey.net
@@ -48,3 +49,6 @@ IP-CIDR,198.183.17.0/24,no-resolve
 IP-CIDR,205.180.175.0/24,no-resolve
 IP-CIDR,63.92.224.0/19,no-resolve
 IP-CIDR,65.199.22.0/23,no-resolve
+IP-CIDR6,2403:300::/32,no-resolve
+IP-CIDR6,2620:149::/32,no-resolve
+IP-CIDR6,2a01:b740::/32,no-resolve
