@@ -1,23 +1,26 @@
 # NAME: TikTok
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
-# UPDATED: 2024-08-05 02:10:46
-# HOST: 3
+# UPDATED: 2025-08-10 02:08:00
+# HOST: 4
 # HOST-KEYWORD: 2
-# HOST-SUFFIX: 22
+# HOST-SUFFIX: 25
 # USER-AGENT: 1
-# TOTAL: 28
+# TOTAL: 32
 HOST,lf16-effectcdn.byteeffecttos-g.com,TikTok
 HOST,lf16-pkgcdn.pitaya-clientai.com,TikTok
 HOST,p16-tiktokcdn-com.akamaized.net,TikTok
+HOST,trae-api-sg.mchost.guru,TikTok
 HOST-SUFFIX,bytedapm.com,TikTok
 HOST-SUFFIX,bytegecko-i18n.com,TikTok
+HOST-SUFFIX,byteintlapi.com,TikTok
 HOST-SUFFIX,byteoversea.com,TikTok
 HOST-SUFFIX,capcut.com,TikTok
 HOST-SUFFIX,ibytedtos.com,TikTok
 HOST-SUFFIX,ibyteimg.com,TikTok
 HOST-SUFFIX,ipstatp.com,TikTok
 HOST-SUFFIX,isnssdk.com,TikTok
+HOST-SUFFIX,marscode.com,TikTok
 HOST-SUFFIX,muscdn.com,TikTok
 HOST-SUFFIX,musical.ly,TikTok
 HOST-SUFFIX,sgpstatp.com,TikTok
@@ -31,6 +34,7 @@ HOST-SUFFIX,tiktokd.org,TikTok
 HOST-SUFFIX,tiktokmusic.app,TikTok
 HOST-SUFFIX,tiktokv.com,TikTok
 HOST-SUFFIX,tiktokv.us,TikTok
+HOST-SUFFIX,trae.ai,TikTok
 HOST-SUFFIX,ttwebview.com,TikTok
 HOST-KEYWORD,musical.ly,TikTok
 HOST-KEYWORD,tiktok,TikTok

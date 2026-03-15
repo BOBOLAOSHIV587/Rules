@@ -1,13 +1,14 @@
 # NAME: Twitter
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
-# UPDATED: 2024-07-03 16:16:10
+# UPDATED: 2025-09-28 02:08:26
 # HOST-KEYWORD: 1
-# HOST-SUFFIX: 25
+# HOST-SUFFIX: 26
 # IP-CIDR: 6
-# TOTAL: 32
+# TOTAL: 33
 HOST-SUFFIX,ads-twitter.com,Twitter
 HOST-SUFFIX,cms-twdigitalassets.com,Twitter
+HOST-SUFFIX,grok.com,Twitter
 HOST-SUFFIX,periscope.tv,Twitter
 HOST-SUFFIX,pscp.tv,Twitter
 HOST-SUFFIX,t.co,Twitter
