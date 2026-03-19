@@ -1,7 +1,7 @@
 /*******************************
 脚本功能：足控社
 下载地址：https://4962g36tz1.679130.xyz/Appapi/down_app/pid/46747
-更新时间：2025年
+更新时间：2026年0303
 电报频道：https://t.me/GieGie777
 使用声明：此脚本仅供学习与交流，请在下载使用24小时内删除！请勿在中国大陆转载与贩卖！
 *******************************
@@ -9,9 +9,8 @@
 # >足控社
 ^https?:\/\/.+\/appapi\/(detail|buyPicture|getUserInfo|goldBuyVideo)\/ url script-response-body https://raw.githubusercontent.com/WeiGiegie/666/main/zukong.js
 
-
 [mitm]
-hostname = 1zher0st.504824.xyz,s1jyc4asdr14nsa.504824.xyz,suning.679134.xyz,b8u1lvlb.504867.xyz,umcuy46v9yr3gn4.504843.xyz,*.504*.xyz,5sfc4hgy.504832.xyz
+hostname = 1zher0st.504824.xyz,s1jyc4asdr14nsa.504824.xyz,suning.679134.xyz,b8u1lvlb.504867.xyz,umcuy46v9yr3gn4.504843.xyz,*.504*.xyz,5sfc4hgy.504832.xyz,core.*.xyz,v1a.*.xyz,file.*.xyz,data.*.xyz,stream.*.xyz,svc.core*.xyz,test.*.xyz,doc.lum*.xyz,apiv1.*.xyz,
 
 *******************************/
 
