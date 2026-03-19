@@ -3,6 +3,7 @@
 #!date=2026-01-21
 #!category=🐹 BOBO面板模块
 #!author=StashNetworks[https://github.com/StashNetworks],Roddy-D[https://github.com/Roddy-D]
+#!select = MaskIP,false,true
 
 [Script]
 generic script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IPPure/JS/JS-6/IPPure.js, timeout=15, tag=节点质量查询,img-url=globe.asia.australia.system
