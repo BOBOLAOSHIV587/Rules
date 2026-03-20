@@ -1,0 +1,14 @@
+#!name=Forward
+#!desc=Forward解锁支持最高版本1.3.13
+#!date=2026-03-21
+#!category=🐹 BOBO Premium
+#!author=baby[https://github.com/Yu9191]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Forward.png
+#!openUrl=https://apps.apple.com/app/id6503940939
+
+[Rewrite]
+# > Forward解锁
+^https:\/\/fluxapi\.vvebo\.vip\/v1\/(purchase\/iap\/subscription) header https://mock.forward1.workers.dev/forward/v1/$1
+
+[MITM]
+hostname = fluxapi.vvebo.vip
