@@ -1,6 +1,6 @@
 #!name=足控社
 #!desc=解锁视频,金币购买  版本：🔞🈲️！H5 or 轻量版
-#!date=2026-01-21
+#!date=2026-03-31
 #!category=🐹 BOBO Premium
 #!author=伟人WeiGiegie[https://github.com/WeiGiegie/666]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/ZuKongShe.png
@@ -11,4 +11,4 @@
 足控社 = type=http-response, pattern=^https?:\/\/.+\/appapi\/(detail|buyPicture|getUserInfo|goldBuyVideo)\/, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/ZuKongShe/JS/ZuKongShe.js, requires-body=true, max-size=-1, timeout=60
 
 [MITM]
-hostname = %APPEND% 1zher0st.504824.xyz,s1jyc4asdr14nsa.504824.xyz,suning.679134.xyz,b8u1lvlb.504867.xyz,umcuy46v9yr3gn4.504843.xyz,*.504*.xyz,5sfc4hgy.504832.xyz
+hostname = %APPEND% 1zher0st.504824.xyz, s1jyc4asdr14nsa.504824.xyz, suning.679134.xyz, b8u1lvlb.504867.xyz, umcuy46v9yr3gn4.504843.xyz, *.504*.xyz, 5sfc4hgy.504832.xyz, core.*.xyz, v1a.*.xyz, file.*.xyz, data.*.xyz, stream.*.xyz, svc.core*.xyz, test.*.xyz, doc.lum*.xyz, apiv1.*.xyz
