@@ -1,0 +1,10 @@
+#!name=MITM 开关检测
+#!desc=定时自动开启因各种原因被关的 MITM 开关
+#!date=2026-04-04
+#!category=🐹 BOBO面板模块
+#!author=xream[https://github.com/xream/scripts]
+#!arguments=cronexp:"*/30 * * * *",notification:true
+#!arguments-desc=cronexp 定时\n    └ 默认为 30 分钟一次\n\nnotification 通知开关\n    └ 默认为 true, 关闭通知可设为 false
+
+[Script]
+MITM 开关检测定时任务 = type=cron, cronexp="{{{cronexp}}}", script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/MITM-Checker/JS/MITM-Checker.js, timeout=30, argument="notification={{{notification}}}", engine=jsc
