@@ -3,7 +3,7 @@
 #!date=2026-04-07
 #!category=🐹 BOBO AD
 #!author= blackmatrix7[https://github.com/blackmatrix7/ios_rule_script], NobyDa[https://github.com/NobyDa/Script]
-icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/Qure/Image/Color/Advertising.png
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/Qure/Image/Color/Advertising.png
 
 [Rewrite]
 (?i)\b\.ott\.cibntv\.net\/[\w\/-]+?\.mp4\?sid= - reject
