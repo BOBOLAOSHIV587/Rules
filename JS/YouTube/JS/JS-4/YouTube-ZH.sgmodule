@@ -1,0 +1,17 @@
+#!name=YouTube 强制简体中文字幕
+#!desc=YouTube 强制简体中文字幕
+#!date=2026-04-13
+#!category=🐹 BOBO Enhance
+#!author=ZenmoFeiShi[https://github.com/ZenmoFeiShi/Qx],Claude[https://claude.ai/]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/YouTube.png
+
+[Script]
+# > YouTube 强制简体中文字幕
+# 请求头：清理参数，去除 Cookie
+YouTube简体中文字幕 = type=http-request,pattern=^https://www\.youtube\.com/api/timedtext\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YouTube/JS/JS-4/JS/YT-Sub-Clean.js, requires-body=false
+
+# 响应体：替换为简中字幕
+YouTube简体中文字幕 = type=http-response,pattern=^https://www\.youtube\.com/api/timedtext\?(?!.*_ytzhsub=1), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YouTube/JS/JS-4/JS/YT-ZH-Sub.js, requires-body=true
+
+[MITM]
+hostname = %APPEND% www.youtube.com
