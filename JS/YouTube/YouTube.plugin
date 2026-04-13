@@ -4,7 +4,6 @@
 #!category=🐹 BOBO Enhance
 #!author=Maasea[https://github.com/Maasea], ZenmoFeiShi[https://github.com/ZenmoFeiShi/Qx]
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/YouTube.png
-#!openUrl=https://apps.apple.com/app/id544007664
 
 [Rewrite]
 ^https?:\/\/[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+?&ctier=L(&.+?),ctier,(.+) 302 https://$1$2$3
