@@ -1,5 +1,5 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-04-15 20:53⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-04-22 16:49⟧
 ----------------------------------------------------------
 🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
@@ -189,7 +189,7 @@ var PTls13 = mark0 && para1.indexOf("tls13=") != -1 ? para1.split("tls13=")[1].s
 var Pntf0 = mark0 && para1.indexOf("ntf=") != -1 ? para1.split("ntf=")[1].split("&")[0] : 2;
 var Phide = mark0 && para1.indexOf("hide=") != -1 ? para1.split("hide=")[1].split("&")[0] : 1;
 var Pb64 = mark0 && para1.indexOf("b64=") != -1 ? para1.split("b64=")[1].split("&")[0] : 0;
-var emojino = [" 0️⃣ ", " 1⃣️ ", " 2⃣️ ", " 3⃣️ ", " 4⃣️ ", " 5⃣️ ", " 6⃣️ ", " 7⃣️ ", " 8⃣️ ", " 9⃣️ ", " 🔟 "]
+var emojino = ["0️⃣", "1⃣️", "2⃣️", "3⃣️", "4⃣️", "5⃣️", "6⃣️", "7⃣️", "8⃣️", "9⃣️", "🔟"]
 var pfi = mark0 &&Pin0 ? "in=" + Pin0.join(", ") + ",  " : ""
 var pfo = mark0 &&Pout0 ? "out=" + Pout0.join(", ") : ""
 var pfihn = mark0 &&Phin0 ? "inhn=" + Phin0.join(", ") + ",  " : ""
@@ -223,6 +223,7 @@ var Psession =  mark0 && para1.indexOf("tsession=") != -1 && version >= 771? par
 var Pmix = version>=844? 1 : 0 // allow rewrite and filter mix from version 844
 var Pjsonjq = version>=845? 0 : 1 // allow jsonjq from version 845
 var PNS=0 // 不支持的节点统计
+var NSList=["不支持的以下的节点 ↘️ \n"] // 不支持节点列表
 
 var RegoutList= [] ;//用于 regout参数删选提醒
 // URL-Scheme 增加配置
@@ -302,6 +303,17 @@ patn[5] = [ '⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹' ]
 patn[6] = [ '₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉' ]
 patn[7] = ["𝟎","𝟏","𝟐","𝟑","𝟒","𝟓","𝟔","𝟳","𝟖","𝟗"]
 patn[8] = ["𝟶","𝟷","𝟸","𝟹","𝟺","𝟻","𝟼","𝟽","𝟾","𝟿"]
+
+
+// 将数字替换成 emoji 数字，处理10的特殊版本（需要"🔟"），2026-04-22
+function numToEmoji10(n) {
+    if (n == 10) {
+      return emojino[10]+" ➠ ";
+    } else {
+      return String(n).split('').map(d => emojino[d] || d).join('')+" ➠ ";
+    }
+};
+
 
 //避免json undefined错误的 函数
 const getValue = (fn, defaultVaule) => {
@@ -503,7 +515,11 @@ function ResourceParse() {
       if (Pcnt == 1 && total!=undefined) {$notify("⟦" + subtag + "⟧"+"解析后最终返回内容" , "节点数量: " +total.split("\n").length, total)}
       total = PRelay==""? Base64.encode(total) : ServerRelay(total.split("\n"),PRelay) //强制节点类型 base64 加密后再导入 Quantumult X, 如果是relay，则转换成分流类型
       if (PNS !=0) {
-        $notify("⚠️ 存在Quantumult X不支持的节点类型", "⚠️ 已忽略相关节点数，共计："+PNS+" 条", "⚠️ 当前版本不支持 Hysteria2，Anytls 等类型"+"\n"+"⚠️ 也不支持“http-upgrade/xhttp/grpc/mkcp/h2” 等类型vless")
+        if (version >913) {
+          $notify("⚠️ 存在 Quantumult X 不支持的节点", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
+        } else {
+          $notify("⚠️ 存在 Quantumult X 不支持的节点", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Anytls 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
+        }
       }
       if(Pflow==1) {
         //$notify("添加流量信息","xxx","xxxx")
@@ -513,7 +529,12 @@ function ResourceParse() {
     } else { // total length = 0
       if(Perror == 0) {
       if (PNS !=0) { // 全部为不支持类型节点
-        $notify("⚠️ Quantumult-X 不支持该订阅内的节点类型", "⚠️ 已忽略共计："+PNS+" 条不支持节点，剩余 0️⃣ 条", "⚠️ 当前版本不支持 Hysteria2，Anytls 等类型"+"\n"+"⚠️ 也不支持“http-upgrade/xhttp/grpc/mkcp/h2” 等类型vless")
+        if (version >913) {
+          $notify("⚠️ Quantumult-X 不支持该订阅内的节点", "⚠️ 已忽略共计 ➟ "+PNS+" 条不支持节点，剩余 0️⃣ 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
+        } else {
+          $notify("⚠️ Quantumult-X 不支持该订阅内的节点", "⚠️ 已忽略共计 ➟ "+PNS+" 条不支持节点，剩余 0️⃣ 条", "⚠️ 此版本暂不支持 Hysteria2/Anytls 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
+        }
+        
       } else { // 其它原因
         $notify("❓❓ 该订阅 ➟ "+ "⟦" + subtag + "⟧ 解析后无有效节点", "⚠️⚠️ 解析后 Quantumult-X 支持节点数为 0️⃣ 条", "🚥🚥 请自行检查相关参数、确认节点类型, 或者点击通知跳转并发送链接反馈", bug_link)
       } 
@@ -910,6 +931,9 @@ function getnode_emoji(item,ind){
     return get_emoji(ind,item.split("tag=")[1])[1]
   }
 }
+
+
+
 
 // 操作订阅的 tag
 function tag_handle(item) {
@@ -1674,12 +1698,13 @@ function Subs2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
                   }
                 } else if (QuanXK.some(NodeCheck1)) { // QuanX type 
                     node = QX_TLS(isQuanX(list0[i])[0], Pcert0, PTls13)
-                } else if (SurgeK.some(NodeCheck) && listi.indexOf(",password=")!=-1) { // Surge type
-                    node = QX_TLS(Surge2QX(list0[i])[0], Pcert0, PTls13)
                 } else if (LoonK.some(NodeCheck2)) { // Loon type
                     node = Loon2QX(list0[i])
-                } else if (type=="hysteria2" || (type=="anytls" && version<914)) { //
+                } else if (SurgeK.some(NodeCheck) ) { // Surge type, 第2为端口号
+                    node = QX_TLS(Surge2QX(list0[i])[0], Pcert0, PTls13)
+                } else if (type=="hysteria2" || (type=="anytls" && version<914) || type=="tuic") { //
                   PNS=PNS+1 
+                  NSList.push(numToEmoji10(PNS)+list0[i])
                 }
               if (Pdbg) {$notify(i, type, node)}
             } catch (e) {
@@ -1955,6 +1980,7 @@ function V2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
       nss.push(ip, mtd, pwd, obfs, tfo, udp, caead, tag);
     } else if(obfs == "NOT-SUPPORTTED"){
       PNS=PNS+1
+      NSList.push(numToEmoji10(PNS)+subs)
     }
     QX = nss.join(", ");
   }
@@ -2131,6 +2157,8 @@ function SSR2QX(subs, Pudp, Ptfo) {
 
 // AnyTLS uri 转换成 quanx 格式
 //anytls://pwd@name:443?peer=xxx.com&udp=1#US-A-ANYTLS-0.5%E5%80%8D%E7%8E%8
+// tls with reality
+//anytls://ip:port?security=reality&pbk=yourkey&sid=yourshortip&fp=chrome&sni=sample.com#Server-Anytls_Reality
 
 function Anytls2QX(subs,Pcert0) {
   try {
@@ -2150,7 +2178,9 @@ function Anytls2QX(subs,Pcert0) {
     thost = cnt.indexOf("peer=") != -1? "tls-host="+cnt.split("peer=")[1].split(/&|#/)[0]:thost
     pudp = Pudp0 == -1 ? "udp-relay=false" : "udp-relay=true" // 默认开启
     tag = cnt.indexOf("#") != -1 ? "tag=" + decodeURIComponent(cnt.split("#").slice(-1)[0]) : "tag= [anytls]" + ip
-    Nanytls.push(type + ip, pwd, ptls, pcert, pudp, thost, tag)
+    // reality
+    prlt= version>=914? Reality_Handle(cnt) : ""
+    Nanytls.push(type + ip, pwd, ptls, pcert, pudp, thost, prlt, tag)
     QX= Nanytls.filter(Boolean).join(", ")
     return QX
   } catch (error) {
@@ -2241,7 +2271,10 @@ if(obfs=="obfs=wss" && obfs=="obfs=over-tls"){
   prlt= version>=891? Reality_Handle(cnt) : ""
   nvless.push(type + ip, pwd, mtd, obfs, pcert, thost, puri, pudp, ptfo, prlt, tag)
   QX = type!="NS"? nvless.filter(Boolean).join(", ")  : ""
-  PNS= type=="NS"? PNS+1 : PNS
+  if (type=="NS") {
+    PNS=PNS+1
+    NSList.push(numToEmoji10(PNS)+subs)
+  }
   return QX
 }
 
@@ -3426,6 +3459,7 @@ function Clash2QX(cnt) {
         node = CTLS2QX(node)
       } else { // not support type
         PNS = PNS+1
+        NSList.push(numToEmoji10(PNS)+bb[i])
         if (Pdbg==1) { // 通知提示
           $notify("不支持该类型节点，已忽略",typecc,JSON.stringify(node))
         }
@@ -3670,6 +3704,7 @@ function CVL2QX(cnt){
   const pspt = getValue(()=>cnt["ws-opts"]["v2ray-http-upgrade"])
   if (pspt==true) {
     PNS = PNS +1
+    NSList.push(numToEmoji10(PNS)+cnt)
     node=""
   } else {
     node = "vless="+[ipt, pwd, mtd, udp, tfo, obfs, ohost, puri, vfl, pbk, sid, cert, tag].filter(Boolean).join(", ")
