@@ -1,0 +1,76 @@
+#!name= 网易云音乐去广告
+#!desc=全面净化 - 自定义Tab名称 - 伪VIP
+#!date=2026-05-01
+#!category=🐹 BOBO Premium
+#!author= baby[https://github.com/Yu9191/NeteasemusicAd]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png
+#!openUrl = https://apps.apple.com/app/id590338362
+
+[Argument]
+# ===== 底部 Tab (1=隐藏, 0=显示) =====
+FX = switch, false, true, tag=[底部 Tab] 隐藏发现, desc=
+MY = switch, true, false, tag=[底部 Tab] 隐藏漫游, desc=
+DT = switch, false, true, tag=[底部 Tab] 隐藏笔记, desc=
+GZ = switch, true, false, tag=[底部 Tab] 隐藏关注, desc=
+SOU = switch, true, false, tag=[底部 Tab] 隐藏搜索, desc=
+SY_NAME = input, "", tag=[底部 Tab] 首页自定义名称, desc=留空保持原名
+WD_NAME = input, "", tag=[底部 Tab] 我的自定义名称, desc=留空保持原名
+MY_NAME = input, "", tag=[底部 Tab] 漫游自定义名称, desc=留空保持原名
+DT_NAME = input, "", tag=[底部 Tab] 笔记自定义名称, desc=留空保持原名
+FX_NAME = input, "", tag=[底部 Tab] 发现自定义名称, desc=留空保持原名
+
+# ===== 顶部 Tab (默认全部隐藏，只保留音乐) =====
+AIXG = switch, false, true, tag=[顶部 Tab] 显示 AI 写歌, desc=
+HDTAB = switch, false, true, tag=[顶部 Tab] 显示活动 Tab, desc=
+
+# ===== 首页卡片 (开启=显示) =====
+PRGG = switch, false, true, tag=[首页] 问候语, desc=
+PRDRD = switch, false, true, tag=[首页] 每日推荐, desc=
+PRSCVPT = switch, false, true, tag=[首页] 推荐歌单, desc=
+PRST = switch, false, true, tag=[首页] 最近常听, desc=
+HMPR = switch, false, true, tag=[首页] 音乐合伙人, desc=
+PRRR = switch, true, false, tag=[首页] 雷达歌单, desc=
+PRRK = switch, false, true, tag=[首页] 排行榜, desc=
+PRMST = switch, false, true, tag=[首页] 推荐专属歌单, desc=
+PRCN = switch, true, false, tag=[首页] 你的专属歌单, desc=
+PRPRS = switch, true, false, tag=[首页] 私房推荐歌曲, desc=
+PRRSS = switch, true, false, tag=[首页] 红心相似歌曲, desc=
+
+# ===== 伪 VIP =====
+VipEnabled = switch, true, false, tag=[伪 VIP] 开启, desc=关闭后所有 VIP 接口透传原响应
+VipLevel = select, "7", "1", "2", "3", "4", "5", "6", tag=[伪 VIP] 等级, desc=默认 7 级（满级）
+GrowthValue = input, 99999, tag=[伪 VIP] 成长值, desc=默认 99999
+VipExpire = input, "2099-09-09", tag=[伪 VIP] 到期时间, desc=支持日期 (2099-09-09 / 2099/09/09 23:59:59) 或毫秒时间戳
+
+# ===== 调试 =====
+LogLevel = select, "info", "off", "error", "warn", "debug", "all", tag=[调试] 日志级别, desc=排错时切到 debug 可看到 Settings/handler 内部日志
+
+[Rule]
+DOMAIN, iadmat.nosdn.127.net, REJECT
+DOMAIN, iadmatapk.nosdn.127.net, REJECT
+DOMAIN, iadmusicmat.music.126.net, REJECT
+DOMAIN, iadmusicmatvideo.music.126.net, REJECT
+
+[Script]
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(batch|v\d\/resource\/comment\/floor\/get) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=通用 (评论区/广告/红点), argument=LogLevel={LogLevel}
+
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(music-vip-membership\/(client|front)\/vip\/info|vipnewcenter\/app\/resource\/newaccountpage|vip-center-bff\/(card\/entry\/list|float\/data|quality\/auth\/info)|v1\/user\/info) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=伪 VIP, argument=VipEnabled={VipEnabled}&VipLevel={VipLevel}&GrowthValue={GrowthValue}&VipExpire={VipExpire}&LogLevel={LogLevel}
+
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/sp\/flow\/(status\/v2|popup\/query) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=免流量包伪造+弹窗清空, argument=VipEnabled={VipEnabled}&VipExpire={VipExpire}&LogLevel={LogLevel}
+
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/home\/framework\/tab script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=底部 Tab, argument=FX={FX}&MY={MY}&DT={DT}&GZ={GZ}&SOU={SOU}&SY_NAME={SY_NAME}&WD_NAME={WD_NAME}&MY_NAME={MY_NAME}&DT_NAME={DT_NAME}&FX_NAME={FX_NAME}&LogLevel={LogLevel}
+
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/home\/framework\/top\/tab script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=顶部 Tab, argument=AIXG={AIXG}&HDTAB={HDTAB}&LogLevel={LogLevel}
+
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/vipactivity\/app\/cashier\/setting\/get script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=收银台广告, argument=LogLevel={LogLevel}
+
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(homepage\/block\/page|link\/page\/rcmd\/(resource\/show|block\/resource\/multi\/refresh)) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=首页推荐, argument=PRGG={PRGG}&PRDRD={PRDRD}&PRSCVPT={PRSCVPT}&PRST={PRST}&HMPR={HMPR}&PRRR={PRRR}&PRRK={PRRK}&PRMST={PRMST}&PRCN={PRCN}&PRPRS={PRPRS}&PRRSS={PRRSS}&LogLevel={LogLevel}
+
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/page\/discovery\/resource\/show script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=发现页, argument=LogLevel={LogLevel}
+
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/position\/show\/resource script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=我的页面广告, argument=LogLevel={LogLevel}
+
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/user\/follow\/users\/mixed\/get script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, requires-body=true, binary-body-mode=true, timeout=20, tag=显示未关注你的人, argument=LogLevel={LogLevel}
+
+[MitM]
+hostname = ipv4.music.163.com, interface.music.163.com, interface*.music.163.com

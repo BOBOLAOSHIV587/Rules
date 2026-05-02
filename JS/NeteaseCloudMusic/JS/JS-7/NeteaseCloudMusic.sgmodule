@@ -1,0 +1,59 @@
+#!name= 网易云音乐去广告
+#!desc=全面净化 - 自定义Tab名称 - 伪VIP
+#!date=2026-05-01
+#!category=🐹 BOBO Premium
+#!author= baby[https://github.com/Yu9191/NeteasemusicAd]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png
+#!openUrl = https://apps.apple.com/app/id590338362
+#!arguments= 隐藏底部标签开关↓:--,发现:0,漫游:1,笔记:0,关注:1,搜索:1,首页自定义名称:0,我的自定义名称:0,漫游自定义名称:0,笔记自定义名称:0,发现自定义名称:0,隐藏顶部标签开关↓:--,AI写歌:0,活动Tab:0,隐藏首页卡片开关↓:--,问候语:0,每日推荐:0,推荐歌单:0,最近常听:0,音乐合伙人:0,雷达歌单:1,排行榜:0,推荐专属歌单:0,你的专属歌单:1,私房推荐歌曲:1,红心相似歌曲:1,脚本伪vip:1,VIP等级:7,成长值:99999,VIP到期时间:2099-09-09
+#!arguments-desc= 底部Tab: 1=隐藏, 0=显示\n自定义名称: 留空则保持原名，填写则替换显示\n顶部Tab: 0=隐藏, 1=显示 (默认只保留音乐, 其余全部隐藏)\n首页卡片: 1=显示, 0=隐藏\nVIP等级: 1-7\n成长值: 默认 99999\nVIP到期时间: 支持日期 (2099-09-09) 或毫秒时间戳
+
+[Rule]
+DOMAIN,iadmusicmat.music.126.net,REJECT-NO-DROP
+DOMAIN,iadmat.nosdn.127.net,REJECT-NO-DROP
+DOMAIN,iadmatapk.nosdn.127.net,REJECT-NO-DROP
+DOMAIN,httpdns.n.netease.com,REJECT-NO-DROP
+DOMAIN,httpdns.music.163.com,REJECT-NO-DROP
+
+[Map Local]
+^https?:\/\/(ipv4|interface\d?)\.music\.163.com\/e?api\/ad data-type=text data="{}"
+^https?:\/\/interface\d?\.music\.163\.com\/w?e?api\/(?:side-bar\/mini-program\/music-service\/account|delivery\/(batch-deliver|deliver)|moment\/tab\/info\/get|yunbei\/account\/entrance\/get) data-type=text data="{}"
+^https?:\/\/interface\d?\.music\.163\.com\/eapi\/(?:resource\/comments?\/musiciansaid|community\/friends\/fans-group\/artist\/group\/get|user\/sub\/artist|music\/songshare\/text\/recommend\/get|mine\/applet\/redpoint|resniche\/position\/play\/new\/get) data-type=text data="{}"
+^https?:\/\/interface\d?\.music\.163.com\/w?e?api\/search\/default data-type=text data="{}"
+^https?:\/\/interface\d?\.music\.163.com\/w?e?api\/(?:search\/(chart|rcmd\/keyword|specialkeyword)|resource-exposure\/|activity\/bonus\/playpage\/time\/query) data-type=text data="{}"
+^https?:\/\/interface\d?\.music\.163.com\/eapi\/(?:mlivestream\/entrance\/playpage|link\/(position\/show\/strategy|scene\/show)|ios\/version|v\d\/content\/exposure\/comment\/banner) data-type=text data="{}"
+^https?:\/\/interface\d?\.music\.163\.com\/store\/e?api\/(webconfig|entryconfig) data-type=text data="{}"
+
+[Script]
+# 通用接口 | 评论区、广告、红点等
+网易云音乐_通用 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(batch|v\d\/resource\/comment\/floor\/get),requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js
+
+# 伪VIP逻辑 (vip/info、newaccountpage、float/data、card/entry/list、quality/auth/info、v1/user/info)
+网易云音乐_伪VIP = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(music-vip-membership\/(client|front)\/vip\/info|vipnewcenter\/app\/resource\/newaccountpage|vip-center-bff\/(card\/entry\/list|float\/data|quality\/auth\/info)|v1\/user\/info),requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, argument=VipEnabled={{{脚本伪vip}}}&VipLevel={{{VIP等级}}}&GrowthValue={{{成长值}}}&VipExpire={{{VIP到期时间}}}
+
+# 免流量包伪造 + 流量推广弹窗清空
+网易云音乐_流量包 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/sp\/flow\/(status\/v2|popup\/query),requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, argument=VipEnabled={{{脚本伪vip}}}&VipExpire={{{VIP到期时间}}}
+
+# 底部 Tab (支持自定义名称)
+网易云音乐_Tab = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/home\/framework\/tab,requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, argument=FX={{{发现}}}&MY={{{漫游}}}&DT={{{笔记}}}&GZ={{{关注}}}&SOU={{{搜索}}}&SY_NAME={{{首页自定义名称}}}&WD_NAME={{{我的自定义名称}}}&MY_NAME={{{漫游自定义名称}}}&DT_NAME={{{笔记自定义名称}}}&FX_NAME={{{发现自定义名称}}}
+
+# 顶部 Tab (支持自定义名称)
+网易云音乐_顶部Tab = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/home\/framework\/top\/tab,requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, argument=AIXG={{{AI写歌}}}&HDTAB={{{活动Tab}}}
+
+# 收银台广告
+网易云音乐_收银台 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/vipactivity\/app\/cashier\/setting\/get,requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js
+
+# 首页推荐 (问候语、排行榜、雷达等)
+网易云音乐_首页 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(homepage\/block\/page|link\/page\/rcmd\/(resource\/show|block\/resource\/multi\/refresh)),requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js, argument=PRGG={{{问候语}}}&PRDRD={{{每日推荐}}}&PRSCVPT={{{推荐歌单}}}&PRST={{{最近常听}}}&HMPR={{{音乐合伙人}}}&PRRR={{{雷达歌单}}}&PRRK={{{排行榜}}}&PRMST={{{推荐专属歌单}}}&PRCN={{{你的专属歌单}}}&PRPRS={{{私房推荐歌曲}}}&PRRSS={{{红心相似歌曲}}}
+
+# 发现页
+网易云音乐_发现 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/page\/discovery\/resource\/show,requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js
+
+# 我的页面广告 (MyPageBar)
+网易云音乐_我的 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/position\/show\/resource,requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js
+
+# 关注列表 (显示未关注)
+网易云音乐_关注 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/user\/follow\/users\/mixed\/get,requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NeteaseCloudMusic/JS/JS-7/JS/NeteaseCloudMusic.js
+
+[MITM]
+hostname = %APPEND% music.163.com, interface.music.163.com, interface3.music.163.com, interface9.music.163.com, httpdns.n.netease.com, ipv4.music.163.com

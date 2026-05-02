@@ -1,0 +1,378 @@
+{
+  "id": "wyy.boxjs",
+  "name": "网易云音乐",
+  "author": "@ios151",
+  "icon": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png",
+  "repo": "https://github.com/Yu9191/NeteasemusicAd",
+  "apps": [
+    {
+      "id": "WYY_VIP",
+      "name": "伪 VIP",
+      "keys": [
+        "wyy_VipEnabled",
+        "wyy_VipLevel",
+        "wyy_GrowthValue",
+        "wyy_VipExpire"
+      ],
+      "settings": [
+        {
+          "id": "wyy_VipEnabled",
+          "name": "开启伪 VIP",
+          "val": "1",
+          "type": "selects",
+          "items": [
+            { "key": "1", "label": "开启" },
+            { "key": "0", "label": "关闭" }
+          ],
+          "desc": "关闭后所有 VIP 接口透传原响应"
+        },
+        {
+          "id": "wyy_VipLevel",
+          "name": "VIP 等级",
+          "val": "7",
+          "type": "selects",
+          "items": [
+            { "key": "1", "label": "LV1" },
+            { "key": "2", "label": "LV2" },
+            { "key": "3", "label": "LV3" },
+            { "key": "4", "label": "LV4" },
+            { "key": "5", "label": "LV5" },
+            { "key": "6", "label": "LV6" },
+            { "key": "7", "label": "LV7 (满级)" }
+          ],
+          "desc": "伪造的 VIP 等级 1-7"
+        },
+        {
+          "id": "wyy_GrowthValue",
+          "name": "成长值",
+          "val": 99999,
+          "type": "number",
+          "desc": "VIP 成长值显示 (默认 99999)"
+        },
+        {
+          "id": "wyy_VipExpire",
+          "name": "VIP 到期时间",
+          "val": "2099-09-09",
+          "type": "text",
+          "desc": "支持日期 (2099-09-09 / 2099/09/09 23:59:59) 或毫秒时间戳；留空 → 默认 2099-09-09"
+        }
+      ],
+      "author": "@ios151",
+      "repo": "https://github.com/Yu9191/NeteasemusicAd",
+      "icons": [
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png",
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png"
+      ]
+    },
+    {
+      "id": "WYY_BOTTOM_TAB",
+      "name": "底部 Tab",
+      "keys": [
+        "wyy_FX",
+        "wyy_MY",
+        "wyy_DT",
+        "wyy_GZ",
+        "wyy_SOU",
+        "wyy_SY_NAME",
+        "wyy_WD_NAME",
+        "wyy_MY_NAME",
+        "wyy_DT_NAME",
+        "wyy_FX_NAME"
+      ],
+      "settings": [
+        {
+          "id": "wyy_FX",
+          "name": "发现",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "显示" },
+            { "key": "1", "label": "隐藏" }
+          ]
+        },
+        {
+          "id": "wyy_MY",
+          "name": "漫游",
+          "val": "1",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "显示" },
+            { "key": "1", "label": "隐藏" }
+          ]
+        },
+        {
+          "id": "wyy_DT",
+          "name": "笔记",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "显示" },
+            { "key": "1", "label": "隐藏" }
+          ]
+        },
+        {
+          "id": "wyy_GZ",
+          "name": "关注",
+          "val": "1",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "显示" },
+            { "key": "1", "label": "隐藏" }
+          ]
+        },
+        {
+          "id": "wyy_SOU",
+          "name": "搜索",
+          "val": "1",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "显示" },
+            { "key": "1", "label": "隐藏" }
+          ]
+        },
+        {
+          "id": "wyy_SY_NAME",
+          "name": "首页自定义名称",
+          "val": "",
+          "type": "text",
+          "desc": "留空保持原名"
+        },
+        {
+          "id": "wyy_WD_NAME",
+          "name": "我的自定义名称",
+          "val": "",
+          "type": "text",
+          "desc": "留空保持原名"
+        },
+        {
+          "id": "wyy_MY_NAME",
+          "name": "漫游自定义名称",
+          "val": "",
+          "type": "text",
+          "desc": "留空保持原名"
+        },
+        {
+          "id": "wyy_DT_NAME",
+          "name": "笔记自定义名称",
+          "val": "",
+          "type": "text",
+          "desc": "留空保持原名"
+        },
+        {
+          "id": "wyy_FX_NAME",
+          "name": "发现自定义名称",
+          "val": "",
+          "type": "text",
+          "desc": "留空保持原名"
+        }
+      ],
+      "author": "@ios151",
+      "repo": "https://github.com/Yu9191/NeteasemusicAd",
+      "icons": [
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png",
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png"
+      ]
+    },
+    {
+      "id": "WYY_TOP_TAB",
+      "name": "顶部 Tab",
+      "keys": [
+        "wyy_AIXG",
+        "wyy_HDTAB"
+      ],
+      "settings": [
+        {
+          "id": "wyy_AIXG",
+          "name": "AI 写歌",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_HDTAB",
+          "name": "活动 Tab (周年等运营位)",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        }
+      ],
+      "author": "@ios151",
+      "repo": "https://github.com/Yu9191/NeteasemusicAd",
+      "icons": [
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png",
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png"
+      ]
+    },
+    {
+      "id": "WYY_HOME_CARDS",
+      "name": "首页卡片",
+      "keys": [
+        "wyy_PRGG",
+        "wyy_PRDRD",
+        "wyy_PRSCVPT",
+        "wyy_PRST",
+        "wyy_HMPR",
+        "wyy_PRRR",
+        "wyy_PRRK",
+        "wyy_PRMST",
+        "wyy_PRCN",
+        "wyy_PRPRS",
+        "wyy_PRRSS"
+      ],
+      "settings": [
+        {
+          "id": "wyy_PRGG",
+          "name": "问候语",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_PRDRD",
+          "name": "每日推荐",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_PRSCVPT",
+          "name": "推荐歌单",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_PRST",
+          "name": "最近常听",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_HMPR",
+          "name": "音乐合伙人",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_PRRR",
+          "name": "雷达歌单",
+          "val": "1",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_PRRK",
+          "name": "排行榜",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_PRMST",
+          "name": "推荐专属歌单",
+          "val": "0",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_PRCN",
+          "name": "你的专属歌单",
+          "val": "1",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_PRPRS",
+          "name": "私房推荐歌曲",
+          "val": "1",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        },
+        {
+          "id": "wyy_PRRSS",
+          "name": "红心相似歌曲",
+          "val": "1",
+          "type": "selects",
+          "items": [
+            { "key": "0", "label": "隐藏" },
+            { "key": "1", "label": "显示" }
+          ]
+        }
+      ],
+      "author": "@ios151",
+      "repo": "https://github.com/Yu9191/NeteasemusicAd",
+      "icons": [
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png",
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png"
+      ]
+    },
+    {
+      "id": "WYY_DEBUG",
+      "name": "调试",
+      "keys": [
+        "wyy_LogLevel"
+      ],
+      "settings": [
+        {
+          "id": "wyy_LogLevel",
+          "name": "日志级别",
+          "val": "info",
+          "type": "selects",
+          "items": [
+            { "key": "off",   "label": "关闭" },
+            { "key": "error", "label": "ERROR" },
+            { "key": "warn",  "label": "WARN" },
+            { "key": "info",  "label": "INFO (默认)" },
+            { "key": "debug", "label": "DEBUG (排错)" },
+            { "key": "all",   "label": "ALL" }
+          ],
+          "desc": "排错时切到 DEBUG 可看到 Settings/handler 内部日志"
+        }
+      ],
+      "author": "@ios151",
+      "repo": "https://github.com/Yu9191/NeteasemusicAd",
+      "icons": [
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png",
+        "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NeteaseMusic.png"
+      ]
+    }
+  ]
+}
