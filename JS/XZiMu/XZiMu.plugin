@@ -1,0 +1,14 @@
+#!name=X字幕-视频实时翻译
+#!desc=X字幕解锁会员
+#!date=2026-05-01
+#!category=🐹 BOBO Premium
+#!author=叮当猫chxm1023[https://github.com/chxm1023/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/XZiMu.png
+#!openUrl=https://apps.apple.com/app/id6670429646
+
+[Script]
+# > X字幕解锁会员
+http-response http:\/\/apps\.tltgame\.com\/api\/user\/(updateStatus|randomRegister) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/XZiMu/JS/XZiMu.js, requires-body=true, tag=X字幕解锁会员
+
+[MITM]
+hostname = apps.tltgame.com
