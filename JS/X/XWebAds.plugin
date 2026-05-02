@@ -1,0 +1,14 @@
+#!name=X (Twitter) 网页版去广告
+#!desc=移除网页版 X (Twitter) 广告。
+#!date=2026-05-01
+#!category=🐹 BOBO AD
+#!author=奶思fmz200[https://github.com/fmz200/wool_scripts]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/X-01.png
+#!openUrl=https://x.com/
+
+[Script]
+# > X网页版去广告
+http-response ^https?:\/\/x\.com\/i\/api\/graphql\/[^\/]+\/(HomeTimeline|TweetDetail) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/X/JS/XWebAds.js, requires-body=true, tag=X网页版去广告
+
+[MITM]
+hostname = x.com
