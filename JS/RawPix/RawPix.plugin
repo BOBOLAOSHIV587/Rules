@@ -1,0 +1,14 @@
+#!name=RawPix-DIY壁纸
+#!desc=RawPix-DIY壁纸解锁会员
+#!date=2026-05-01
+#!category=🐹 BOBO Premium
+#!author=叮当猫chxm1023[https://github.com/chxm1023/Rewrite]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/RawPix.png
+#!openUrl=https://apps.apple.com/app/id6744239296
+
+[Script]
+# > RawPix壁纸解锁会员
+http-response ^https?:\/\/api\.rawpixlive\.com\/api\/(sign\/profile|picture\/checkout|config\/config) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/RawPix/JS/RawPix.js, requires-body=true, tag=RawPix壁纸解锁会员
+
+[MITM]
+hostname = api.rawpixlive.com
