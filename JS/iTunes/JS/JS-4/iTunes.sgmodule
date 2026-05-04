@@ -1,0 +1,15 @@
+#!name=iTunes系列解锁
+#!desc=自动查询 App 内购产品并注入最贵套餐凭证,可在设置中关闭.\n此脚本可能会导致App Store无法登录ID\n关[MITM][脚本][代理工具]方法选一即可
+#!date=2026-05-04
+#!category=🐹 BOBO Premium
+#!author=baby[https://github.com/Yu9191]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/iTunes.png
+#!arguments=Mock:"https://reven.jsforbaby.workers.dev/reven",Enabled:"true",Expires:"2099-09-09",Country:"HK",禁用MITM:hostname
+#!arguments-desc=Mock:\nReven 网关地址，一般无需修改。\nEnabled:\n是否启用解锁。\ntrue = 拦截 verifyReceipt 并注入订阅凭证\nfalse = 不修改响应，直接放行\nExpires:\n订阅到期日期，格式 YYYY-MM-DD，默认 2099-09-09。\nCountry:\nApp Store 国家/地区代码 (两位大写字母, ISO 3166-1)，用于查询内购商品 ID。\n建议填该 App 在 App Store 的所属区域 (即你从哪个区下载的它): 国区 CN / 港区 HK / 美区 US。\n默认 HK 兼容性最好；但国区独占或国区限定促销 App 必须填 CN，否则注入的产品在该区未上架，可能导致解锁失败或 App 显示已订阅却仍走免费档。\n禁用MITM：禁用MITM主机名，默认 hostname 表示启用，输入 # 表示禁用。\n\n此脚本可能会导致App Store无法登录ID，关MITM即可。
+
+[URL Rewrite]
+# > iTunes系列解锁
+^https:\/\/buy\.itunes\.apple\.com\/verifyReceipt {{{Mock}}}/buy.itunes.apple.com/verifyReceipt?enabled={{{Enabled}}}&expires={{{Expires}}}&country={{{Country}}} header
+
+[MITM]
+{{{禁用MITM}}} = %APPEND% buy.itunes.apple.com
