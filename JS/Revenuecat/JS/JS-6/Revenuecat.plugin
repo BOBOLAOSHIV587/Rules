@@ -1,0 +1,16 @@
+#!name=Revenuecat 系列解锁
+#!desc=支持一键解锁 RevenueCat、Superwall 和 Adapty (Adapty 需卸载重装 App 才生效)。\n如果遇到解锁后报错或闪退的 App (比如 Filebar)，可以直接在模块设置里填名字跳过它！\n(默认填 '-' 代表全部 App 正常解锁)
+#!date=2026-05-04
+#!category=🐹 BOBO Premium
+#!author=baby[https://github.com/Yu9191]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/RevenueCat-icon.png
+
+[Argument]
+Bypass = input, "-", tag=跳过指定App(绕过解锁), desc=遇到修改响应会报错的 App (如 Filebar) 可在此填入其 UA 关键词。多个用逗号隔开，填 - 表示全部解锁。
+
+[Script]
+# > Revenuecat 系列解锁
+http-request ^https:\/\/(api\.revenuecat\.com|api\.rc-backup\.com|rc\.visionarytech\.ltd|revenue\.cuto\.app|proxy\.linearity\.io|subscriptions-api\.superwall\.com|api\.adapty\.io)\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Revenuecat/JS/JS-6/JS/Reven-Loon.js, requires-body=true, tag=Reven解锁转发, argument=[{Bypass}]
+
+[MITM]
+hostname = api.revenuecat.com, api.rc-backup.com, rc.visionarytech.ltd, revenue.cuto.app, proxy.linearity.io, subscriptions-api.superwall.com, api.adapty.io

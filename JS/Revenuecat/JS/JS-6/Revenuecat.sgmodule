@@ -1,0 +1,17 @@
+#!name=Revenuecat 系列解锁
+#!desc=支持一键解锁 RevenueCat、Superwall 和 Adapty (Adapty 需卸载重装 App 才生效)。\n如果遇到解锁后报错或闪退的 App (比如 Filebar)，可以直接在模块设置里填名字跳过它！\n(默认填 '-' 代表全部 App 正常解锁)
+#!date=2026-05-04
+#!category=🐹 BOBO Premium
+#!author=baby[https://github.com/Yu9191]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/RevenueCat-icon.png
+#!arguments=Mock:"https://reven.jsforbaby.workers.dev/reven",Bypass:"-"
+#!arguments-desc=Mock:\nReven 网关地址，一般无需修改。\nBypass:\n跳过指定App(绕过解锁)。遇到修改响应会报错的 App (如 Filebar) 可在此填入其 UA 关键词(不区分大小写)，多个用逗号分隔，填 - 表示全部解锁。
+
+[URL Rewrite]
+# > Revenuecat 系列解锁
+^https:\/\/(api\.revenuecat\.com|api\.rc-backup\.com|rc\.visionarytech\.ltd|revenue\.cuto\.app|proxy\.linearity\.io)\/(.+\/(?:receipts|subscribers\/[^/]+(?:\/attributes)?))$ {{{Mock}}}/$1/$2?bypass={{{Bypass}}} header
+^https:\/\/subscriptions-api\.superwall\.com\/(.+) {{{Mock}}}/subscriptions-api.superwall.com/$1?bypass={{{Bypass}}} header
+^https:\/\/api\.adapty\.io\/(.+) {{{Mock}}}/api.adapty.io/$1?bypass={{{Bypass}}} header
+
+[MITM]
+hostname = %APPEND% api.revenuecat.com, api.rc-backup.com, rc.visionarytech.ltd, revenue.cuto.app, proxy.linearity.io, subscriptions-api.superwall.com, api.adapty.io
