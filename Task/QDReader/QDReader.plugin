@@ -1,0 +1,20 @@
+#!name=起点读书自动签到
+#!desc=签到结果通知（含账号昵称、时间、状态）
+#!date=2026-05-08
+#!category=🐹 BOBO Task
+#!author=桂林仔Yuheng0101[https://github.com/Yuheng0101/X]
+#!arguments-desc=- 是否开启抓取重写: ["起点读书","#"] \n\n- CRONEXP: 默认每天9点30分执行, 建议自行配置。\n\n- 是否开启调试模式: ["true","false"]\n\n - TIMEOUT: 脚本执行超时时间, 默认60秒。
+
+[Argument]
+CAPTURE_ENABLE=switch,"true","false",tag=是否开启抓取重写, desc=是否开启抓取重写
+CRONEXP=input,"30 9 * * *",tag=CRONEXP, desc=默认每天9点30分执行, 建议自行配置。
+QDREADER_DEBUG=switch,"false","true",tag=是否开启调试模式, desc=是否开启调试模式
+TIMEOUT=input,60,tag=脚本执行超时时间, 默认60秒, desc=TIMEOUT
+
+[Script]
+http-response ^https?:\/\/h5\.if\.qidian\.com\/argus\/api\/v1\/user\/getlogininfo script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/QDReader/JS/QDReader.js, requires-body=1, tag=起点读书获取Cookie, enable={CAPTURE_ENABLE}, argument=[{QDREADER_DEBUG}]
+
+cron {CRONEXP} script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/QDReader/JS/QDReader.js, timeout={TIMEOUT}, tag=起点读书自动签到, argument=[{QDREADER_DEBUG}]
+
+[MITM]
+hostname = h5.if.qidian.com
