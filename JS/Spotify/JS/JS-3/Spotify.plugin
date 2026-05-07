@@ -1,0 +1,40 @@
+#!name=Spotify
+#!desc=解锁Premium,音质不能设置为超高.\n登录后再打开脚本,重启app等待脚本生效.\n【下面的脚本二选一打开一个，不建议两个都打开】
+#!date=2026-05-08
+#!category=🐹 BOBO Premium
+#!author=app2smile[https://github.com/app2smile],Amlabort[https://github.com/Amlabort/MY_clash]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Spotify.png
+#!openUrl=https://apps.apple.com/app/id324684580
+
+[Argument]
+spot-ev3-enable = switch,true,false,tag= 本地配置覆盖
+spot-ev1-enable = switch,false,true,tag= 远程配置修改
+
+[Rule]
+AND,((DOMAIN-SUFFIX, spotify.com), (PROTOCOL, QUIC)),REJECT
+DOMAIN,aet.spotify.com,REJECT
+
+[Rewrite]
+# if-none-match返回304状态码
+^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/user-customization-service\/v1\/customize$ header-del if-none-match
+^https:\/\/(spclient\.wg|.*-spclient)\.spotify\.com(:443)?\/pendragon reject-dict
+#屏蔽播放界面的探索内容显示，凭个人喜好开关
+^https:\/\/(spclient\.wg|.*-spclient)\.spotify\.com(:443)?\/watch-feed-entrypoints\/v.\/discovery-from-seed reject-dict
+#屏蔽设置界面会员信息，仅改变显示，可以删去
+^https:\/\/.*-spclient\.spotify\.com(:443)?\/pam-view-service\/ reject-dict
+#屏蔽AI DJ的url
+37i9dQZF1EYkqdzj48dyYq reject-dict
+
+[Script]
+# > Spotify解锁Premium
+http-request ^https:\/\/(.*-spclient\.spotify\.com(:443)?|spclient\.wg\.spotify\.com)\/gabo-receiver-service script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-GaBo.js, timeout=10, tag=spotify-gabo
+
+http-response ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/browsita\/v.\/browse script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-NoSearchAd.js, requires-body=true, binary-body-mode=true, timeout=10, tag=search_noAd
+http-response ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/casita\/v.\/home\/default script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-NoHomeAd.js, requires-body=true, binary-body-mode=true, timeout=10, tag=home_noAd
+http-response ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/scrollsita\/v.\/scroll\/spotify script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-NoScrollAd.js, requires-body=true, binary-body-mode=true, timeout=10, tag=scroll_noAd
+
+http-response ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)(\?.*)?$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-Proto-Eevee1.js, requires-body=true, binary-body-mode=true, timeout=10, tag=Ev_spotifyProto,enable={spot-ev1-enable}
+http-response ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)(\?.*)?$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-Proto-Eevee3.js, requires-body=true, binary-body-mode=true, timeout=10, tag=Ev3_spotifyProto,,enable={spot-ev3-enable}
+
+[MITM]
+hostname = spclient.wg.spotify.com, *spclient.spotify.com

@@ -1,0 +1,28 @@
+#!name=Spotify
+#!desc=解锁Premium,音质不能设置为超高.\n登录后再打开脚本,重启app等待脚本生效.
+#!date=2026-05-08
+#!category=🐹 BOBO Premium
+#!author=app2smile[https://github.com/app2smile],Amlabort[https://github.com/Amlabort/MY_clash]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Spotify.png
+#!openUrl=https://apps.apple.com/app/id324684580
+
+[Rule]
+AND,((DOMAIN-SUFFIX, spotify.com), (PROTOCOL, QUIC)),REJECT
+DOMAIN,aet.spotify.com,REJECT
+
+[Header Rewrite]
+# if-none-match返回304状态码
+http-request ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/user-customization-service\/v1\/customize$ header-del if-none-match
+
+[Script]
+# > Spotify解锁Premium
+#去广告
+NoSearchAd = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/browsita\/v.\/browse,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-NoSearchAd.js
+NoHomeAd = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/casita\/v.\/home\/default,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-NoHomeAd.js
+NoScrollAd = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/scrollsita\/v.\/scroll\/spotify,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-NoScrollAd.js
+
+Spotify解锁premium = type=http-request,pattern=^https:\/\/(.*-spclient\.spotify\.com(:443)?|spclient\.wg\.spotify\.com)\/gabo-receiver-service,requires-body=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-GaBo.js
+Spotify解锁premium = type=http-response,pattern=^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-Proto-Eevee3.js,script-update-interval=0
+
+[MITM]
+hostname = %APPEND% spclient.wg.spotify.com, *spclient.spotify.com

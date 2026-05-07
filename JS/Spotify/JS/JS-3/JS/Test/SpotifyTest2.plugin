@@ -1,0 +1,18 @@
+#!name=Spotify
+#!desc=解锁Premium,音质不能设置为超高.\n登录后再打开脚本,重启app等待脚本生效.
+#!date=2026-05-08
+#!category=🐹 BOBO Premium
+#!author=app2smile[https://github.com/app2smile],Amlabort[https://github.com/Amlabort/MY_clash]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Spotify.png
+#!openUrl=https://apps.apple.com/app/id324684580
+
+[Rewrite]
+# if-none-match返回304状态码
+^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/user-customization-service\/v1\/customize$ header-del if-none-match
+
+[Script]
+# > Spotify解锁Premium
+http-response ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)(\?.*)?$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-3/JS/Spotify-Proto-Eevee1.js, requires-body=true, binary-body-mode=true, timeout=10, tag=Ev_spotifyProto
+
+[MITM]
+hostname = spclient.wg.spotify.com, *spclient.spotify.com
