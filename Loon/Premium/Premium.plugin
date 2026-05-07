@@ -1,6 +1,6 @@
 #!name=波波老师自用Premium
 #!desc=波波老师自用Premium
-#!date=2026-01-21
+#!date=2026-05-08
 #!category=🐹 BOBO Premium
 #!author= 各位大佬
 #!homepage=https://github.com/BOBOLAOSHIV587/Rules
@@ -393,9 +393,9 @@ http-response ^https?:\/\/snailsleep\.net\/snail\/v\d\/profile\/get. script-path
 http-response https://api-mobile.soundcloud.com/configuration/ios script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Soundcloud/JS/Soundcloud.js,requires-body=1, timeout=60, tag=Soundcloud解锁Go plus
 
 
-# > Spotify解锁premium
-http-request ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify-Pro/JS/Spotify-Json.js, timeout=10, tag=Spotify解锁premium
-http-response ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify-Pro/JS/Spotify-Proto.js, requires-body=true, binary-body-mode=true, timeout=10, tag=Spotify解锁premium
+# > Spotify解锁Premium
+http-request ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-1/Spotify-Json.js, timeout=10, tag=Spotify解锁Premium
+http-response ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Spotify/JS/JS-1/Spotify-Proto.js, requires-body=true, binary-body-mode=true, timeout=10, tag=Spotify解锁Premium
 
 
 # > SwiftyCompiler解锁Premium Lifetime
