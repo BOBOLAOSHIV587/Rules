@@ -1,0 +1,35 @@
+#!name=Tumblr去广告
+#!desc=Tumblr移除信息流广告
+#!date=2026-05-09
+#!category=🐹 BOBO AD
+#!author= 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Tumblr.png
+#!openUrl=https://apps.apple.com/app/id305343404
+
+[Body Rewrite]
+# > Tumblr去广告
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","ad_placement_configuration"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","fan_placement_id"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","display_io_max_ad_count"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","display_io_max_ad_loading_count"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","display_io_placement_id"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","display_io_test_placement_id"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","display_io_interscroller_display_test_placement_id"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","display_io_interscroller_video_test_placement_id"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","dfp_ad_unit_id"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","adx_total_queue_size"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","adx_loading_queue_size"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","fan_total_queue_size"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","fan_loading_queue_size"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","yahoo_total_queue_size"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","yahoo_loading_queue_size"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","min_minutes_between_sponsored_moments"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","rewarded_ad_timeout_seconds"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","vungle_ad_token_sync_seconds"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","static_interstitial_close_button_delay_seconds"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","video_interstitial_close_button_delay_seconds"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","static_interstitial_bid_floor_usd"]])'
+http-response-jq ^https:\/\/api-http2\.tumblr\.com\/v2\/config$ 'delpaths([["response","configuration","video_interstitial_bid_floor_usd"]])'
+
+[MITM]
+hostname = %APPEND% api-http2.tumblr.com
