@@ -1,0 +1,14 @@
+#!name=每日大赛-吃瓜娱乐屏蔽弹窗、横幅
+#!desc=每日大赛-吃瓜娱乐屏蔽弹窗、横幅等一切广告干扰，让你把瓜吃好。
+#!date=2026-05-11
+#!category=🐹 BOBO AD
+#!author=桂林仔Yuheng0101[https://github.com/Yuheng0101/X]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Chigua.png
+#!openUrl=www.mrds66.com
+
+[Script]
+# > 每日大赛-吃瓜娱乐去广告
+http-response ^https?:\/\/www\.mrds66\.com(?!.*\.(css|js|png|jpe?g|gif|webp|svg|ico|woff2?|ttf|eot|mp[34]|webm|m3u8|ts|json|xml|txt)) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Chigua_Clean/JS/Chigua_Clean.js, requires-body=true, timeout=60, tag=# > 每日大赛-吃瓜娱乐去广告
+
+[MITM]
+hostname = www.mrds66.com
