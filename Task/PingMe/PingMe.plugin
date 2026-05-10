@@ -1,0 +1,19 @@
+#!name=PingMe-电话小号自动化签到
+#!desc=PingMe自动化签到+视频奖励.\n定时每天运行两次.\n大概20天可白嫖一个DC1的TG号，一年12个tg号
+#!date=2026-05-11
+#!category=🐹 BOBO Task
+#!author=怎么肥事ZenmoFeiShi[https://github.com/ZenmoFeiShi/Qx]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/PingMe.png
+#!openUrl=https://apps.apple.com/app/id1444762648
+
+[Argument]
+获取Cookie = switch, ture, tag = [启用]获取Cookie, desc = 关闭开关将不对此选项生效
+
+[Script]
+# > PingMe自动化签到
+http-request ^https:\/\/api\.pingmeapp\.net\/app\/queryBalanceAndBonus script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/PingMe/JS/PingMe.js, tag=PingMe自动签到, enable={获取Cookie}
+
+cron "30 8,20 * * *" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/PingMe/JS/PingMe.js, timeout=10, tag=PingMe自动签到
+
+[MITM]
+hostname = api.pingmeapp.net
