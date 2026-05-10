@@ -1,0 +1,27 @@
+#!name=黑料不打烊净化
+#!desc=黑料不打烊净化，去恶心的开屏，首页各种乱七八糟的玩意
+#!date=2026-05-11
+#!category=🐹 BOBO AD
+#!author=怎么肥事ZenmoFeiShi[https://github.com/ZenmoFeiShi/Qx]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/HeiLiaoWang.png
+#!openUrl=https://hlwxx.com/
+
+[URL Rewrite]
+# > 黑料不打烊净化
+^https?:\/\/mc\.yandex\.ru - reject
+^https?:\/\/stats\.kwvprfcr\.xyz - reject
+^https?:\/\/static\.cloudflareinsights\.com\/beacon - reject
+
+[Map Local]
+# > 黑料不打烊净化
+^https?:\/\/api1\.cghhqca\.cc\/api\/eventTracking data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https?:\/\/api\.shuifeng\.cc\/api\/eventTracking data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https?:\/\/ads\.zyudkkup\.com\/api\/eventTracking data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+# > 黑料不打烊净化
+replaceHeader = type=http-request, pattern=^https?:\/\/(?:www\.)?(?:heiliao|hlwxx|hlcx\d*)\.com\/(?!static\/|favicon|api\/|index\/statistics|uploads\/), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Script-Hub/JS/scripts/replace-header.js, timeout=30, argument=(%5Cr%5Cn)Accept-Encoding%3A.%2B(%5Cr%5Cn)-%3E%241Accept-Encoding%3A%20identity%242
+黑料不打烊净化 = type=http-response, pattern=^https?:\/\/(?:www\.)?(?:heiliao|hlwxx|hlcx\d*)\.com\/(?!static\/|favicon|api\/|index\/statistics|uploads\/), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/HeiLiaoWang/JS/HeiLiaoWang.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% *heiliao*, *hlwxx*, *hlcx*, stats.kwvprfcr.xyz, mc.yandex.ru, api1.cghhqca.cc, api.shuifeng.cc, ads.zyudkkup.com, static.cloudflareinsights.com
