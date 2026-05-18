@@ -38,8 +38,6 @@ const keya = 'spe'
 const keyb = 'ge'
 const keyc = 'pin'
 const keyd = 'gan'
-const keye = 'pi'
-const keyf = 'ob'
 const bay = 'edtest'
 
 let result = {}
@@ -326,7 +324,7 @@ async function getDirectRequestInfo({ PROXIES = [] } = {}) {
   const { CN_IP, CN_INFO } = await getDirectInfo(undefined, $.lodash_get(arg, 'DOMESTIC_IPv4'))
   const { POLICY } = await getRequestInfo(
     new RegExp(
-      `cip\\.cc|for${keyb}\\.${keya}${bay}\\.cn|rmb\\.${keyc}${keyd}\\.com\\.cn|api-v3\\.${keya}${bay}\\.cn|ipservice\\.ws\\.126\\.net|api\\.bilibili\\.com|api\\.live\\.bilibili\\.com|myip\\.ipip\\.net|ip\\.ip233\\.cn|ua${keye}\\.wo${keyf}x\\.cn|ip\\.im|ips\\.market\\.alicloudapi\\.com|api\\.ip\\.plus|qifu-api\\.baidubce\\.com|dashi\\.163\\.com`
+      `cip\\.cc|for${keyb}\\.${keya}${bay}\\.cn|rmb\\.${keyc}${keyd}\\.com\\.cn|api-v3\\.${keya}${bay}\\.cn|ipservice\\.ws\\.126\\.net|api\\.bilibili\\.com|api\\.live\\.bilibili\\.com|myip\\.ipip\\.net|ip\\.ip233\\.cn|ip\\.im|ips\\.market\\.alicloudapi\\.com|api\\.ip\\.plus|ip\\.qtfm\\.cn|dashi\\.163\\.com|api\\.zhuishushenqi\\.com|admin-app\\.edifier\\.com|foundation-ipv4\\.youdao\\.com|ipv4\\.netart\\.cn|ip\\.netart\\.cn`
     ),
     PROXIES
   )
@@ -336,7 +334,7 @@ async function getProxyRequestInfo({ PROXIES = [] } = {}) {
   const { PROXY_IP, PROXY_INFO, PROXY_PRIVACY } = await getProxyInfo(undefined, $.lodash_get(arg, 'LANDING_IPv4'))
   let result
   if ($.isSurge() || $.isStash()) {
-    result = await getRequestInfo(/ipinfo\.io|ip-score\.com|ipwhois\.app|ip-api\.com|api-ipv4\.ip\.sb/, PROXIES)
+    result = await getRequestInfo(/ipinfo\.io|ipwho\.is|api\.ipapi\.is|ip-api\.com|api-ipv4\.ip\.sb/, PROXIES)
   } else if ($.isQuanX() || $.isLoon()) {
     result = await getEntranceInfo()
   }
@@ -417,10 +415,10 @@ async function getDirectInfo(ip, provider) {
     } catch (e) {
       $.logErr(`${msg} 发生错误: ${e.message || e}`)
     }
-  } else if (!ip && provider == 'baidu') {
+  } else if (!ip && provider == 'qtfm') {
     try {
       const res = await http({
-        url: `https://qifu-api.baidubce.com/ip/local/geo/v1/district`,
+        url: `https://ip.qtfm.cn/ip`,
         headers: {
           'User-Agent':
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.14',
@@ -431,12 +429,12 @@ async function getDirectInfo(ip, provider) {
         body = JSON.parse(body)
       } catch (e) {}
       const data = body?.data
-      const ip = body?.ip
+      const ip = data?.ip
       isCN = data?.country === '中国'
       CN_IP = ip
       CN_INFO = [
-        ['位置:', isCN ? getflag('CN') : '', data?.prov, data?.city, data?.district].filter(i => i).join(' '),
-        ['运营商:', data?.isp || data?.owner].filter(i => i).join(' '),
+        ['位置:', isCN ? getflag('CN') : '', data?.region, data?.city].filter(i => i).join(' '),
+        ['运营商:', data?.isp].filter(i => i).join(' '),
       ]
         .filter(i => i)
         .join('\n')
@@ -536,6 +534,119 @@ async function getDirectInfo(ip, provider) {
     } catch (e) {
       $.logErr(`${msg} 发生错误: ${e.message || e}`)
     }
+  } else if (!ip && provider == 'zssq') {
+    try {
+      const res = await http({
+        url: `https://api.zhuishushenqi.com/user/getCity`,
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.14',
+        },
+      })
+      let body = String($.lodash_get(res, 'body'))
+      try {
+        body = JSON.parse(body)
+      } catch (e) {}
+
+      isCN = $.lodash_get(body, 'data.country') === '中国'
+      CN_IP = $.lodash_get(body, 'data.ip')
+      CN_INFO = [
+        [
+          '位置:',
+          isCN ? getflag('CN') : undefined,
+          $.lodash_get(body, 'data.country'),
+          $.lodash_get(body, 'data.province'),
+          $.lodash_get(body, 'data.city'),
+        ]
+          .filter(i => i)
+          .join(' '),
+      ]
+        .filter(i => i)
+        .join('\n')
+    } catch (e) {
+      $.logErr(`${msg} 发生错误: ${e.message || e}`)
+    }
+  } else if (!ip && provider == 'edifier') {
+    try {
+      const res = await http({
+        url: `https://admin-app.edifier.com/edifier_provider/public/user-ip`,
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.14',
+        },
+      })
+      let body = String($.lodash_get(res, 'body'))
+      try {
+        body = JSON.parse(body)
+      } catch (e) {}
+
+      isCN = $.lodash_get(body, 'data.country') === '中国'
+      CN_IP = $.lodash_get(body, 'data.ip')
+      CN_INFO = [
+        [
+          '位置:',
+          isCN ? getflag('CN') : undefined,
+          $.lodash_get(body, 'data.country'),
+          $.lodash_get(body, 'data.province'),
+          $.lodash_get(body, 'data.city'),
+        ]
+          .filter(i => i)
+          .join(' '),
+      ]
+        .filter(i => i)
+        .join('\n')
+    } catch (e) {
+      $.logErr(`${msg} 发生错误: ${e.message || e}`)
+    }
+  } else if (!ip && provider == 'youdao') {
+    try {
+      const res = await http({
+        url: `https://foundation-ipv4.youdao.com/ip/ipinfo`,
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0',
+        },
+      })
+      let body = String($.lodash_get(res, 'body'))
+      try {
+        body = JSON.parse(body)
+      } catch (e) {}
+
+      const countryCode = $.lodash_get(body, 'data.countryCode')
+      const country = $.lodash_get(body, 'data.country') || ''
+      isCN = countryCode === 'CN' || country === '中国'
+      CN_IP = $.lodash_get(body, 'data.ip')
+      CN_INFO = [
+        [
+          '位置:',
+          getflag(countryCode),
+          country.replace(/\s*中国\s*/, ''),
+          $.lodash_get(body, 'data.province'),
+          $.lodash_get(body, 'data.city'),
+        ]
+          .filter(i => i)
+          .join(' '),
+        ['运营商:', $.lodash_get(body, 'data.operator') || $.lodash_get(body, 'data.company') || '-']
+          .filter(i => i)
+          .join(' '),
+        $.lodash_get(arg, 'ORG') == 1
+          ? ['组织:', $.lodash_get(body, 'data.company') || '-'].filter(i => i).join(' ')
+          : undefined,
+      ]
+        .filter(i => i)
+        .join('\n')
+    } catch (e) {
+      $.logErr(`${msg} 发生错误: ${e.message || e}`)
+    }
+  } else if (provider == 'netart') {
+    try {
+      const res = await netart(ip, 'ipv4')
+      isCN = $.lodash_get(res, 'isCN')
+      CN_IP = $.lodash_get(res, 'IP')
+      CN_INFO = $.lodash_get(res, 'INFO')
+    } catch (e) {
+      $.logErr(`${msg} 发生错误: ${e.message || e}`)
+    }
   } else if (!ip && provider == '126') {
     try {
       const res = await http({
@@ -563,7 +674,9 @@ async function getDirectInfo(ip, provider) {
         ]
           .filter(i => i)
           .join(' '),
-        ['运营商:', $.lodash_get(body, 'result.operator')].filter(i => i).join(' '),
+        ['运营商:', $.lodash_get(body, 'result.operator') || $.lodash_get(body, 'result.company')]
+          .filter(i => i)
+          .join(' '),
       ]
         .filter(i => i)
         .join('\n')
@@ -593,42 +706,6 @@ async function getDirectInfo(ip, provider) {
         $.lodash_get(arg, 'ORG') == 1
           ? ['组织:', $.lodash_get(body, 'org') || '-'].filter(i => i).join(' ')
           : undefined,
-      ]
-        .filter(i => i)
-        .join('\n')
-    } catch (e) {
-      $.logErr(`${msg} 发生错误: ${e.message || e}`)
-    }
-  } else if (provider == 'muhan') {
-    try {
-      const res = await http({
-        url: `https://ua${keye}.wo${keyf}x.cn/app/ip-location`,
-        params: { ip },
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0',
-        },
-      })
-      let body = String($.lodash_get(res, 'body'))
-      try {
-        body = JSON.parse(body)
-      } catch (e) {}
-
-      const countryCode = $.lodash_get(body, 'data.showapi_res_body.en_name_short')
-      isCN = countryCode === 'CN'
-      CN_IP = ip || $.lodash_get(body, 'data.showapi_res_body.ip')
-      CN_INFO = [
-        [
-          '位置:',
-          getflag(countryCode),
-          $.lodash_get(body, 'data.showapi_res_body.country').replace(/\s*中国\s*/, ''),
-          $.lodash_get(body, 'data.showapi_res_body.region'),
-          $.lodash_get(body, 'data.showapi_res_body.city'),
-          $.lodash_get(body, 'data.showapi_res_body.county'),
-        ]
-          .filter(i => i)
-          .join(' '),
-        ['运营商:', $.lodash_get(body, 'data.showapi_res_body.isp') || '-'].filter(i => i).join(' '),
       ]
         .filter(i => i)
         .join('\n')
@@ -750,17 +827,27 @@ async function getDirectInfo(ip, provider) {
 async function getDirectInfoIPv6() {
   let CN_IPv6
   const msg = `使用 ${$.lodash_get(arg, 'DOMESTIC_IPv6') || 'ddnspod'} 查询 IPv6 分流信息`
-  if ($.lodash_get(arg, 'DOMESTIC_IPv6') == 'neu6') {
+  if ($.lodash_get(arg, 'DOMESTIC_IPv6') == 'netart') {
+    try {
+      const res = await netart(undefined, 'ipv6')
+      CN_IPv6 = $.lodash_get(res, 'IP')
+    } catch (e) {
+      $.logErr(`${msg} 发生错误: ${e.message || e}`)
+    }
+  } else if ($.lodash_get(arg, 'DOMESTIC_IPv6') == 'youdao') {
     try {
       const res = await http({
-        url: `https://speed.neu6.edu.cn/getIP.php`,
+        url: `https://foundation-ipv6.youdao.com/ip/ipinfo`,
         headers: {
           'User-Agent':
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.14',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0',
         },
       })
       let body = String($.lodash_get(res, 'body'))
-      CN_IPv6 = body.trim()
+      try {
+        body = JSON.parse(body)
+      } catch (e) {}
+      CN_IPv6 = $.lodash_get(body, 'data.ip')
     } catch (e) {
       $.logErr(`${msg} 发生错误: ${e.message || e}`)
     }
@@ -826,49 +913,6 @@ async function getProxyInfo(ip, provider) {
     } catch (e) {
       $.logErr(`${msg} 发生错误: ${e.message || e}`)
     }
-  } else if (provider == 'ipscore') {
-    try {
-      const res = await http({
-        ...(ip ? {} : getNodeOpt()),
-
-        url: `https://ip-score.com/json`,
-        params: { ip },
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (iPhone CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/109.0.0.0',
-        },
-      })
-      let body = String($.lodash_get(res, 'body'))
-      try {
-        body = JSON.parse(body)
-      } catch (e) {}
-      PROXY_IP = ip || $.lodash_get(body, 'ip')
-      PROXY_INFO = [
-        [
-          '位置¹:',
-          getflag($.lodash_get(body, 'geoip1.countrycode')),
-          $.lodash_get(body, 'geoip1.country'),
-          $.lodash_get(body, 'geoip1.region'),
-          $.lodash_get(body, 'geoip1.city'),
-        ]
-          .filter(i => i)
-          .join(' '),
-        [
-          '位置²:',
-          getflag($.lodash_get(body, 'geoip2.countrycode')),
-          $.lodash_get(body, 'geoip2.country'),
-          $.lodash_get(body, 'geoip2.region'),
-          $.lodash_get(body, 'geoip2.city'),
-        ]
-          .filter(i => i)
-          .join(' '),
-        ['运营商:', body.isp || body.org || body.asn].filter(i => i).join(' '),
-      ]
-        .filter(i => i)
-        .join('\n')
-    } catch (e) {
-      $.logErr(`${msg} 发生错误: ${e.message || e}`)
-    }
   } else if (provider == 'ipsb') {
     try {
       const res = await http({
@@ -913,36 +957,32 @@ async function getProxyInfo(ip, provider) {
       const res = await http({
         ...(ip ? {} : getNodeOpt()),
 
-        url: `https://ipwhois.app/widget.php`,
-        params: {
-          lang: 'zh-CN',
-          ip,
-        },
+        url: `https://ipwho.is${ip ? `/${encodeURIComponent(ip)}` : ''}`,
         headers: {
-          Host: 'ipwhois.app',
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0',
-          Accept: '*/*',
-          'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
-          'Accept-Encoding': 'gzip, deflate, br',
-          Origin: 'https://ipwhois.io',
-          Connection: 'keep-alive',
-          Referer: 'https://ipwhois.io/',
-          'Sec-Fetch-Dest': 'empty',
-          'Sec-Fetch-Mode': 'cors',
-          'Sec-Fetch-Site': 'cross-site',
+          'User-Agent':
+            'Mozilla/5.0 (iPhone CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/109.0.0.0',
         },
       })
       let body = String($.lodash_get(res, 'body'))
       try {
         body = JSON.parse(body)
       } catch (e) {}
+      if ($.lodash_get(body, 'success') === false) throw new Error($.lodash_get(body, 'message') || 'ipwhois 查询失败')
 
       PROXY_IP = ip || $.lodash_get(body, 'ip')
       PROXY_INFO = [
-        ['位置:', getflag(body.country_code), body.country.replace(/\s*中国\s*/, ''), body.region, body.city]
+        [
+          '位置:',
+          getflag($.lodash_get(body, 'country_code')),
+          $.lodash_get(body, 'country').replace(/\s*中国\s*/, ''),
+          $.lodash_get(body, 'region'),
+          $.lodash_get(body, 'city'),
+        ]
           .filter(i => i)
           .join(' '),
-        ['运营商:', $.lodash_get(body, 'connection.isp') || '-'].filter(i => i).join(' '),
+        ['运营商:', $.lodash_get(body, 'connection.isp') || $.lodash_get(body, 'connection.org') || '-']
+          .filter(i => i)
+          .join(' '),
         $.lodash_get(arg, 'ORG') == 1
           ? ['组织:', $.lodash_get(body, 'connection.org') || '-'].filter(i => i).join(' ')
           : undefined,
@@ -953,23 +993,58 @@ async function getProxyInfo(ip, provider) {
       ]
         .filter(i => i)
         .join('\n')
-      if (!ip && $.lodash_get(arg, 'PRIVACY') == 1) {
-        const securityMap = {
-          true: '✓',
-          false: '✗',
-          '': '-',
-        }
-        const securityObj = $.lodash_get(body, 'security') || {}
-        let security = []
-        Object.keys(securityObj).forEach(key => {
-          security.push(`${key.toUpperCase()}: ${securityMap[securityObj[key]]}`)
-        })
-        if (security.length > 0) {
-          PROXY_PRIVACY = `隐私安全:\n${security.join('\n')}`
-        } else {
-          PROXY_PRIVACY = `隐私安全: -`
-        }
-      }
+    } catch (e) {
+      $.logErr(`${msg} 发生错误: ${e.message || e}`)
+    }
+  } else if (provider == 'ipapiis') {
+    try {
+      const res = await http({
+        ...(ip ? {} : getNodeOpt()),
+
+        url: `https://api.ipapi.is`,
+        params: { q: ip },
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (iPhone CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/109.0.0.0',
+        },
+      })
+      let body = String($.lodash_get(res, 'body'))
+      try {
+        body = JSON.parse(body)
+      } catch (e) {}
+
+      PROXY_IP = ip || $.lodash_get(body, 'ip')
+      PROXY_INFO = [
+        [
+          '位置:',
+          getflag($.lodash_get(body, 'location.country_code')),
+          $.lodash_get(body, 'location.country').replace(/\s*中国\s*/, ''),
+          $.lodash_get(body, 'location.state'),
+          $.lodash_get(body, 'location.city'),
+        ]
+          .filter(i => i)
+          .join(' '),
+        [
+          '运营商:',
+          $.lodash_get(body, 'company.name') ||
+            $.lodash_get(body, 'asn.org') ||
+            $.lodash_get(body, 'asn.descr') ||
+            '-',
+        ]
+          .filter(i => i)
+          .join(' '),
+        $.lodash_get(arg, 'ORG') == 1
+          ? ['组织:', $.lodash_get(body, 'asn.org') || $.lodash_get(body, 'company.name') || '-']
+              .filter(i => i)
+              .join(' ')
+          : undefined,
+
+        $.lodash_get(arg, 'ASN') == 1 ? ['ASN:', $.lodash_get(body, 'asn.asn') || '-'].filter(i => i).join(' ') : undefined,
+      ]
+        .filter(i => i)
+        .join('\n')
+
+      PROXY_PRIVACY = getIpapiisPrivacy(body)
     } catch (e) {
       $.logErr(`${msg} 发生错误: ${e.message || e}`)
     }
@@ -1133,6 +1208,61 @@ async function ali(ip, key) {
     .filter(i => i)
     .join('\n')
   return { IP, INFO, isCN }
+}
+async function netart(ip, version = 'ipv4') {
+  let isCN
+  let IP
+  let INFO
+  const res = await http({
+    url: ip ? `https://ip.netart.cn?ip=${encodeURIComponent(ip)}` : `https://${version}.netart.cn`,
+    headers: {
+      'User-Agent':
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0',
+    },
+  })
+  let body = String($.lodash_get(res, 'body'))
+  try {
+    body = JSON.parse(body)
+  } catch (e) {}
+
+  IP = $.lodash_get(body, 'ip')
+  const countryCode = $.lodash_get(body, 'country.code')
+  const country = $.lodash_get(body, 'country.name') || ''
+  isCN = countryCode === 'CN' || country === '中国'
+
+  INFO = [
+    [
+      '位置:',
+      getflag(countryCode),
+      country.replace(/\s*中国\s*/, ''),
+      $.lodash_get(body, 'geo_cn.division.short.0') || $.lodash_get(body, 'subdivision'),
+      $.lodash_get(body, 'geo_cn.division.short.1') || $.lodash_get(body, 'city'),
+      $.lodash_get(body, 'geo_cn.division.short.2') || $.lodash_get(body, 'area'),
+    ]
+      .filter(i => i)
+      .join(' '),
+    ['运营商:', $.lodash_get(body, 'geo_cn.isp') || $.lodash_get(body, 'as.info') || $.lodash_get(body, 'as.name') || '-']
+      .filter(i => i)
+      .join(' '),
+    $.lodash_get(arg, 'ORG') == 1
+      ? ['组织:', $.lodash_get(body, 'as.name') || $.lodash_get(body, 'as.info') || '-'].filter(i => i).join(' ')
+      : undefined,
+    $.lodash_get(arg, 'ASN') == 1 ? ['ASN:', $.lodash_get(body, 'as.number') || '-'].filter(i => i).join(' ') : undefined,
+  ]
+    .filter(i => i)
+    .join('\n')
+  return { IP, INFO, isCN }
+}
+function getIpapiisPrivacy(body) {
+  const privacyMap = {
+    true: '✓',
+    false: '✗',
+  }
+  const privacy = Object.keys(body || {})
+    .filter(key => /^is_/.test(key) && typeof body[key] === 'boolean')
+    .map(key => `${key.replace(/^is_/, '')}: ${privacyMap[body[key]]}`)
+
+  return privacy.length > 0 ? `隐私安全:\n${privacy.join('\n')}` : ''
 }
 function simplifyAddr(addr) {
   if (!addr) return ''
