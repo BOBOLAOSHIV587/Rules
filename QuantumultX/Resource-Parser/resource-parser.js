@@ -1,5 +1,5 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-05-11 21:59⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-05-18 14:15⟧
 ----------------------------------------------------------
 🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
@@ -39,6 +39,7 @@
   ❖ replace=regex1@𝘀𝘁𝗿1+regex2@𝘀𝘁𝗿2
 ⦿ ptn/npt=1-8, 将节点名英文/数字替换成样式 ⇒ 🅰/🄰/𝐀/𝗮/𝔸/𝕒/ᵃ/ᴬ, ①\❶\⓵\𝟙\¹\₁\𝟏\𝟷
 ⦿ delreg, 利用正则表达式来删除 "节点名" 中的字段(⚠️ 慎用)
+⦿ UA=1，将尝试使用 shadowrocket 的UA重新获取节点信息
 ⦿ aead=-1, 关闭 Vmess 的 AEAD 参数
 ⦿ host=xxx, 修改已有 host , 如要增加host，请用☠️结尾
 ⦿ obfs=vhttp/shttp, 指定 obfs=shadowsocks-http 或 obfs=vmess-http 的特殊需求
@@ -151,9 +152,17 @@ $parser.hashSchema = function () {
     return {
     version: 1,
     sections: [
+      { type: "group",
+        title: "✈️ 订阅获取",
+        items: [
+          { type: "switch", key: "UA", label: "UA 替换",
+            onValue: "1", offValue: "" ,
+            description: "尝试使用 Shadowrocket 的 User-Agent 重新获取订阅内容"}
+          ]
+      },
       {
         type: "group",
-        title: "节点筛选",
+        title: "🎲 筛选&排序",
         items: [
           { type: "tags",   key: "in",     label: "保留（in）",
             description: "按节点名关键字保留。每行一个关键字表示\"或\"；同行用 . 分隔表示\"与\"。例：另起一行填 香港、台湾 表示含其一即可；同一行填 香港.IPLC 表示同时含香港和 IPLC。",
@@ -162,19 +171,21 @@ $parser.hashSchema = function () {
             description: "按节点名关键字删除。每行一个关键字表示\"或\"；同行用 . 分隔表示\"与\"。",
             placeholder: "如：BGP / BGP.试用" },
           { type: "text",   key: "regex",  label: "正则保留（regex）",
-            description: "对节点完整信息正则匹配", placeholder: "iplc" },
+            description: "对节点完整信息正则匹配以保留节点", placeholder: "iplc" },
           { type: "text",   key: "regout", label: "正则删除（regout）",
-            description: "对节点完整信息正则删除", placeholder: "" },
-          { type: "text",   key: "replace", label: "正则替换（replace）",
-            description: "对节点内容进行修改替换", placeholder: "" }
+            description: "对节点完整信息正则匹配以删除节点", placeholder: "" },
+          { type: "text",   key: "sort", label: "节点排序（sort）",
+            description: "对节点进行排序，参数是1(正序)/-1（逆序）/x（随机排序）/自定义规则（用>或者<连接）", placeholder: "🇭🇰>🇯🇵>🇺🇸" }
         ]
       },
       {
         type: "group",
-        title: "节点参数",
+        title: "⛰️ 参数调整",
         items: [
-          { type: "select", key: "emoji", label: "Emoji 旗帜",
+          { type: "select", key: "emoji", label: "Emoji 旗帜（🇨🇳🇭🇰🇺🇸...）",
             description: "添加/删除节点名地区旗帜", options: _emojiOptions() },
+          { type: "text",   key: "replace", label: "正则替换节点信息（replace）",
+            description: "替换节点信息（⚠️ 可匹配所有内容 ⚠️），regex1@str1+regex2@str2", placeholder: "" },
           { type: "switch", key: "udp",   label: "UDP Relay",
             onValue: "1", offValue: "-1" },
           { type: "switch", key: "tfo",   label: "Fast Open",
@@ -197,26 +208,24 @@ $parser.hashSchema = function () {
       },
       {
         type: "group",
-        title: "节点重命名",
+        title: "🎯 重命名",
         items: [
-          { type: "text", key: "rename",  label: "Rename",
+          { type: "text", key: "rename",  label: "节点重命名（Rename）",
             description: "格式：旧名@新名 / 前缀@ / @后缀；多组用 + 连接；删除字段用 ☠️ 结尾",
             placeholder: "香港@HK+@[1X]" },
-          { type: "text", key: "rrname",  label: "Reverse Rename",
+          { type: "text", key: "rrname",  label: "节点重命名（emoji 保持在前）",
             description: "在 emoji 之后再次重命名", placeholder: "" },
-          { type: "text", key: "replace", label: "正则替换",
-            description: "regex1@str1+regex2@str2", placeholder: "" },
           { type: "select", key: "ptn", label: "字母样式（ptn）",
-            description: "将节点名英文替换成花式样式",
+            description: "将节点名英文替换成花式样式 🅰/🄰/𝐀/𝗮/𝔸/𝕒/ᵃ/ᴬ ",
             options: _ptnOptions() },
           { type: "select", key: "npt", label: "数字样式（npt）",
-            description: "将节点名数字替换成花式样式",
+            description: "将节点名数字替换成花式样式 ①/❶/⓵/𝟙/¹/₁/𝟏/𝟷",
             options: _nptOptions() }
         ]
       },
       {
         type: "group",
-        title: "其他参数",
+        title: "🤖 其他参数",
         items: [
           { type: "select", key: "ntf",  label: "解析通知",
             options: [
@@ -224,6 +233,11 @@ $parser.hashSchema = function () {
               { label: "关闭",          value: "0"},
               { label: "打开",          value: "1"}
             ] },
+          { type: "switch", key: "info", label: "流量信息",
+            onValue: "1", offValue: "", description: "通知的形式推送“订阅用量”以及“到期时间”等信息"},
+          { type: "text",   key: "flow", label: "流量参数",
+            description: "格式：到期时间:总流量GB:已用GB（如 2026-12-31:1000:54）",
+            placeholder: "2026-12-31:1000:54" },
           { type: "select", key: "type", label: "强制类型",
             options: [
               { label: "自动",         value: ""           },
@@ -232,12 +246,7 @@ $parser.hashSchema = function () {
               { label: "Module",       value: "module"     },
               { label: "List",         value: "list"       },
               { label: "Domain Set",   value: "domain-set" }
-            ] },
-          { type: "switch", key: "info", label: "流量信息",
-            onValue: "1", offValue: "" },
-          { type: "text",   key: "flow", label: "流量参数",
-            description: "格式：到期时间:总流量GB:已用GB（如 2026-12-31:1000:54）",
-            placeholder: "2026-12-31:1000:54" }
+            ] }
         ]
       }
     ]
@@ -248,7 +257,7 @@ $parser.hashSchema = function () {
     sections: [
       {
         type: "group",
-        title: "Filter 「分流」",
+        title: "🔀 Filter 「分流」",
         description: "仅对 rewrite_remote / filter_remote 生效",
         items: [
           { type: "tags", key: "in",  label: "保留分流规则「in」",
@@ -272,7 +281,7 @@ $parser.hashSchema = function () {
       },
       {
         type : "group",
-        title: "代理链相关设置「Relay」",
+        title: "🔗 代理链相关设置「Relay」",
         items : [
           { type: "text", key: "via",    label: "via-interface「规则订阅」",
              description: "0 : via-interface=%TUN%, 设置代理链时，规则分流需使用此参数，请在策略偏好将策略组指定为 落地策略组/节点\n" ,
@@ -286,7 +295,7 @@ $parser.hashSchema = function () {
       },
       {
         type: "group",
-        title: "其他参数",
+        title: "🤖 其他参数",
         items: [
           { type: "select", key: "ntf",  label: "解析通知",
             options: [
@@ -328,7 +337,7 @@ $parser.hashSchema = function () {
     sections: [
       {
         type: "group",
-        title: "Rewrite 「重写」",
+        title: "🫆 Rewrite 「重写」",
         description: "仅对 rewrite_remote / filter_remote 生效",
         items: [
           { type: "tags", key: "in",  label: "保留分流/重写「in」",
@@ -353,7 +362,7 @@ $parser.hashSchema = function () {
       },
       {
         type: "group",
-        title: "其他参数",
+        title: "🤖 其他参数",
         items: [
           { type: "select", key: "ntf",  label: "解析通知",
             options: [
@@ -502,9 +511,33 @@ $parser.uiToHash = function (values) {
 
 //beginning 解析器正常使用，調試註釋此部分
 
-let [link0, content0, subinfo] = [$resource.link, $resource.content, $resource.info]
+
+//
 let version = typeof $environment != "undefined" ? Number($environment.version.split("build")[1]): 0 // 版本号
+
+const UA_Retry= "Shadowrocket/3218 CFNetwork/3860.600.12 Darwin/25.5.0 iPhone18,1"
+const currentUA = $resource.user_agent;
+const inRetry = currentUA && currentUA.length > 0;
+
+var  UARetry = $resource.link.indexOf("#")!=-1 && $resource.link.indexOf("UA=1") != -1 ? 1 : 0;
+
+
+const result = {
+      // Normal parse result (kept for old-version compat;
+      // new versions ignore this when retry fires)
+      content: "",
+      // or error: "..."
+  };
+
+//$notify("retry2","🚦 UA-retry-After-outside",currentUA)
+//
+
+
+
+let [link0, content0, subinfo] = [$resource.link, $resource.content, $resource.info]
+
 let Perror = 0 //错误类型
+
 
 const ADDRes = `quantumult-x:///add-resource?remote-resource=url-encoded-json`
 var RLink0 = {
@@ -673,6 +706,28 @@ if (Pflow!=0) {
   Finfo = BJson
 }
 
+//STATUS=🚀↑:0.62GB,↓:15.1GB,TOT:200GB💡Expires:2026-08-02
+//status=🚀↑:0.83gb,↓:17.73gb,tot:200gb💡expires:2026-08-02
+//2026-05-06 for shadowrocket sub with flow-info-fake server
+function Rocket_flow(RInfo) {
+  var Rinfo=RInfo.replace(/ /g, "").toLowerCase()
+  var BJson={}
+  try {
+    var Pdate = Rinfo.split("expires:")[1].split(",")[0].replace(/[^\x00-\x7F]/g, '').trim()// date-time
+    var Ptotal = Number(Rinfo.split("tot:")[1].split("gb")[0]) // flow
+    var Pupload = Number(Rinfo.split("↑:")[1].split("gb")[0]) // upload
+    var Pdown = Number(Rinfo.split("↓:")[1].split("gb")[0]) // download
+    var Bdate = Math.floor(Date.parse(Pdate)/1000)? Math.floor(Date.parse(Pdate)/1000): Math.floor(Date.parse("2046-10-10")/1000) 
+    var Btotal=Ptotal? Ptotal*1024*1024*1024 : 0
+    var Bused=Pupload? (Pupload+Pdown)*1024*1024*1024 : 0
+    var Bremain=Btotal !=0 ? Btotal-Bused : 1
+    BJson={bytes_used: Bused, bytes_remaining: Bremain, expire_date: Bdate}
+    Finfo = BJson
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 //花漾字 pattern
 var pat=[]
 pat[0] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","k","r","s","t","u","v","w","x","y","z"]
@@ -721,6 +776,29 @@ var type0=""
 //flag=1,2,3分别为 server、rewrite、rule 类型
 var flag = 1
 
+// retry with new UA, default use shadowrocket
+if (UARetry && !inRetry && version>920) {
+  $notify("⚠️ 将尝试使用其他 UA, 重新获取订阅内容","⚠️ 如仍旧无有效内容，请自行与节点提供商联系","⚠️ 本次尝试使用 User-Agent 为 ⬇️\n\n"+UA_Retry)
+  $done({retry: {user_agent: "Shadowrocket/3218 CFNetwork/3860.600.12 Darwin/25.5.0 iPhone18,1"}})
+} else {
+  if (typeof($resource)!=="undefined" && PProfile == 0) {
+  Parser()
+  $done({ content: total, info: Finfo })
+} else if (PProfile != 0) {
+  try {
+    Profile_Handle()
+  } catch (err) {
+    if(Perror == 0) {
+      $notify("❌ 解析出现错误", "⚠️ 请点击通知，发送订阅链接进行反馈", err, bug_link);
+    }
+    }
+  openlink = {"open-url": ADDres}
+  $notify("⚠️请忽略报错提示, 点击此通知跳转", "添加配置中的有效远程资源👇 ["+ PProfile+"]", ADDres,openlink)
+  total = ProfileInfo[typeQ]
+  $done({content:total})
+}
+}
+
 function Parser() {
   type0 = Type_Check(content0); //  类型判断
   //$notify(type0)
@@ -753,22 +831,24 @@ function Parser() {
     $done({ content: total });
 }
 
-if (typeof($resource)!=="undefined" && PProfile == 0) {
-  Parser()
-  $done({ content: total, info: Finfo })
-} else if (PProfile != 0) {
-  try {
-    Profile_Handle()
-  } catch (err) {
-    if(Perror == 0) {
-      $notify("❌ 解析出现错误", "⚠️ 请点击通知，发送订阅链接进行反馈", err, bug_link);
-    }
-    }
-  openlink = {"open-url": ADDres}
-  $notify("⚠️请忽略报错提示, 点击此通知跳转", "添加配置中的有效远程资源👇 ["+ PProfile+"]", ADDres,openlink)
-  total = ProfileInfo[typeQ]
-  $done({content:total})
-}
+
+// 2026-05-15 remove
+// if (typeof($resource)!=="undefined" && PProfile == 0) {
+//   Parser()
+//   $done({ content: total, info: Finfo })
+// } else if (PProfile != 0) {
+//   try {
+//     Profile_Handle()
+//   } catch (err) {
+//     if(Perror == 0) {
+//       $notify("❌ 解析出现错误", "⚠️ 请点击通知，发送订阅链接进行反馈", err, bug_link);
+//     }
+//     }
+//   openlink = {"open-url": ADDres}
+//   $notify("⚠️请忽略报错提示, 点击此通知跳转", "添加配置中的有效远程资源👇 ["+ PProfile+"]", ADDres,openlink)
+//   total = ProfileInfo[typeQ]
+//   $done({content:total})
+// }
 
 
 /**
@@ -2000,11 +2080,12 @@ function ReplaceReg(cnt, para) {
 }
 
 
-// read parameters 2025-12-30
+// read parameters 2026-05-17
 function param(res,org,mbody) {
   if(mbody.indexOf(org)!=-1) {
-    tmp=mbody.split(org)[1].split("&")[0].split("#")[0]
-    return res+"="+tmp
+    tmp=mbody.split(org)[1].split("&")[0].split("#")[0].replace(/\s/,"")
+    tmp = tmp!=""? res+"="+tmp : ""
+    return tmp
   }
   else return ""
 }
@@ -2101,6 +2182,9 @@ function Subs2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
                 } else if (type=="hysteria2" || (type=="anytls" && version<914) || type=="tuic") { //
                   PNS=PNS+1 
                   NSList.push(numToEmoji10(PNS)+list0[i])
+                } else if (/^STATUS\=/.test(listi)) { // flow info fake server
+                  //$notify("Status","flow",listi)
+                  Rocket_flow(listi)
                 }
               if (Pdbg) {$notify(i, type, node)}
             } catch (e) {
@@ -2648,8 +2732,9 @@ function VL2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
     } else if(cnt.indexOf("type=")!=-1 && cnt.indexOf("type=tcp")==-1) {//暂不支持类型
     type="NS"
   }
-    thost=cnt.indexOf("&host=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("&host=")[1].split("&")[0].split("#")[0])
-    thost=cnt.indexOf("sni=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("sni=")[1].split("&")[0].split("#")[0]).replace(/\"|(Host\":)|\{|\}/g,"")
+    thost1=cnt.indexOf("&host=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("&host=")[1].split("&")[0].split("#")[0])
+    thost2=cnt.indexOf("sni=") == -1? thost : "obfs-host=" + decodeURIComponent(cnt.split("sni=")[1].split("&")[0].split("#")[0]).replace(/\"|(Host\":)|\{|\}/g,"")
+    thost = thost1.length >= thost2.length ? thost1 : thost2;
     puri = cnt.indexOf("&path=") == -1? puri : "obfs-uri=" + decodeURIComponent(cnt.split("&path=")[1].split("&")[0].split("#")[0])
   } 
 if(obfs=="obfs=wss" && obfs=="obfs=over-tls"){
@@ -2732,8 +2817,8 @@ function SS2QX(subs, Pudp, Ptfo) {
     //console.log(cntt)
     if (cntt.indexOf("@") != -1 && cntt.indexOf(":") != -1) { 
       ip = cnt.split("@")[1].split("#")[0].split("/")[0].split("?")[0];
-      if(cntt.indexOf("%")==-1 || cntt.split("@")[0].indexOf(":")==-1){ // 2025-05-16 
-        pwdmtd = Base64.decode(cnt.split("@")[0].replace(/-/g, "+").replace(/_/g, "/").replace(/%3D/g,"")).split("\u0000")[0].split(":")
+      if(cntt.indexOf("%")==-1 || cntt.split("@")[0].indexOf(":")==-1){ // 2026-05-18 :(%3D)|(\=)
+        pwdmtd = Base64.decode(cnt.split("@")[0].replace(/-/g, "+").replace(/_/g, "/").replace(/(%3D)|(\=)/g,"")).split("\u0000")[0].split(":")
       } else {
         pwdmtd = decodeURIComponent(cnt.split("@")[0]).split(":")
       }
