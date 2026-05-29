@@ -1,0 +1,14 @@
+#!name=奶茶视频
+#!desc=解锁会员权限
+#!date=2026-05-30
+#!category=🐹 BOBO Premium
+#!author=桂林仔Yuheng0101[https://github.com/Yuheng0101/X]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/NaiCha.png
+#!openUrl=https://ncsp2.app/
+
+[Script]
+# > 奶茶视频解锁会员
+http-response ^https?:\/\/newapi.+\.(sbhq85ek|bhw6gjej)\.c(n|om)\/api\/(video\/play(New|Video)|user\/read|bootstrap|operation\/ads|popup\/|video\/recommend|v1\/homeIndex|rich_new\/index|recommend\/flow|content\/getNav|monographic\/list) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/NaiCha/JS/NaiCha.js, requires-body=true, timeout=30, tag=奶茶视频解锁会员
+
+[MITM]
+hostname = newapicf.sbhq85ek.com, newapisd.bhw6gjej.com
