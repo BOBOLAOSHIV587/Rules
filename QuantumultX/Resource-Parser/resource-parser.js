@@ -1,5 +1,5 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-05-18 14:15⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-05-29 08:09⟧
 ----------------------------------------------------------
 🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
@@ -155,9 +155,9 @@ $parser.hashSchema = function () {
       { type: "group",
         title: "✈️ 订阅获取",
         items: [
-          { type: "switch", key: "UA", label: "UA 替换",
+          { type: "switch", key: "UA", label: "User-Agent 替换",
             onValue: "1", offValue: "" ,
-            description: "尝试使用 Shadowrocket 的 User-Agent 重新获取订阅内容"}
+            description: "开启该选项后，将会尝试使用 Shadowrocket 的 User-Agent 重新获取订阅内容"}
           ]
       },
       {
@@ -917,7 +917,7 @@ function ResourceParse() {
     total = total.length<100? total.filter( (ele,pos)=>total.indexOf(ele) == pos) : total
     total = total.join("\n")
   } else if (content0.trim() == "") {
-    $notify("‼️ 当前引用" + "⟦" + subtag + "⟧" + " 返回內容为空", "⁉️ 点通知跳转以确认链接是否失效", "如确认链接有效，请在链接后添加 ?flag=shadowrocket 或 &flag=shadowrocket ", nan_link);
+    $notify("‼️ 当前引用" + "⟦" + subtag + "⟧" + " 返回內容为空", "1️⃣ 请确认 APP 已经更新至最新版本 1.5.6", "2️⃣ 如确认链接有效，请打开资源解析器的「User-Agent 替换」选项重新获取链接内容 ", nan_link);
     flag = 0;
   } else if (type0 == "sub-http") {
     let url = VCheck(String(Base64.decode(content0.split("sub://")[1].split("#")[0])+", opt-parser=true, tag="+(new Date()).getTime()))
@@ -989,9 +989,9 @@ function ResourceParse() {
       total = PRelay==""? Base64.encode(total) : ServerRelay(total.split("\n"),PRelay) //强制节点类型 base64 加密后再导入 Quantumult X, 如果是relay，则转换成分流类型
       if (PNS !=0) {
         if (version >913) {
-          $notify("⚠️ 存在 Quantumult X 不支持的节点", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
+          $notify("⚠️ 存在 QuantumultX 不支持类型 ➟ ⟦"+subtag+"⟧", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
         } else {
-          $notify("⚠️ 存在 Quantumult X 不支持的节点", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Anytls 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
+          $notify("⚠️ 存在 QuantumultX 不支持类型 ➟ ⟦"+subtag+"⟧", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic/Anytls 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
         }
       }
       if(Pflow==1) {
@@ -1003,9 +1003,9 @@ function ResourceParse() {
       if(Perror == 0) {
       if (PNS !=0) { // 全部为不支持类型节点
         if (version >913) {
-          $notify("⚠️ Quantumult-X 不支持该订阅内的节点", "⚠️ 已忽略共计 ➟ "+PNS+" 条不支持节点，剩余 0️⃣ 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
+          $notify("⚠️ QuantumultX 不支持该订阅内的任何节点➟ ⟦"+subtag+"⟧", "⚠️ 已忽略共计 ➟ "+PNS+" 条不支持节点，剩余 0️⃣ 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
         } else {
-          $notify("⚠️ Quantumult-X 不支持该订阅内的节点", "⚠️ 已忽略共计 ➟ "+PNS+" 条不支持节点，剩余 0️⃣ 条", "⚠️ 此版本暂不支持 Hysteria2/Anytls 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
+          $notify("⚠️ QuantumultX 不支持该订阅内的任何节点➟ ⟦"+subtag+"⟧", "⚠️ 已忽略共计 ➟ "+PNS+" 条不支持节点，剩余 0️⃣ 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic/Anytls 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
         }
         
       } else { // 其它原因
@@ -2140,6 +2140,9 @@ function Subs2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
                 } else if (type == "ssocks" && list0[i].indexOf("remarks=") != -1) { //shadowrocket socks5-tls 类型
                     node = S5R2QX(list0[i],tlsp="over-tls")
                     node = tag0 != "" ? URI_TAG(node, tag0) : node
+                } else if (type == "socks" && list0[i].indexOf("remarks=") == -1) { // socks URI 2026-05-25
+                    node = Socks2QX(list0[i])
+                    node = tag0 != "" ? URI_TAG(node, tag0) : node
                 } else if (type == "ssr") {
                     node = SSR2QX(list0[i], Pudp, Ptfo)
                     node = tag0 != "" ? URI_TAG(node, tag0) : node
@@ -2413,7 +2416,7 @@ function VR2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
 //Shadowrocket 格式的 socks URI 转换
 function S5R2QX(cnt,tlsp="false") {
   var listh = Base64.decode(cnt.split("socks://")[1].split("#")[0].split("?")[0])
-  server=listh+"#"+cnt.split("?")[1]
+  server=cnt.indexOf("#")!=-1? listh+"#"+cnt.split("?")[1] : listh+"?"+cnt.split("?")[1]
   var nss = []
   if (server != "") {
       var ipport = "socks5=" + server.split("@")[1].split("#")[0].split("/")[0];
@@ -2430,7 +2433,26 @@ function S5R2QX(cnt,tlsp="false") {
   return QX
 }
  
-
+// socks URI  转换 2026-05-25, 无remarks命名部分
+function Socks2QX(cnt,tlsp="false") {
+  var listh = Base64.decode(cnt.split("socks://")[1].split("#")[0].split("?")[0])
+  server=cnt.indexOf("#")!=-1? listh+"#"+cnt.split("?")[1] : listh+"?"+cnt.split("?")[1]
+  var nss = []
+  if (server != "") {
+      var ipport = "socks5=" + server.split("@")[1].split("#")[0].split("/")[0];
+      var uname = "username=" + server.split(":")[0];
+      var pwd = "password=" + server.split("@")[0].split(":")[1];
+      name = server.indexOf("#") != -1? server.split("#")[1] : ipport.split("=")[1].split(":")[0]
+      var tag = "tag=" + decodeURIComponent(name.split("&")[0]);
+      var tls = tlsp=="false"? "":"over-tls=true"
+      var cert = Pcert0 != 0 ? "tls-verification=true" : "tls-verification=false";
+      cert = tls == ""? "":cert
+      var tfo = Ptfo0 == 1 ? "fast-open=true" : "fast-open=false";
+      nss.push(ipport, uname, pwd, tls, cert, tfo, tag)
+  }
+  var QX = nss.filter(Boolean).join(",");
+  return QX
+}
 
 //V2RayN uri 转换成 QUANX 格式
 function V2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
@@ -2838,7 +2860,7 @@ function SS2QX(subs, Pudp, Ptfo) {
     pwd = "password=" + pwdmtd.reduce(joinx);
     if (cntt.indexOf("v2ray-plugin")==-1 && cntt.indexOf("plugin=v2ray")==-1) { //Shadowrocket style v2-plugin
       obfs = cnt.split("obfs%3D")[1] != null ? ", obfs=" + cnt.split("obfs%3D")[1].split("%3B")[0].split("#")[0] : "";
-      obfshost = cnt.split("obfs-host%3D")[1] != null ? ", obfs-host=" + cnt.split("obfs-host%3D")[1].split("&")[0].split("#")[0] : "";
+      obfshost = cnt.split("obfs-host%3D")[1] != null ? ", obfs-host=" + decodeURIComponent(cnt.split("obfs-host%3D")[1].split("&")[0].split("#")[0]) : "";
     } else if (cnt1 != undefined){
       cnt1 = JSON.parse(cnt1)
       obfs= cnt1.tls? ", obfs=wss" : ", obfs=ws"
