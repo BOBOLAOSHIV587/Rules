@@ -1,0 +1,14 @@
+#!name=Dive-全球潜水社区
+#!desc=解锁VIP
+#!date=2026-05-30
+#!category=🐹 BOBO Premium
+#!author=liul0ng[https://github.com/liul0ng/quanx]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Dive.png
+#!openUrl=https://apps.apple.com/app/id1251506403
+
+[Script]
+# > Dive-全球潜水社区解锁VIP
+Dive全球潜水社区解锁VIP = type=http-response, pattern=^https://api\.diveplus\.cn/1\.1/functions/App\.GetUserInfo, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Dive/JS/Dive.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% api.diveplus.cn
