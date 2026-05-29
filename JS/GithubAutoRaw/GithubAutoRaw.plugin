@@ -1,0 +1,13 @@
+#!name=GitHub源文件重定向为Raw
+#!desc=自动将 GitHub 网页版文件链接重定向为 Raw 原始文件链接
+#!date=2026-05-30
+#!category=🐹 BOBO Enhance
+#!author=波波老师[https://github.com/BOBOLAOSHIV587/Rules]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Git-To-CDN.png
+
+[Script]
+# > GitHub源文件重定向为Raw
+http-request ^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/blob\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/GithubAutoRaw/JS/GithubAutoRaw.js, requires-body=false, tag=GitHub源文件重定向为Raw
+
+[MITM]
+hostname = github.com
