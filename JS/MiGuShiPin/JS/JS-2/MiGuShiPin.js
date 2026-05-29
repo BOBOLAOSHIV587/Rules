@@ -10,9 +10,9 @@ hostname = *.miguvideo.com, *.migu.cn
 
 *************************************/
 
-//2025/5/14
+//2026/5/29
 const AUTH = {
-  userToken: "nlps4840006C8E8B5958769A",
+  userToken: "nlps6ED19D0AD8FDDA56A910",
   userId:    "1245377469",
   passId:    "395831016729557547",
   userNum:   "NTDrsyM1kTO5YTNwcTNxYDO",
@@ -20,11 +20,12 @@ const AUTH = {
   carrierCode: "CM",
   areaId: "551",
   cityId: "0551",
-  expiredOn: "1783920728000",
-  sign:      "A0C9ED100281B5EFF979D46468C1003F",
+  expiredOn: "1785205515000",
+  sign:      "0C6178FD293C20A1D225981FA43E6F2F",
   clientId:  "809f891b829f43ad8105bfd7e82335fb",
-  l_s:       "06c8eea357521254e2565a7357fa6825",
-  l_t:       "1778736725"
+  l_s:       "c95cacd40ef8d36c56945c1f1f8fa3b1",
+  l_t:       "1780021514",
+  csid_suffix: "478679DA-BEF3-458E-996F-C965F27F369D"
 };
 const MIGU_UID = "2377a93d-03c8-447b-a82d-84687dd522ac";
 const LOGIN_DEVICE_ID = "95cf83d8-2e8e-4f43-bf96-0b0d61cbb37a";
@@ -38,7 +39,7 @@ function setQ(u, k, v) {
 }
 
 let url = $request.url;
-if (/play-pre\.miguvideo\.com\/playurl\//.test(url)) {
+if (/play(-pre)?\.miguvideo\.com\/playurl\//.test(url)) {
   url = setQ(url, "rateType", FORCE_RATE);
   url = setQ(url, "4kDifinition", "true");
   url = setQ(url, "4kvivid", "true");
@@ -57,9 +58,9 @@ if (/play-pre\.miguvideo\.com\/playurl\//.test(url)) {
 
 const userInfo = JSON.stringify({
   areaId: AUTH.areaId, cityId: AUTH.cityId, expiredOn: AUTH.expiredOn,
-  mobile: "", passId: AUTH.passId, userId: AUTH.userId,
+  mobile: AUTH.mobile, passId: AUTH.passId, userId: AUTH.userId,
   carrierCode: AUTH.carrierCode, encrypted: AUTH.encrypted,
-  userNum: AUTH.userNum, userToken: AUTH.userToken, blurMobile: "***"
+  userNum: AUTH.userNum, userToken: AUTH.userToken, blurMobile: AUTH.blurMobile
 });
 
 const H = {
@@ -71,7 +72,7 @@ const H = {
   l_c:       AUTH.clientId,
   l_s:       AUTH.l_s,
   l_t:       AUTH.l_t,
-  csessionId: AUTH.clientId + "0000DEAD-BEEF-4444-8888-000000000001"
+  csessionId: AUTH.clientId + AUTH.csid_suffix
 };
 const COOKIE = `MIGU_UID=${MIGU_UID}; REMEMBER_CODE=${MIGU_UID}; login_deviceId=${LOGIN_DEVICE_ID}`;
 
