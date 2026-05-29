@@ -1,0 +1,19 @@
+#!name=GLaDOS / Railgun 自动签到
+#!desc=GLaDOS / Railgun 自动签到 + 积分兑换（多账号版）.\n此脚本获取Cookie会多次触发，导致Loon崩溃设备发热。获取一次Cookie后关闭脚本即可。
+#!date=2026-05-30
+#!category=🐹 BOBO Task
+#!author=Curtinp118[https://github.com/curtinp118]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/GLaDOS.png
+#!openUrl=https://glados.vip/
+
+[Argument]
+获取Cookie = switch, ture, tag = [启用]获取Cookie, desc = 关闭开关将不对此选项生效
+
+[Script]
+# > GLaDOS 自动签到
+http-request ^https://(glados\.network|railgun\.info|glados\.vip)/console/account$ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/GLaDOS/JS/GLaDOS.js, requires-body=false, timeout=10, tag=GLaDOS抓包, enable={获取Cookie}
+
+cron "30 7 * * *" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/GLaDOS/JS/GLaDOS.js, timeout=120, tag=GLaDOS签到, enable=true
+
+[MITM]
+hostname = glados.network, glados.vip, railgun.info
