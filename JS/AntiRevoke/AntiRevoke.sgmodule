@@ -1,0 +1,39 @@
+#!name=Apple证书屏蔽验证
+#!desc=精准屏蔽 Apple p12证书验证，让已过期证书能够继续使用
+#!date=2026-05-30
+#!category=🐹 BOBO Enhance
+#!author=Salem[https://github.com/salem-2007/apple-cert-block]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/Qure/Image/Color/Apple_Update.png
+
+[Rule]
+# Apple OCSP
+DOMAIN,ocsp.apple.com,REJECT
+DOMAIN,ocsp2.apple.com,REJECT
+
+# Apple Validation
+DOMAIN,valid.apple.com,REJECT
+DOMAIN,ppq.apple.com,REJECT
+DOMAIN,ppq-ext.v.aaplimg.com,REJECT
+
+# Apple CRL
+DOMAIN,crl.apple.com,REJECT
+DOMAIN,certs.apple.com,REJECT
+
+# DigiCert
+DOMAIN,ocsp.digicert.com,REJECT
+DOMAIN,ocsp.digicert.cn,REJECT
+DOMAIN,crl3.digicert.com,REJECT
+DOMAIN,crl4.digicert.com,REJECT
+
+# Entrust
+DOMAIN,ocsp.entrust.net,REJECT
+DOMAIN,crl.entrust.net,REJECT
+
+# Sectigo / USERTrust
+DOMAIN,ocsp.sectigo.com,REJECT
+DOMAIN,crl.sectigo.com,REJECT
+DOMAIN,ocsp.usertrust.com,REJECT
+DOMAIN,crl.usertrust.com,REJECT
+
+[MITM]
+hostname = %APPEND% ocsp.apple.com, ocsp2.apple.com, valid.apple.com
