@@ -1,0 +1,30 @@
+#!name=☁️ Cloudflare: 1️⃣ 1.1.1.1 with WARP
+#!desc=WARP检测面板与节点提取
+#!date=2026-05-31
+#!category=🐹 BOBO Premium
+#!author=VirgilClyne[https://github.com/VirgilClyne]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/1.1.1.1-01.png
+#!openUrl=https://github.com/VirgilClyne/Cloudflare/wiki/☁-1.1.1.1-by-Cloudflare-with-WARP
+#!arguments=title:☁ 𝙒𝘼𝙍𝙋 𝙄𝙣𝙛𝙤,icon:lock.icloud.fill,icon-color:#f48220
+#!arguments-desc=title: [面板]标题\nicon: [面板]图标\nicon-color: [面板]图标颜色
+
+[Host]
+# refer: https://developers.cloudflare.com/cloudflare-one/connections/connect-devices/warp/deployment/firewall/#warp-ingress-ip
+engage.cloudflareclient.com = 162.159.192.1, 162.159.192.2, 162.159.192.3, 162.159.192.4, 162.159.192.5, 162.159.192.6, 162.159.192.7, 162.159.192.8, 162.159.192.9, 162.159.192.10, 162.159.193.1, 162.159.193.2, 162.159.193.3, 162.159.193.4, 162.159.193.5, 162.159.193.6, 162.159.193.7, 162.159.193.8, 162.159.193.9, 162.159.193.10, 162.159.194.1, 162.159.194.2, 162.159.194.3, 162.159.194.4, 162.159.194.5, 162.159.194.6, 162.159.194.7, 162.159.194.8, 162.159.194.9, 162.159.194.10, 162.159.195.1, 162.159.195.2, 162.159.195.3, 162.159.195.4, 162.159.195.5, 162.159.195.6, 162.159.195.7, 162.159.195.8, 162.159.195.9, 162.159.195.10, 2606:4700:d0::a29f:c001, 2606:4700:d0::a29f:c002, 2606:4700:d0::a29f:c003, 2606:4700:d0::a29f:c004, 2606:4700:d0::a29f:c005, 2606:4700:d0::a29f:c006, 2606:4700:d0::a29f:c007, 2606:4700:d0::a29f:c008, 2606:4700:d0::a29f:c009, 2606:4700:d0::a29f:c010, 2606:4700:d0::a29f:c101, 2606:4700:d0::a29f:c102, 2606:4700:d0::a29f:c103, 2606:4700:d0::a29f:c104, 2606:4700:d0::a29f:c105, 2606:4700:d0::a29f:c106, 2606:4700:d0::a29f:c107, 2606:4700:d0::a29f:c108, 2606:4700:d0::a29f:c109, 2606:4700:d0::a29f:c010, 2606:4700:d1::a29f:c001, 2606:4700:d1::a29f:c002, 2606:4700:d1::a29f:c003, 2606:4700:d1::a29f:c004, 2606:4700:d1::a29f:c005, 2606:4700:d1::a29f:c006, 2606:4700:d1::a29f:c007, 2606:4700:d1::a29f:c008, 2606:4700:d1::a29f:c009, 2606:4700:d1::a29f:c010, 2606:4700:d1::a29f:c101, 2606:4700:d1::a29f:c102, 2606:4700:d1::a29f:c103, 2606:4700:d1::a29f:c104, 2606:4700:d1::a29f:c105, 2606:4700:d1::a29f:c106, 2606:4700:d1::a29f:c107, 2606:4700:d1::a29f:c108, 2606:4700:d1::a29f:c109, 2606:4700:d1::a29f:c010 // Cloudflare WARP endpoint (Dual-stack)
+engage.nanocat.cloud = 162.159.192.1, 162.159.192.2, 162.159.192.3, 162.159.192.4, 162.159.192.5, 162.159.192.6, 162.159.192.7, 162.159.192.8, 162.159.192.9, 162.159.192.10, 162.159.193.1, 162.159.193.2, 162.159.193.3, 162.159.193.4, 162.159.193.5, 162.159.193.6, 162.159.193.7, 162.159.193.8, 162.159.193.9, 162.159.193.10, 162.159.194.1, 162.159.194.2, 162.159.194.3, 162.159.194.4, 162.159.194.5, 162.159.194.6, 162.159.194.7, 162.159.194.8, 162.159.194.9, 162.159.194.10, 162.159.195.1, 162.159.195.2, 162.159.195.3, 162.159.195.4, 162.159.195.5, 162.159.195.6, 162.159.195.7, 162.159.195.8, 162.159.195.9, 162.159.195.10, 2606:4700:d0::a29f:c001, 2606:4700:d0::a29f:c002, 2606:4700:d0::a29f:c003, 2606:4700:d0::a29f:c004, 2606:4700:d0::a29f:c005, 2606:4700:d0::a29f:c006, 2606:4700:d0::a29f:c007, 2606:4700:d0::a29f:c008, 2606:4700:d0::a29f:c009, 2606:4700:d0::a29f:c010, 2606:4700:d0::a29f:c101, 2606:4700:d0::a29f:c102, 2606:4700:d0::a29f:c103, 2606:4700:d0::a29f:c104, 2606:4700:d0::a29f:c105, 2606:4700:d0::a29f:c106, 2606:4700:d0::a29f:c107, 2606:4700:d0::a29f:c108, 2606:4700:d0::a29f:c109, 2606:4700:d0::a29f:c010, 2606:4700:d1::a29f:c001, 2606:4700:d1::a29f:c002, 2606:4700:d1::a29f:c003, 2606:4700:d1::a29f:c004, 2606:4700:d1::a29f:c005, 2606:4700:d1::a29f:c006, 2606:4700:d1::a29f:c007, 2606:4700:d1::a29f:c008, 2606:4700:d1::a29f:c009, 2606:4700:d1::a29f:c010, 2606:4700:d1::a29f:c101, 2606:4700:d1::a29f:c102, 2606:4700:d1::a29f:c103, 2606:4700:d1::a29f:c104, 2606:4700:d1::a29f:c105, 2606:4700:d1::a29f:c106, 2606:4700:d1::a29f:c107, 2606:4700:d1::a29f:c108, 2606:4700:d1::a29f:c109, 2606:4700:d1::a29f:c010 // Cloudflare WARP endpoint (Dual-stack)
+
+[Panel]
+☁ WARP Panel = title="{{{title}}}", icon="{{{icon}}}", "icon-color": "{{{icon-color}}}", script-name=☁ WARP Panel
+
+[Script]
+# WARP Panel
+#!PROFILE-VERSION-REQUIRED 10 ☁ WARP Panel = type=generic, timeout=10, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/WARP/JS/1.1.1.1.panel.js
+# WARP Personal
+☁ WARP Personal Request = type=http-request,pattern=^https?:\/\/(api|zero-trust-client)\.cloudflareclient\.com\/(.*)\/reg\/[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$, requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/WARP/JS/1.1.1.1.request.js
+☁ WARP Personal Response = type=http-response,pattern=^https?:\/\/(api|zero-trust-client)\.cloudflareclient\.com\/(.*)\/reg\/[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$, requires-body=1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/WARP/JS/1.1.1.1.response.js
+# Zero Trust Client (Cloudflare for Teams)
+☁ WARP Teams Request = type=http-request,pattern=^https?:\/\/(api|zero-trust-client)\.cloudflareclient\.com\/(.*)\/reg\/t\.[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$, requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/WARP/JS/1.1.1.1.request.js
+☁ WARP Teams Response = type=http-response,pattern=^https?:\/\/(api|zero-trust-client)\.cloudflareclient\.com\/(.*)\/reg\/t\.[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$, requires-body=1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/WARP/JS/1.1.1.1.response.js
+
+[MITM]
+hostname = %APPEND% api.cloudflareclient.com, zero-trust-client.cloudflareclient.com
