@@ -12,7 +12,6 @@
 #!input=Parser_body_max
 #!input=Parser_http_timeout
 
-
 [General]
 force-http-engine-hosts = script.hub, *.script.hub
 
@@ -28,5 +27,5 @@ http-request ^https?:\/\/script\.hub\/file\/_start_\/.+type=rule-set script-path
 
 http-request ^https?:\/\/script\.hub\/convert\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Script-Hub/JS/script-converter.js, timeout=300, tag=Script Hub: 脚本转换
 
-[Mitm]
+[MITM]
 hostname = script.hub, *.script.hub

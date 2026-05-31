@@ -6,7 +6,6 @@
 #!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Script-Hub/JS/icon/icon-dark.png
 #!openUrl=https://script.hub
 
-
 [General]
 force-http-engine-hosts = %APPEND% script.hub, *.script.hub
 

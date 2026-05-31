@@ -492,9 +492,13 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       jsPre = 'http://script.hub/convert/_start_/'
     }
     if (jscStatus == true) {
-      jsSuf = `/_end_/_yuliu_.js?type=_js_from_-script&target=${app}-script`
+      jsSuf = `/_end_/_yuliu_.js?type=_js_from_-script&target=${app}-script&headers=${encodeURIComponent(
+        decodeURIComponent(queryObject.headers || '')
+      )}`
     } else if (jsc2Status == true) {
-      jsSuf = `/_end_/_yuliu_.js?type=_js_from_-script&target=${app}-script&wrap_response=true`
+      jsSuf = `/_end_/_yuliu_.js?type=_js_from_-script&target=${app}-script&wrap_response=true&headers=${encodeURIComponent(
+        decodeURIComponent(queryObject.headers || '')
+      )}`
     }
 
     if (compatibilityOnly == true && (jscStatus == true || jsc2Status == true)) {
@@ -2304,7 +2308,9 @@ function getMockInfo(x, mark, y) {
             : ''
         if (keepHeader == false) mockheader = ''
 
-        mockurl = `http://script.hub/convert/_start_/${mockurl}/_end_/${mfile}?type=mock&target-app=${targetApp}${mockheader}${sufkeepHeader}${sufjsDelivr}`
+        mockurl = `http://script.hub/convert/_start_/${mockurl}/_end_/${mfile}?type=mock&target-app=${targetApp}&headers=${encodeURIComponent(
+          decodeURIComponent(queryObject.headers || '')
+        )}${mockheader}${sufkeepHeader}${sufjsDelivr}`
         jsBox.push({
           mark,
           noteK,
