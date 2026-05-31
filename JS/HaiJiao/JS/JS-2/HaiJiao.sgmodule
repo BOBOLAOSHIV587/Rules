@@ -1,0 +1,14 @@
+#!name=海角社区解锁会员视频&付费视频
+#!desc=海角社区解锁会员视频&付费视频
+#!date=2026-05-31
+#!category=🐹 BOBO Premium
+#!author=baby[https://github.com/Yu9191], chmg2025[https://github.com/chmg2025/script]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/HaiJiaoSheQu.png
+#!openUrl=https://haijiao.com/
+
+[Script]
+# > 海角社区解锁会员视频
+海角社区 = type=http-response, pattern=https:\/\/haijiao\.com\/api\/(user\/current|topic\/\d+|attachment|banner\/banner_list), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/HaiJiao/JS/JS-2/HaiJiao.js, requires-body=true, max-size=0
+
+[MITM]
+hostname = %APPEND% haijiao.com
