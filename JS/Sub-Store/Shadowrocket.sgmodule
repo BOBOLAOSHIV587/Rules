@@ -2,14 +2,12 @@
 #!desc=高级订阅管理工具 @Peng-YM  无 ability 参数版本,不会爆内存, 如果需要使用指定节点功能 例如[加旗帜脚本或者cname脚本] 可以用带 ability 参数. 定时任务默认为每天  23 点 55 分. 定时任务指定时将订阅/文件上传到私有 Gist. 在前端, 叫做 '同步' 或 '同步配置'
 #!category=订阅管理
 
-
 [Script]
 # 主程序 已经去掉 Sub-Store Core 的参数 [,ability=http-client-policy] 不会爆内存，这个参数在 Surge 非常占用内存； 如果不需要使用指定节点功能 例如[加旗帜脚本或者cname脚本] 则可以使用此脚本
 Sub-Store Core=type=http-request,pattern=^https?:\/\/sub\.store\/((download)|api\/(preview|sync|(utils\/node-info))),script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Sub-Store/JS/sub-store-1.min.js,requires-body=true,timeout=120
 Sub-Store Simple=type=http-request,pattern=^https?:\/\/sub\.store,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Sub-Store/JS/sub-store-0.min.js,requires-body=true,timeout=120
 
 Sub-Store Sync=type=cron,cronexp=55 23 * * *,wake-system=1,timeout=120,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Sub-Store/JS/cron-sync-artifacts.min.js
-
 
 [MITM]
 hostname = %APPEND% sub.store
