@@ -1,4 +1,4 @@
-//2026/04/27
+//2026/06/03
 /*
 @Name：WeTalk 自动化签到+视频奖励
 @Author：TG@ZenMoFiShi
@@ -213,21 +213,34 @@ function buildUA(baseUA, seed) {
   return `WeTalk/30.6.0 (com.innovationworks.wetalk; build:28; iOS ${iosVer}) Alamofire/5.4.3`;
 }
 
-function buildSignedParamsRaw(capture) {
+function buildSignedParamsRaw(capture, overrideDeviceId) {
   const params = {};
   Object.keys(capture.paramsRaw || {}).forEach(k => {
     if (k !== 'sign' && k !== 'signDate') params[k] = capture.paramsRaw[k];
   });
+  if (overrideDeviceId && params.uniquedeviceid) {
+    params.uniquedeviceid = overrideDeviceId;
+  }
   params.signDate = getUTCSignDate();
   const signBase = Object.keys(params).sort().map(k => `${k}=${params[k]}`).join('&');
   params.sign = MD5(signBase + SECRET);
   return params;
 }
 
-function buildUrl(path, capture) {
-  const params = buildSignedParamsRaw(capture);
+function buildUrl(path, capture, overrideDeviceId) {
+  const params = buildSignedParamsRaw(capture, overrideDeviceId);
   const qs = Object.keys(params).map(k => `${k}=${encodeURIComponent(params[k])}`).join('&');
   return `https://${API_HOST}/app/${path}?${qs}`;
+}
+
+function randHex(n) {
+  let s = '';
+  for (let i = 0; i < n; i++) s += Math.floor(Math.random() * 16).toString(16);
+  return s.toUpperCase();
+}
+
+function genFakeDeviceId() {
+  return `${randHex(8)}-${randHex(4)}-${randHex(4)}-${randHex(4)}-${randHex(12)}WeTalkIOS`;
 }
 
 function cloneHeaders(headers) {
@@ -242,8 +255,12 @@ function buildHeaders(capture, ua) {
   delete headers[':authority']; delete headers[':method']; delete headers[':path']; delete headers[':scheme'];
   headers['Host'] = API_HOST;
   headers['Accept'] = headers['Accept'] || 'application/json';
-  Object.keys(headers).forEach(k => { if (k.toLowerCase() === 'user-agent') delete headers[k]; });
+  Object.keys(headers).forEach(k => {
+    const lk = k.toLowerCase();
+    if (lk === 'user-agent' || lk === 'connection' || lk === 'proxy-connection' || lk === 'keep-alive') delete headers[k];
+  });
   headers['User-Agent'] = ua;
+  headers['Connection'] = 'close';
   return headers;
 }
 
@@ -259,10 +276,19 @@ function runAccount(acc, index, total) {
   const tag = `[账号${index+1}/${total} ${acc.alias || acc.email || acc.id}]`;
   const ua = buildUA(acc.baseUA, acc.uaSeed);
   const headers = buildHeaders(acc.capture, ua);
+  const fakeDeviceId = genFakeDeviceId();
   const msgs = [tag];
 
-  function fetchApi(path) {
-    return $task.fetch({ url: buildUrl(path, acc.capture), method: 'GET', headers });
+  function fetchApi(path, useFakeId, retry) {
+    retry = (retry === undefined) ? 3 : retry;
+    const overrideId = useFakeId ? fakeDeviceId : null;
+    return $task.fetch({ url: buildUrl(path, acc.capture, overrideId), method: 'GET', headers }).catch(err => {
+      const m = (err && (err.error || String(err))) || '';
+      if (retry > 0 && /SSL|SSLSessionState|timeout|timed out|reset|connection|network|stream closed|closed|EOF/i.test(m)) {
+        return new Promise(r => setTimeout(r, 1200)).then(() => fetchApi(path, useFakeId, retry - 1));
+      }
+      return Promise.reject(err);
+    });
   }
 
   function doVideoLoop(count) {
@@ -272,7 +298,7 @@ function runAccount(acc, index, total) {
       return new Promise(resolve => {
         setTimeout(() => {
           i++;
-          fetchApi('videoBonus').then(res => {
+          fetchApi('videoBonus', true).then(res => {
             try {
               const d = JSON.parse(res.body);
               if (d.retcode === 0) {
