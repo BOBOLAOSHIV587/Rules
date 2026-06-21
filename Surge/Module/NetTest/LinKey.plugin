@@ -1,6 +1,6 @@
 #!name=LinKey Tool
 #!desc=SPing: https://🍉.eu.org/ping \nJS引擎测试: https://🍉.eu.org/netms
-#!date=2026-01-21
+#!date=2026-06-22
 #!category=🐹 BOBO面板模块
 #!author= Key[https://github.com/Keywos/rule]
 
@@ -13,6 +13,8 @@ http-request ^https?:\/\/surgetool\.com\/api\/ping\/binary script-path=https://r
 http-request ^https?:\/\/surgetool\.com\/api\/test script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/NetTest/JS/nt.js, requires-body=true, timeout=300, tag=crypto_test
 
 http-request ^https?:\/\/surgetool\.com\/api\/ping script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/NetTest/JS/api_ping.js, requires-body=true, timeout=200, tag=SPing
+
+http-request ^https?:\/\/surgetool\.com\/api\/fetch\?url= script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/NetTest/JS/Sfetch.js, requires-body=true, timeout=300, tag=Sfetch
 
 [MITM]
 hostname = surgetool.com
