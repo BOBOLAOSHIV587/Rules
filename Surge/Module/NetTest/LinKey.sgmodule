@@ -14,7 +14,7 @@ crypto_test = type=http-request, pattern=^https?:\/\/surgetool\.com\/api\/test, 
 
 SPing = type=http-request, pattern=^https?:\/\/surgetool\.com\/api\/ping, requires-body=1, timeout=200, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/NetTest/JS/api_ping.js
 
-Sfetch = type=http-request, pattern=^https?:\/\/surgetool\.com\/api\/fetch\?url=, requires-body=1, timeout=300, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/NetTest/JS/Sfetch.js
+Sfetch = type=http-request, pattern=^https?:\/\/surgetool\.com\/api\/fetch\?url=, requires-body=1, timeout=300, max-size=-1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/NetTest/JS/Sfetch.js
 
 [MITM]
 hostname = %APPEND% surgetool.com
