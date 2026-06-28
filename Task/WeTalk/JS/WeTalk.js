@@ -1,4 +1,4 @@
-//2026/06/03
+//2026/06/29
 /*
 @Name：WeTalk 自动化签到+视频奖励
 @Author：TG@ZenMoFiShi
@@ -265,6 +265,7 @@ function buildHeaders(capture, ua) {
 }
 
 function notify(title, body) {
+  console.log(`【${scriptName} 通知】${title}\n${body}`);
   $notify(scriptName, title, body);
 }
 
@@ -273,11 +274,12 @@ function sleep(ms) {
 }
 
 function runAccount(acc, index, total) {
-  const tag = `[账号${index+1}/${total} ${acc.alias || acc.email || acc.id}]`;
+  const email = acc.email || (acc.capture && acc.capture.paramsRaw ? emailKeyOf(acc.capture.paramsRaw) : '');
+  const tag = `[账号${index+1}/${total} ${acc.alias || email || acc.id}]`;
   const ua = buildUA(acc.baseUA, acc.uaSeed);
   const headers = buildHeaders(acc.capture, ua);
   const fakeDeviceId = genFakeDeviceId();
-  const msgs = [tag];
+  const msgs = [`${tag}${email ? `\n📧 ${email}` : ''}`];
 
   function fetchApi(path, useFakeId, retry) {
     retry = (retry === undefined) ? 3 : retry;
