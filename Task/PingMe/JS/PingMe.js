@@ -1,4 +1,4 @@
-//2026/06/02
+//2026/06/29
 /*
 @Name：PingMe 自动化签到+视频奖励
 @Author：怎么肥事
@@ -222,8 +222,33 @@ function buildHeaders(capture, ua) {
   return headers;
 }
 
+function getEmail(acc) {
+  if (acc && acc.email) return acc.email;
+  const raw = acc && acc.capture && acc.capture.paramsRaw ? (acc.capture.paramsRaw.email || '') : '';
+  try { return decodeURIComponent(raw); } catch (e) { return raw; }
+}
+
 function notify(title, body) {
+  console.log(`【${scriptName} 通知】${title}\n${body}`);
   $notify(scriptName, title, body);
+}
+
+function isDeregistered(msg) {
+  return typeof msg === 'string' && msg.indexOf('已被注销') !== -1;
+}
+
+function removeAccounts(store, ids) {
+  const removed = [];
+  ids.forEach(id => {
+    if (store.accounts[id]) {
+      const em = getEmail(store.accounts[id]);
+      removed.push((store.accounts[id].alias || id) + (em ? `(${em})` : ''));
+      delete store.accounts[id];
+    }
+    const pos = store.order.indexOf(id);
+    if (pos !== -1) store.order.splice(pos, 1);
+  });
+  return removed;
 }
 
 function sleep(ms) {
@@ -231,11 +256,13 @@ function sleep(ms) {
 }
 
 function runAccount(acc, index, total) {
+  const email = getEmail(acc);
   const tag = `[账号${index+1}/${total} ${acc.alias || acc.id}]`;
   const ua = buildUA(acc.baseUA, acc.uaSeed);
   const headers = buildHeaders(acc.capture, ua);
   const fakeDeviceId = genFakeDeviceId();
-  const msgs = [tag];
+  const msgs = [`${tag}${email ? `\n📧 ${email}` : ''}`];
+  const flag = { deregistered: false };
 
   function fetchApi(path, useFakeId) {
     const overrideId = useFakeId ? fakeDeviceId : null;
@@ -285,25 +312,42 @@ function runAccount(acc, index, total) {
     try {
       const d = JSON.parse(res.body);
       if (d.retcode === 0) msgs.push(`💰 余额：${d.result.balance} Coins`);
-      else msgs.push(`⚠️ 查询：${d.retmsg}`);
+      else {
+        msgs.push(`⚠️ 查询：${d.retmsg}`);
+        if (isDeregistered(d.retmsg)) flag.deregistered = true;
+      }
     } catch (e) { msgs.push('❌ 查询：解析失败'); }
+    if (flag.deregistered) return null;
     return fetchApi('checkIn');
   }).then(res => {
+    if (flag.deregistered || !res) return null;
     try {
       const d = JSON.parse(res.body);
       if (d.retcode === 0) msgs.push(`✅ 签到：${(d.result?.bonusHint || d.retmsg || '').replace(/\n/g, ' ')}`);
-      else msgs.push(`⚠️ 签到：${d.retmsg}`);
+      else {
+        msgs.push(`⚠️ 签到：${d.retmsg}`);
+        if (isDeregistered(d.retmsg)) flag.deregistered = true;
+      }
     } catch (e) { msgs.push('❌ 签到：解析失败'); }
+    if (flag.deregistered) return null;
     return doVideoLoop(MAX_VIDEO);
-  }).then(() => fetchApi('queryBalanceAndBonus')).then(res => {
-    try {
-      const d = JSON.parse(res.body);
-      if (d.retcode === 0) msgs.push(`💰 最新余额：${d.result.balance} Coins`);
-    } catch (e) {}
-    return msgs.join('\n');
+  }).then(() => {
+    if (flag.deregistered) {
+      msgs.push('🗑 该账号已注销，将从存储中移除');
+      return null;
+    }
+    return fetchApi('queryBalanceAndBonus');
+  }).then(res => {
+    if (res) {
+      try {
+        const d = JSON.parse(res.body);
+        if (d.retcode === 0) msgs.push(`💰 最新余额：${d.result.balance} Coins`);
+      } catch (e) {}
+    }
+    return { text: msgs.join('\n'), deregistered: flag.deregistered };
   }).catch(err => {
     msgs.push(`❌ 异常：${err.error || String(err)}`);
-    return msgs.join('\n');
+    return { text: msgs.join('\n'), deregistered: false };
   });
 }
 
@@ -319,10 +363,13 @@ if (typeof $request !== 'undefined' && $request) {
   const existed = !!store.accounts[fp];
   const uaSeed = existed ? store.accounts[fp].uaSeed : store.order.length;
   const alias = existed ? store.accounts[fp].alias : `账号${store.order.length + 1}`;
+  let email = '';
+  try { email = decodeURIComponent(paramsRaw.email || ''); } catch (e) { email = paramsRaw.email || ''; }
 
   store.accounts[fp] = {
     id: fp,
     alias,
+    email,
     uaSeed,
     baseUA,
     capture: { url: $request.url, paramsRaw, headers: headersMap },
@@ -333,7 +380,7 @@ if (typeof $request !== 'undefined' && $request) {
   saveStore(store);
 
   const total = store.order.length;
-  notify(existed ? '🔄 账号参数已更新' : '✅ 新账号已入库', `${alias}（id:${fp}）\n当前账号总数：${total}`);
+  notify(existed ? '🔄 账号参数已更新' : '✅ 新账号已入库', `${alias}（id:${fp}）${email ? `\n📧 ${email}` : ''}\n当前账号总数：${total}`);
   console.log(`【${scriptName}】${existed ? 'update' : 'add'} account ${fp}\n${JSON.stringify(store.accounts[fp], null, 2)}`);
   $done({});
 } else {
@@ -345,14 +392,25 @@ if (typeof $request !== 'undefined' && $request) {
   } else {
     const total = ids.length;
     const results = [];
+    const deadIds = [];
     let chain = Promise.resolve();
     ids.forEach((id, idx) => {
       chain = chain.then(() => runAccount(store.accounts[id], idx, total))
-        .then(text => { results.push(text); })
+        .then(r => {
+          results.push(r.text);
+          if (r.deregistered) deadIds.push(id);
+        })
         .then(() => idx < ids.length - 1 ? sleep(ACCOUNT_GAP) : null);
     });
     chain.then(() => {
-      notify(`🎉 全部完成 (${total}个账号)`, results.join('\n———\n'));
+      let extra = '';
+      if (deadIds.length) {
+        const freshStore = loadStore();
+        const removed = removeAccounts(freshStore, deadIds);
+        saveStore(freshStore);
+        if (removed.length) extra = `\n———\n🗑 已移除注销账号：${removed.join('、')}（剩余${freshStore.order.length}个）`;
+      }
+      notify(`🎉 全部完成 (${total}个账号)`, results.join('\n———\n') + extra);
       $done();
     }).catch(err => {
       notify('❌ 任务异常', results.join('\n———\n') + '\n' + (err.error || String(err)));
