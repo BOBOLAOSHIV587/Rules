@@ -1,421 +1,546 @@
 /**
- * Loon Resource Parser
+ * $resourceType: 解析器脚本自带全局变量，资源类型，枚举，详见下方
+ * $resource: 解析器脚本自带全局变量，资源内容，string
+ * $resourceUrl: 解析器脚本自带全局变量，资源url，string
+ *
+ * 资源类型
+ * 0:config
+ * 1:nodes
+ * 2:rules
+ * 3:rewrites
+ * 4:scripts
+ * 5:plugin
  *
  * Author: mc2u
  * Repository: https://github.com/mc2u/Loon
  *
- * 用于 Loon 节点订阅的资源解析脚本，主要用于节点名称修改和排序；也可通过 `Shadowrocket/3082` User-Agent 重新拉取订阅，以解决部分订阅未向 Loon 下发新协议节点或下发不及时的情况。
- *
  * 功能：
- * - 添加节点名前缀
- * - 添加节点名后缀
- * - 去除节点名中的 emoji
+ * - 添加节点名前缀 / 后缀
+ * - 去除节点名中的 Emoji
  * - 普通文本替换
  * - 按关键词自定义节点排序
- * - 使用 Shadowrocket User-Agent 重新拉取订阅
- * - 按订阅 URL 保存独立配置
- * - 重置当前订阅配置
+ * - 开启 `ua` 时使用自定义 User-Agent 重新请求原始订阅
  *
- * 支持参数：
- * - pre=      给节点名添加前缀，例如 pre=🍑
- * - suf=      给节点名添加后缀，例如 suf=🍓
- * - emoji     去除节点名中的 emoji
- * - rename=   普通文本替换，例如 rename=香港:HK,日本:JP
- * - sort=     按关键词顺序排序节点，例如 sort=香港,日本,新加坡,美国
- * - ua        使用 Shadowrocket User-Agent 重新拉取订阅
- * - reset     清空当前订阅已保存的配置
- *
- * 参数说明：
- * - pre=🍑
- *   给所有节点名称前面添加 🍑
- * - suf=🍓
- *   给所有节点名称后面添加 🍓
- * - emoji
- *   去除节点名称中的 emoji
- * - rename=香港:HK,日本:JP,新加坡:SG
- *   将香港、日本、新加坡分别替换为 HK、JP、SG
- * - rename=0.1倍:
- *   删除节点名中的 0.1倍
- * - sort=香港,日本,新加坡,美国
- *   按关键词顺序排序节点
- * - ua
- *   使用 Shadowrocket User-Agent 重新拉取当前订阅
- * - reset
- *   清空当前订阅已保存的参数配置
- *
- * 组合示例：
- * - ua&pre=🍑
- *   使用 Shadowrocket UA 并添加前缀
- * - ua&emoji
- *   使用 Shadowrocket UA 并去除 emoji
- * - ua&emoji&rename=0.1倍:&pre=🍑
- *   使用 Shadowrocket UA，去 emoji，删除倍率并添加前缀
- * - emoji&pre=🍑
- *   去除 emoji 后添加前缀
- * - rename=0.1倍:&pre=🍑
- *   删除倍率后添加前缀
- * - emoji&pre=🍑&suf=🍓
- *   同时添加前缀、后缀并去除 emoji
- * - sort=香港,日本,新加坡,美国
- *   按香港、日本、新加坡、美国的顺序排列节点
- *
- * 建议配置顺序：
- * - ua -> emoji -> rename -> pre -> suf -> sort
- *
- * 配置说明：
- * - 参数按订阅 URL 单独保存
- * - 不同订阅互不影响
- * - 不重新填写参数时，会优先使用已保存配置
- * - 如果订阅编辑界面的参数输入框内出现 xxx = https...，直接点 x 删除掉后重新填写参数即可
- * - 修改参数后需要手动更新订阅才会生效
- * - 如果仍不生效，请前往“设置 -> 外部资源 -> 资源解析器”更新一次
+ * 参数来源：
+ * - 解析器插件 `[Argument]`
+ * - 每次执行只使用本次插件设置传入的参数
+ * - 如果 Loon 未调用解析器脚本，则脚本内任何参数和逻辑都不会执行
  */
 
 var type = $resourceType;
-var result = "";
-
 var pre = "";
 var suf = "";
 var emoji = false;
 var rename = "";
 var sort = "";
 var ua = false;
-var HAS_SUPPORTED_PARAM = false;
+var userAgent = "";
+var noCache = false;
 
-function getStorageKey() {
-    var url = "default";
-    if (typeof $resourceUrl !== 'undefined' && $resourceUrl) url = String($resourceUrl);
-    return "loon_parser_config_" + encodeURIComponent(url);
+function str(v) {
+  return v == null ? "" : String(v);
 }
 
-function isSupportedParamKey(key) {
-    return key === 'pre' || key === 'suf' || key === 'emoji' || key === 'rename' || key === 'sort' || key === 'ua' || key === 'reset';
-}
-
-function cleanEmoji(text) {
-    return String(text || '').replace(/[\u{1F1E0}-\u{1F1FF}]|[\u{1F300}-\u{1F9FF}]|[\u{1F600}-\u{1F64F}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1FA00}-\u{1FAFF}]|[\u{1FB00}-\u{1FBFF}]|[\u{1F900}-\u{1F9FF}]/gu, '').replace(/\s+/g, ' ').trim();
+function bool(v) {
+  if (v === true) return true;
+  var s = str(v).trim().toLowerCase();
+  return s === "true" || s === "1" || s === "yes" || s === "on";
 }
 
 function normalizeText(s) {
-    s = String(s || '');
-    if (s && s.charCodeAt(0) === 0xFEFF) s = s.slice(1);
-    return s.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  s = str(s);
+  if (s && s.charCodeAt(0) === 0xFEFF) s = s.slice(1);
+  return s.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 }
 
-function parseRename(raw) {
-    var pairs = [];
-    if (!raw) return pairs;
-    var items = String(raw).split(',');
-    for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        if (!item) continue;
-        var idx = item.indexOf(':');
-        if (idx === -1) continue;
-        var from = item.slice(0, idx).trim();
-        var to = item.slice(idx + 1).trim();
-        if (from === '') continue;
-        pairs.push([from, to]);
-    }
-    return pairs;
+function cleanEmoji(text) {
+  return str(text)
+    .replace(/[\u{1F1E0}-\u{1F1FF}]|[\u{1F300}-\u{1FAFF}]|[\u{1FB00}-\u{1FBFF}]|[\u{2600}-\u{27BF}]/gu, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+var renamePairs = [];
+
+function parseRename() {
+  renamePairs = [];
+  if (!rename) return;
+  var items = str(rename).split(",");
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    if (!item) continue;
+    var idx = item.indexOf(":");
+    if (idx === -1) continue;
+    var from = item.slice(0, idx).trim();
+    var to = item.slice(idx + 1).trim();
+    if (from) renamePairs.push([from, to]);
+  }
 }
 
 function applyRename(name) {
-    var n = String(name || '');
-    var pairs = parseRename(rename);
-    for (var i = 0; i < pairs.length; i++) {
-        n = n.split(pairs[i][0]).join(pairs[i][1]);
-    }
-    return n;
+  var n = str(name);
+  for (var i = 0; i < renamePairs.length; i++) {
+    n = n.split(renamePairs[i][0]).join(renamePairs[i][1]);
+  }
+  return n;
+}
+
+var sortKeywords = [];
+var hasSort = false;
+
+function parseSort() {
+  sortKeywords = [];
+  hasSort = false;
+  if (!sort) return;
+  var items = str(sort).split(",");
+  for (var i = 0; i < items.length; i++) {
+    var kw = items[i].trim();
+    if (kw) sortKeywords.push(kw);
+  }
+  hasSort = sortKeywords.length > 0;
 }
 
 function getSortIndex(name) {
-    if (!sort) return -1;
-    var rules = String(sort).split(',');
-    var n = String(name || '');
-    for (var i = 0; i < rules.length; i++) {
-        var rule = rules[i].trim();
-        if (rule && n.indexOf(rule) !== -1) return i;
-    }
-    return rules.length;
+  if (!hasSort) return -1;
+  var n = str(name);
+  for (var i = 0; i < sortKeywords.length; i++) {
+    if (n.indexOf(sortKeywords[i]) !== -1) return i;
+  }
+  return sortKeywords.length;
 }
 
 function sortItemsByName(items) {
-    if (!sort || !items.length) return items;
-    items.sort(function(a, b) {
-        var ai = getSortIndex(a.name);
-        var bi = getSortIndex(b.name);
-        if (ai !== bi) return ai - bi;
-        return a.index - b.index;
-    });
-    return items;
+  if (!hasSort || !items.length) return items;
+  items.sort(function(a, b) {
+    var ai = getSortIndex(a.name);
+    var bi = getSortIndex(b.name);
+    if (ai !== bi) return ai - bi;
+    return a.index - b.index;
+  });
+  return items;
 }
 
 function modifyName(name) {
-    var n = String(name || '');
-    if (emoji) n = cleanEmoji(n);
-    if (rename) n = applyRename(n);
-    if (pre) n = pre + n;
-    if (suf) n = n + suf;
-    return n;
+  var n = str(name);
+  if (emoji) n = cleanEmoji(n);
+  if (rename) n = applyRename(n);
+  if (pre) n = pre + n;
+  if (suf) n = n + suf;
+  return n;
 }
 
-function base64DecodeUnicode(str) {
-    try {
-        if (typeof atob !== 'undefined') {
-            var binary = atob(str);
-            var bytes = [];
-            for (var i = 0; i < binary.length; i++) bytes.push('%' + ('00' + binary.charCodeAt(i).toString(16)).slice(-2));
-            return decodeURIComponent(bytes.join(''));
-        }
-    } catch (e) {}
-    return null;
+function base64DecodeUnicode(s) {
+  try {
+    var binary = atob(s);
+    var bytes = [];
+    for (var i = 0; i < binary.length; i++) {
+      bytes.push("%" + ("00" + binary.charCodeAt(i).toString(16)).slice(-2));
+    }
+    return decodeURIComponent(bytes.join(""));
+  } catch (e) { return null; }
 }
 
-function base64EncodeUnicode(str) {
-    try {
-        if (typeof btoa !== 'undefined') {
-            var enc = encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
-                return String.fromCharCode('0x' + p1);
-            });
-            return btoa(enc);
-        }
-    } catch (e) {}
-    return null;
-}
 
 function looksLikeBase64(text) {
-    var s = String(text || '').replace(/\s+/g, '');
-    if (!s || s.length < 16) return false;
-    if (s.length % 4 !== 0) return false;
-    return /^[A-Za-z0-9+/=]+$/.test(s);
+  var s = str(text).replace(/\s+/g, "");
+  if (!s || s.length < 16) return false;
+  if (s.length % 4 !== 0) return false;
+  return /^[A-Za-z0-9+/=]+$/.test(s);
 }
 
-function renameLoonStyleText(text) {
-    var raw = normalizeText(text).trim();
-    if (!raw) return "";
-
-    var lines = raw.split('\n');
-    var output = [];
-    var count = 0;
-    var items = [];
-
-    for (var i = 0; i < lines.length; i++) {
-        var line = lines[i].trim();
-        if (!line || line.charAt(0) === '#') {
-            output.push(line);
-            continue;
-        }
-
-        var eqPos = line.indexOf('=');
-        if (eqPos > 0) {
-            var name = line.substring(0, eqPos).trim();
-            var value = line.substring(eqPos + 1).trim();
-            items.push({ index: items.length, name: modifyName(name), value: value });
-            count++;
-            continue;
-        }
-
-        output.push(line);
+function processLoonStyle(text) {
+  var raw = str(text);
+  if (!raw) return "";
+  var lines = raw.split("\n");
+  var output = [];
+  var items = [];
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (!line || line.charAt(0) === "#") { output.push(line); continue; }
+    var eqPos = line.indexOf("=");
+    if (eqPos > 0) {
+      items.push({
+        index: items.length,
+        name: modifyName(line.substring(0, eqPos).trim()),
+        value: line.substring(eqPos + 1).trim()
+      });
+      continue;
     }
-
-    items = sortItemsByName(items);
-    for (var j = 0; j < items.length; j++) {
-        output.push(items[j].name + '=' + items[j].value);
-    }
-
-    console.log('[解析器] 已修改节点数: ' + count);
-    return output.join('\n');
+    output.push(line);
+  }
+  items = sortItemsByName(items);
+  for (var j = 0; j < items.length; j++) {
+    output.push(items[j].name + "=" + items[j].value);
+  }
+  console.log("[解析器] 已修改节点数: " + items.length);
+  return output.join("\n");
 }
 
-function renameBase64UriList(text) {
-    var compact = String(text || '').replace(/\s+/g, '');
-    var decoded = base64DecodeUnicode(compact);
-    if (!decoded) return null;
-
-    var lines = normalizeText(decoded).split('\n');
-    var changed = 0;
-    var items = [];
-
-    for (var i = 0; i < lines.length; i++) {
-        var line = lines[i].trim();
-        if (!line) continue;
-        var hashPos = line.lastIndexOf('#');
-        if (hashPos > -1 && hashPos < line.length - 1) {
-            var left = line.slice(0, hashPos + 1);
-            var frag = line.slice(hashPos + 1);
-            var oldName = '';
-            try { oldName = decodeURIComponent(frag); }
-            catch (e) { oldName = frag; }
-            items.push({ index: items.length, name: modifyName(oldName), left: left });
-            changed++;
-        } else {
-            items.push({ index: items.length, name: '', raw: line, noHash: true });
-        }
-    }
-
-    var sortable = [];
-    var passthrough = [];
-    for (var j = 0; j < items.length; j++) {
-        if (items[j].noHash) passthrough.push(items[j]);
-        else sortable.push(items[j]);
-    }
-
-    sortable = sortItemsByName(sortable);
-    var merged = sortable.concat(passthrough);
-    var output = [];
-    for (var k = 0; k < merged.length; k++) {
-        if (merged[k].noHash) output.push(merged[k].raw);
-        else output.push(merged[k].left + encodeURIComponent(merged[k].name));
-    }
-
-    var encoded = base64EncodeUnicode(output.join('\n'));
-    if (!encoded) return null;
-
-    console.log('[解析器] 已修改节点数: ' + changed);
-    return encoded;
+function extractRemarkName(line) {
+  var m = str(line).match(/[?&]remark=([^&#]*)/);
+  if (!m) return null;
+  var name = m[1];
+  try { name = decodeURIComponent(name); } catch (e) {}
+  return name;
 }
 
-function processResourceContent(content) {
-    var raw = normalizeText(content);
-    var configParts = [];
-    if (ua) configParts.push('ua');
-    if (emoji) configParts.push('emoji');
-    if (rename) configParts.push('rename=' + rename);
-    if (pre) configParts.push('pre=' + pre);
-    if (suf) configParts.push('suf=' + suf);
-    if (sort) configParts.push('sort=' + sort);
-    console.log('[解析器] 当前配置: ' + (configParts.length ? configParts.join(', ') : '无'));
-    console.log('[解析器] 订阅内容长度: ' + raw.length);
+function processBase64UriList(text) {
+  var compact = str(text).replace(/\s+/g, "");
+  var decoded = base64DecodeUnicode(compact);
+  if (!decoded) return null;
+  var lines = normalizeText(decoded).split("\n");
+  var sortable = [];
+  var passthrough = [];
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (!line) continue;
+    var hashPos = line.lastIndexOf("#");
+    if (hashPos > -1 && hashPos < line.length - 1) {
+      var left = line.slice(0, hashPos + 1);
+      var frag = line.slice(hashPos + 1);
+      var oldName = "";
+      try { oldName = decodeURIComponent(frag); } catch (e) { oldName = frag; }
+      sortable.push({ index: sortable.length, name: modifyName(oldName), left: left });
+    } else {
+      var remarkName = extractRemarkName(line);
+      if (remarkName) {
+        sortable.push({ index: sortable.length, name: modifyName(remarkName), left: line + "#" });
+      } else {
+        passthrough.push({ raw: line });
+      }
+    }
+  }
+  sortable = sortItemsByName(sortable);
+  var merged = sortable.concat(passthrough);
+  var output = [];
+  for (var k = 0; k < merged.length; k++) {
+    output.push(merged[k].left
+      ? merged[k].left + encodeURIComponent(merged[k].name)
+      : merged[k].raw);
+  }
+  var plain = output.join("\n");
+  console.log("[解析器] 已修改节点数: " + sortable.length);
+  return plain;
+}
 
+function quoteValue(v) {
+  return '"' + str(v).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
+}
+
+function yamlScalar(v) {
+  v = str(v).trim();
+  if (!v) return "";
+  var c = v.charAt(0);
+  if ((c === '"' && v.charAt(v.length - 1) === '"') || (c === "'" && v.charAt(v.length - 1) === "'")) {
+    return v.slice(1, -1);
+  }
+  if (v === "true") return true;
+  if (v === "false") return false;
+  if (/^-?\d+$/.test(v)) return parseInt(v, 10);
+  return v;
+}
+
+function splitFlowItems(s) {
+  var items = [];
+  var cur = "";
+  var quote = "";
+  var depth = 0;
+  for (var i = 0; i < s.length; i++) {
+    var ch = s.charAt(i);
+    if (quote) {
+      cur += ch;
+      if (ch === quote && s.charAt(i - 1) !== "\\") quote = "";
+      continue;
+    }
+    if (ch === '"' || ch === "'") {
+      quote = ch;
+      cur += ch;
+      continue;
+    }
+    if (ch === "{" || ch === "[") depth++;
+    else if (ch === "}" || ch === "]") depth--;
+    if (ch === "," && depth === 0) {
+      items.push(cur.trim());
+      cur = "";
+    } else {
+      cur += ch;
+    }
+  }
+  if (cur.trim()) items.push(cur.trim());
+  return items;
+}
+
+function parseFlowMap(s) {
+  s = str(s).trim();
+  if (s.charAt(0) === "{" && s.charAt(s.length - 1) === "}") s = s.slice(1, -1);
+  var obj = {};
+  var pairs = splitFlowItems(s);
+  for (var i = 0; i < pairs.length; i++) {
+    var part = pairs[i];
+    var quote = "";
+    var depth = 0;
+    var idx = -1;
+    for (var j = 0; j < part.length; j++) {
+      var ch = part.charAt(j);
+      if (quote) {
+        if (ch === quote && part.charAt(j - 1) !== "\\") quote = "";
+        continue;
+      }
+      if (ch === '"' || ch === "'") { quote = ch; continue; }
+      if (ch === "{" || ch === "[") depth++;
+      else if (ch === "}" || ch === "]") depth--;
+      else if (ch === ":" && depth === 0) { idx = j; break; }
+    }
+    if (idx < 0) continue;
+    var key = part.slice(0, idx).trim();
+    var value = part.slice(idx + 1).trim();
+    if (value.charAt(0) === "{" && value.charAt(value.length - 1) === "}") obj[key] = parseFlowMap(value);
+    else obj[key] = yamlScalar(value);
+  }
+  return obj;
+}
+
+function parseClashYamlProxies(text) {
+  var lines = normalizeText(text).split("\n");
+  var inProxies = false;
+  var baseIndent = -1;
+  var current = null;
+  var stack = [];
+  var nodes = [];
+
+  function finishNode() {
+    if (current && current.name && current.type) nodes.push(current);
+    current = null;
+    stack = [];
+  }
+
+  function setNested(path, key, value) {
+    var obj = current;
+    for (var i = 0; i < path.length; i++) {
+      var p = path[i];
+      if (!obj[p]) obj[p] = {};
+      obj = obj[p];
+    }
+    obj[key] = value;
+  }
+
+  for (var i = 0; i < lines.length; i++) {
+    var raw = lines[i];
     var trimmed = raw.trim();
-    if (!trimmed) {
-        return "";
+    if (!trimmed || trimmed.charAt(0) === "#") continue;
+    var mIndent = raw.match(/^\s*/);
+    var indent = mIndent ? mIndent[0].length : 0;
+
+    if (!inProxies) {
+      if (/^proxies\s*:\s*$/.test(trimmed)) {
+        inProxies = true;
+        baseIndent = indent;
+      }
+      continue;
     }
 
-    var base64Result = null;
-    if (looksLikeBase64(trimmed)) {
-        base64Result = renameBase64UriList(trimmed);
-        if (base64Result !== null) return base64Result;
+    if (indent <= baseIndent && /^[A-Za-z0-9_-]+\s*:/.test(trimmed)) {
+      finishNode();
+      break;
     }
 
-    return renameLoonStyleText(trimmed);
-}
-
-function finishWithContent(content) {
-    if (type == 1) result = processResourceContent(content);
-    else result = String(content || "");
-    console.log('[解析器] 处理完成');
-    $done(result);
-}
-
-var STORAGE_KEY = getStorageKey();
-
-var savedConfig = $persistentStore.read(STORAGE_KEY);
-if (savedConfig) {
-    try {
-        var c = JSON.parse(savedConfig);
-        pre = c.pre || "";
-        suf = c.suf || "";
-        emoji = c.emoji || false;
-        rename = c.rename || "";
-        sort = c.sort || "";
-        ua = c.ua === true;
-        console.log('[解析器] 已读取本地配置');
-    } catch (e) {
-        console.log('[解析器] 本地配置解析失败');
-    }
-} else {
-    console.log('[解析器] 未找到本地配置，使用默认值');
-}
-
-var argStr = "";
-if (typeof $argument !== 'undefined' && $argument) {
-    argStr = $argument.toString();
-} else if (typeof $args !== 'undefined' && $args) {
-    argStr = $args.toString();
-} else if (typeof $parameter !== 'undefined' && $parameter) {
-    argStr = $parameter.toString();
-}
-
-var params = [];
-var canUpdateConfig = false;
-var doReset = false;
-if (argStr) {
-    params = argStr.split('&');
-    for (var i = 0; i < params.length; i++) {
-        var kv0 = params[i].split('=');
-        var key0 = (kv0[0] || "").trim().toLowerCase();
-        var value0 = kv0.length > 1 ? decodeURIComponent(kv0.slice(1).join('=').trim()) : '';
-        if (isSupportedParamKey(key0)) HAS_SUPPORTED_PARAM = true;
-        if (key0 === 'reset' && value0 === '') doReset = true;
-    }
-}
-
-if (argStr && !argStr.match(/^https?:\/\//) && HAS_SUPPORTED_PARAM) {
-    canUpdateConfig = true;
-}
-
-if (canUpdateConfig) {
-    if (doReset) {
-        pre = "";
-        suf = "";
-        emoji = false;
-        rename = "";
-        sort = "";
-        ua = false;
-    }
-    for (var j = 0; j < params.length; j++) {
-        var kv = params[j].split('=');
-        var key = (kv[0] || "").trim().toLowerCase();
-        var value = kv.length > 1 ? decodeURIComponent(kv.slice(1).join('=').trim()) : '';
-
-        if (key === 'pre') pre = value;
-        else if (key === 'suf') suf = value;
-        else if (key === 'emoji') emoji = value === '';
-        else if (key === 'rename') rename = value;
-        else if (key === 'sort') sort = value;
-        else if (key === 'ua') ua = value === '';
-        else if (key === 'reset') {}
+    var item = raw.match(/^\s*-\s+(.*)$/);
+    if (item) {
+      finishNode();
+      current = {};
+      stack = [];
+      var rest = item[1].trim();
+      if (rest.charAt(0) === "{" && rest.charAt(rest.length - 1) === "}") {
+        current = parseFlowMap(rest);
+        finishNode();
+        continue;
+      }
+      var mm = rest.match(/^([^:]+):\s*(.*)$/);
+      if (mm) current[mm[1].trim()] = yamlScalar(mm[2]);
+      continue;
     }
 
-    var config = { pre: pre, suf: suf, emoji: emoji, rename: rename, sort: sort, ua: ua };
-    $persistentStore.write(JSON.stringify(config), STORAGE_KEY);
-    console.log('[解析器] 已更新本地配置');
-} else {
-    console.log('[解析器] 未更新本地配置');
+    if (!current) continue;
+    var kv = trimmed.match(/^([^:]+):\s*(.*)$/);
+    if (!kv) continue;
+    var key = kv[1].trim();
+    var value = kv[2];
+    while (stack.length && indent <= stack[stack.length - 1].indent) stack.pop();
+    var path = stack.map(function(x) { return x.key; });
+    if (value.trim() === "") {
+      setNested(path, key, {});
+      stack.push({ indent: indent, key: key });
+    } else {
+      setNested(path, key, yamlScalar(value));
+    }
+  }
+  finishNode();
+  return nodes;
 }
 
-function refetchWithShadowrocketUA() {
-    if (typeof $httpClient === 'undefined' || !$httpClient) {
-        console.log('[解析器] 当前环境不支持自定义 UA 拉取，已回退默认内容');
-        finishWithContent($resource || "");
-        return;
-    }
-    if (typeof $resourceUrl === 'undefined' || !$resourceUrl) {
-        console.log('[解析器] 缺少资源地址，已回退默认内容');
-        finishWithContent($resource || "");
-        return;
-    }
-
-    var req = {
-        url: String($resourceUrl),
-        headers: {
-            'User-Agent': 'Shadowrocket/3082'
-        }
-    };
-
-    console.log('[解析器] 已启用 Shadowrocket UA');
-
-    $httpClient.get(req, function(error, response, data) {
-        if (error || !data) {
-            console.log('[解析器] Shadowrocket UA 拉取失败，已回退默认内容');
-            finishWithContent($resource || "");
-            return;
-        }
-        console.log('[解析器] Shadowrocket UA 拉取成功');
-        finishWithContent(data);
-    });
+function boolOption(key, value) {
+  if (value === undefined || value === null || value === "") return null;
+  return key + "=" + (value === true || str(value).toLowerCase() === "true" ? "true" : "false");
 }
 
-if (ua && type == 1) refetchWithShadowrocketUA();
-else finishWithContent($resource || "");
+function convertClashProxy(node, index) {
+  var type = str(node.type).toLowerCase();
+  var name = modifyName(node.name || ("node-" + index));
+  var server = node.server;
+  var port = node.port;
+  var opts = [];
+  var line = "";
+
+  if (!server || !port) return null;
+
+  if (type === "anytls") {
+    line = name + " = AnyTLS," + server + "," + port + "," + quoteValue(node.password || "");
+    var skip = boolOption("skip-cert-verify", node["skip-cert-verify"]);
+    if (skip) opts.push(skip);
+    if (node.sni) opts.push("sni=" + node.sni);
+    var udp = boolOption("udp", node.udp);
+    if (udp) opts.push(udp);
+    opts.push("block-quic=false");
+    return line + (opts.length ? "," + opts.join(",") : "");
+  }
+
+  if (type === "hysteria2" || type === "hy2") {
+    line = name + " = Hysteria2," + server + "," + port + "," + quoteValue(node.auth || node.password || "");
+    var skipHy2 = boolOption("skip-cert-verify", node["skip-cert-verify"]);
+    if (skipHy2) opts.push(skipHy2);
+    if (node.sni) opts.push("sni=" + node.sni);
+    var udpHy2 = boolOption("udp", node.udp);
+    if (udpHy2) opts.push(udpHy2);
+    if (node["obfs-password"]) opts.push("salamander-password=" + node["obfs-password"]);
+    return line + (opts.length ? "," + opts.join(",") : "");
+  }
+
+  if (type === "vless") {
+    line = name + " = VLESS," + server + "," + port + "," + quoteValue(node.uuid || "");
+    var network = str(node.network).toLowerCase();
+    if (network === "ws") {
+      opts.push("transport=ws");
+      var wsOpts = node["ws-opts"] || {};
+      var headers = wsOpts.headers || node["ws-headers"] || {};
+      var path = wsOpts.path || node["ws-path"];
+      var host = headers.Host || headers.host || node.host;
+      if (path) opts.push("path=" + path);
+      if (host) opts.push("host=" + host);
+    } else {
+      opts.push("transport=tcp");
+      if (node.flow && str(node.flow) !== "null") opts.push("flow=" + node.flow);
+      var reality = node["reality-opts"] || {};
+      if (reality["public-key"]) opts.push("public-key=" + quoteValue(reality["public-key"]));
+      if (reality["short-id"]) opts.push("short-id=" + reality["short-id"]);
+    }
+    if (node.tls !== undefined) opts.push("over-tls=" + (node.tls ? "true" : "false"));
+    else opts.push("over-tls=false");
+    if (node.servername) opts.push("sni=" + node.servername);
+    else if (node.sni) opts.push("sni=" + node.sni);
+    var skip2 = boolOption("skip-cert-verify", node["skip-cert-verify"]);
+    if (skip2) opts.push(skip2);
+    var udp2 = boolOption("udp", node.udp);
+    if (udp2) opts.push(udp2);
+    return line + "," + opts.join(",");
+  }
+
+  return null;
+}
+
+function processClashYaml(text) {
+  if (!/^\s*proxies\s*:/m.test(text)) return null;
+  var proxies = parseClashYamlProxies(text);
+  if (!proxies.length) return null;
+  var items = [];
+  var skipped = 0;
+  for (var i = 0; i < proxies.length; i++) {
+    var line = convertClashProxy(proxies[i], i + 1);
+    if (line) {
+      var name = line.split("=")[0].trim();
+      items.push({ index: items.length, name: name, line: line });
+    } else {
+      skipped++;
+    }
+  }
+  sortItemsByName(items);
+  console.log("[解析器] 已转换 YAML 节点数: " + items.length + (skipped ? ", 跳过: " + skipped : ""));
+  return items.map(function(x) { return x.line; }).join("\n");
+}
+function processResource(content) {
+  var raw = normalizeText(content);
+  var configParts = [];
+  if (ua) configParts.push("ua");
+  if (emoji) configParts.push("emoji");
+  if (rename) configParts.push("rename=" + rename);
+  if (pre) configParts.push("pre=" + pre);
+  if (suf) configParts.push("suf=" + suf);
+  if (sort) configParts.push("sort=" + sort);
+  console.log("[解析器] 当前配置: " + (configParts.length ? configParts.join(", ") : "无"));
+  console.log("[解析器] 订阅内容长度: " + raw.length);
+  var trimmed = raw.trim();
+  if (!trimmed) return "";
+  if (looksLikeBase64(trimmed)) {
+    var base64Result = processBase64UriList(trimmed);
+    if (base64Result !== null) return base64Result;
+  }
+  var yamlResult = processClashYaml(trimmed);
+  if (yamlResult !== null) return yamlResult;
+  return processLoonStyle(trimmed);
+}
+
+function refetchWithUserAgent() {
+  if (typeof $httpClient === "undefined" || !$httpClient) {
+    console.log("[解析器] 当前环境不支持自定义 UA 拉取，已回退默认内容");
+    finish(typeof $resource !== "undefined" ? $resource : "");
+    return;
+  }
+  if (typeof $resourceUrl === "undefined" || !$resourceUrl) {
+    console.log("[解析器] 缺少资源地址，已回退默认内容");
+    finish(typeof $resource !== "undefined" ? $resource : "");
+    return;
+  }
+  var headers = { "User-Agent": userAgent };
+  if (noCache) headers["Cache-Control"] = "no-cache";
+  var req = {
+    url: String($resourceUrl),
+    headers: headers
+  };
+  console.log("[解析器] 已启用自定义 UA: " + userAgent);
+  $httpClient.get(req, function(error, response, data) {
+    if (error || !data) {
+      console.log("[解析器] 自定义 UA 拉取失败，已回退默认内容");
+      finish(typeof $resource !== "undefined" ? $resource : "");
+      return;
+    }
+    console.log("[解析器] 自定义 UA 拉取成功");
+    finish(data);
+  });
+}
+
+var typeName = { 0: "config", 1: "nodes", 2: "rules", 3: "rewrites", 4: "scripts", 5: "plugin" };
+
+function finish(content) {
+  console.log("[解析器] 资源类型: " + (typeName[type] || type));
+  var result = type === 1 ? processResource(content) : str(content);
+  console.log("[解析器] 处理完成");
+  $done(result);
+}
+
+(function init() {
+  var arg = typeof $argument !== "undefined" ? $argument : null;
+  if (arg && typeof arg === "object") {
+    if (arg.pre !== undefined) pre = str(arg.pre);
+    if (arg.suf !== undefined) suf = str(arg.suf);
+    if (arg.emoji !== undefined) emoji = bool(arg.emoji);
+    if (arg.rename !== undefined) rename = str(arg.rename);
+    if (arg.sort !== undefined) sort = str(arg.sort);
+    if (arg.ua !== undefined) ua = bool(arg.ua);
+    if (arg.userAgent !== undefined) userAgent = str(arg.userAgent);
+    if (arg.noCache !== undefined) noCache = bool(arg.noCache);
+  }
+  parseRename();
+  parseSort();
+  console.log("[解析器] 已读取插件参数");
+  if (ua && type === 1) refetchWithUserAgent();
+  else finish(typeof $resource !== "undefined" ? $resource : "");
+})();

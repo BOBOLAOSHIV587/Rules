@@ -1,0 +1,18 @@
+#!name=资源解析器
+#!desc=用于节点名称处理与排序，支持前后缀、去除 Emoji、文本替换、自定义排序及自定义UA拉取订阅，如果自定义UA获取不到节点可以开启禁用缓存试试。文本替换格式为 旧文本:新文本，多个规则用英文逗号分隔，例如 香港:HK,日本:JP。节点排序按关键词先后顺序排序，使用英文逗号分隔，例如 香港,日本,新加坡,美国。在订阅管理界面对订阅进行单独配置。
+#!date=2026-06-29
+#!category=🐹 BOBO Premium
+#!author=mc2u[https://github.com/mc2u/Loon]
+
+[Argument]
+pre = input,"",tag=节点前缀,desc=添加到所有节点名称开头
+suf = input,"",tag=节点后缀,desc=添加到所有节点名称末尾
+rename = input,"",tag=文本替换,desc=格式为 旧文本:新文本，多个规则用英文逗号分隔，例如 香港:HK,日本:JP
+sort = input,"",tag=节点排序,desc=按关键词先后顺序排序，使用英文逗号分隔，例如 香港,日本,新加坡,美国
+emoji = switch,false,tag=去除 Emoji,desc=去除节点名称中的 Emoji 和旗帜
+userAgent = input,"Shadowrocket/3308 CFNetwork/3886.100.1 Darwin/27.0.0 iPhone18,1",tag=User-Agent,desc=仅在自定义 UA 开关开启时生效。
+noCache = switch,false,tag=禁用缓存,desc=如果自定义UA获取不到节点可以开启试试。
+ua = switch,false,tag=自定义 UA,desc=开启后使用自定义 User-Agent 拉取订阅。
+
+[Script]
+generic script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Loon/loon-resource-parser/resource-parser/loon_resource_parser.js,tag=资源解析器,timeout=10,argument=[{pre},{suf},{emoji},{rename},{sort},{ua},{userAgent},{noCache}]
