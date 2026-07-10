@@ -1,0 +1,49 @@
+{
+  "id": "shadowloc.boxjs",
+  "name": "ShadowLoc 定位配置",
+  "author": "Mr.Eric",
+  "icon": "location.fill",
+  "repo": "",
+  "apps": [
+    {
+      "id": "shadowloc",
+      "name": "ShadowLoc",
+      "keys": [
+        "shadowloc.longitude",
+        "shadowloc.latitude",
+        "shadowloc.accuracy",
+        "shadowloc.target"
+      ],
+      "settings": [
+        {
+          "id": "shadowloc.longitude",
+          "name": "经度 Longitude",
+          "val": "113.94114",
+          "type": "text",
+          "desc": "目标经度，例如深圳 113.94114"
+        },
+        {
+          "id": "shadowloc.latitude",
+          "name": "纬度 Latitude",
+          "val": "22.544577",
+          "type": "text",
+          "desc": "目标纬度，例如深圳 22.544577"
+        },
+        {
+          "id": "shadowloc.accuracy",
+          "name": "精度 Accuracy",
+          "val": "25",
+          "type": "text",
+          "desc": "单位米，建议 10-100"
+        },
+        {
+          "id": "shadowloc.target",
+          "name": "组合坐标，可选",
+          "val": "",
+          "type": "text",
+          "desc": "可填 113.94114,22.544577,25 或 JSON；单独经纬度优先级更高"
+        }
+      ]
+    }
+  ]
+}

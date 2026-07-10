@@ -1,0 +1,12 @@
+#!name=ShadowLocPro
+#!desc=Apple修改定位；地图选点自动保存到代理工具本地持久化存储，WLOC 脚本直接读取。
+#!date=2026-07-11
+#!category=🐹 BOBO Enhance
+#!author=Mr.Eric[https://t.me/Mr_Alex]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Apple_WLOC/JS/JS-1/IMG/wloc.png
+
+[Script]
+ShadowLoc = type=http-response,pattern=^https:\/\/gs-loc(-cn)?\.apple\.com\/clls\/wloc,requires-body=true,binary-body-mode=true,max-size=0,timeout=30,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Apple_WLOC/JS/JS-3/JS/ShadowLoc.js
+
+[MITM]
+hostname = %APPEND% gs-loc.apple.com, gs-loc-cn.apple.com
