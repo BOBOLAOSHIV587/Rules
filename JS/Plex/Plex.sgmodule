@@ -1,0 +1,13 @@
+#!name=Plex - Rewrite display username重写显示用户名
+#!desc=修改 Plex 用户 API 响应中的 title、friendlyName 和 username 字段
+#!date=2026-07-11
+#!category=🐹 BOBO Enhance
+#!author=liunice[https://github.com/liunice/quantumult-x-rewrites]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Plex.png
+
+[Script]
+Plex重写显示用户名 = type=http-response, pattern=^https://clients\.plex\.tv/api/v2/user\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Plex/JS/Plex.js, requires-body=true, max-size=-1, timeout=60
+Plex重写显示用户名 = type=http-response, pattern=^https://clients\.plex\.tv/api/v2/home/users, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Plex/JS/Plex.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% clients.plex.tv
