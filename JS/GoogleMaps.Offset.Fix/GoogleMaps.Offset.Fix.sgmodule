@@ -1,0 +1,13 @@
+#!name=Google Maps 卫星地图偏移修复
+#!desc=Google Maps 卫星地图偏移修复
+#!date=2026-07-12
+#!category=🐹 BOBO Enhance
+#!author= Ning33274[https://github.com/Ning33274/fuck-google-maps-offset]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/GoogleMaps.png
+
+[Script]
+# > Google Maps 卫星地图偏移修复
+Google Maps 卫星地图偏移修复 = type=http-request, pattern=^https:\/\/mobilemaps\.googleapis\.com\/maps\/vt\/proto\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/GoogleMaps.Offset.Fix/JS/GoogleMaps.Offset.Fix.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% mobilemaps.googleapis.com
