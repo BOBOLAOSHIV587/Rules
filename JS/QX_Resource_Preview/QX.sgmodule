@@ -1,0 +1,13 @@
+#!name=预览QX一键导入资源
+#!desc=将QX的一键导入链接复制到Safari打开可以预览
+#!date=2026-07-12
+#!category=🐹 BOBO Enhance
+#!author= chengkongyiban[https://github.com/chengkongyiban]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/QuantumultX-04.png
+
+[Script]
+# > 预览QX一键导入资源
+预览QX一键导入资源 = type=http-request, pattern=^https:\/\/quantumult\.app\/x\/open-app\/add-resource\?remote-resource=, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/QX_Resource_Preview/JS/QX.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% quantumult.app
