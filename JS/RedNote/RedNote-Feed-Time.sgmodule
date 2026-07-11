@@ -1,0 +1,17 @@
+#!name=小红书 Feed 时间
+#!desc=显示小红书信息流中笔记的发布时间
+#!date=2026-07-12
+#!category=🐹 BOBO Enhance
+#!author= meichiny[https://github.com/meichiny/rednote-feed-time]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/RedPaper.png
+#!openUrl=https://apps.apple.com/app/id741292507
+
+[Rule]
+AND,((PROTOCOL,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,xiaohongshu.com)),REJECT
+
+[Script]
+# > 显示小红书信息流中笔记的发布时间
+小红书信息流的发布时间 = type=http-response, pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/homefeed\?, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/RedNote/JS/RedNote-Feed-Time.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% rec.xiaohongshu.com, edith.xiaohongshu.com, www.xiaohongshu.com, *.xiaohongshu.com
