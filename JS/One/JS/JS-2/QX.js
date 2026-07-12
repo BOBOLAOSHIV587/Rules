@@ -3,10 +3,10 @@
  * 致敬开源: https://github.com/NSNanoCat/util
  *
  [rewrite_local]
- ^https?:\/\/(api|jmtp)(.*-uat)?\.[\w]+\.com\/v2\.5\/(bootstrap|user\/login|user\/avatarFrame|article\/discovery|navigation|ad\/space|my\/userExtraInfo|article\/download|vip\/download|article\/detail) url script-analyze-echo-response https://one-api.zzxu.de/one/qx.js
+ ^https?:\/\/(\w*api|jmtp)(.*-uat)?\.[\w]+\.com\/v2\.5\/(bootstrap|user\/login|user\/avatarFrame|article\/discovery|navigation|ad\/space|my\/userExtraInfo|article\/download|vip\/download|article\/detail) url script-analyze-echo-response https://one-api.zzxu.de/one/qx.js
 
  [mitm]
- hostname = api.apubis.com, api.pjq6he.com, api.zbdk8ws.com, api.f38khx.com, api.deyhhc3.com, api.68f4deb.com, api.3459381.com, api.61c76a0.com, api.87735d5.com, api.afe9a49.com, api.c6dd5cc.com, api.2b37894.com, api.35a46dd.com, api.43b8477.com, api.5ce3771.com, api.632d809.com, api.b675211.com, api.a9a2bc4.com, api.8eb269a.com, api.4c86d03.com, api.979bb9e.com, api.988068b.com, api.9cbd862.com, api.c2e777b.com, api.b676039.com, api.ab1e7ee.com, api.5ed249d.com, api.2b1daea.com, api.4934430.com, api.645fb8d.com, api.53cuk7g.com, api.5ebd5d.com, api.em1oifd0.com, jmtp.*.com, api.k55n2r.com, api.26bb4xt.com, api.vf5x3hv.com, api.fexsqz.com, api.ec53y2t.com, api.j7y675.com, qqcapi.*.com, www.nj5byj6j.com
+ hostname = *.apubis.com, *.pjq6he.com, *.zbdk8ws.com, *.f38khx.com, *.deyhhc3.com, *.68f4deb.com, *.3459381.com, *.61c76a0.com, *.87735d5.com, *.afe9a49.com, *.c6dd5cc.com, *.2b37894.com, *.35a46dd.com, *.43b8477.com, *.5ce3771.com, *.632d809.com, *.b675211.com, *.a9a2bc4.com, *.8eb269a.com, *.4c86d03.com, *.979bb9e.com, *.988068b.com, *.9cbd862.com, *.c2e777b.com, *.b676039.com, *.ab1e7ee.com, *.5ed249d.com, *.2b1daea.com, *.4934430.com, *.645fb8d.com, *.53cuk7g.com, *.5ebd5d.com, *.em1oifd0.com, *.k55n2r.com, *.26bb4xt.com, *.vf5x3hv.com, *.fexsqz.com, *.ec53y2t.com, *.j7y675.com, *.nj5byj6j.com, *.einhn4.com, *.ecmxb7e.com
  */
 
 const StatusTexts = {
