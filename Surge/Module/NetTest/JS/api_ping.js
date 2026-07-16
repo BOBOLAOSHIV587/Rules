@@ -1,4 +1,4 @@
-// 2025-02-13 00:00:07
+// 2026 
 !(async () => {
   let timeouts = 5000;
   try {
@@ -10,6 +10,8 @@
         ? "Egern"
         : "undefined" != typeof $environment && $environment["surge-version"]
         ? "Surge"
+        : "undefined" != typeof Scripting 
+        ? "Scripting"
         : "undefined" != typeof $environment && $environment["stash-version"]
         ? "Stash"
         : "undefined" != typeof module && module.exports
@@ -94,7 +96,7 @@
           body: JSON.stringify({
             sp: 1,
             ms: ms,
-            app: getEnv(),
+            app:  getEnv() ? getEnv() : "未知",
             timeouts: timeouts,
           }),
         },

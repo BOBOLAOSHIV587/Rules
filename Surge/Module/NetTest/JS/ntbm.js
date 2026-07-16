@@ -21,37 +21,108 @@
             e[r] = (t.words[r >>> 2] >>> (24 - (r % 4) * 8)) & 255;
             return e;
         })(M),
-        n = r.length,
-        i =
-            typeof Egern < "u"
-            ? "Egern"
-            : typeof $environment < "u" && $environment["surge-version"]
-            ? "Surge"
-            : typeof $environment < "u" && $environment["stash-version"]
-            ? "Stash"
-            : typeof module < "u" && module.exports
-            ? "Node.js"
-            : typeof $task < "u"
-            ? "Quantumult X"
-            : typeof $loon < "u"
-            ? "Loon"
-            : typeof $rocket < "u"
-            ? "Shadowrocket"
+        n = r.length
+        const getEnv = () => {
+            return "undefined" != typeof Egern ? "Egern"
+            : "undefined" != typeof $environment && $environment["surge-version"] ? "Surge"
+            : "undefined" != typeof Scripting ? "Scripting"
+            : "undefined" != typeof $environment && $environment["stash-version"] ? "Stash"
+            : "undefined" != typeof module && module.exports ? "Node.js"
+            : "undefined" != typeof $task ? "Quantumult X"
+            : "undefined" != typeof $loon ? "Loon"
+            : "undefined" != typeof $rocket ? "Shadowrocket"
             : void 0;
-        if ("Loon" == i) {
-        let t = $loon.split(" ");
-        i = { device: t[0], ios: t[1], version: t[2], app: "Loon" };
-        } else
-        "Egern" == i
-            ? ((i = Egern), (i.app = "Egern"))
-            : "Surge" == i
-            ? ((i = $environment), (i.app = "Surge"))
-            : "Stash" == i && ((i = $environment), (i.app = "Stash"));
-        if (t) {
-        let t = $environment.version.split(" ");
-        i = { device: t[0], ios: t[1], version: t[2], app: "Quantumult X" };
-        }
-        let o = { t1: D, t2: e, t3: Date.now(), device: i, length: n },
+        };
+
+        const getEnvInfo = () => {
+            const env = getEnv();
+
+            switch (env) {
+            case "Surge":
+                return {
+                app: "Surge",
+                version: $environment["surge-version"],
+                build: $environment["surge-build"],
+                device: $environment["device-model"],
+                system: $environment["system"],
+                };
+
+            case "Stash":
+                return {
+                app: "Stash",
+                version: $environment["stash-version"],
+                build: $environment["stash-build"],
+                device: $environment["device-model"],
+                system: $environment["system"],
+                };
+
+            case "Egern":
+                return {
+                app: "Egern",
+                version: Egern.version,
+                build: null,
+                device: null,
+                system: null,
+                };
+
+            case "Scripting":
+                return {
+                app: "Scripting",
+                version: Scripting.version,
+                build: null,
+                device: null,
+                system: null,
+                };
+
+            case "Quantumult X": {
+                // 例："iOS 27.0 v1.6.0-build927"
+                const raw = ($environment && $environment.version) || "";
+                const m = raw.match(/^(\S+)\s+([\d.]+)\s+v([\d.]+)-build(\d+)/);
+                return {
+                app: "Quantumult X",
+                version: m ? m[3] : null,      // "1.6.0"
+                build: m ? m[4] : null,        // "927"
+                device: null,                  // QX 不暴露设备型号
+                system: m ? m[2] : null, // "27.0"
+                };
+            }
+
+            case "Loon": {
+                // 例："iPhone18,1 27.0 3.5.1(976)"
+                const raw = typeof $loon === "string" ? $loon : String($loon);
+                const m = raw.match(/^(\S+)\s+([\d.]+)\s+([\d.]+)\((\d+)\)/);
+                return {
+                app: "Loon",
+                version: m ? m[3] : ($loon.version ?? null),   // "3.5.1"
+                build: m ? m[4] : ($loon.build ?? null),       // "976"
+                device: m ? m[1] : ($loon.deviceModel ?? null),// "iPhone18,1"
+                system: m ? m[2] : ($loon.systemVersion ?? null), // "27.0"
+                };
+            }
+
+            case "Shadowrocket":
+                return {
+                app: "Shadowrocket",
+                version: null,
+                build: null,
+                device: null,
+                system: null,
+                };
+
+            case "Node.js":
+                return {
+                app: "Node.js",
+                version: process.version,
+                build: null,
+                device: null,
+                system: `${require("os").platform()} ${require("os").release()}`,
+                };
+
+            default:
+                return { app: null, version: null, build: null, device: null, system: null };
+            }
+        };
+        let o = { t1: D, t2: e, t3: Date.now(), getEnvInfo: getEnvInfo(), length: n },
         s = {
             "Content-Type": "application/json; charset=utf-8",
             "Access-Control-Allow-Origin": "*",
