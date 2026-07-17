@@ -5,4 +5,4 @@
 #!author=RavelloH[https://gist.githubusercontent.com/RavelloH/383354955aa3800e1d7e98666e11e16f/raw/block_check.js], MaYIHEI[https://github.com/MaYIHEI/paperclip]
 
 [Script]
-generic script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/JS-2/Block_Check/JS/Block_Check.js, tag=节点阻断检测, timeout=20, img-url=bolt.horizontal.icloud.fill.system, enable=true
+generic script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Block_Check/JS/JS-2/Block_Check.js, tag=节点阻断检测, timeout=20, img-url=bolt.horizontal.icloud.fill.system, enable=true

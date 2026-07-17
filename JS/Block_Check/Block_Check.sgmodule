@@ -8,4 +8,4 @@
 BlockCheck = title="节点阻断检测",content="点击刷新进行检测",style=info,icon=bolt.horizontal.icloud.fill,icon-color=#007AFF,script-name=BlockCheck
 
 [Script]
-BlockCheck = type=generic,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/JS-3/Block_Check/JS/Block_Check.js,timeout=30
+BlockCheck = type=generic,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Block_Check/JS/JS-3/Block_Check.js,timeout=30
