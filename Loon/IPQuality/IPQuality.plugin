@@ -1,0 +1,11 @@
+#!name=节点 IP 质量检测
+#!desc=对齐 IP.Check.Place 口径检测节点 IP 类型、原始风险、风险标记及流媒体与 AI 可用性
+#!date=2026-07-20
+#!category=🐹 BOBO面板模块
+#!author=MaYIHEI[https://github.com/MaYIHEI]
+#!select = MaskIP,false,true
+#!select = MediaTest,true,false
+#!select = MapNotification,false,true
+
+[Script]
+generic script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Loon/IPQuality/JS/IPQuality.js, tag=节点 IP 质量检测, timeout=50, img-url=shield.lefthalf.filled.system, enable=true
