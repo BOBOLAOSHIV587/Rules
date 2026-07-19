@@ -1,0 +1,24 @@
+#!name=YouTube 自动简中双语字幕
+#!desc=超长自动字幕使用有界并发队列，普通自动字幕与官方字幕保持原样
+#!date=2026-07-20
+#!category=🐹 BOBO Enhance
+#!author=Hey-sayiwanna[https://github.com/Hey-sayiwanna/YouTube-Bilingual-Subtitles-Surge]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/YouTube.png
+
+[Script]
+DualSubs.AutoZH.Player.request.json = type=http-request, pattern=^https?:\/\/(www|m|tv)\.youtube\.com\/youtubei\/v1\/player(\?.+)?$, requires-body=1, max-size=-1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YouTube/JS/JS-5/request.youtube-standalone-v18.bundle.js, argument=Type=Translate&Types=Translate&AutoCC=true&Position=Forward&Vendor=Google&ShowOnly=false&Languages%5B0%5D=AUTO&Languages%5B1%5D=ZH-HANS&LogLevel=WARN
+
+DualSubs.AutoZH.Player.response.json = type=http-response, pattern=^https?:\/\/(www|m|tv)\.youtube\.com\/youtubei\/v1\/player(\?.+)?$, requires-body=1, max-size=-1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YouTube/JS/JS-5/response.youtube-standalone-v18.bundle.js, argument=Type=Translate&Types=Translate&AutoCC=true&Position=Forward&Vendor=Google&ShowOnly=false&Languages%5B0%5D=AUTO&Languages%5B1%5D=ZH-HANS&LogLevel=WARN
+
+DualSubs.AutoZH.Player.request.proto = type=http-request, pattern=^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/player(\?.+)?$, requires-body=1, max-size=-1, binary-body-mode=1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YouTube/JS/JS-5/request.youtube-standalone-v18.bundle.js, argument=Type=Translate&Types=Translate&AutoCC=true&Position=Forward&Vendor=Google&ShowOnly=false&Languages%5B0%5D=AUTO&Languages%5B1%5D=ZH-HANS&LogLevel=WARN
+
+DualSubs.AutoZH.Player.response.proto = type=http-response, pattern=^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/player(\?.+)?$, requires-body=1, max-size=-1, binary-body-mode=1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YouTube/JS/JS-5/response.youtube-standalone-v18.bundle.js, argument=Type=Translate&Types=Translate&AutoCC=true&Position=Forward&Vendor=Google&ShowOnly=false&Languages%5B0%5D=AUTO&Languages%5B1%5D=ZH-HANS&LogLevel=WARN
+
+DualSubs.AutoZH.GetWatch.response.proto = type=http-response, pattern=^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/get_watch(\?.+)?$, requires-body=1, max-size=-1, binary-body-mode=1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YouTube/JS/JS-5/response.youtube-standalone-v18.bundle.js, argument=Type=Translate&Types=Translate&AutoCC=true&Position=Forward&Vendor=Google&ShowOnly=false&Languages%5B0%5D=AUTO&Languages%5B1%5D=ZH-HANS&LogLevel=WARN
+
+DualSubs.AutoZH.TimedText.request = type=http-request, pattern=^https?:\/\/(www|m)\.youtube\.com\/api\/timedtext(\?.+)?$, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YouTube/JS/JS-5/force_translate_request.js
+
+DualSubs.AutoZH.TimedText.Translate.response = type=http-response, pattern=^https?:\/\/(www|m)\.youtube\.com\/api\/timedtext\?.*subtype=Translate.*$, requires-body=1, max-size=-1, timeout=60, engine=webview, debug=true, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/YouTube/JS/JS-5/Translate.response.youtube-fix-v20.bundle.js, argument=Type=Translate&Types=Translate&AutoCC=true&Position=Forward&Vendor=Google&ShowOnly=false&Languages%5B0%5D=AUTO&Languages%5B1%5D=ZH-HANS&LogLevel=ALL
+
+[MITM]
+hostname = %APPEND% www.youtube.com, m.youtube.com, tv.youtube.com, youtubei.googleapis.com
