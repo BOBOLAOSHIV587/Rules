@@ -1,0 +1,46 @@
+#!name = 📺 BiliBili: 🌐 Global
+#!desc = 哔哩哔哩：全球模式\n中国站自动线路及全区搜索
+#!date=2026-07-30
+#!category = 🪐 BiliUniverse
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://biliuniverse.github.io/guide/global
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/IMG/icon_rounded.png
+#!openUrl = http://boxjs.com/#/app/BiliBili.Global
+
+[Argument]
+ForceHost = select,"1","0","2",tag=强制CDN主机名类型,desc=请设置强制返回的CDN主机名类型。
+Locales = input,"CHN,HKG,TWN",tag=启用自动识别与分流功能的地区,desc=请选择启用自动识别与分流功能的地区。
+Proxies.CHN = input,"DIRECT",tag=[🇨🇳中国大陆] 代理策略名称,desc=请填写此地区的代理或策略组名称。
+Proxies.HKG = input,"🇭🇰香港",tag=[🇭🇰中国香港] 代理策略名称,desc=请填写此地区的代理或策略组名称。
+Proxies.MAC = input,"🇲🇴澳门",tag=[🇲🇴中国澳门] 代理策略名称,desc=请填写此地区的代理或策略组名称。
+Proxies.TWN = input,"🇹🇼台湾",tag=[🇹🇼中国台湾] 代理策略名称,desc=请填写此地区的代理或策略组名称。
+Storage = select,"Argument","PersistentStore","database",tag=[储存] 配置类型,desc=选择要使用的配置类型。未设置此选项或不通过此选项的旧版本的配置顺序依旧是 PersistentStore (BoxJs) > $argument > database。
+LogLevel = select,"WARN","OFF","ERROR","INFO","DEBUG","ALL",tag=[调试] 日志等级,desc=选择脚本日志的输出等级，低于所选等级的日志将全部输出。
+
+[Script]
+http-request ^https?:\/\/www\.bilibili\.com\/bangumi\/play\/(ss|ep)\d+\/? requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.bangumi.play.html, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+
+http-request ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.viewunite\.v1\.View\/View$ requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.viewunite.v1.View.grpc, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-response ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.viewunite\.v1\.View\/View$ requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/response.bundle.js, tag=📺 BiliBili.Global.viewunite.v1.View.grpc, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/season\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.season.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-response ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/season\? requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/response.bundle.js, tag=📺 BiliBili.Global.season.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-response ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/ep\/list\? requires-body=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/response.bundle.js, tag=📺 BiliBili.Global.ep.list.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+
+http-request ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.playerunite.v1.Player.grpc, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.pgc\.gateway\.player\.v2\.PlayURL\/PlayView$ requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.player.v2.PlayURL.grpc, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/player\/(api|web)\/playurl(\/html5)?\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.player.playurl.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/player\/web\/v2\/playurl\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.player.v2.playurl.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+
+http-request ^https?:\/\/search\.bilibili\.com\/all\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.search.html, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.polymer\.app\.search\.v1\.Search\/(SearchAll|SearchByType)$ requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.search.grpc, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/search(\/type)?\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.search.app.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/web-interface\/wbi\/search\/(all\/v2|type)\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.search.wbi.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/web-interface\/search\/(all\/v2|type)\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.search.pc.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+
+http-request ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/space\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.space.app.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/space\/wbi\/acc\/info\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.space.wbi.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/space\/acc\/info\? script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/BiliUniverse/Global/JS/request.bundle.js, tag=📺 BiliBili.Global.space.pc.json, argument=[{ForceHost},{Locales},{Proxies.CHN},{Proxies.HKG},{Proxies.MAC},{Proxies.TWN},{Storage},{LogLevel}]
+
+[MITM]
+hostname = www.bilibili.com, app.bilibili.com, app.biliapi.net, search.bilibili.com, api.bilibili.com, api.global.bilibili.com, api.biliapi.net, grpc.biliapi.net
+h2 = true

@@ -1,0 +1,732 @@
+{
+	"id": "BiliUniverse.BiliBili.sub",
+	"name": "🪐 BiliUniverse: 📺 BiliBili",
+	"author": "@BiliUniverse",
+	"description": "哔哩哔哩中国版流媒体平台功能增强系列",
+	"icon": "https://avatars.githubusercontent.com/u/129515498?s=200&v=4",
+	"repo": "https://github.com/BiliUniverse/Universe",
+	"apps": [
+		{
+			"id": "BiliBili.Enhanced.Home",
+			"name": "📺 BiliBili: ⚙ Enhanced (首页)",
+			"descs_html": ["使用说明请见<a href=\"https://Enhanced.BiliUniverse.io\">🪐 BiliUniverse: ⚙️ Enhanced</a>进行配置", "填写完成后记得点击此页面底端右下角的\"保存\"。"],
+			"keys": ["@BiliBili.Enhanced.Settings.Home", "@BiliBili.Enhanced.Caches"],
+			"settings": [
+				{
+					"id": "@BiliBili.Enhanced.Settings.Home.Switch",
+					"name": "[首页] 启用此标签页自定义功能",
+					"val": true,
+					"type": "boolean",
+					"desc": "启用后可自定义首页标签页、顶栏按钮等内容。"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Home.Tab",
+					"name": "[首页] 标签页",
+					"type": "checkboxes",
+					"val": ["直播tab", "推荐tab", "hottopic", "bangumi", "anime", "film", "koreavtw"],
+					"items": [
+						{ "key": "直播tab", "label": "直播" },
+						{ "key": "推荐tab", "label": "推荐" },
+						{ "key": "hottopic", "label": "热门" },
+						{ "key": "bangumi", "label": "番剧" },
+						{ "key": "anime", "label": "动画（港澳台）" },
+						{ "key": "film", "label": "影视" },
+						{ "key": "koreavtw", "label": "韩综（港澳台）" },
+						{ "key": "game", "label": "游戏" },
+						{ "key": "mctab", "label": "minecraft" },
+						{ "key": "dhtr", "label": "动画同人" },
+						{ "key": "gaoxiao", "label": "搞笑" },
+						{ "key": "school", "label": "校园" },
+						{ "key": "kj", "label": "数码" }
+					],
+					"desc": "请选择启用的首页标签页，建议不超过7个。"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Home.Tab_default",
+					"name": "[首页] 默认标签页",
+					"type": "selects",
+					"val": "推荐tab",
+					"items": [
+						{ "key": "直播tab", "label": "直播" },
+						{ "key": "推荐tab", "label": "推荐" },
+						{ "key": "hottopic", "label": "热门" },
+						{ "key": "bangumi", "label": "番剧" },
+						{ "key": "anime", "label": "动画（港澳台）" },
+						{ "key": "film", "label": "影视" },
+						{ "key": "koreavtw", "label": "韩综（港澳台）" },
+						{ "key": "game", "label": "游戏" },
+						{ "key": "mctab", "label": "minecraft" },
+						{ "key": "dhtr", "label": "动画同人" },
+						{ "key": "gaoxiao", "label": "搞笑" },
+						{ "key": "school", "label": "校园" },
+						{ "key": "kj", "label": "数码" }
+					],
+					"desc": "请选择启动APP时默认展示的标签页，需选择已启用的标签页。"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Home.Top_left",
+					"name": "[首页] 顶栏（左侧）按钮（用户头像）",
+					"type": "selects",
+					"val": "mine",
+					"items": [{ "key": "mine", "label": "用户中心-我的" }, { "key": "videoshortcut", "label": "短视频" }],
+					"desc": "请选择顶栏（左侧）按钮（用户头像）的作用（在biliBili粉色版中无法修改）。"
+				},
+				{ "id": "@BiliBili.Enhanced.Settings.Home.Top", "name": "[首页] 顶栏（右侧）按钮", "type": "checkboxes", "val": ["消息Top"], "items": [{ "key": "游戏中心Top", "label": "游戏中心" }, { "key": "会员购Top", "label": "会员购" }, { "key": "消息Top", "label": "消息" }], "desc": "请选择启用的顶栏（右侧）按钮。" },
+				{
+					"id": "@BiliBili.Enhanced.Settings.Bottom",
+					"name": "[底部] 导航栏按钮",
+					"type": "checkboxes",
+					"val": ["home", "dynamic", "ogv", "会员购Bottom", "我的Bottom"],
+					"items": [
+						{ "key": "home", "label": "首页" },
+						{ "key": "频道Bottom", "label": "频道" },
+						{ "key": "dynamic", "label": "动态" },
+						{ "key": "publish", "label": "发布" },
+						{ "key": "ogv", "label": "节目（港澳台）" },
+						{ "key": "会员购Bottom", "label": "会员购" },
+						{ "key": "消息Bottom", "label": "消息" },
+						{ "key": "我的Bottom", "label": "我的" }
+					],
+					"desc": "请选择启用的底部导航栏按钮，最多6个。"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.LogLevel",
+					"name": "[调试] 日志等级",
+					"type": "selects",
+					"val": "WARN",
+					"items": [{ "key": "OFF", "label": "关闭" }, { "key": "ERROR", "label": "❌ 错误" }, { "key": "WARN", "label": "⚠️ 警告" }, { "key": "INFO", "label": "ℹ️ 信息" }, { "key": "DEBUG", "label": "🅱️ 调试" }, { "key": "ALL", "label": "全部" }],
+					"desc": "选择脚本日志的输出等级，低于所选等级的日志将全部输出。"
+				}
+			],
+			"author": "@BiliUniverse",
+			"repo": "https://github.com/BiliUniverse/Enhanced",
+			"icons": ["https://github.com/BiliUniverse/Enhanced/raw/main/src/assets/icon_circled_108x.png", "https://github.com/BiliUniverse/Enhanced/raw/main/src/assets/icon_circled_108x.png"]
+		},
+		{
+			"id": "BiliBili.Enhanced.Region",
+			"name": "📺 BiliBili: ⚙ Enhanced (分区)",
+			"descs_html": ["使用说明请见<a href=\"https://Enhanced.BiliUniverse.io\">🪐 BiliUniverse: ⚙️ Enhanced</a>进行配置", "填写完成后记得点击此页面底端右下角的\"保存\"。"],
+			"keys": ["@BiliBili.Enhanced.Settings.Region", "@BiliBili.Enhanced.Caches"],
+			"settings": [
+				{
+					"id": "@BiliBili.Enhanced.Settings.Region.Switch",
+					"name": "[分区] 启用此标签页自定义功能",
+					"val": true,
+					"type": "boolean",
+					"desc": "启用后可自定义分区标签页的内容。"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Region.Index",
+					"name": "分区选择",
+					"val": [
+						"1",
+						"3",
+						"4",
+						"5",
+						"11",
+						"13",
+						"23",
+						"36",
+						"119",
+						"129",
+						"155",
+						"160",
+						"167",
+						"177",
+						"181",
+						"188",
+						"202",
+						"211",
+						"217",
+						"223",
+						"234",
+						"6544",
+						"65537",
+						"65539",
+						"65541",
+						"65545",
+						"65549",
+						"65550",
+						"65551",
+						"65552",
+						"65553",
+						"65555",
+						"65556",
+						"65557",
+						"65559",
+						"65560",
+						"65561",
+						"65563",
+						"95636",
+						"168312"
+					],
+					"type": "checkboxes",
+					"items": [
+						{
+							"key": "1",
+							"label": "动画"
+						},
+						{
+							"key": "3",
+							"label": "音乐"
+						},
+						{
+							"key": "4",
+							"label": "游戏"
+						},
+						{
+							"key": "5",
+							"label": "娱乐"
+						},
+						{
+							"key": "11",
+							"label": "电视剧"
+						},
+						{
+							"key": "13",
+							"label": "番剧"
+						},
+						{
+							"key": "23",
+							"label": "电影"
+						},
+						{
+							"key": "36",
+							"label": "知识"
+						},
+						{
+							"key": "119",
+							"label": "鬼畜"
+						},
+						{
+							"key": "129",
+							"label": "舞蹈"
+						},
+						{
+							"key": "155",
+							"label": "时尚"
+						},
+						{
+							"key": "160",
+							"label": "生活"
+						},
+						{
+							"key": "167",
+							"label": "国创"
+						},
+						{
+							"key": "177",
+							"label": "纪录片"
+						},
+						{
+							"key": "181",
+							"label": "影视"
+						},
+						{
+							"key": "188",
+							"label": "科技"
+						},
+						{
+							"key": "202",
+							"label": "资讯"
+						},
+						{
+							"key": "211",
+							"label": "美食"
+						},
+						{
+							"key": "217",
+							"label": "动物圈"
+						},
+						{
+							"key": "223",
+							"label": "汽车"
+						},
+						{
+							"key": "234",
+							"label": "运动"
+						},
+						{
+							"key": "6544",
+							"label": "番劇（港澳台）"
+						},
+						{
+							"key": "65537",
+							"label": "直播"
+						},
+						{
+							"key": "65539",
+							"label": "游戏中心"
+						},
+						{
+							"key": "65541",
+							"label": "专栏"
+						},
+						{
+							"key": "65545",
+							"label": "放映厅"
+						},
+						{
+							"key": "65549",
+							"label": "工坊集市"
+						},
+						{
+							"key": "65550",
+							"label": "游戏赛事"
+						},
+						{
+							"key": "65551",
+							"label": "小黑屋"
+						},
+						{
+							"key": "65552",
+							"label": "全区排行榜"
+						},
+						{
+							"key": "65553",
+							"label": "活动中心"
+						},
+						{
+							"key": "65555",
+							"label": "漫画"
+						},
+						{
+							"key": "65556",
+							"label": "原创排行榜"
+						},
+						{
+							"key": "65557",
+							"label": "公开课"
+						},
+						{
+							"key": "65559",
+							"label": "VLOG"
+						},
+						{
+							"key": "65560",
+							"label": "课堂"
+						},
+						{
+							"key": "65561",
+							"label": "专题中心"
+						},
+						{
+							"key": "65563",
+							"label": "新歌热榜"
+						},
+						{
+							"key": "95636",
+							"label": "韩综（港澳台）"
+						},
+						{
+							"key": "168312",
+							"label": "節目（港澳台）"
+						}
+					],
+					"desc": "选择要显示的分区"
+				}
+			],
+			"author": "@BiliUniverse",
+			"repo": "https://github.com/BiliUniverse/Enhanced",
+			"icons": ["https://github.com/BiliUniverse/Enhanced/raw/main/src/assets/icon_circled_108x.png", "https://github.com/BiliUniverse/Enhanced/raw/main/src/assets/icon_circled_108x.png"]
+		},
+		{
+			"id": "BiliBili.Enhanced.Mine",
+			"name": "📺 BiliBili: ⚙ Enhanced (我的) iOS版",
+			"descs_html": ["使用说明请见<a href=\"https://Enhanced.BiliUniverse.io\">🪐 BiliUniverse: ⚙️ Enhanced</a>进行配置", "填写完成后记得点击此页面底端右下角的\"保存\"。"],
+			"keys": ["@BiliBili.Enhanced.Settings.Mine", "@BiliBili.Enhanced.Caches"],
+			"settings": [
+				{
+					"id": "@BiliBili.Enhanced.Settings.Mine.Switch",
+					"name": "[我的] 启用此标签页自定义功能",
+					"val": true,
+					"type": "boolean",
+					"desc": "启用后可自定义我的标签页的服务内容。"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Mine.CreatorCenter",
+					"name": "创作中心",
+					"val": [],
+					"type": "checkboxes",
+					"items": [
+						{
+							"key": "171",
+							"label": "创作首页"
+						},
+						{
+							"key": "172",
+							"label": "稿件管理"
+						},
+						{
+							"key": "174",
+							"label": "有奖活动"
+						},
+						{
+							"key": "533",
+							"label": "任务中心"
+						},
+						{
+							"key": "707",
+							"label": "主播中心"
+						},
+						{
+							"key": "708",
+							"label": "主播活动"
+						},
+						{
+							"key": "709",
+							"label": "开播福利"
+						},
+						{
+							"key": "710",
+							"label": "我的直播"
+						}
+					],
+					"desc": "白色版本APP不存在此选项(未单独注明选项皆为iOS版本)"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Mine.Recommend",
+					"name": "推荐服务",
+					"val": ["400", "402", "403", "404"],
+					"type": "checkboxes",
+					"items": [
+						{
+							"key": "400",
+							"label": "我的课程"
+						},
+						{
+							"key": "401",
+							"label": "看视频免流量"
+						},
+						{
+							"key": "402",
+							"label": "个性装扮"
+						},
+						{
+							"key": "403",
+							"label": "游戏中心"
+						},
+						{
+							"key": "404",
+							"label": "我的钱包"
+						},
+						{
+							"key": "406",
+							"label": "直播中心"
+						},
+						{
+							"key": "423",
+							"label": "邀好友赚红包"
+						},
+						{
+							"key": "514",
+							"label": "社区中心"
+						},
+						{
+							"key": "544",
+							"label": "创作中心"
+						},
+						{
+							"key": "622",
+							"label": "会员购中心"
+						},
+						{
+							"key": "924",
+							"label": "哔哩哔哩公益"
+						},
+						{
+							"key": "990",
+							"label": "能量加油站"
+						}
+					],
+					"desc": "白色版本APP不存在此选项"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Mine.More",
+					"name": "更多服务",
+					"val": ["407", "410", "1028"],
+					"type": "checkboxes",
+					"items": [
+						{
+							"key": "407",
+							"label": "联系客服"
+						},
+						{
+							"key": "410",
+							"label": "设置"
+						},
+						{
+							"key": "741",
+							"label": "我的钱包（白色版）"
+						},
+						{
+							"key": "742",
+							"label": "稿件管理（白色版）"
+						},
+						{
+							"key": "812",
+							"label": "听视频"
+						},
+						{
+							"key": "950",
+							"label": "青少年模式（概念版）"
+						},
+						{
+							"key": "964",
+							"label": "青少年守护"
+						},
+						{
+							"key": "1028",
+							"label": "我的NFT"
+						}
+					],
+					"desc": ""
+				}
+			],
+			"author": "@BiliUniverse",
+			"repo": "https://github.com/BiliUniverse/Enhanced/tree/beta",
+			"icons": ["https://github.com/BiliUniverse/Enhanced/raw/main/src/assets/icon_circled_108x.png", "https://github.com/BiliUniverse/Enhanced/raw/main/src/assets/icon_circled_108x.png"]
+		},
+		{
+			"id": "BiliBili.Enhanced.Mine.iPad",
+			"name": "📺 BiliBili: ⚙ Enhanced (我的) iPad版",
+			"descs_html": ["使用说明请见<a href=\"https://Enhanced.BiliUniverse.io\">🪐 BiliUniverse: ⚙️ Enhanced</a>进行配置", "填写完成后记得点击此页面底端右下角的\"保存\"。"],
+			"keys": ["@BiliBili.Enhanced.Settings.Mine.iPad", "@BiliBili.Enhanced.Caches"],
+			"settings": [
+				{
+					"id": "@BiliBili.Enhanced.Settings.Mine.iPad.Switch",
+					"name": "[我的 iPad版] 启用此标签页自定义功能",
+					"val": true,
+					"type": "boolean",
+					"desc": "启用后可自定义我的标签页的服务内容。"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Mine.iPad.Upper",
+					"name": "创作中心",
+					"val": [],
+					"type": "checkboxes",
+					"items": [
+						{
+							"key": "785",
+							"label": "投稿"
+						},
+						{
+							"key": "786",
+							"label": "创作首页"
+						},
+						{
+							"key": "787",
+							"label": "稿件管理"
+						},
+						{
+							"key": "788",
+							"label": "有奖活动"
+						}
+					],
+					"desc": "白色版本APP不存在此选项"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Mine.iPad.Recommend",
+					"name": "推荐服务",
+					"val": ["789", "790", "791", "793", "794", "2542"],
+					"type": "checkboxes",
+					"items": [
+						{
+							"key": "789",
+							"label": "我的关注"
+						},
+						{
+							"key": "790",
+							"label": "我的消息"
+						},
+						{
+							"key": "791",
+							"label": "我的钱包"
+						},
+						{
+							"key": "792",
+							"label": "直播中心"
+						},
+						{
+							"key": "793",
+							"label": "大会员"
+						},
+						{
+							"key": "794",
+							"label": "我的课程"
+						},
+						{
+							"key": "2542",
+							"label": "我的游戏"
+						}
+					],
+					"desc": "白色版本APP不存在此选项"
+				},
+				{
+					"id": "@BiliBili.Enhanced.Settings.Mine.iPad.More",
+					"name": "更多服务",
+					"val": ["797", "798"],
+					"type": "checkboxes",
+					"items": [
+						{
+							"key": "797",
+							"label": "我的客服"
+						},
+						{
+							"key": "798",
+							"label": "设置"
+						},
+						{
+							"key": "1070",
+							"label": "青少年守护"
+						}
+					],
+					"desc": ""
+				}
+			],
+			"author": "@BiliUniverse",
+			"repo": "https://github.com/BiliUniverse/Enhanced",
+			"icons": ["https://github.com/BiliUniverse/Enhanced/raw/main/src/assets/icon_circled_108x.png", "https://github.com/BiliUniverse/Enhanced/raw/main/src/assets/icon_circled_108x.png"]
+		},
+		{
+			"id": "BiliBili.Global",
+			"name": "📺 BiliBili: 🌐 Global",
+			"descs_html": ["使用说明请见<a href=\"https://Global.BiliUniverse.io\">🪐 BiliUniverse: 🌐 Global</a>进行配置", "填写完成后记得点击此页面底端右下角的\"保存\"。"],
+			"keys": ["@BiliBili.Global.Settings", "@BiliBili.Global.Caches"],
+			"settings": [
+				{
+					"id": "@BiliBili.Global.Settings.ForceHost",
+					"name": "强制CDN主机名类型",
+					"type": "selects",
+					"val": "1",
+					"items": [{ "key": "0", "label": "IP: 返回远端DNS解析地址（强烈不推荐！严重影响域名分流规则与CDN重定向）" }, { "key": "1", "label": "HTTP: 返回HTTP域名（推荐，免去重定向时MitM操作）" }, { "key": "2", "label": "HTTPS: 返回HTTPS域名（不推荐，重定向时需对指定域名启用MitM）" }],
+					"desc": "请设置强制返回的CDN主机名类型。"
+				},
+				{
+					"id": "@BiliBili.Global.Settings.Locales",
+					"name": "启用自动识别与分流功能的地区",
+					"type": "checkboxes",
+					"val": ["CHN", "HKG", "TWN"],
+					"items": [{ "key": "CHN", "label": "🇨🇳中国大陆" }, { "key": "HKG", "label": "🇭🇰中国香港" }, { "key": "MAC", "label": "🇲🇴中国澳门" }, { "key": "TWN", "label": "🇹🇼中国台湾" }],
+					"desc": "请选择启用自动识别与分流功能的地区。"
+				},
+				{ "id": "@BiliBili.Global.Settings.Proxies.CHN", "name": "[🇨🇳中国大陆] 代理策略名称", "type": "text", "val": "DIRECT", "desc": "请填写此地区的代理或策略组名称。" },
+				{ "id": "@BiliBili.Global.Settings.Proxies.HKG", "name": "[🇭🇰中国香港] 代理策略名称", "type": "text", "val": "🇭🇰香港", "desc": "请填写此地区的代理或策略组名称。" },
+				{ "id": "@BiliBili.Global.Settings.Proxies.MAC", "name": "[🇲🇴中国澳门] 代理策略名称", "type": "text", "val": "🇲🇴澳门", "desc": "请填写此地区的代理或策略组名称。" },
+				{ "id": "@BiliBili.Global.Settings.Proxies.TWN", "name": "[🇹🇼中国台湾] 代理策略名称", "type": "text", "val": "🇹🇼台湾", "desc": "请填写此地区的代理或策略组名称。" },
+				{
+					"id": "@BiliBili.Global.Settings.LogLevel",
+					"name": "[调试] 日志等级",
+					"type": "selects",
+					"val": "WARN",
+					"items": [{ "key": "OFF", "label": "关闭" }, { "key": "ERROR", "label": "❌ 错误" }, { "key": "WARN", "label": "⚠️ 警告" }, { "key": "INFO", "label": "ℹ️ 信息" }, { "key": "DEBUG", "label": "🅱️ 调试" }, { "key": "ALL", "label": "全部" }],
+					"desc": "选择脚本日志的输出等级，低于所选等级的日志将全部输出。"
+				}
+			],
+			"author": "@BiliUniverse",
+			"repo": "https://github.com/BiliUniverse/Global",
+			"icons": ["https://github.com/BiliUniverse/Global/raw/main/src/assets/icon_circled_108x.png", "https://github.com/BiliUniverse/Global/raw/main/src/assets/icon_circled_108x.png"]
+		},
+		{
+			"id": "BiliBili.Redirect",
+			"name": "📺 BiliBili: 🔀 Redirect",
+			"descs_html": ["使用说明请见<a href=\"https://Redirect.BiliUniverse.io\">🪐 BiliUniverse: 🔀 Redirect</a>进行配置", "填写完成后记得点击此页面底端右下角的\"保存\"。"],
+			"keys": ["@BiliBili.Redirect.Settings", "@BiliBili.Redirect.Caches"],
+			"settings": [
+				{
+					"id": "@BiliBili.Redirect.Settings.Host.OverseaVideo",
+					"name": "[主机名] 重定向 OverseaVideo CDN (港澳台)",
+					"type": "selects",
+					"val": "upos-sz-mirrorali.bilivideo.com",
+					"items": [
+						{ "key": "upos-sz-mirrorali.bilivideo.com", "label": "阿里云 CDN" },
+						{ "key": "upos-sz-mirrorcos.bilivideo.com", "label": "腾讯云 CDN" },
+						{ "key": "upos-sz-mirrorhw.bilivideo.com", "label": "华为云 CDN，融合 CDN" },
+						{ "key": "upos-sz-mirroraliov.bilivideo.com", "label": "阿里云 CDN，海外" },
+						{ "key": "upos-sz-mirrorcosov.bilivideo.com", "label": "腾讯云 CDN，海外" },
+						{ "key": "upos-sz-mirrorhwov.bilivideo.com", "label": "华为云 CDN，海外" }
+					],
+					"desc": "请选择 OverseaVideo 要重定向的主机名。"
+				},
+				{
+					"id": "@BiliBili.Redirect.Settings.Host.BStar",
+					"name": "[主机名] 重定向 BStar CDN (国际版)",
+					"type": "selects",
+					"val": "upos-sz-mirrorali.bilivideo.com",
+					"items": [
+						{ "key": "upos-sz-mirrorali.bilivideo.com", "label": "阿里云 CDN" },
+						{ "key": "upos-sz-mirrorcos.bilivideo.com", "label": "腾讯云 CDN" },
+						{ "key": "upos-sz-mirrorhw.bilivideo.com", "label": "华为云 CDN，融合 CDN" },
+						{ "key": "upos-sz-mirroraliov.bilivideo.com", "label": "阿里云 CDN，海外" },
+						{ "key": "upos-sz-mirrorcosov.bilivideo.com", "label": "腾讯云 CDN，海外" },
+						{ "key": "upos-sz-mirrorhwov.bilivideo.com", "label": "华为云 CDN，海外" }
+					],
+					"desc": "请选择 BStar 要重定向的主机名。"
+				},
+				{
+					"id": "@BiliBili.Redirect.Settings.Host.PCDN",
+					"name": "[主机名] 重定向 PCDN 主机名 (中国大陆)",
+					"type": "selects",
+					"val": "upos-sz-mirrorali.bilivideo.com",
+					"items": [
+						{ "key": "upos-sz-mirrorali.bilivideo.com", "label": "阿里云 CDN" },
+						{ "key": "upos-sz-mirrorcos.bilivideo.com", "label": "腾讯云 CDN" },
+						{ "key": "upos-sz-mirrorhw.bilivideo.com", "label": "华为云 CDN，融合 CDN" },
+						{ "key": "upos-sz-mirroraliov.bilivideo.com", "label": "阿里云 CDN，海外" },
+						{ "key": "upos-sz-mirrorcosov.bilivideo.com", "label": "腾讯云 CDN，海外" },
+						{ "key": "upos-sz-mirrorhwov.bilivideo.com", "label": "华为云 CDN，海外" }
+					],
+					"desc": "请选择 PCDN 要重定向的主机名。"
+				},
+				{ "id": "@BiliBili.Redirect.Settings.Host.MCDN", "name": "[主机名] 重定向 MCDN 主机名 (中国大陆)", "type": "selects", "val": "proxy-tf-all-ws.bilivideo.com", "items": [{ "key": "proxy-tf-all-ws.bilivideo.com", "label": "proxy-tf-all-ws.bilivideo.com" }], "desc": "请选择 MCDN 要重定向的主机名。" },
+				{
+					"id": "@BiliBili.Redirect.Settings.LogLevel",
+					"name": "[调试] 日志等级",
+					"type": "selects",
+					"val": "WARN",
+					"items": [{ "key": "OFF", "label": "关闭" }, { "key": "ERROR", "label": "❌ 错误" }, { "key": "WARN", "label": "⚠️ 警告" }, { "key": "INFO", "label": "ℹ️ 信息" }, { "key": "DEBUG", "label": "🅱️ 调试" }, { "key": "ALL", "label": "全部" }],
+					"desc": "选择脚本日志的输出等级，低于所选等级的日志将全部输出。"
+				}
+			],
+			"author": "@BiliUniverse",
+			"repo": "https://github.com/BiliUniverse/Redirect",
+			"icons": ["https://github.com/BiliUniverse/Redirect/raw/main/src/assets/icon_circled_108x.png", "https://github.com/BiliUniverse/Redirect/raw/main/src/assets/icon_circled_108x.png"]
+		},
+		{
+			"id": "BiliBili.ADBlock",
+			"name": "📺 BiliBili: 🛡️ ADBlock",
+			"descs_html": ["使用说明请见<a href=\"https://ADBlock.BiliUniverse.io\">🪐 BiliUniverse: 🛡️ ADBlock</a>进行配置", "填写完成后记得点击此页面底端右下角的\"保存\"。"],
+			"keys": ["@BiliBili.ADBlock.Settings", "@BiliBili.ADBlock.Caches"],
+			"settings": [
+				{ "id": "@BiliBili.ADBlock.Settings.Splash", "name": "[开屏] 去除广告", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Feed.AD", "name": "[推荐] 去除广告", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Feed.Activity", "name": "[推荐] 去除“活动大图”", "type": "boolean", "val": false, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Feed.Vertical", "name": "[推荐] 去除竖屏视频", "type": "boolean", "val": false, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Feed.BlockUpLiveList", "name": "[推荐] 屏蔽UP主直播推广", "type": "text", "val": "", "desc": "填写up主uid，以英文逗号隔开。" },
+				{ "id": "@BiliBili.ADBlock.Settings.Feed.Story", "name": "[首页] 去除短视频流广告", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Search.AD", "name": "[搜索] 去除广告", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Search.HotSearch", "name": "[搜索] 去除“热搜”", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.PGC.AD", "name": "[番剧电影] 去除广告", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Xlive.AD", "name": "[直播] 去除广告", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Dynamic.HotTopics", "name": "[动态] 去除“热门话题”", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Dynamic.MostVisited", "name": "[动态] 去除“最常访问”", "type": "boolean", "val": false, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Dynamic.AdCard", "name": "[动态] 去除广告卡片", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.View.AD", "name": "[用户投稿] 去除视频广告", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.DM.Command", "name": "[弹幕] 去除交互式弹幕", "type": "boolean", "val": false, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.DM.Colorful", "name": "[弹幕] 替换彩色弹幕", "type": "boolean", "val": false, "desc": "是否启用此处修改" },
+				{ "id": "@BiliBili.ADBlock.Settings.Reply.AD", "name": "[评论] 去除广告", "type": "boolean", "val": true, "desc": "是否启用此处修改" },
+				{
+					"id": "@BiliBili.ADBlock.Settings.LogLevel",
+					"name": "[调试] 日志等级",
+					"type": "selects",
+					"val": "WARN",
+					"items": [{ "key": "OFF", "label": "关闭" }, { "key": "ERROR", "label": "❌ 错误" }, { "key": "WARN", "label": "⚠️ 警告" }, { "key": "INFO", "label": "ℹ️ 信息" }, { "key": "DEBUG", "label": "🅱️ 调试" }, { "key": "ALL", "label": "全部" }],
+					"desc": "选择脚本日志的输出等级，低于所选等级的日志将全部输出。"
+				}
+			],
+			"author": "@BiliUniverse",
+			"repo": "https://github.com/BiliUniverse/ADBlock",
+			"icons": ["https://github.com/BiliUniverse/ADBlock/raw/main/src/assets/icon_circled_108x.png", "https://github.com/BiliUniverse/ADBlock/raw/main/src/assets/icon_circled_108x.png"]
+		}
+	]
+}
