@@ -1,0 +1,22 @@
+#!name =Apple天气增强-Surge联调版
+#!desc =包含 dev 上的 iOS 27 兼容修复：root 与降水、AQ scale 无版本稳定别名、非注入数据集透传、新 capability 透传、QWeather 时间单位及天气枚举保护。Loon 与 Surge 共用同一 bundle；本插件保留固定入口，启用时请停用其他 Apple天气增强插件。
+#!date=2026-07-30
+#!category =  iRingo
+#!author = VirgilClyne[https://github.com/VirgilClyne], WordlessEcho[https://github.com/WordlessEcho], 001[https://github.com/001ProMax], hhh2210[https://github.com/hhh2210]
+#!homepage = https://gist.github.com/hhh2210/dc95c3e9ecc870a78138d0a67942d037
+#!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/IMG/iRingo/WeatherKit.png
+#!arguments = Weather.Provider:"WeatherKit",NextHour.Provider:"ColorfulClouds",AirQuality.Calculate.Algorithm:"EU_EAQI",API.ColorfulClouds.Token:"",API.QWeather.Host:"devapi.qweather.com",API.QWeather.Token:"",API.WAQI.Token:"",Storage:"Argument",LogLevel:"DEBUG"
+#!arguments-desc = Weather.Provider: 默认 WeatherKit，避免无意改写当前、逐时和逐日天气；需要对照第三方天气时可切换 ColorfulClouds 或 QWeather\nNextHour.Provider: 默认 ColorfulClouds，用于补齐下一小时降水\nAirQuality.Calculate.Algorithm: 保留 EU_EAQI\nLogLevel: DEBUG，便于核对实际 replacement 与透传路径
+
+[Rule]
+DOMAIN,weather-analytics-events.apple.com,REJECT-DROP
+DOMAIN-SUFFIX,tthr.apple.com,REJECT-DROP,extended-matching
+DOMAIN,tether.edge.apple,REJECT-DROP,extended-matching
+AND,((OR,((IP-ASN,714,no-resolve),(IP-ASN,6185,no-resolve))),(PROTOCOL,QUIC)),REJECT-DROP
+
+[Script]
+WeatherKit availability WeatherKit27 Surge = type=http-response, pattern=^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/, requires-body=1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/WeatherKit/JS/JS-2/response.bundle.js, argument=Weather.Provider="{{{Weather.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
+WeatherKit weather WeatherKit27 Surge = type=http-response, pattern=^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/, requires-body=1, binary-body-mode=1, engine=webview, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/WeatherKit/JS/JS-2/response.bundle.js, argument=Weather.Provider="{{{Weather.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
+
+[MITM]
+hostname = %APPEND% weatherkit.apple.com

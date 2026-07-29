@@ -1,0 +1,28 @@
+#!name =  iRingo: 📺 TV app
+#!desc = 全面自定义「TV app」功能
+#!category =  iRingo
+#!date = 2026-07-30
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/apple-tv
+#!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/IMG/iRingo/TV.png
+#!openUrl = http://boxjs.com/#/app/iRingo.TV
+
+[Argument]
+ThirdParty = switch,false,tag=启用第三方 App 与 TV app 关联功能,desc=是否将桌面版/macOS版/app版等平台的 TV app 转换至 iPad 版，以启用第三方 App 与 TV app 关联功能(如: Disney+, Prime Video 等)。
+isWorkaroundSSLPinning = switch,true,tag=启用绕过 SSL 证书固定校验,desc=是否绕过播放列表所使用域名的证书固定校验功能，从而恢复对DualSubs的双语字幕支持。
+LogLevel = select,"WARN","OFF","ERROR","INFO","DEBUG","ALL",tag=[调试] 日志等级,desc=选择脚本日志的输出等级，低于所选等级的日志将全部输出。
+
+[Rule]
+DOMAIN,known-issues.apple.com,REJECT-DROP
+
+[Rewrite]
+^https?:\/\/play-cdn\.itunes\.apple\.com header https://play.itunes.apple.com
+^https?:\/\/play-edge-cdn\.itunes\.apple\.com header https://play-edge.itunes.apple.com
+
+[Script]
+http-request ^https?:\/\/uts-api\.itunes\.apple\.com\/uts\/(v1|v2|v3)\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TV/JS/request.bundle.js, requires-body=1, tag=📺 TV.uts.request, argument=[{ThirdParty},{isWorkaroundSSLPinning},{LogLevel}]
+http-response ^https?:\/\/uts-api\.itunes\.apple\.com\/uts\/(v1|v2|v3)\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TV/JS/response.bundle.js, requires-body=1, tag=📺 TV.uts.response, argument=[{ThirdParty},{isWorkaroundSSLPinning},{LogLevel}]
+http-request ^https?:\/\/umc-tempo-api\.apple\.com\/(v1|v2|v3)\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/TV/JS/request.bundle.js, requires-body=1, tag=📺 TV.umc.request
+
+[MITM]
+hostname = uts-api.itunes.apple.com, umc-tempo-api.apple.com, play-cdn.itunes.apple.com, play-edge-cdn.itunes.apple.com

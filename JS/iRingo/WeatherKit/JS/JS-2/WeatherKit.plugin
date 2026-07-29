@@ -1,0 +1,32 @@
+#!name =Apple天气增强-Loon联调版
+#!desc =包含 dev 上的 iOS 27 兼容修复：root 与降水、AQ scale 无版本稳定别名、非注入数据集透传、新 capability 透传、QWeather 时间单位及天气枚举保护。Loon 与 Surge 共用同一 bundle；本插件保留固定入口，启用时请停用其他 Apple天气增强插件。
+#!date=2026-07-30
+#!category =  iRingo
+#!author = VirgilClyne[https://github.com/VirgilClyne], WordlessEcho[https://github.com/WordlessEcho], 001[https://github.com/001ProMax], hhh2210[https://github.com/hhh2210]
+#!homepage = https://gist.github.com/hhh2210/dc95c3e9ecc870a78138d0a67942d037
+#!icon = https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/IMG/iRingo/WeatherKit.png
+
+[Argument]
+Weather.Provider=select, "ColorfulClouds", "WeatherKit", "QWeather", tag=[天气]数据源, desc=使用选定的数据源替换天气数据。
+NextHour.Provider=select, "ColorfulClouds", "WeatherKit", "QWeather", tag=[未来一小时降水强度]数据源, desc=使用选定的数据源填充未来一小时降水强度的数据。
+AirQuality.Calculate.Algorithm=select, "EU_EAQI", "None", "UBA", "WAQI_InstantCast_US", "WAQI_InstantCast_CN", "WAQI_InstantCast_CN_25_DRAFT", tag=AQI算法, desc=使用内置算法，通过污染物数据本地计算空气指数。InstantCast源自于WAQI，美标版本使用了WAQI的臭氧标准。
+API.ColorfulClouds.Token=input, "", tag=[API]彩云天气令牌, desc=彩云天气API令牌
+API.QWeather.Host=input, "devapi.qweather.com", tag=[API]和风天气主机, desc=和风天气API使用的主机名
+API.QWeather.Token=input, "", tag=[API]和风天气令牌, desc=和风天气API令牌
+API.WAQI.Token=input, "", tag=[API]WAQI令牌, desc=WAQI API令牌，填写此字段将自动使用WAQI高级API
+Storage=select, "Argument", "PersistentStore", "database", tag=[储存]配置类型, desc=选择要使用的配置类型。未设置此选项或不通过此选项的旧版本的配置顺序依旧是$persistentStore (BoxJs) > $argument > database。
+LogLevel=select, "WARN", "OFF", "ERROR", "INFO", "DEBUG", "ALL", tag=[调试]日志等级, desc=选择脚本的日志等级。
+
+[Rule]
+DOMAIN, weather-analytics-events.apple.com, REJECT-DROP
+DOMAIN, tether.edge.apple, REJECT-DROP
+DOMAIN-SUFFIX, tthr.apple.com, REJECT-DROP
+AND, ((OR, ((IP-ASN, 714, no-resolve), (IP-ASN, 6185, no-resolve))), (PROTOCOL, QUIC)), REJECT-DROP
+
+[Script]
+http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/ requires-body=true, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/WeatherKit/JS/JS-2/response.bundle.js, tag=天气可用性响应-WeatherKit27-Loon, argument=[{Weather.Provider},{NextHour.Provider},{AirQuality.Calculate.Algorithm},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{Storage},{LogLevel}]
+
+http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ requires-body=true, binary-body-mode=true, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iRingo/WeatherKit/JS/JS-2/response.bundle.js, tag=天气响应-WeatherKit27-Loon, argument=[{Weather.Provider},{NextHour.Provider},{AirQuality.Calculate.Algorithm},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{Storage},{LogLevel}]
+
+[MITM]
+hostname = weatherkit.apple.com
