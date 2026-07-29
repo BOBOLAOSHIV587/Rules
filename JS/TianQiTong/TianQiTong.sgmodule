@@ -1,0 +1,20 @@
+#!name =天气通去广告
+#!desc =移除开屏广告、横幅广告、弹窗广告\n精简底栏及我的页面\n不生效需卸载重装App
+#!date=2026-07-30
+#!category =🐹 BOBO AD
+#!author = 可莉[https://hub.kelee.one/]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/TianQiTong.png
+#!openUrl =https://apps.apple.com/app/id458032309
+
+[Body Rewrite]
+http-response-jq ^https:\/\/tqt\.weibo\.cn\/master\/nav\/tab\? 'map(.tabs|=map(select(.type=="weather" or .type=="radar" or .type=="my")))'
+
+[Map Local]
+^https:\/\/forecast\.sina\.cn\/app\/overall\/switch\.php\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/tqt\.weibo\.cn\/business\/advert\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/tqt\.weibo\.cn\/user\/device\/ad_multi_star\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/tqt\.weibo\.cn\/operation\/activity\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/tqt\.weibo\.cn\/api\/user\/user\/\d\.\d\/\?method=personal_center$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% forecast.sina.cn, tqt.weibo.cn
