@@ -1,0 +1,19 @@
+!name=腾讯体育去广告
+#!desc=拦截开屏广告，移除首页信息流、会员推广、赛事页横幅、悬浮运营组件、金币任务会员弹层及赛事 PageCard 强制弹窗
+#!date=2026-07-30
+#!category =🐹 BOBO AD
+#!author = Hey-sayiwanna[https://github.com/Hey-sayiwanna/TencentSports-Surge]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/TencentSports.png
+#!openUrl =https://apps.apple.com/app/id570608623
+
+[Map Local]
+^https:\/\/config\.ab\.qq\.com\/tab\/GetTabRemoteConfig.* data-type=text data="" status-code=200 header="Content-Type:application/proto"
+^https:\/\/config\.ab\.qq\.com\/tab\/GetTabToggle.* data-type=text data="" status-code=200 header="Content-Type:application/proto"
+
+[Script]
+TencentSportsAdBlock = type=http-response,pattern=^https:\/\/(?:app\.sports\.qq\.com\/(?:feeds\/list|m\/matchAfter\/stats|match\/adBanner)\?|shequ\.sports\.qq\.com\/topic\/detail\?|film\.video\.qq\.com\/x\/sports-vip-channel\/(?:\?.*)?$),requires-body=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/TencentSportsAdBlock/TencentSports/JS/TencentSportsAdBlock.js,script-update-interval=21600,timeout=10
+
+TencentSportsFloatBlock = type=http-response,pattern=^https:\/\/(?:app\.sports\.qq\.com\/(?:trpc\.sports_resource\.cgi\.ResourceCGI\/MatchWidgets|vaccess\/trpc\.sports_resource\.cgi\.ResourceCGI\/ColumnWidget|vaccess\/trpc\.sportsbasic\.column\.Column\/GetColumn)|sports\.qq\.com\/sapp\/h5msg\.htm|matchweb\.sports\.qq\.com\/trpc\.dorae\.coin\.Coin\/CoinLayer)(?:\?.*)?$,requires-body=1,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/TencentSportsAdBlock/TencentSports/JS/TencentSportsFloatBlock.js,script-update-interval=21600,timeout=10
+
+[MITM]
+hostname = %APPEND% app.sports.qq.com, config.ab.qq.com, shequ.sports.qq.com, film.video.qq.com, sports.qq.com, matchweb.sports.qq.com
