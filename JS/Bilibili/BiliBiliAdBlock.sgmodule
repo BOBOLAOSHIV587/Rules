@@ -1,0 +1,44 @@
+#!name=哔哩哔哩去广告
+#!desc=信息流 + 搜索 + 直播 + 视频简介广告 + 省流提示；保留底部会员购
+#!date=2026-07-29
+#!category=🐹 BOBO AD
+#!author=Hey-sayiwanna[https://github.com/Hey-sayiwanna/BiliBiliAdBlock]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/BilibiliRed.png
+
+[Rule]
+DOMAIN,app.biliapi.net,REJECT
+DOMAIN,api.biliapi.net,REJECT
+DOMAIN,app.biliapi.com,REJECT
+DOMAIN,api.biliapi.com,REJECT
+
+[Body Rewrite]
+http-response-jq ^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(list|show|event\/list2)\? '.data |= with_entries(if .key | IN("show", "event_list") then .value = [] else . end)'
+
+[Script]
+# 首页信息流去广告
+bilibili-feed-ad = type=http-response,pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\?,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-2/bilibili-json.js,requires-body=true,max-size=-1,timeout=60
+
+# 搜索页推荐
+bilibili-search-ad = type=http-response,pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-2/bilibili-json.js,requires-body=true,max-size=-1,timeout=60
+
+# 搜索结果商业推广与游戏推广
+bilibili-search-result-ad = type=http-response,pattern=^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.polymer\.app\.search\.v1\.Search\/SearchAll$,requires-body=1,binary-body-mode=1,engine=webview,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-2/response.bundle.js,argument=Search.AD=true&LogLevel=WARN
+
+# 首页右上角活动图标
+bilibili-top-ad = type=http-response,pattern=^https:\/\/app\.bilibili\.com\/x\/resource\/top\/activity\?,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-2/bilibili-json.js,requires-body=true,max-size=-1,timeout=60
+
+# 直播 feed
+bilibili-live-feed-ad = type=http-response,pattern=^https:\/\/api\.live\.bilibili\.com\/xlive\/(?:app-interface\/v2\/index\/feed|app-room\/v1\/index\/getInfoBy(?:Room|User))\?,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-2/bilibili-json.js,requires-body=true,max-size=-1,timeout=60
+
+# 直播tab banner
+bilibili-live-tab-ad = type=http-response,pattern=^https:\/\/api\.live\.bilibili\.com\/xlive\/app-interface\/v2\/second\/getList,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-2/bilibili-json.js,requires-body=true,max-size=-1,timeout=60
+
+# ⭐ 新增：播放器下方商业卡补丁
+Bili.Player.AdPatch = type=http-response,pattern=^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.(view|viewunite)\.v1\.View\/(View|RelatesFeed)$,requires-body=1,binary-body-mode=1,engine=webview,max-size=262144,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-2/response.bundle.js
+
+# 流量告警、办卡免流等播放器推广提示
+Bili.Player.TFInfo.AdPatch = type=http-response,pattern=^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.view\.v1\.View\/TFInfo$,requires-body=1,binary-body-mode=1,engine=webview,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-2/response.bundle.js
+
+[MITM]
+hostname = %APPEND% app.bilibili.com, api.live.bilibili.com, app.biliapi.net, grpc.biliapi.net
+h2 = true

@@ -1,0 +1,260 @@
+{
+	"id": "📺 哔哩哔哩皮肤",
+	"name": "📺 哔哩哔哩皮肤",
+	"author": "@MartinsKing",
+	"description": "📺 哔哩哔哩皮肤",
+	"icon": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/Face/Image/Bili.png",
+	"repo": "https://github.com/ClydeTime/BiliBili",
+	"apps":
+	[
+		{
+			"id": "📺 哔哩哔哩皮肤",
+			"name": "📺 哔哩哔哩皮肤 ",
+			"author": "@MartinsKing",
+			"script": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Bilibili/JS/JS-3/BiliBili.Modified.response.js",
+			"icons":
+			[
+				"https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/Face/Image/Bili.png",
+				"https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/Face/Image/Bili.png"
+			],
+			"descs_html":
+			[
+				"依次选择皮肤、加载动画、是否修改大会员等",
+				"选择完成后记得点击此页面底端右下角的\"保存\"。"
+			],
+			"keys":
+			[
+				"@BiliBili.Modified.Settings.Skin",
+				"@BiliBili.Modified.Settings.Private"
+			],
+			"settings":
+			[
+				{
+					"id": "@BiliBili.Modified.Settings.Switch",
+					"name": "总功能开关",
+					"val": true,
+					"type": "boolean",
+					"desc": "是否启用此APP修改"
+				},
+				{
+					"id": "@BiliBili.Modified.Settings.Skin.user_equip",
+					"name": "皮肤",
+					"val":
+					[
+						"1682863365001"
+					],
+					"type": "radios",
+					"items":
+					[
+						{
+							"key": "2529",
+							"label": "初音未来-日版"
+						},
+						{
+							"key": "2530",
+							"label": "初音未来-夜版"
+						},
+						{
+							"key": "4124",
+							"label": "良辰美景·不问天"
+						},
+						{
+							"key": "32264",
+							"label": "EveOneCat2"
+						},
+						{
+							"key": "33459",
+							"label": "有栖mana"
+						},
+						{
+							"key": "34813",
+							"label": "嘉然个性装扮2.0(1)"
+						},
+						{
+							"key": "34814",
+							"label": "嘉然个性装扮2.0(2)"
+						},
+						{
+							"key": "38342",
+							"label": "萌节六周年装扮"
+						},
+						{
+							"key": "39859",
+							"label": "眠眠兔"
+						},
+						{
+							"key": "49390",
+							"label": "提摩西小队第二弹"
+						},
+						{
+							"key": "50107",
+							"label": "灰原哀"
+						},
+						{
+							"key": "50605",
+							"label": "铃芽之旅"
+						},
+						{
+							"key": "50763",
+							"label": "有兽焉"
+						},
+						{
+							"key": "50874",
+							"label": "樱花未来"
+						},
+						{
+							"key": "52484",
+							"label": "JDG坚定信仰"
+						},
+						{
+							"key": "59580",
+							"label": "创作之翼个性主题"
+						},
+						{
+							"key": "1679479030001",
+							"label": "奶蓝梦境"
+						},
+						{
+							"key": "1680162579001",
+							"label": "领结猫"
+						},
+						{
+							"key": "1680348700001",
+							"label": "幻想乡的日常 第1弹"
+						},
+						{
+							"key": "1680580240001",
+							"label": "乐正绫八周年生日纪念"
+						},
+						{
+							"key": "1680591891001",
+							"label": "恬豆发芽了"
+						},
+						{
+							"key": "1682047060001",
+							"label": "生日快乐"
+						},
+						{
+							"key": "1682268079001",
+							"label": "仓鼠松鼠"
+						},
+						{
+							"key": "1682400543001",
+							"label": "大耳狗 甜品时刻"
+						},
+						{
+							"key": "1682588261001",
+							"label": "愿望成真 生日快乐2"
+						},
+						{
+							"key": "1682863365001",
+							"label": "小猫咪金的没烦恼"
+						},
+						{
+							"key": "1683039767001",
+							"label": "章章梦工厂"
+						},
+						{
+							"key": "1683341615001",
+							"label": "星光六角螈"
+						},
+						{
+							"key": "1683355602001",
+							"label": "脑洞波系列主题装扮-贝拉"
+						},
+						{
+							"key": "1683518214001",
+							"label": "蜜桃猫情侣篇"
+						}
+					]
+				},
+				{
+					"id": "@BiliBili.Modified.Settings.Skin.load_equip",
+					"name": "加载动画",
+					"val":
+					[
+						"32263"
+					],
+					"type": "radios",
+					"items":
+					[
+						{
+							"key": "2531",
+							"label": "初音未来13周年"
+						},
+						{
+							"key": "4125",
+							"label": "良辰美景·不问天"
+						},
+						{
+							"key": "32263",
+							"label": "EveOneCat2"
+						},
+						{
+							"key": "33460",
+							"label": "有栖mana"
+						},
+						{
+							"key": "34811",
+							"label": "嘉然个性装扮2.0"
+						},
+						{
+							"key": "49391",
+							"label": "提摩西小队第二弹"
+						},
+						{
+							"key": "1680172285001",
+							"label": "豆豆摇头晃脑"
+						},
+						{
+							"key": "1680280135001",
+							"label": "幻想乡的日常 第1弹"
+						}
+					]
+				},
+				{
+					"id": "@BiliBili.Modified.Settings.Private.vip",
+					"name": "大会员",
+					"val": false,
+					"type": "boolean",
+					"desc": "是否更改为大会员状态（自慰）"
+				},
+				{
+					"id": "@BiliBili.Modified.Settings.Private.coin",
+					"name": "硬币数",
+					"val": "",
+					"type": "text",
+					"desc": ""
+				},
+				{
+					"id": "@BiliBili.Modified.Settings.Private.bcoin",
+					"name": "B币数",
+					"val": "",
+					"type": "text",
+					"desc": ""
+				},
+				{
+					"id": "@BiliBili.Modified.Settings.Private.follower",
+					"name": "粉丝数",
+					"val": "",
+					"type": "text",
+					"desc": ""
+				},
+				{
+					"id": "@BiliBili.Modified.Settings.Private.level",
+					"name": "用户等级",
+					"val": "",
+					"type": "text",
+					"desc": "小于等于6"
+				},
+				{
+					"id": "@BiliBili.Modified.Settings.Private.like",
+					"name": "被赞次数",
+					"val": "",
+					"type": "text",
+					"desc": ""
+				}
+			]
+		}
+	]
+}
