@@ -1,0 +1,18 @@
+#!name=WhosTV 自动签到
+#!desc=自动抓取 whos.tv Cookie，每日签到，并通过客户端本地通知结果。
+#!date=2026-08-01
+#!category=🐹 BOBO Task
+#!author=imzwr214[https://github.com/imzwr214/whos]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/WhosTV/JS/IMG/WhosTV.png
+#!openUrl=https://whos.tv/
+#!arguments=禁用MITM:hostname,签到执行时间:30 8 * * *,开启Cookie抓取:true,WhosTV Cookie:xxx
+#!arguments-desc=禁用MITM：禁用MITM主机名，默认 hostname 表示启用，输入 # 表示禁用。\n\n此脚本获取Cookie会多次触发，导致Surge崩溃设备发热。获取一次Cookie后关闭MITM即可。\n签到执行时间: 默认每天 08:30 执行，格式如 30 8 * * *\n\n开启Cookie抓取\n- true: 打开后登录 whos.tv 或访问积分任务页，会自动抓取 Cookie。抓到后建议关闭\n- false: 关闭抓取\n\nWhosTV Cookie: 可留空或保持 xxx；自动抓取失败时，可手动填写完整 Cookie
+
+[Script]
+# > WhosTV自动签到
+WhosTV获取Cookie = type=http-request, pattern=^https:\/\/whos\.tv\/api\/(login|user\/profile|user\/statistics|user\/tasks\/today-points|user\/tasks\/signin), requires-body=false, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/WhosTV/JS/JS-1/WhosTV.js, argument="{"ENABLE_CAPTURE":{{{开启Cookie抓取}}}}"
+
+WhosTV自动签到 = type=cron, cronexp="{{{签到执行时间}}}", script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/WhosTV/JS/JS-1/WhosTV.js, argument="{"WHOSTV_COOKIE":"{{{WhosTV Cookie}}}"}"
+
+[MITM]
+{{{禁用MITM}}} = %APPEND% whos.tv
