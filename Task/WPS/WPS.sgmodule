@@ -1,0 +1,17 @@
+#!name=WPS Office 每日签到
+#!desc=每日签到+福利中心多项任务\n送 WPS 积分与超级会员时长.\打开「WPS」APP → 进任意活动页(任务中心 / 福利中心「天天领福利」)停留 1 秒.\n收到 ✅ WPS Cookie 获取成功 通知即抓取成功.
+#!date=2026-08-01
+#!category=🐹 BOBO Task
+#!author=MaYIHEI[https://github.com/MaYIHEI/paperclip]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/WPS.png
+#!arguments=禁用MITM:hostname
+#!arguments-desc=禁用MITM：禁用MITM主机名，默认 hostname 表示启用，输入 # 表示禁用。\n\n此脚本获取Cookie会多次触发，导致Surge崩溃设备发热。获取一次Cookie后关闭MITM即可。
+
+[Script]
+# > WPS Office 每日签到
+WPS获取Cookie = type=http-request,pattern=^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_info,requires-body=false,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/WPS/JS/WPS.Cookie.js
+
+WPS签到 = type=cron,cronexp=0 10 * * *,timeout=120,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/WPS/JS/WPS.js
+
+[MITM]
+{{{禁用MITM}}} = %APPEND% personal-act.wps.cn

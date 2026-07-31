@@ -1,0 +1,18 @@
+#!name=WPS Office 每日签到
+#!desc=每日签到+福利中心多项任务\n送 WPS 积分与超级会员时长.\打开「WPS」APP → 进任意活动页(任务中心 / 福利中心「天天领福利」)停留 1 秒.\n收到 ✅ WPS Cookie 获取成功 通知即抓取成功.
+#!date=2026-08-01
+#!category=🐹 BOBO Task
+#!author=MaYIHEI[https://github.com/MaYIHEI/paperclip]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/WPS.png
+
+[Argument]
+获取Cookie = switch, ture, tag = [启用]获取Cookie, desc = 关闭开关将不对此选项生效
+
+[Script]
+# > WPS Office 每日签到
+http-request ^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_info script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/WPS/JS/WPS.Cookie.js, requires-body=false, tag=WPS获取Cookie, enable={获取Cookie}
+
+cron "0 10 * * *" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/WPS/JS/WPS.js, enable=true, tag=WPS签到
+
+[MITM]
+hostname = personal-act.wps.cn
