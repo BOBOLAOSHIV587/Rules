@@ -1,0 +1,16 @@
+#!name=IP 纯净度检测
+#!desc=判定当前出口/指定 IP 是机房、住宅还是移动网络,识别代理/VPN/Tor/滥用标记并给出纯净度评分.\n多源交叉验证(ipapi.is + ip-api.com + ipinfo.io)，免 API Key.
+#!date=2026-08-06
+#!category=🐹 BOBO面板模块
+#!author=nuanyangccto[https://github.com/nuanyangccto/loon-ipcheck]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IPPure/JS/JS-9/IMG/IPCheck.png
+
+[Argument]
+QueryIP = input,"",tag=指定查询 IP,desc=留空则检测当前出口 IP;填 IP 则查询该 IP 的档案
+IPInfoToken = input,"",tag=ipinfo.io Token(可选),desc=不填也能用;填了 ipinfo 返回的数据更全
+CopyReport = switch,true,tag=完整报告复制到剪贴板,desc=通知只放得下摘要,打开后完整判定依据自动进剪贴板
+AutoCheck = switch,false,tag=网络切换时自动检测,desc=切换 Wi-Fi/蜂窝后自动跑一次检测并通知
+
+[Script]
+generic script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IPPure/JS/JS-9/IPCheck.js, timeout=30, tag=IP 纯净度检测, img-url=checkmark.shield.system, argument=[{QueryIP},{IPInfoToken},{CopyReport}]
+network-changed script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IPPure/JS/JS-9/IPCheck.js, timeout=30, tag=网络切换 IP 检测, enable={AutoCheck}, argument=[{QueryIP},{IPInfoToken},{CopyReport}]
