@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="wloc.jpg" width="144" />
+  <img src="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Apple_WLOC/JS/JS-1/IMG/wloc.png" width="144" />
 </p>
 
 # Apple WLOC 定位修改
@@ -57,12 +57,37 @@ https://raw.githubusercontent.com/Yu9191/wloc/refs/heads/main/modules/wloc.modul
 - **高德**：分享出来是短链，真实坐标只藏在 302 跳转的 `Location` 头里，且是 GCJ-02 偏移坐标。快捷指令既读不到跳转头、也难做坐标换算，所以由 worker 跟跳转 → 抠坐标 → GCJ-02→WGS84 → 返回经纬度。
 - **苹果地图**：链接里直接带 `coordinate=纬度,经度`，但在**中国大陆同样是 GCJ-02 偏移坐标**，所以和高德一样由 worker 做 GCJ-02→WGS84 换算后返回；境外坐标会自动跳过换算（`out_of_china` 判断）原样返回。除了统一坐标系，走同一接口也方便统一处理短链、文本夹链接、名称解码等。
 
-**隐私：** `/api/parse` 是纯转发解析——收到链接 → 跟跳转 → 解析坐标 → 返回 JSON，全程不写任何存储、不记日志、不缓存，处理完即丢。
+**隐私：** `/api/parse` 是纯转发解析——收到链接 → 跟跳转 → 解析坐标 → 返回 JSON，全程不写任何存储、不记日志、不缓存，处理完即丢（`wrangler.jsonc` 里已显式关闭 observability）。跟跳转时只接受 http/https，单次请求 8 秒超时、只读响应正文前 512 KB。
 
 **不放心可自行部署：** worker 源码完全开源，可自己部署一份替换上面的地址：
 
-- 解析逻辑：[`worker/src/parse.js`](worker/src/parse.js)，路由：[`worker/src/index.js`](worker/src/index.js)
+- 路由：[`worker/src/index.js`](worker/src/index.js)
+- 链接解析与坐标换算：[`worker/src/parse.js`](worker/src/parse.js)
+- 选点页面：[`worker/src/page.js`](worker/src/page.js)、[`worker/src/gcj-browser.js`](worker/src/gcj-browser.js)
 - 部署后把快捷指令里的 `wloc-spoofer.wloc.workers.dev` 换成你自己的 worker 域名即可。
+
+解析逻辑带一套不联网的回归测试，改动后跑一下：
+
+```bash
+cd worker && npm install && npm test
+```
+
+**坐标系说明：** 页面内部一律以 WGS84 为准。底图切到「高德」时，瓦片画的是 GCJ-02
+地物，与 Leaflet 的 WGS84 像素映射差着一个偏移量（深圳一带约 600 米），页面会在
+选点/落点时自动双向换算，所以在任意底图上点选得到的都是同一个 WGS84 坐标。
+
+各家地图的坐标系不同，换算按「来源 × 地区」分派：
+
+| 来源 | 中国大陆 | 港澳台 |
+|------|----------|--------|
+| 苹果地图 / Google | GCJ-02，需换算 | **WGS84，不换算** |
+| 高德 / 百度 | GCJ-02 / BD-09，需换算 | 同左，仍需换算 |
+
+**港澳台建议优先用苹果或高德的链接。** 百度在港澳台的分享短链，坐标要靠网页脚本
+带反爬令牌去查，服务端取不到；变通办法是在浏览器打开该链接，等地址栏变成
+`map.baidu.com/poi/名称/@数字,数字,19z` 之后复制整条地址再粘贴——但百度的针脚位置
+与苹果/高德常有几十到两百米的出入（大陆约 5 米，港澳台可达 240 米），精确定位时
+不建议用它。
 
 ---
 
@@ -120,9 +145,12 @@ https://raw.githubusercontent.com/Yu9191/wloc/refs/heads/main/modules/wloc.modul
 | longitude | 目标经度(在线选点优先) | null (透传) |
 | latitude | 目标纬度(在线选点优先) | null (透传) |
 | accuracy | 精度(米) | 25 |
+| randomRadius | 扰动半径(米)，每次定位在目标点周围随机偏移，0=关闭 | 0 |
 | logLevel | 日志级别 | info |
 
 优先级: 在线选点储存 > 模块参数 > 默认值
+
+> **扰动半径说明：** 启用后每次定位响应会在目标坐标周围指定米数内随机偏移，避免每次定位结果完全相同。Surge/Loon/Stash/Shadowrocket 可在模块参数中设置；QX 用户可通过选点页面设置。默认 0（关闭），不影响现有用户。
 
 </details>
 
@@ -214,8 +242,11 @@ Pages 部署不支持一键按钮，需要手动执行：
 git clone https://github.com/Yu9191/wloc.git
 cd wloc/worker
 npm install
-npx wrangler pages deploy dist --project-name <自定义项目名>
+npm run pages:deploy
 ```
+
+> 必须走 `npm run pages:deploy`（它带 `-c wrangler.pages.jsonc`）。直接跑
+> `wrangler pages deploy dist` 会丢掉配置里的 compatibility 设定。
 
 部署时会提示设置 production branch，输入 `main` 即可。部署成功后得到 `https://<项目名>.pages.dev` 地址。
 
@@ -242,3 +273,9 @@ Pages 和 Workers 功能完全一致，按需选择即可。
 
 - [proxypin-wloc-spoofer](https://github.com/FFF686868/proxypin-wloc-spoofer) - 原始 WLOC 定位修改思路 by FFF686868
 - [NSNanoCat/Util](https://github.com/NSNanoCat/util) - 跨平台脚本工具框架
+
+### 贡献者
+
+- [@YmlyZA](https://github.com/YmlyZA) - 百度地图支持、港澳台边界处理、GCJ 换算优化、回归测试覆盖 ([#83](https://github.com/Yu9191/wloc/pull/83))
+- [@YeTianXingShi](https://github.com/YeTianXingShi) - randomRadius 随机坐标扰动功能原始实现 ([#70](https://github.com/Yu9191/wloc/pull/70))
+- [@SajoLuo](https://github.com/SajoLuo) - Stash 响应格式修复 ([#66](https://github.com/Yu9191/wloc/pull/66))
