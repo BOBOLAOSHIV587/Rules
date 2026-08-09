@@ -1,19 +1,18 @@
 # NAME: China
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
-# UPDATED: 2025-12-08 02:08:15
-# HOST: 20
+# UPDATED: 2026-06-22 02:36:19
+# HOST: 17
 # HOST-KEYWORD: 9
-# HOST-SUFFIX: 3678
+# HOST-SUFFIX: 3674
 # HOST-WILDCARD: 1
 # IP-CIDR: 17
 # IP6-CIDR: 4
 # USER-AGENT: 31
-# TOTAL: 3760
+# TOTAL: 3753
 HOST,analytics.strava.com,China
 HOST,blzddist1-a.akamaihd.net,China
 HOST,cdn.angruo.com,China
-HOST,cdn.lilyemby.com,China
 HOST,client.amplifi.com,China
 HOST,download.jetbrains.com,China
 HOST,download.microsoft.com,China
@@ -23,10 +22,8 @@ HOST,kc.kexinshe.com,China
 HOST,ntservicepack.microsoft.com,China
 HOST,origin-a.akamaihd.ne,China
 HOST,origin-a.akamaihd.net,China
-HOST,smart.uhdnow.com,China
 HOST,sms.imagetasks.com,China
 HOST,steamcommunity-a.akamaihd.net,China
-HOST,tx.lilyemby.com,China
 HOST,weixin.com,China
 HOST,www.libvideo.com,China
 HOST,www.yxssp.com,China
@@ -1038,7 +1035,6 @@ HOST-SUFFIX,cpppf.org,China
 HOST-SUFFIX,cqccn.com,China
 HOST-SUFFIX,cqvip.com,China
 HOST-SUFFIX,cr173.com,China
-HOST-SUFFIX,crashlytics.com,China
 HOST-SUFFIX,crggcn.com,China
 HOST-SUFFIX,crsky.com,China
 HOST-SUFFIX,cryuantafund.com,China
@@ -1383,8 +1379,6 @@ HOST-SUFFIX,funcdn.com,China
 HOST-SUFFIX,funnycore.com,China
 HOST-SUFFIX,funshion.com,China
 HOST-SUFFIX,funshion.net,China
-HOST-SUFFIX,futu5.com,China
-HOST-SUFFIX,futunn.com,China
 HOST-SUFFIX,fuwai.com,China
 HOST-SUFFIX,fuwj.com,China
 HOST-SUFFIX,fxxz.com,China
@@ -1956,7 +1950,6 @@ HOST-SUFFIX,jiayuan.com,China
 HOST-SUFFIX,jiazhao.com,China
 HOST-SUFFIX,jibencaozuo.com,China
 HOST-SUFFIX,jidian.im,China
-HOST-SUFFIX,jiedaibao.gs,China
 HOST-SUFFIX,jiemeng8.com,China
 HOST-SUFFIX,jiemian.com,China
 HOST-SUFFIX,jikeiot.cloud,China

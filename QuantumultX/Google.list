@@ -1,14 +1,14 @@
 # NAME: Google
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
-# UPDATED: 2025-12-08 02:06:19
+# UPDATED: 2026-05-12 02:38:11
 # HOST: 14
 # HOST-KEYWORD: 5
-# HOST-SUFFIX: 691
+# HOST-SUFFIX: 684
 # IP-CIDR: 4
 # IP6-CIDR: 1
 # USER-AGENT: 3
-# TOTAL: 718
+# TOTAL: 711
 HOST,clientservices.googleapis.com,Google
 HOST,crl.pki.goog,Google
 HOST,fonts.googleapis.com,Google
@@ -220,7 +220,6 @@ HOST-SUFFIX,digitalattackmap.com,Google
 HOST-SUFFIX,doubleclick-cn.net,Google
 HOST-SUFFIX,doubleclick.com,Google
 HOST-SUFFIX,doubleclick.net,Google
-HOST-SUFFIX,download.qatp1.net,Google
 HOST-SUFFIX,episodic.com,Google
 HOST-SUFFIX,fastlane.ci,Google
 HOST-SUFFIX,fastlane.tools,Google
@@ -567,7 +566,6 @@ HOST-SUFFIX,mdialog.com,Google
 HOST-SUFFIX,meet.new,Google
 HOST-SUFFIX,mfg-inspector.com,Google
 HOST-SUFFIX,mobileview.page,Google
-HOST-SUFFIX,monitoring.qpdp1.net,Google
 HOST-SUFFIX,moodstocks.com,Google
 HOST-SUFFIX,near.by,Google
 HOST-SUFFIX,nest.com,Google
@@ -611,12 +609,8 @@ HOST-SUFFIX,prod.databe.floonet.goog,Google
 HOST-SUFFIX,projectara.com,Google
 HOST-SUFFIX,projectbaseline.com,Google
 HOST-SUFFIX,publishproxy.com,Google
-HOST-SUFFIX,qagpublic.qatp1.net,Google
-HOST-SUFFIX,qgadmin.qcpp1.net,Google
 HOST-SUFFIX,qiao-cn.com,Google
 HOST-SUFFIX,qpx.googleflights.net,Google
-HOST-SUFFIX,qualysapi.qatp1.net,Google
-HOST-SUFFIX,qualysguard.qpdp1.net,Google
 HOST-SUFFIX,questvisual.com,Google
 HOST-SUFFIX,quickoffice.com,Google
 HOST-SUFFIX,quiksee.com,Google
@@ -633,7 +627,6 @@ HOST-SUFFIX,ridepenguin.com,Google
 HOST-SUFFIX,run.app,Google
 HOST-SUFFIX,savethedate.foo,Google
 HOST-SUFFIX,saynow.com,Google
-HOST-SUFFIX,scanservice1.qcpp1.net,Google
 HOST-SUFFIX,schema.org,Google
 HOST-SUFFIX,schemer.com,Google
 HOST-SUFFIX,screenwisetrends.com,Google
