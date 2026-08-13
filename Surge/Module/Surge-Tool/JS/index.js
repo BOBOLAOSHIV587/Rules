@@ -1,12 +1,12 @@
-// @BOBOLAOSHIV587
+// @xream @key
 const UPDATA = "2024-03-16 14:14:49";
 const isPanel = typeof $input != "undefined",
-  stname = "SurgeTool_Rule_NUM",
+  stname = "linkey_Rule_NUM",
   STversion = "5.10.03",
   nowt = Date.now(),
   cacheVersion = 2;
 let url = (typeof $request !== "undefined" && $request.url) || 0,
-  isFetch = /(trouble\.shoot|surge\.tool|st\.com)\/getkey/.test(url);
+  isFetch = /(trouble\.shoot|surge\.tool|st\.com|.*\.linkey\.com)\/getkey/.test(url);
 
 let result = {},
   ptitle = "Surge Rule",
@@ -56,7 +56,7 @@ if (typeof $argument !== "undefined" && $argument !== "") {
     hostname = hostname.filter((item) => !hostname_disabled.includes(item));
 
     // prettier-ignore
-    let DOMAIN_SET_NUM=0,RULE_SET_NUM=0,ALL_NUM=0,ScriptNUM=0,URL_RewriteNUM=0,Map_LocalNUM=0,Header_RewriteNUM=0,Body_RewriteNUM=0,RewriteNUM=0,hostnameNUM=0,AllRule=[],SurgeTool={},RULELISTALL={};
+    let DOMAIN_SET_NUM=0,RULE_SET_NUM=0,ALL_NUM=0,ScriptNUM=0,URL_RewriteNUM=0,Map_LocalNUM=0,Header_RewriteNUM=0,Body_RewriteNUM=0,RewriteNUM=0,hostnameNUM=0,AllRule=[],linkey={},RULELISTALL={};
     ScriptNUM = scripts.filter((i) => i.enabled).length;
     if (isFetch || isPanel) {
       const scRuleRaw =
@@ -105,11 +105,11 @@ if (typeof $argument !== "undefined" && $argument !== "") {
             LogTF && console.log("[RULE-SET_GET_Script-Hub]: " + rsUrl);
             try {
               // ScriptHub 规则缓存
-              SurgeTool = JSON.parse($persistentStore.read(stname));
-              if (!SurgeTool && SurgeTool?.length > 10000) {
+              linkey = JSON.parse($persistentStore.read(stname));
+              if (!linkey && linkey?.length > 10000) {
                 clearcr();
               } else {
-                const cacheNum = SurgeTool[rsUrl];
+                const cacheNum = linkey[rsUrl];
                 if (typeof cacheNum == "number" && cacheNum > 0) {
                   LogTF && console.log("读取ScriptHub 缓存" + cacheNum);
                   let fname = ""; // 逻辑规则类型 前缀
@@ -174,11 +174,11 @@ if (typeof $argument !== "undefined" && $argument !== "") {
           if (/^https?:\/\/script\.hub\/file\/_start_\//.test(rdurl)) {
             LogTF && console.log("[DOMAIN-SET_GET_Script-Hub]: " + rdurl);
             try {
-              SurgeTool = JSON.parse($persistentStore.read(stname));
-              if (!SurgeTool && SurgeTool?.length > 10000) {
+              linkey = JSON.parse($persistentStore.read(stname));
+              if (!linkey && linkey?.length > 10000) {
                 clearcr();
               } else {
-                const cacheNum = SurgeTool[rdurl];
+                const cacheNum = linkey[rdurl];
                 if (typeof cacheNum == "number" && cacheNum > 0) {
                   LogTF && console.log("读取ScriptHub 缓存" + cacheNum);
                   let fname = "";
@@ -420,17 +420,17 @@ async function GetCache(url, sck) {
 async function HttpGetFile() {
   const file_a = await GetCache(
     "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Surge-Tool/JS/file_a.txt",
-    "SurgeTool_Cache_A"
+    "linkey_Cache_A"
   );
   const file_b = await GetCache(
     "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Surge-Tool/JS/file_b.txt",
-    "SurgeTool_Cache_B"
+    "linkey_Cache_B"
   );
   return [file_a, file_b];
 }
 function clearCacheAB() {
-  $persistentStore.write("", "SurgeTool_Cache_A");
-  $persistentStore.write("", "SurgeTool_Cache_B");
+  $persistentStore.write("", "linkey_Cache_A");
+  $persistentStore.write("", "linkey_Cache_B");
 }
 // prettier-ignore
 function httpAPI(path = "", method = "POST", body = null) {return new Promise((resolve) => {$httpAPI(method, path, body, (result) => {resolve(result);});});}

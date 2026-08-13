@@ -1,6 +1,6 @@
 #!name= Troubleshoot
-#!desc= 故障排除/规则统计 访问 http://trouble.shoot  https://🍉.eu.org/st 查看
-#!date=2026-01-21
+#!desc= 故障排除/规则统计 访问 https://*.linkey.com/get   https://🍉.eu.org/st 查看
+#!date=2026-08-13
 #!category=🐹 BOBO面板模块
 #!author=xream[https://github.com/xream/scripts], Key[https://github.com/Keywos]
 #!arguments= script-update:-1, update-interval:-1, Type:1, Log:0, List:1, Push:1,title:规则详情 | , color:#6699FF, icon:heart.text.square, ST Panel:ST Panel
@@ -12,10 +12,10 @@
 
 [Script]
 # Web
-troubleshoot = type=http-request, pattern=^https?:\/\/(trouble\.shoot|surge\.tool), timeout=300,script-update-interval={{{script-update}}}, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/Surge-Tool/JS/index.js
+troubleshoot = type=http-request, pattern=^https?:\/\/.*\.linkey\.com\/get, timeout=300,script-update-interval={{{script-update}}}, script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/Surge-Tool/JS/index.js
 
 # Panel
 {{{ST Panel}}} = type=generic,timeout=30,argument=list={{{List}}}&type={{{Type}}}&LogTF={{{Log}}}&icolor={{{color}}}&title={{{title}}}&icon={{{icon}}}&push={{{Push}}},script-update-interval={{{script-update}}},script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Surge/Module/Surge-Tool/JS/index.js
 
 [MITM]
-hostname = %APPEND% trouble.shoot, *.trouble.shoot, surge.tool
+hostname = %APPEND% *.linkey.com
