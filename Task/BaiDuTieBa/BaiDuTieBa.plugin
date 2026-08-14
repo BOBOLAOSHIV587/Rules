@@ -1,0 +1,20 @@
+#!name=贴吧签到
+#!desc=自动签到贴吧.\n打开百度贴吧APP点击"我的"即可获取cookie.\n此脚本获取Cookie会多次触发，导致Loon崩溃设备发热。获取一次Cookie后关闭脚本即可。
+#!date=2026-08-14
+#!category=🐹 BOBO Task
+#!author= NobyDa[https://github.com/NobyDa/Script]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/miniColor/Image/Color/tieba.png
+#!openUrl=https://apps.apple.com/app/id477927812
+
+[Argument]
+获取Cookie = switch, ture, tag = [启用]获取Cookie, desc = 关闭开关将不对此选项生效
+
+[Script]
+# > 百度贴吧 cookie
+http-request ^https?:\/\/(c\.tieba|tiebac)\.baidu\.com\/c\/s\/login script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/BaiDuTieBa/JS/JS-1/BaiDuTieBa.js, tag=贴吧Cookie, enable={获取Cookie}
+
+# > 百度贴吧签到
+cron "10,20,30 9 * * *" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/BaiDuTieBa/JS/JS-1/BaiDuTieBa.js, tag=贴吧签到
+
+[MITM]
+hostname = tiebac.baidu.com, c.tieba.baidu.com
