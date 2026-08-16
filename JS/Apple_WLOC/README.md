@@ -28,6 +28,15 @@ https://raw.githubusercontent.com/Yu9191/wloc/refs/heads/main/modules/wloc.modul
 > Egern 可直接使用 Surge 模块
 > Stash 请直接订阅上面的 `.stoverride`，无需用 Script Hub 转换
 
+### 默认扩展域名支持
+
+默认模块已覆盖目前已知的完整 WLOC 域名集合：
+
+- `gsp-ssl.ls.apple.com`
+- `bluedot.is.autonavi.com`
+- `bluedot.is.autonavi.com.gds.alibabadns.com`
+
+
 ---
 
 ## 快捷指令（推荐，最方便）
@@ -279,3 +288,11 @@ Pages 和 Workers 功能完全一致，按需选择即可。
 - [@YmlyZA](https://github.com/YmlyZA) - 百度地图支持、港澳台边界处理、GCJ 换算优化、回归测试覆盖 ([#83](https://github.com/Yu9191/wloc/pull/83))
 - [@YeTianXingShi](https://github.com/YeTianXingShi) - randomRadius 随机坐标扰动功能原始实现 ([#70](https://github.com/Yu9191/wloc/pull/70))
 - [@SajoLuo](https://github.com/SajoLuo) - Stash 响应格式修复 ([#66](https://github.com/Yu9191/wloc/pull/66))
+- [@SkywardLab](https://github.com/SkywardLab) - 扩展 WLOC 备用域名拦截 ([#90](https://github.com/Yu9191/wloc/pull/90))
+- [@beiming0000](https://github.com/beiming0000) - 逗号小数格式坐标丢失问题报告 ([#96](https://github.com/Yu9191/wloc/issues/96))
+
+---
+
+## 许可证
+
+本项目采用 [AGPL-3.0](LICENSE) 许可证。未经授权，禁止将本项目代码用于商业产品或上架应用商店。
