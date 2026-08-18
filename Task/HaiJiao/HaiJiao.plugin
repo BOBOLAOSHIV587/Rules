@@ -1,0 +1,20 @@
+#!name=海角社区 自动签到领金币
+#!desc=自动抓取 haijiao.com 的 User-ID、Token、Cookie 及 User-Agent 并每日自动签到.\n获取Cookie说明：打开海角后, 如通知成功获取cookie, 则可以使用此签到脚本。\n\n此脚本获取Cookie会多次触发，导致Loon崩溃设备发热。获取一次Cookie后关闭即可。
+#!date=2026-08-19
+#!category=🐹 BOBO Task
+#!author= BOBOLAOSHIV587[https://github.com/BOBOLAOSHIV587/Rules],Gemini[https://gemini.google.com/]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/HaiJiaoSheQu.png
+#!openUrl=https://haijiao.com/
+
+[Argument]
+获取Cookie = switch, ture, tag = [启用]获取Cookie, desc = 关闭开关将不对此选项生效
+
+[Script]
+# 获取凭据 (当访问海角 API 接口时自动触发保存)
+http-request ^https:\/\/www\.haijiao\.com\/api\/ script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/HaiJiao/JS/Get-Cookie.js, timeout=15, tag=海角获取Cookie, enable={获取Cookie}
+
+# 定时签到 (每日 08:50 自动执行)
+cron "50 8 * * *" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/HaiJiao/JS/CheckIn.js, timeout=60, tag=海角签到
+
+[MITM]
+hostname = www.haijiao.com

@@ -1,0 +1,19 @@
+#!name=海角社区 自动签到领金币
+#!desc=自动抓取 haijiao.com 的 User-ID、Token、Cookie 及 User-Agent 并每日自动签到
+#!date=2026-08-19
+#!category=🐹 BOBO Task
+#!author= BOBOLAOSHIV587[https://github.com/BOBOLAOSHIV587/Rules],Gemini[https://gemini.google.com/]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/HaiJiaoSheQu.png
+#!openUrl=https://haijiao.com/
+#!arguments=禁用MITM:hostname
+#!arguments-desc=禁用MITM：禁用MITM主机名，默认 hostname 表示启用，输入 # 表示禁用。\n\n获取Cookie说明：打开海角后, 如通知成功获取cookie, 则可以使用此签到脚本。\n\n此脚本获取Cookie会多次触发，导致Surge崩溃设备发热。获取一次Cookie后关闭MITM即可。
+
+[Script]
+# 获取凭据 (当访问海角 API 接口时自动触发保存)
+海角获取Cookie = type=http-request,pattern=^https:\/\/www\.haijiao\.com\/api\/,requires-body=false,max-size=0,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/HaiJiao/JS/Get-Cookie.js,timeout=15
+
+# 定时签到 (每日 08:50 自动执行)
+海角签到 = type=cron,cronexp=50 8 * * *,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/HaiJiao/JS/CheckIn.js,wake-system=1,timeout=60
+
+[MITM]
+{{{禁用MITM}}} = %APPEND% www.haijiao.com
