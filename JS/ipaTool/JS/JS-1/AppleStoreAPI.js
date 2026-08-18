@@ -338,8 +338,8 @@ const AuthService = class {
 
     const { "set-cookie": Cookie } = resp.headers;
     const storeFront = resp.headers["x-set-apple-store-front"]?.split("-")?.[0];
-    Object.assign(cacheLoginResp, parsedResp, { password, Cookie, storeFront });
-    $.cache.setJson(sharedState.LOGIN_KEY, cacheLoginResp);
+    const mergedResp = { ...cacheLoginResp, ...parsedResp, password, Cookie, storeFront };
+    $.cache.setJson(sharedState.LOGIN_KEY, mergedResp);
     return { ...parsedResp, storeFront };
   }
 
@@ -986,8 +986,21 @@ const main = async () => {
       res.json(createResponse(true, data));
     });
 
+    // 认证接口速率限制 (最多5次/15分钟/IP)
+    const _authRateLimits = new Map();
+    const _checkAuthRate = (req, res) => {
+      const ip = (req.headers && req.headers["x-forwarded-for"]) || req.ip || "0";
+      const now = Date.now(), win = 900000, max = 5;
+      let r = _authRateLimits.get(ip) || { c: 0, t: now + win };
+      if (now > r.t) { r.c = 0; r.t = now + win; }
+      if (++r.c > max) { _authRateLimits.set(ip, r); res.json(createResponse(false, null, "请求过于频繁，请稍后再试")); return false; }
+      _authRateLimits.set(ip, r);
+      return true;
+    };
+
     // 登录接口
     app.post("/auth/login", async (req, res, next) => {
+      if (!_checkAuthRate(req, res)) return;
       const { appleId, password, code } = req.body;
       validate(appleId && password, "缺少必要参数: appleId 和 password");
 
@@ -1001,6 +1014,7 @@ const main = async () => {
 
     // 刷新Cookie接口
     app.post("/auth/refresh", async (req, res, next) => {
+      if (!_checkAuthRate(req, res)) return;
       await AuthService.refreshCookie();
       const data = {
         message: "Cookie 刷新成功",
@@ -1010,6 +1024,7 @@ const main = async () => {
 
     // 重置登录状态和缓存接口
     app.post("/auth/reset", async (req, res, next) => {
+      if (!_checkAuthRate(req, res)) return;
       const result = AuthService.reset();
       res.json(createResponse(true, result));
     });
