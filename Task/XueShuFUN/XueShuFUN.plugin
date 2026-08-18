@@ -1,0 +1,20 @@
+#!name=学术FUN-AI工具整合包 自动签到
+#!desc=自动获取 xueshu.fun 的 Cookie/UA 并每日自动签到.\n获取Cookie说明：学术FUN后, 如通知成功获取cookie, 则可以使用此签到脚本。\n此脚本获取Cookie会多次触发，导致Loon崩溃设备发热。获取一次Cookie后关闭脚本即可。
+#!date=2026-08-19
+#!category=🐹 BOBO Task
+#!author= BOBOLAOSHIV587[https://github.com/BOBOLAOSHIV587/Rules],Claude[https://claude.ai/]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/XueShuFUN.png
+#!openUrl=https://xueshu.fun/
+
+[Argument]
+获取Cookie = switch, ture, tag = [启用]获取Cookie, desc = 关闭开关将不对此选项生效
+
+[Script]
+# > 学术FUN获取Cookie
+http-request ^https:\/\/xueshu\.fun\/wp-admin\/admin-ajax\.php script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/XueShuFUN/JS/Get-Cookie.js, timeout=15, tag=学术FUN获取Cookie, enable={获取Cookie}
+
+# > 学术FUN签到
+cron "10 8 * * *" script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Task/XueShuFUN/JS/CheckIn.js, timeout=60, tag=学术FUN签到
+
+[MITM]
+hostname = xueshu.fun
