@@ -7,6 +7,7 @@ const $ = new Env("海角社区 - 获取凭据");
 
 const domain = "haijiao.com";
 const headers = $request.headers;
+const maxNotifyCount = 3; // 最多通知次数
 
 // 获取各类关键 Header/Cookie
 let userId = headers["x-user-id"] || headers["X-User-Id"];
@@ -26,17 +27,25 @@ if (!token && cookie) {
 }
 
 if (userId && token) {
-  // 保存当前数据
+  // 保存凭据数据
   $.setdata(userId, `${domain}_uid`);
   $.setdata(token, `${domain}_token`);
   if (ua) $.setdata(ua, `${domain}_ua`);
   if (cookie) $.setdata(cookie, `${domain}_cookie`);
 
-  $.msg(
-    "海角社区凭据 - 获取成功 ✅",
-    `UID: ${userId}`,
-    `Token: ${token.slice(0, 8)}...\nUA: ${ua ? "已获取" : "未获取"}`
-  );
+  // 获取并更新通知计数
+  let count = parseInt($.getdata(`${domain}_notify_count`) || "0", 10);
+
+  if (count < maxNotifyCount) {
+    count += 1;
+    $.setdata(count.toString(), `${domain}_notify_count`);
+
+    $.msg(
+      `海角社区凭据 - 获取成功 ✅ (${count}/${maxNotifyCount})`,
+      `UID: ${userId}`,
+      `Token: ${token.slice(0, 8)}...\nUA: ${ua ? "已获取" : "未获取"}`
+    );
+  }
 }
 
 $.done();
@@ -51,6 +60,10 @@ function Env(name) {
   this.setdata = (val, key) => {
     if (this.isQX) return $prefs.setValueForKey(val, key);
     if (this.isLoon || this.isSurge) return $persistentStore.write(val, key);
+  };
+  this.getdata = (key) => {
+    if (this.isQX) return $prefs.valueForKey(key);
+    if (this.isLoon || this.isSurge) return $persistentStore.read(key);
   };
   this.msg = (title = name, subt = "", desc = "") => {
     if (this.isQX) $notify(title, subt, desc);

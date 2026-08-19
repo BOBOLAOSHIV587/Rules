@@ -50,11 +50,16 @@ if (!userId || !token) {
         if (json.success === true) {
           $.msg("海角社区签到成功 🎉", "", "签到成功！奖励金币已到账");
         } else {
-          const errMsg = json.message || "未知错误或今日已签到";
-          $.msg("海角社区签到提示 ⚠️", "", `结果: ${errMsg} (ErrCode: ${json.errorCode})`);
+          const errMsg = json.message || "未知错误";
+          // 优化重复签到的判断逻辑
+          if (json.errorCode === 0 || errMsg.includes("已签到")) {
+            $.msg("海角社区签到提示 ℹ️", "", "今日已完成签到，无需重复操作");
+          } else {
+            $.msg("海角社区签到失败 ❌", "", `原因: ${errMsg} (代码: ${json.errorCode})`);
+          }
         }
       } catch (e) {
-        const statusCode = resp.status || resp.statusCode || "未知";
+        const statusCode = resp ? (resp.status || resp.statusCode || "未知") : "未知";
         $.msg("海角社区签到响应解析失败 ❌", "", `HTTP 状态码: ${statusCode}\n返回原文: ${data ? data.slice(0, 100) : "空"}`);
       }
       $.done();
