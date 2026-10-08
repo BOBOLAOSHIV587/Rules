@@ -1,18 +1,22 @@
 #!name=资源解析器
-#!desc=用于节点名称处理与排序，支持前后缀、去除 Emoji、文本替换、自定义排序及自定义UA拉取订阅，如果自定义UA获取不到节点可以开启禁用缓存试试。文本替换格式为 旧文本:新文本，多个规则用英文逗号分隔，例如 香港:HK,日本:JP。节点排序按关键词先后顺序排序，使用英文逗号分隔，例如 香港,日本,新加坡,美国。在订阅管理界面对订阅进行单独配置。
-#!date=2026-06-29
-#!category=🐹 BOBO Premium
+#!desc=主要用于 Loon 标准订阅，对 URI、Base64 URI 及 Clash/Mihomo YAML 订阅提供支持可能效果会有差异。可设置前后缀、去除 Emoji、文本替换、关键词排序、关键词排除节点、自定义 UA 拉取、TLS ClientHello 指纹修改。支持逐行导入节点与订阅合并后统一处理。不适用于加密订阅，拉取失败或无法处理时回退原订阅，🎈请到订阅管理界面配置解析器。
+#!date=2026-10-08
+#!category=🐹 BOBO Enhance
 #!author=mc2u[https://github.com/mc2u/Loon]
 
 [Argument]
-pre = input,"",tag=节点前缀,desc=添加到所有节点名称开头
-suf = input,"",tag=节点后缀,desc=添加到所有节点名称末尾
-rename = input,"",tag=文本替换,desc=格式为 旧文本:新文本，多个规则用英文逗号分隔，例如 香港:HK,日本:JP
-sort = input,"",tag=节点排序,desc=按关键词先后顺序排序，使用英文逗号分隔，例如 香港,日本,新加坡,美国
-emoji = switch,false,tag=去除 Emoji,desc=去除节点名称中的 Emoji 和旗帜
-userAgent = input,"Shadowrocket/3308 CFNetwork/3886.100.1 Darwin/27.0.0 iPhone18,1",tag=User-Agent,desc=仅在自定义 UA 开关开启时生效。
-noCache = switch,false,tag=禁用缓存,desc=如果自定义UA获取不到节点可以开启试试。
-ua = switch,false,tag=自定义 UA,desc=开启后使用自定义 User-Agent 拉取订阅。
+pre = input,"",tag=节点前缀,desc=添加到所有节点名称开头 和去除 Emoji 不冲突
+suf = input,"",tag=节点后缀,desc=添加到所有节点名称末尾 和去除 Emoji 不冲突
+rename = input,"",tag=文本替换,desc=格式为 旧文本:新文本 多个规则用英文逗号分隔 例如 香港:HK,日本:JP 如需匹配英文冒号、逗号、反斜杠，分别写作 \:、\,、\\ 
+sort = input,"",tag=节点排序,desc=按关键词先后顺序排序 使用英文逗号分隔例如 香港,日本,新加坡
+exc = input,"",tag=排除节点,desc=按关键词排除订阅节点 名称含任一关键词即丢弃 使用英文逗号分隔例如 官网,0.1倍,20倍 对导入节点同样生效
+emoji = switch,false,tag=去除 Emoji,desc=去除节点名称中的 Emoji 和旗帜 不影响自定义添加的 Emoji
+userAgent = input,"Shadowrocket/3308 CFNetwork/3886.100.1 Darwin/27.0.0 iPhone18,1",tag=User-Agent,desc=仅在自定义 UA 开关开启时生效 可用预输入的 Shadowrocket 或者 clash.meta/1.19.31 或者专用客户端（未加密订阅）的User-Agent
+noCache = switch,false,tag=禁用缓存,desc=如果自定义UA获取不到节点可以开启试试一般用不到
+ua = switch,false,tag=自定义 UA,desc=开启后使用自定义的 User-Agent 出现解析异常会回退
+importNodes = input,"",tag=导入节点,desc=粘贴要导入的节点链接（不是订阅）每行一个（vless://  anytls://等格式 ）会与订阅合并后统一输出不要塞奇奇怪怪的东西进来
+tlsProfile = select,"不处理","global","default","safari-ios18","safari-ios-26","chrome","chrome147",tag=TLS ClientHello 指纹,desc= 修改订阅自带的指纹 没问题不要改 safari-ios-26和chrome147为X25519MLKEM768
+timeout = select,"30","60","120","300",tag=超时配置,desc=设置解析器超时时间默认 30 秒
 
 [Script]
-generic script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Loon/loon-resource-parser/resource-parser/loon_resource_parser.js,tag=资源解析器,timeout=10,argument=[{pre},{suf},{emoji},{rename},{sort},{ua},{userAgent},{noCache}]
+generic then script("https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Loon/loon-resource-parser/resource-parser/loon_resource_parser.js", {${pre}, ${suf}, ${emoji}, ${rename}, ${sort}, ${exc}, ${ua}, ${userAgent}, ${noCache}, ${importNodes}, ${tlsProfile}}) with tag="资源解析器", img_url="https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Loon-BB-Quietly.png", timeout=${timeout}
