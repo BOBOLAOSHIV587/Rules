@@ -1,5 +1,5 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-09-16 16:36⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-10-09 16:32⟧
 ----------------------------------------------------------
 🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
@@ -16,7 +16,8 @@
 ----------------------------------------------------------
 0️⃣ 在 ⟦订阅链接⟧ 后加 "#" 使用, 不同参数用 "&" 连接 
 ⚠️ ☞ "你的订阅连接#emoji=1&tfo=1&in=香港+台湾"
-❖ 本地资源片段引用, 请将参数如 "#in=xxx&out=yyy" 填入资源片段的第 ① 行
+❖ 951+ 本地/iCloud 路径也支持 "#in=xxx&out=yyy"；路径参数优先，未提供时兼容资源片段第 ① 行的 #参数
+❖ 分流/重写支持行首说明 {# note #}：950+ 保留说明，旧版仅输出规则正文；筛选、替换和策略修改只作用于正文
 ❖ 🚦 支持中文, "操作" 以下特殊字符时请先替换(URL-Encode) 🚦
   ∎ "+"⇒"%2B", 空格⇒"%20", "@"⇒"%40", "&"⇒"%26", "."⇒"\.", ","⇒"%2C"
 
@@ -519,9 +520,6 @@ const UA_Retry= "Shadowrocket/3218 CFNetwork/3860.600.12 Darwin/25.5.0 iPhone18,
 const currentUA = $resource.user_agent;
 const inRetry = currentUA && currentUA.length > 0;
 
-var  UARetry = $resource.link.indexOf("#")!=-1 && $resource.link.indexOf("UA=1") != -1 ? 1 : 0;
-
-
 const result = {
       // Normal parse result (kept for old-version compat;
       // new versions ignore this when retry fires)
@@ -553,15 +551,19 @@ const Field = {
 
 const subtag = typeof $resource.tag != "undefined" ? $resource.tag : "";
 ////// 非 raw 链接的沙雕情形
-content0 = content0.indexOf("DOCTYPE html") != -1 && link0.indexOf("github.com") != -1 ? ToRaw(content0) : content0 ;
+content0 = content0.indexOf("DOCTYPE html") != -1 && link0.indexOf("github.com") != -1 && content0.split("\n").map(RuleNoteBody).join("\n").indexOf("DOCTYPE html") != -1 ? ToRaw(content0) : content0 ;
 // loon插件链接
 content0 = link0.indexOf("nsloon.com/openloon/import?plugin=") != -1 ? ToLink(link0) : content0 ;
 //ends 正常使用部分，調試註釋此部分
 
 
-var para = /^(http|https)\:\/\//.test(link0) ? link0 : content0.split("\n")[0];
+// 文件路径的 hash 从 build 951 起可用；旧式本地首行参数必须以 #key= 开头，不能读取说明块中的 #。
+var firstResourceLine = content0.split("\n")[0].trim();
+var para = /^https?:\/\//.test(link0) || (version >= 951 && link0.indexOf("#") != -1) ? link0 :
+  (/^#[ \t]*[a-z][\w-]*=/i.test(firstResourceLine) ? firstResourceLine : "");
 var para1 = para.slice(para.indexOf("#") + 1).replace(/\$type/g,"node_type_para_prefix").replace(/\$emoji/g,"node_emoji_flag_prefix").replace(/\$tag/g,"node_tag_prefix").replace(/\$index/g,"node_index_prefix") //防止参数中其它位置也存在"#"
 var mark0 = para.indexOf("#") != -1 ? true : false; //是否有參數需要解析
+var UARetry = mark0 && /(?:^|&)UA=1(?:&|$)/.test(para1) ? 1 : 0;
 var Pinfo = mark0 && para1.indexOf("info=") != -1 ? para1.split("info=")[1].split("&")[0] : 0;
 var ntf_flow = 0;
 //常用量
@@ -1044,9 +1046,11 @@ function ResourceParse() {
     total = errornode
     $done({ content: errornode })
   } else if (flag == -1){ //未知类型
-    total = content0
-    $done({ content: content0 })
+    total = typeQ == "filter" || typeQ == "rewrite" ? content0.split("\n").map(RuleNoteOutput).join("\n") : content0
+    $done({ content: total })
   } 
+  // 说明先随规则完成转换和筛选，输出到不支持说明的客户端时才降级，避免说明丢失或串行。
+  if (flag == 2 || flag == 3) { total = total.split("\n").map(RuleNoteOutput).join("\n") }
   if (Pcnt == 1 && flag !=1 && total!=undefined) {$notify("解析后最终返回内容" , "总数量： " +total.split("\n").length, total)}
   return total
   
@@ -1103,8 +1107,35 @@ function RegCheck(total, typen, paraname,regpara) {
     $notify("🤖 " + typen + "  ➟ " + "⟦" + subtag + "⟧", "⛔️ 筛选正则: " + paraname + "=" + regpara, "⚠️ 筛选后剩余以下" + nolist + "个匹配项 \n ⨷ " + total.join("\n ⨷ "), sub_link)
   }
 }
+// 行首说明仅作为元数据保留；不跨行、不扫描正文，转换失败时不留下孤立说明。
+function RuleNoteSplit(row) {
+  var match = row.match(/^([ \t]*\{#[^\r\n]*?#\}[ \t]*)([^\r\n]*)\r?$/);
+  return match ? { note: match[1], body: match[2] } : { note: "", body: row };
+}
+
+function RuleNoteBody(row) {
+  return RuleNoteSplit(row).body;
+}
+
+function RuleNoteJoin(note, body) {
+  return body && body.trim() && body.trim() != "-" ? note + body : "";
+}
+
+function RuleNoteMap(row, transform) {
+  var parts = RuleNoteSplit(row);
+  return RuleNoteJoin(parts.note, transform(parts.body));
+}
+
+function RuleNoteOutput(row) {
+  var parts = RuleNoteSplit(row);
+  if (parts.note) { return RuleNoteJoin(version >= 950 ? parts.note : "", parts.body) }
+  return /^[ \t]*\{#/.test(row) ? "" : row; // 未闭合说明也不能经未知类型回退输出。
+}
+
 //判断订阅类型
 function Type_Check(subs) {
+    // 判型使用正文副本；content0 保留原始说明供逐条转换。
+    if (typeQ != "server" && typeQ != "uri" && subs.indexOf("{#") != -1) { subs = subs.split("\n").map(RuleNoteBody).join("\n") }
     var type = "unknown"
     var RuleK = ["host,", "-suffix,", "domain,", "domain-regex,", "-keyword,", "ip-cidr,", "ip-cidr6,",  "geoip,", "user-agent,", "ip6-cidr,", "ip-asn", "and,", "or,", "not,"];
     var DomainK = ["domain-set,"]
@@ -1114,7 +1145,8 @@ function Type_Check(subs) {
     var SubK = ["dm1lc3M", "c3NyOi8v", "CnNzOi8", "dHJvamFu", "c3M6Ly", "c3NkOi8v", "c2hhZG93", "aHR0cDovLw", "aHR0cHM6L", "CnRyb2phbjo", "aHR0cD0", "aHR0cCA","U1RBVFVT","dmxlc3M6"];
     var RewriteK = [" url 302", " url 307", " url reject", " url script", " url req", " url res", " url echo", " url-and-header 302", " url-and-header 307", " url-and-header reject", " url-and-header script", " url-and-header req", " url-and-header res", " url-and-header echo", " url jsonjq"] // quantumult X 类型 rewrite
     var JsonJQK = [" response-body-json-jq ", " request-body-json-jq ", " response-body-json-del ", " response-body-json-replace ", " http-response-jq ", " http-request-jq "] // 需要转换成 QuanX jsonjq 的 rewrite
-    var SubK2 = ["ss://", "vmess://", "ssr://", "trojan://", "ssd://", "\nhttps://", "\nhttp://","socks://","ssocks://","vless://","anytls://","wireguard://","wg://","tuic://"];
+    // ⟦2026-09-18 14:27 +08⟧ Hysteria2 两种 URI 前缀进入节点处理，由不支持分支统一提示，避免误走未知/Base64 分支。
+    var SubK2 = ["ss://", "vmess://", "ssr://", "trojan://", "ssd://", "\nhttps://", "\nhttp://","socks://","ssocks://","vless://","anytls://","wireguard://","wg://","tuic://","hysteria2://","hy2://"];
     var ModuleK = ["[Script]", "[Rule]", "[URL Rewrite]", "[Body Rewrite]", "[Map Local]", "\nhttp-r", "script-path"]
     var QXProfile = ["[filter_local]","[filter_remote]","[server_local]","[server_remote]"]
     var html = "DOCTYPE html"
@@ -1179,7 +1211,7 @@ function Type_Check(subs) {
       //type = "QuanX"  // QuanX Profile
       typec="server-quanx"
       type = (typeQ == "unsupported" || typeQ =="server"|| typeQ =="uri")? "Subs":"wrong-field"
-    } else if (content0.indexOf("server") !=-1 && content0.indexOf("server_port") !=-1) { //SIP008
+    } else if (subs.indexOf("server") !=-1 && subs.indexOf("server_port") !=-1) { //SIP008
       //type = "QuanX"
       typec= "server-sip008"
       type = (typeQ == "unsupported" || typeQ =="server")? "Subs":"wrong-field"
@@ -1500,7 +1532,7 @@ function ToLink(link) {
 
 function CDN(cnt) {
   console.log("CDN start")
-  cnt = cnt.join("\n").replace(/https:\/\/raw.githubusercontent.com\/(.*?)\/(.*?)\/(.*)/gmi,"https://fastly.jsdelivr.net/gh/$1/$2@$3")
+  cnt = cnt.map(item => RuleNoteMap(item, body => body.replace(/https:\/\/raw.githubusercontent.com\/(.*?)\/(.*?)\/(.*)/gmi,"https://fastly.jsdelivr.net/gh/$1/$2@$3"))).join("\n")
   return cnt
 }
 
@@ -2153,7 +2185,8 @@ function Rewrite_Filter(subs, Pin, Pout,Preg,Pregout, hasUnsupported) {
     var hostname = ""
     //$notify("S0","Content",subs)
     for (var i = 0; i < subs.length; i++) {
-        subi = subs[i].trim();
+        var noteParts = RuleNoteSplit(subs[i].trim());
+        subi = noteParts.body;
         var subii = subi.replace(/ /g, "")
         if (subi != "" && (subi.indexOf(" url ")!=-1 || subi.indexOf("host")!=-1 || /^(?:ip-cidr|ip6-cidr|geoip|ip-asn|user-agent)\s*,/i.test(subi) || subi.indexOf(" url-and-header ")!=-1 || /^hostname\=/.test(subii))) {
             const notecheck = (item) => subi.indexOf(item) == 0
@@ -2165,11 +2198,11 @@ function Rewrite_Filter(subs, Pin, Pout,Preg,Pregout, hasUnsupported) {
                 var inflag = Rcheck(subi, Pin);
                 var outflag = Rcheck(subi, Pout);
                 if (outflag == 1 || inflag == 0) {
-                    dwrite.push(/^[a-z][\w-]*\s*,/i.test(subi) ? "-" + subi : subi.replace(" url "," - ").replace(" url-and-header "," - ")); // 混合分流也需禁用，hide=0 不能恢复为有效规则
+                    dwrite.push(RuleNoteJoin(noteParts.note, /^[a-z][\w-]*\s*,/i.test(subi) ? "-" + subi : subi.replace(" url "," - ").replace(" url-and-header "," - "))); // 混合分流也需禁用，hide=0 不能恢复为有效规则
                 } else if (outflag == 0 && inflag != 0) { //out 未命中 && in 未排除
-                    Nlist.push(subi);
+                    Nlist.push(RuleNoteJoin(noteParts.note, subi));
                 } else if (outflag == 2 && inflag != 0) { //无 out 参数 && in 未排除
-                    Nlist.push(subi);
+                    Nlist.push(RuleNoteJoin(noteParts.note, subi));
                 }
             }
         }
@@ -2286,17 +2319,17 @@ function Rule_Handle(subs, Pout, Pin) {
         for (var i = 0; i < cnt.length; i++) {
             cc = cnt[i].replace(/^\s*\-\s/g,"").trim()
             //$notify("out ing", Tout, cc)
-            const exclude = (item) => cc.indexOf(item) != -1; // 删除项
+            const exclude = (item) => RuleNoteBody(cc).indexOf(item) != -1; // 删除项
             const RuleCheck = (item) => cc.toLowerCase().indexOf(item) != -1; //规则检查
-            const CommentCheck = (item) => cc.toLowerCase().indexOf(item) == 0; //无视注释行
+            const CommentCheck = (item) => RuleNoteBody(cc).toLowerCase().indexOf(item) == 0; //无视注释行
             if (Tout.some(exclude) && !RuleK.some(CommentCheck) ) {
               // 2022-12-15 删除 && RuleK2.some(RuleCheck) 判断条件，以免 list/provider 中参数上生效
-                dlist.push("-" + Rule_Policy(cc, ignored)) // 注释掉条目
+                dlist.push(RuleNoteMap(Rule_Policy(cc, ignored), body => body ? "-" + body : "")) // 注释掉正文，说明仍随原条目保留
             } else if (!RuleK.some(CommentCheck) && cc ) { //if Pout.some, 不操作注释项，不操作不识别规则项目
               // 2022-12-15 删除 && RuleK2.some(RuleCheck) 判断条件，以免 list/provider 中参数上生效
                 dd = Rule_Policy(cc, ignored);
                 if (Tin != "" && Tin != null) {
-                    const include = (item) => dd.indexOf(item) != -1; // 保留项
+                    const include = (item) => RuleNoteBody(dd).indexOf(item) != -1; // 保留项
                     if (Tin.some(include)) {
                         nlist.push(dd);
                     }
@@ -2330,13 +2363,13 @@ function Rule_Handle(subs, Pout, Pin) {
         for (var i = 0; i < cnt.length; i++) {
             cc = cnt[i].replace(/^\s*\-\s/g,"").trim()
             const RuleCheck = (item) => cc.indexOf(item) != -1; //无视注释行
-            const CommentCheck = (item) => cc.toLowerCase().indexOf(item) == 0; //无视注释行
+            const CommentCheck = (item) => RuleNoteBody(cc).toLowerCase().indexOf(item) == 0; //无视注释行
             if (!RuleK.some(CommentCheck) && cc) { //if Pout.some, 不操作注释项
                 dd = Rule_Policy(cc, ignored);
-                const include = (item) => dd.indexOf(item) != -1; // 保留项
+                const include = (item) => RuleNoteBody(dd).indexOf(item) != -1; // 保留项
                 if (Tin.some(include)) {
                     nlist.push(dd);
-                } else { dlist.push("-" + dd) }
+                } else { dlist.push(RuleNoteMap(dd, body => body ? "-" + body : "")) }
             }
         } // for cnt
         if (nlist.length > 0) {
@@ -2360,13 +2393,22 @@ function Rule_Handle(subs, Pout, Pin) {
     nlist = Pvia ==0? nlist.filter(Boolean).map(item => item+", via-interface=%TUN%") : nlist.filter(Boolean).map(item => item+", via-interface="+Pvia)
   }
 
-  nlist=nlist.map(item=>item.replace(/:\d*\s*,/g,",").replace(/(\'|\")/g,"").replace(/(\-suffix|\-SUFFIX)\s*\,\s*\./g,"$1, ")) //去除端口号以及分号部分, 以及部分suffix规则以. 开头的问题
+  nlist=nlist.map(item=>RuleNoteMap(item, body => body.replace(/:\d*\s*,/g,",").replace(/(\'|\")/g,"").replace(/(\-suffix|\-SUFFIX)\s*\,\s*\./g,"$1, "))) // 清理规则正文，不修改说明里的引号、端口等文字
   NotifyUnsupportedRules(ignored)
   //$notify("nlist","",nlist)
   return nlist
 }
 
 function Rule_Policy(content, ignored) { //增加、替换 policy
+    var noteParts = RuleNoteSplit(content);
+    if (noteParts.note) {
+        var failureStart = Array.isArray(ignored) ? ignored.length : 0;
+        var converted = Rule_Policy(noteParts.body, ignored);
+        if (Array.isArray(ignored)) {
+            for (var n = failureStart; n < ignored.length; n++) { ignored[n].rule = RuleNoteJoin(noteParts.note, ignored[n].rule) }
+        }
+        return RuleNoteJoin(noteParts.note, converted);
+    }
     function skip(reason) {
         if (Array.isArray(ignored) && /^[a-z][\w-]*\s*,/i.test(content.trim())) { ignored.push({rule: content, reason: reason}) }
         return "";
@@ -2434,6 +2476,9 @@ function Rule_Policy(content, ignored) { //增加、替换 policy
 
 // 处理纯列表, 包含 clash-provider
 function rule_list_handle(cnt) {
+  var noteParts = RuleNoteSplit(cnt);
+  if (noteParts.note) { return RuleNoteJoin(noteParts.note, rule_list_handle(noteParts.body)) }
+  if (/^[ \t]*\{#/.test(cnt)) { return "" } // 未闭合说明不能误转为域名“{”。
   var RuleK = ["//", "#", ";", "[", "!", "/"]
   const RuleCheck = (item) => cnt.trim().indexOf(item) == 0; //无视注释行
   const nocheck = (item) => /^\d+$/.test(item) //检查数字项
@@ -2482,13 +2527,14 @@ function Domain2Rule(content) {
     var RuleK = ["//", "#", ";","["]
     var nlist = []
     for (var i = 0; i< cnt.length; i++) {
-        cc = cnt[i].trim();
+        var noteParts = RuleNoteSplit(cnt[i].trim());
+        cc = noteParts.body;
         const RuleCheck = (item) => cc.indexOf(item) != -1; //无视注释行
         if(!RuleK.some(RuleCheck) && cc) {
             if (cc[0] == "."){
-                nlist.push("host-suffix, " + cc.slice(1 , cc.length) )
+                nlist.push(RuleNoteJoin(noteParts.note, "host-suffix, " + cc.slice(1 , cc.length)))
             } else {
-                nlist.push("host, " + cc )
+                nlist.push(RuleNoteJoin(noteParts.note, "host, " + cc))
             }
         }
     }
@@ -2511,6 +2557,8 @@ function policy_sets(cnt,para) {
 
 //策略指定
 function filter_set(cnt,para){
+  var noteParts = RuleNoteSplit(cnt);
+  if (noteParts.note) { return RuleNoteJoin(noteParts.note, filter_set(noteParts.body, para)) }
   if (cnt){
     paras=[para.split("@")[0],para.slice(para.split("@")[0].length+"@".length)]
     console.log(para.split("@")[0].length+"@".length,paras)
@@ -2537,7 +2585,7 @@ function ReplaceReg(cnt, para) {
         var p1 = decodeURIComponent(pp[i].split("@")[0]).replace(/atsymbol/g,"\@").replace(/plussymbol/g,"\\\+").replace(/\，/g,",");
         var p2 = decodeURIComponent(pp[i].split("@")[1]).replace(/atsymbol/g,"@").replace(/plussymbol/g,"+").replace(/\，/g,",");
         p1 = new RegExp(p1, "gmi");
-        cnt0 = cnt0.map(item => item.replace(p1, p2));
+        cnt0 = cnt0.map(item => flag == 2 || flag == 3 ? RuleNoteMap(item, body => body.replace(p1, p2)) : item.replace(p1, p2));
         //$notify(p1,p2,cnt0)
     }
   //$notify("1","",cnt0)
@@ -2647,7 +2695,7 @@ function Subs2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
                     node = Loon2QX(list0[i])
                 } else if (SurgeK.some(NodeCheck) ) { // Surge type, 第2为端口号
                     node = QX_TLS(Surge2QX(list0[i])[0], Pcert0, PTls13)
-                } else if (type=="hysteria2" || (type=="anytls" && version<914) || type=="tuic" || type=="wireguard"|| type=="wg") { //
+                } else if (type=="hysteria2" || type=="hy2" || (type=="anytls" && version<914) || type=="tuic" || type=="wireguard"|| type=="wg") { // hy2 与 hysteria2 共用不支持提示
                   PNS=PNS+1 
                   NSList.push(numToEmoji10(PNS)+list0[i])
                 } else if (/^STATUS\=/.test(listi)) { // flow info fake server
@@ -3017,7 +3065,7 @@ function ToDot(cnt) {
 //正则筛选, 完整内容匹配
 function Regex(content) {
     var Preg0 = RegExp(Preg, "i")
-    cnt = content //.split("tag=")[1]
+    cnt = flag == 2 || flag == 3 ? RuleNoteBody(content) : content
     if (Preg0.test(cnt)) {
         return content
     }
@@ -3026,7 +3074,7 @@ function Regex(content) {
 //正则删除, 完整内容匹配
 function RegexOut(content) {
   var Preg0 = RegExp(Pregout, "i")
-  cnt = content //.split("tag=")[1]
+  cnt = flag == 2 || flag == 3 ? RuleNoteBody(content) : content
   if (!Preg0.test(cnt)) {
     return content
   } else {
@@ -3532,6 +3580,9 @@ function isQuanXRewrite(content, failures) {
     if(cnt[i]){
       var cnti = cnt[i].trim()
       var originalRewrite = cnti
+      var noteParts = RuleNoteSplit(cnti)
+      cnti = noteParts.body
+      if (!noteParts.note && /^\{#/.test(cnti)) { continue } // 未闭合说明不作为重写正文透传。
       if (!cnti || /^(?:#|;|\/\/)/.test(cnti)) { continue }
       // ⟦2026-09-16 16:36 +08⟧ 注释内的配置区段仅在该注释中有效，不延续到脚本正文。
       if (/^\/\*/.test(cnti)) { inComment = inComment || cnti.indexOf("*/", 2) == -1; continue }
@@ -3550,21 +3601,22 @@ function isQuanXRewrite(content, failures) {
       // echo-response 修复说明 ⟦2026-09-16 09:15:50 +08⟧
       // ⟦2026-09-16 10:32 +08⟧ 拦截上一版本生成的本地辅助脚本引用，不影响用户自己的远程脚本参数。
       if (!/^(?:#|;|\/\/)/.test(cnti) && /\surl(?:-and-header)?\s+script-echo-response\s+resource-parser-response\.js(?:#[^\s]*)?$/i.test(cnti)) {
-        ignoredEcho.push({ rule: cnti, reason: "旧版本地辅助脚本引用已停用，解析器不能自动部署该文件" })
+        ignoredEcho.push({ rule: originalRewrite, reason: "旧版本地辅助脚本引用已停用，解析器不能自动部署该文件" })
         continue
       }
       // 内联 text 优先保留正文效果，不引入额外文件依赖。
       if (IsMapLocalInline(cnti)) {
         var inlineRewrite = MapLocalInline2QX(cnti, ignoredEcho)
         if (inlineRewrite) {
-          cnt0.push(RewritePatternQuoteFix(inlineRewrite))
+          cnt0.push(RuleNoteJoin(noteParts.note, RewritePatternQuoteFix(inlineRewrite)))
         }
+        for (var n = failureCount; n < ignoredEcho.length; n++) { ignoredEcho[n].rule = originalRewrite }
         continue
       }
       // jq 先于脚本识别，避免表达式里的 type/pattern/http-response 被误认为脚本参数。
       if (IsJsonJQRewrite(cnti)) {
         if (version < 845) {
-          ignoredEcho.push({ rule: cnti, reason: "jsonjq 需要 Quantumult X build 845 或更新版本" })
+          ignoredEcho.push({ rule: originalRewrite, reason: "jsonjq 需要 Quantumult X build 845 或更新版本" })
           continue
         }
         cnti = JsonJQRewrite2QX(cnti)
@@ -3572,7 +3624,7 @@ function isQuanXRewrite(content, failures) {
       } else if (/\surl(?:-and-header)?\s+jsonjq-(?:request|response)-body\s/i.test(cnti)) {
         cnti = cnti.replace(/^\^http/, "http")
       } else if (filterRule && /^(?:AND|OR|NOT)\s*,/i.test(cnti)) {
-        ignoredEcho.push({ rule: cnti, reason: "逻辑组合规则无法直接转换，拆开会改变匹配条件" })
+        ignoredEcho.push({ rule: originalRewrite, reason: "逻辑组合规则无法直接转换，拆开会改变匹配条件" })
         continue
       } else if (cnti.indexOf("pattern")!=-1 && cnti.indexOf("type")!=-1 || cnti.indexOf("http-r")!=-1) {
         cnti=SGMD2QX(cnti)[0]? SGMD2QX(cnti)[0]:""
@@ -3592,11 +3644,14 @@ function isQuanXRewrite(content, failures) {
         cnti= cnti //cnti.split(" ")[2] == "url-and-header" ? cnti : ""
       } else if (filterRule) {
         if (Pmix==1) { cnti = Rule_Policy(cnti, ignoredEcho) }
-        else { ignoredEcho.push({ rule: cnti, reason: "重写资源混合分流需要 Quantumult X build 844 或更新版本" }); cnti = "" }
+        else { ignoredEcho.push({ rule: originalRewrite, reason: "重写资源混合分流需要 Quantumult X build 844 或更新版本" }); cnti = "" }
       } else {
         cnti=""
       }
-      if (!cnti && ignoredEcho.length == failureCount && (/^\[(?:rule|url rewrite|body rewrite|map local|script)\]$/.test(section) || /\sdata-type\s*=|^http-(?:request|response)(?:\s|$)/i.test(originalRewrite))) {
+      if (noteParts.note) {
+        for (var n = failureCount; n < ignoredEcho.length; n++) { ignoredEcho[n].rule = originalRewrite }
+      }
+      if (!cnti && ignoredEcho.length == failureCount && (/^\[(?:rule|url rewrite|body rewrite|map local|script)\]$/.test(section) || /\sdata-type\s*=|^http-(?:request|response)(?:\s|$)/i.test(noteParts.body))) {
         ignoredEcho.push({ rule: originalRewrite, reason: "未识别到此条目的可靠 Quantumult X 转换语法" })
       }
       if (/\surl(?:-and-header)?\s+jsonjq-(?:request|response)-body\s/i.test(cnti) && version < 845) {
@@ -3613,7 +3668,7 @@ function isQuanXRewrite(content, failures) {
           ignoredEcho.push({ rule: originalRewrite, reason: echoReason })
           continue
         }
-        cnt0.push(RewritePatternQuoteFix(cnti)) //  排除其它项目后写入
+        cnt0.push(RuleNoteJoin(noteParts.note, RewritePatternQuoteFix(cnti))) // 说明仅在正文通过检查后回附
         //$notify(cnti,"已经写入")
       }
       }
