@@ -1,0 +1,22 @@
+#!name=Discord 假会员表情解锁
+#!desc=Discord 假会员表情解锁
+#!date=2026-10-05
+#!category=🐹 BOBO Premium
+#!author=Duncan588[https://github.com/Duncan588/LoonFakeNitro]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Discord.png
+
+[Script]
+Nitro Display = type=http-response, pattern=^https?:\/\/discord(app)?\.com\/api\/v\d+\/users\/[^\/]+\/profile(\?|$), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.display.js, requires-body=true, timeout=15
+
+Nitro SelfUser = type=http-response, pattern=^https?:\/\/discord(app)?\.com\/api\/v\d+\/users\/@me(\?|$), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.display.js, requires-body=true, timeout=15
+
+Nitro Entitlements = type=http-response, pattern=^https?:\/\/discord(app)?\.com\/api\/v\d+\/users\/@me\/entitlements(?!\/), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.display.js, requires-body=true, timeout=15
+
+FakeNitro Send = type=http-request, pattern=^https?:\/\/discord(app)?\.com\/api\/v\d+\/channels\/\d+\/messages(\/\d+)?(\?|$), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.send.js, requires-body=true, timeout=15
+
+FakeNitro Emoji Directory = type=http-response, pattern=^https?:\/\/discord(app)?\.com\/api\/v\d+\/(guilds\/\d+\/(top-emojis|emojis)|emojis), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.catalog.js, requires-body=true, timeout=20
+
+Block Record = type=http-request, pattern=^https?:\/\/discord(app)?\.com\/api\/v\d+\/users\/@me\/relationships\/\d+(\?|$), script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/BlockList.record.js, requires-body=true, timeout=15
+
+[MITM]
+hostname = %APPEND% discord.com, *.discord.com

@@ -1,0 +1,19 @@
+#!name=Discord Translate实时翻译
+#!desc=Discord 实时翻译
+#!date=2026-10-13
+#!category=🐹 BOBO Enhance
+#!author=Duncan588[https://github.com/Duncan588/LoonFakeNitro]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Discord.png
+#!arguments=启用插件:true, 链路探针日志:false, 详细调试日志:false, 目标语言:zh-CN, 引擎:auto, AI 提供商:自定义端点, AI API Key:, AI 模型:, 自定义端点:, 翻译缓存:true, 单次最大翻译条数:30, 每响应调用上限:30, 同步翻译条数:30, 双语模式:false, 自定义翻译提示词:, 并发数:
+#!arguments-desc=启用插件：总开关，关闭后脚本不执行\n\n链路探针日志：排队/翻译过程日志，排查问题才开\n\n详细调试日志：打印每条翻译调用与异常详情\n\n目标语言：翻译成什么语言（zh-CN / en / ja / ko / fr / de / es / ru / pt / th / vi）\n\n引擎：auto=有 Key 用 AI，无 Key 用谷歌；google=谷歌；ai=AI（需 Key）\n\nAI 提供商：自定义端点=填下方自定义端点使用（如 http://192.0.2.2:20128）；openai=官方接口；openrouter=聚合接口\n\nAI API Key：填了就优先用 AI 引擎，不填则用谷歌\n\nAI 模型：留空用默认 gpt-4o-mini；openrouter 可填 anthropic/claude-3.5-sonnet 等\n\n自定义端点：AI 提供商选「自定义端点」时生效（填到端口根，脚本自动补 /v1）\n\n翻译缓存：相同内容不重复调接口，防限流\n\n单次最大翻译条数：一次响应最多翻几条，0=不限。默认 30（一页 25 条）\n\n每响应调用上限：单次加载最多发起的翻译网络调用数，超出保留原文。默认 30\n\n同步翻译条数：进入频道时同步翻译的条数，0=不限。默认 30=整页\n\n双语模式：开启后消息显示为「原文+换行+译文」\n\n自定义翻译提示词：留空用默认（准确保留原意和语气，不增不减，避免直译，目标语言最自然的表达，只输出译文）\n\n并发数：同时进行的翻译请求数，留空自动（AI 4 / 谷歌 8），卡顿可调小
+
+[Script]
+# > Discord 实时翻译
+Translate 响应 = type=http-response,pattern=^https?:\/\/discord(app)?\.com\/api\/v\d+\/channels\/\d+\/messages,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Translate/Discord.Translate-response.js,requires-body=true,timeout=30, argument=enabled={{{启用插件}}}&probe={{{链路探针日志}}}&debug={{{详细调试日志}}}&target_lang={{{目标语言}}}&engine={{{引擎}}}&provider={{{AI 提供商}}}&api_key={{{AI API Key}}}&model={{{AI 模型}}}&custom_base_url={{{自定义端点}}}&cache_on={{{翻译缓存}}}&maxmsgs={{{单次最大翻译条数}}}&maxcalls={{{每响应调用上限}}}&first_batch={{{同步翻译条数}}}&bilingual={{{双语模式}}}&custom_prompt={{{自定义翻译提示词}}}&concurrency={{{并发数}}}
+
+Translate 论坛搜索 = type=http-response,pattern=^https?:\/\/discord(app)?\.com\/api\/v\d+\/channels\/\d+\/threads\/search,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Translate/Discord.Translate-response.js,requires-body=true,timeout=30, argument=enabled={{{启用插件}}}&probe={{{链路探针日志}}}&debug={{{详细调试日志}}}&target_lang={{{目标语言}}}&engine={{{引擎}}}&provider={{{AI 提供商}}}&api_key={{{AI API Key}}}&model={{{AI 模型}}}&custom_base_url={{{自定义端点}}}&cache_on={{{翻译缓存}}}&maxmsgs={{{单次最大翻译条数}}}&maxcalls={{{每响应调用上限}}}&first_batch={{{同步翻译条数}}}&bilingual={{{双语模式}}}&custom_prompt={{{自定义翻译提示词}}}&concurrency={{{并发数}}}
+
+Translate 论坛首楼 = type=http-response,pattern=^https?:\/\/discord(app)?\.com\/api\/v\d+\/channels\/\d+\/post-data,script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Translate/Discord.Translate-response.js,requires-body=true,timeout=30, argument=enabled={{{启用插件}}}&probe={{{链路探针日志}}}&debug={{{详细调试日志}}}&target_lang={{{目标语言}}}&engine={{{引擎}}}&provider={{{AI 提供商}}}&api_key={{{AI API Key}}}&model={{{AI 模型}}}&custom_base_url={{{自定义端点}}}&cache_on={{{翻译缓存}}}&maxmsgs={{{单次最大翻译条数}}}&maxcalls={{{每响应调用上限}}}&first_batch={{{同步翻译条数}}}&bilingual={{{双语模式}}}&custom_prompt={{{自定义翻译提示词}}}&concurrency={{{并发数}}}
+
+[MITM]
+hostname = %APPEND% discord.com, *.discord.com

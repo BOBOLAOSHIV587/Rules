@@ -1,0 +1,35 @@
+#!name=Discord Translate实时翻译
+#!desc=Discord 实时翻译
+#!date=2026-10-13
+#!category=🐹 BOBO Enhance
+#!author=Duncan588[https://github.com/Duncan588/LoonFakeNitro]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Discord.png
+
+[Argument]
+enabled = switch,true,tag=启用插件,desc=总开关。关闭后脚本不执行
+probe = switch,false,tag=链路探针日志,desc=排队/翻译过程日志。排查问题才开
+debug = switch,false,tag=详细调试日志,desc=打印每条翻译调用与异常详情
+target_lang = select,zh-CN,en,ja,ko,fr,de,es,ru,pt,th,vi,tag=目标语言,desc=翻译成什么语言
+engine = select,auto,google,ai,tag=引擎,desc=auto=有 key 用 AI,无 key 用谷歌;google=谷歌;ai=AI(需 key)
+provider = select,自定义端点,openai,openrouter,tag=AI 提供商,desc=自定义端点=填下方自定义端点后使用(如 http://192.0.2.2:20128)。openai=官方接口。openrouter=聚合接口
+api_key = input,,tag=AI API Key,desc=填了就优先用 AI 引擎。不填则用谷歌
+model = input,,tag=AI 模型,desc=留空用默认 gpt-4o-mini。openrouter 可填 anthropic/claude-3.5-sonnet 等
+custom_base_url = input,,tag=自定义端点,desc=provider 选 自定义端点 时生效,如 http://192.0.2.2:20128 (填到端口根, 脚本自动补 /v1)
+cache_on = switch,true,tag=翻译缓存,desc=相同内容不重复调接口,落 $persistentStore。防限流
+bilingual = switch,false,tag=双语模式,desc=开启后消息显示为 原文+换行+译文
+custom_prompt = input,,tag=自定义翻译提示词,desc=留空用默认: 准确保留原意和语气，不增不减、不擅自发挥，避免直译，用目标语言最自然、口语化、接地气的表达快速翻译，只输出译文。
+maxmsgs = select,30,10,20,50,0,type=number,tag=单次最大翻译条数,desc=一次messages响应最多翻几条,0=不限。默认30(一页25条);漏翻就和「同步翻译条数」「每响应调用上限」一起调大
+maxcalls = input,30,tag=每响应调用上限,desc=单次加载最多发起的翻译网络调用数,超出保留原文。默认30(一页25条);漏翻就调大,卡顿就调小
+first_batch = input,30,tag=同步翻译条数,desc=进入频道时同步翻译的条数。默认30=整页(一页25条);漏翻就调大,卡顿就调小。0=不限(全部同步)
+concurrency = input,,tag=并发数,desc=同时进行的翻译请求数。留空自动(AI 4 / 谷歌 8);卡顿可调小
+
+[Script]
+# > Discord 实时翻译
+http-response ^https?:\/\/discord(app)?\.com\/api\/v\d+\/channels\/\d+\/messages script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Translate/Discord.Translate-response.js,requires-body=true,timeout=30,tag=Translate 响应,enable={enabled},argument=[{enabled},{probe},{debug},{target_lang},{engine},{provider},{api_key},{model},{custom_base_url},{cache_on},{maxmsgs},{maxcalls},{first_batch},{bilingual},{custom_prompt},{concurrency}]
+
+http-response ^https?:\/\/discord(app)?\.com\/api\/v\d+\/channels\/\d+\/threads\/search script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Translate/Discord.Translate-response.js,requires-body=true,timeout=30,tag=Translate 论坛搜索,enable={enabled},argument=[{enabled},{probe},{debug},{target_lang},{engine},{provider},{api_key},{model},{custom_base_url},{cache_on},{maxmsgs},{maxcalls},{first_batch},{bilingual},{custom_prompt},{concurrency}]
+
+http-response ^https?:\/\/discord(app)?\.com\/api\/v\d+\/channels\/\d+\/post-data script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Translate/Discord.Translate-response.js,requires-body=true,timeout=30,tag=Translate 论坛首楼,enable={enabled},argument=[{enabled},{probe},{debug},{target_lang},{engine},{provider},{api_key},{model},{custom_base_url},{cache_on},{maxmsgs},{maxcalls},{first_batch},{bilingual},{custom_prompt},{concurrency}]
+
+[MITM]
+hostname = discord.com, *.discord.com

@@ -1,0 +1,31 @@
+#!name=Discord 假会员表情解锁
+#!desc=Discord 假会员表情解锁
+#!date=2026-10-13
+#!category=🐹 BOBO Premium
+#!author=Duncan588[https://github.com/Duncan588/LoonFakeNitro]
+#!icon=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/Icons/AppIcons/Image/App/Discord.png
+
+[Argument]
+enabled = switch,true,tag=启用插件,desc=总开关。关闭后脚本不执行
+user_id = input,,tag=伪装用户 ID,desc=只有资料页是这个 id 才注入;留空=全部人
+avatar_asset = input,a_38208d183f070e4ea6344e97d5396de7,tag=头像框 asset,desc=头像框 asset hash。留空=不注入头像框。可选 680 件，见 .ai/scratch/cosmetics_menu.txt
+avatar_sku = input,1514692555374330068,tag=头像框 sku_id,desc=头像框 SKU ID，需与上方 asset 配对。留空=不注入头像框
+emoji_size = select,48,16,32,48,56,64,96,128,160,256,512,1024,type=number,tag=表情链接尺寸,desc=发送时转成 CDN 图片链接的尺寸参数
+manual_ids = input,,tag=手动黑名单,desc=额外用户ID,逗号分隔;App内拉黑会自动记录
+block_server = input,,tag=黑名单同步服务器,desc=拉黑列表跨设备同步的服务器地址(如 http://x.x.x.x:1280/block)。留空=只在本设备记录
+
+[Script]
+http-response ^https?:\/\/discord(app)?\.com\/api\/v\d+\/users\/[^\/]+\/profile(\?|$) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.display.js,requires-body=true,timeout=15,tag=Nitro Display,enable={enabled},argument=[{enabled},{user_id},{avatar_asset},{avatar_sku}]
+
+http-response ^https?:\/\/discord(app)?\.com\/api\/v\d+\/users\/@me(\?|$) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.display.js,requires-body=true,timeout=15,tag=Nitro SelfUser,enable={enabled},argument=[{enabled},{user_id},{avatar_asset},{avatar_sku}]
+
+http-response ^https?:\/\/discord(app)?\.com\/api\/v\d+\/users\/@me\/entitlements(?!\/) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.display.js,requires-body=true,timeout=15,tag=Nitro Entitlements,enable={enabled},argument=[{enabled},{user_id},{avatar_asset},{avatar_sku}]
+
+http-request ^https?:\/\/discord(app)?\.com\/api\/v\d+\/channels\/\d+\/messages(\/\d+)?(\?|$) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.send.js,requires-body=true,timeout=15,tag=FakeNitro Send,enable={enabled},argument=[{enabled},{emoji_size}]
+
+http-response ^https?:\/\/discord(app)?\.com\/api\/v\d+\/(guilds\/\d+\/(top-emojis|emojis)|emojis) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/Fake.catalog.js,requires-body=true,timeout=20,tag=FakeNitro Emoji Directory,enable={enabled},argument=[{enabled},{emoji_size},{manual_ids},{block_server}]
+
+http-request ^https?:\/\/discord(app)?\.com\/api\/v\d+\/users\/@me\/relationships\/\d+(\?|$) script-path=https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Discord/JS/Discord.Fake-VIP/BlockList.record.js,requires-body=true,timeout=15,tag=Block Record,enable={enabled},argument=[{enabled},{manual_ids},{block_server}]
+
+[MITM]
+hostname = discord.com, *.discord.com
